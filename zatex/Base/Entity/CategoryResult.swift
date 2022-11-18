@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: - CategoryResult
-struct CategoryResult: Codable, Hashable {
-    var id, count: Int?
-    var name: String?
-    
+struct CategoryResult: Decodable, Hashable {
+    let id, count: Int?
+    let name: String?
+    var selected: Bool? = false
     
 }

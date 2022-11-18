@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct BannerResult: Decodable, Hashable {
+    let id: Int?
+    let imageBanner: String?
+    let firtsDesc, secondDesc, link: String?
+}

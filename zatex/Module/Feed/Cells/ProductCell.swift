@@ -1,5 +1,5 @@
 //
-//  FeedCell.swift
+//  ProductCell.swift
 //  zatex
 //
 //  Created by Zakirov Tahir on 17.10.2022.
@@ -64,7 +64,7 @@ class ProductCell: UICollectionViewCell {
         
         titleLabel.text = post.name
         imageView.image = UIImage(named: "no_image")
-        dateLabel.text = "Сегодня, 14:67" // TODO: add data
+        dateLabel.text = dateFormatter(date: post.dateModified)
         
         if let cost = post.price {
             costLabel.text = "\(cost)"
@@ -120,12 +120,14 @@ class ProductCell: UICollectionViewCell {
             make.top.equalTo(imageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(4)
             make.trailing.equalToSuperview().offset(4)
+            make.height.equalTo(14)
         }
         
         costLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(4)
             make.trailing.equalToSuperview().offset(4)
+            make.height.equalTo(14)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -133,6 +135,7 @@ class ProductCell: UICollectionViewCell {
             make.leading.equalToSuperview().offset(4)
             make.trailing.equalToSuperview().offset(4)
             make.bottom.equalToSuperview().inset(4)
+            make.height.equalTo(14)
         }
     }
     

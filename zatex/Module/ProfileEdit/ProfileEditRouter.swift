@@ -1,0 +1,22 @@
+//
+//  ProfileEditProfileEditRouter.swift
+//  zatex
+//
+//  Created by iamtheorangefox@gmail.com on 05/11/2022.
+//  Copyright © 2022 zakirovweb. All rights reserved.
+//
+
+import UIKit
+
+protocol ProfileEditRouterProtocol: AnyObject {
+    
+}
+
+class ProfileEditRouter: BaseRouter {
+    weak var viewController: UIViewController?
+    
+}
+
+extension ProfileEditRouter: ProfileEditRouterProtocol {
+    
+}

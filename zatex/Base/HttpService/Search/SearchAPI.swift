@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+typealias SearchClosure = ([ProductResult]) -> (Void)
+
+protocol SearchAPI {
+    func fetchSearchResult(search: String,
+                           completion: @escaping SearchClosure) -> (Void)
+}

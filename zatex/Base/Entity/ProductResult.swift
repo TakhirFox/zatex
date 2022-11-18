@@ -1,5 +1,5 @@
 //
-//  SearchResult.swift
+//  ProductResult.swift
 //  zatex
 //
 //  Created by Zakirov Tahir on 30.10.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - SearchResult
+// MARK: - ProductResult
 struct ProductResult: Decodable, Hashable {
     let id: Int?
     let name, dateModified, status, catalogVisibility: String?

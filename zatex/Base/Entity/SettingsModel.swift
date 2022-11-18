@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct SettingsModel {
+    let title: String
+    let subTitle: String
+    let icon: String
+    let rightIcon: String?
+}

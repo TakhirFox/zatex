@@ -28,7 +28,9 @@ extension HttpRouter {
         url.appendPathComponent(path)
         
         var request = try URLRequest(url: url, method: method, headers: headers)
+        request = try URLEncoding.default.encode(request, with: parameters)
         request.httpBody = try body()
+        
         return request
     }
     

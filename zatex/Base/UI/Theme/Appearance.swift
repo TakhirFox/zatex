@@ -28,23 +28,10 @@ final class Appearance {
         
         configureSearchBar()
         configureComponents()
-        configureNavigationBar()
     }
 }
 
 fileprivate extension Appearance {
     static func configureComponents() { }
-
-    static func configureNavigationBar() {
-        UINavigationBar.appearance().backgroundColor = .brown
-    
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.backgroundEffect = .none
-        UITabBar.appearance().standardAppearance = tabBarAppearance
-        
-        UITabBar.appearance().tintColor = Palette.Text.secondary
-        UITabBar.appearance().unselectedItemTintColor = Palette.Text.primary
-    }
-    
     static func configureSearchBar() { }
 }
