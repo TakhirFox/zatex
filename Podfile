@@ -10,5 +10,6 @@ target 'zatex' do
   pod 'SnapKit', '~> 4.0'
   pod 'Alamofire'
   pod 'Kingfisher'
+  pod 'FLEX', :configurations => ['Debug']
   
 end

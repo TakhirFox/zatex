@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (5.6.2)
+  - FLEX (5.22.10)
   - Kingfisher (7.4.0)
   - SnapKit (4.2.0)
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - Alamofire
+  - FLEX
   - Kingfisher
   - SnapKit (~> 4.0)
   - SwiftKeychainWrapper
@@ -13,16 +15,18 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FLEX
     - Kingfisher
     - SnapKit
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  FLEX: f21ee4f498eed3f8a1eded66b21939fd3b7a22ce
   Kingfisher: 596b207973051aae5e4c54a1c1cb39837ea10d36
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 7dc8ec0965e642f1049109da35f7d8562015a0d6
+PODFILE CHECKSUM: 04cf02617a369afa14208acf1d4b2d77471b9774
 
 COCOAPODS: 1.11.3
