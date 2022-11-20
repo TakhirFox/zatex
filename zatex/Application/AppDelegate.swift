@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Appearance.apply()
         FLEXManager.shared.showExplorer()
+        
         return true
     }
 
