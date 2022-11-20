@@ -28,6 +28,7 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         headerView.setupCell(name: "")
         authorView.setupCell(name: "")
         
