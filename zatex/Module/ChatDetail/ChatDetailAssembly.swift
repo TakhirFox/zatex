@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ChatDetailAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class ChatDetailAssembly {
+    static func create(chatId: String) -> UIViewController {
         let viewController = ChatDetailViewController()
         let presenter = ChatDetailPresenter()
         let interactor = ChatDetailInteractor()
         let router = ChatDetailRouter()
+        
+        let networkService = ChatDetailService.shared
         
         viewController.presenter = presenter
         
@@ -22,6 +24,8 @@ class ChatDetailAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
+        interactor.chatId = chatId
         
         router.viewController = viewController
         

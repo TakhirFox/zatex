@@ -8,10 +8,20 @@
 
 
 protocol ChatDetailInteractorProtocol {
-    
+    func getChatMessages()
 }
 
-class ChatDetailInteractor: BaseInteractor, ChatDetailInteractorProtocol {
+class ChatDetailInteractor: BaseInteractor {
     weak var presenter: ChatDetailPresenterProtocol?
+    var service: ChatDetailAPI!
+    var chatId = ""
+}
 
+extension ChatDetailInteractor: ChatDetailInteractorProtocol {
+    
+    func getChatMessages() {
+        self.service.fetchChatMessages(page: 0, chatId: chatId) { result in
+            self.presenter?.setChatMesssages(data: result)
+        }
+    }
 }

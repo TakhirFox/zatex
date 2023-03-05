@@ -7,16 +7,28 @@
 //
 
 protocol ChatDetailPresenterProtocol: AnyObject {
-
+    func getChatMessages()
+    
+    func setChatMesssages(data: [ChatMessageResult])
 }
 
 class ChatDetailPresenter: BasePresenter {
     weak var view: ChatDetailViewControllerProtocol?
     var interactor: ChatDetailInteractorProtocol?
     var router: ChatDetailRouterProtocol?
-    
 }
 
 extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     
+    // MARK: To Interactor
+    func getChatMessages() {
+        interactor?.getChatMessages()
+    }
+    
+    // MARK: To Router
+    
+    // MARK: To View
+    func setChatMesssages(data: [ChatMessageResult]) {
+        view?.setChatMesssages(data: data)
+    }
 }

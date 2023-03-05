@@ -15,6 +15,8 @@ class ChatListAssembly: BaseAssemblyProtocol {
         let interactor = ChatListInteractor()
         let router = ChatListRouter()
         
+        let networkService = ChatListService.shared
+        
         viewController.presenter = presenter
         
         presenter.view = viewController
@@ -22,6 +24,7 @@ class ChatListAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

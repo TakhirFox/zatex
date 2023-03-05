@@ -8,10 +8,19 @@
 
 
 protocol ChatListInteractorProtocol {
-    
+    func getChatList()
 }
 
-class ChatListInteractor: BaseInteractor, ChatListInteractorProtocol {
+class ChatListInteractor: BaseInteractor {
     weak var presenter: ChatListPresenterProtocol?
+    var service: ChatListAPI!
+}
 
+extension ChatListInteractor: ChatListInteractorProtocol {
+    
+    func getChatList() {
+        self.service.fetchChats { result in
+            self.presenter?.setChatList(data: result)
+        }
+    }
 }
