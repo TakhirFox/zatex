@@ -92,6 +92,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         case .buttons:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
             cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.messageButton.addTarget(self, action: #selector(goToChat), for: .touchUpInside)
             return cell
         case .descriptions:
             let cell = tableView.dequeueReusableCell(withIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
@@ -120,9 +121,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.backView.snp.updateConstraints { make in
             make.leading.equalToSuperview().inset(fromLeadingToCenterInfo)
         }
-        
     }
+}
+
+extension DetailViewController {
     
+    @objc private func goToChat() {
+        print("Open chat")
+    }
 }
 
 extension DetailViewController: DetailViewControllerProtocol {
