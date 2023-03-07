@@ -88,5 +88,4 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
             self?.tableView.reloadData()
         }
     }
-   
 }

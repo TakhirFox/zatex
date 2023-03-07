@@ -21,7 +21,6 @@ class ChatListCell: UITableViewCell {
     
     private let usernameLabel: UILabel = {
         let view = UILabel()
-        view.text = "Петр Петушкевич"
         view.font = .boldSystemFont(ofSize: 16)
         view.numberOfLines = 1
         return view
@@ -29,7 +28,6 @@ class ChatListCell: UITableViewCell {
     
     private let productNameLabel: UILabel = {
         let view = UILabel()
-        view.text = "Игровая приставка ПениСтейшн 6"
         view.font = .systemFont(ofSize: 16)
         view.numberOfLines = 1
         return view
@@ -37,7 +35,6 @@ class ChatListCell: UITableViewCell {
     
     private let messageLabel: UILabel = {
         let view = UILabel()
-        view.text = "Добрый день. Если вы продаете товар за эту цену, тогда не интересно вовсе!!! Ищите лоха где нибудь в другом месте! Меня вы не одурачите. Всего доброго. А хотя знаете что? А нет, ничего"
         view.font = .systemFont(ofSize: 15)
         view.numberOfLines = 4
         return view
@@ -45,8 +42,8 @@ class ChatListCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let view = UILabel()
-        view.text = "12:75"
         view.font = .systemFont(ofSize: 14)
+        view.textAlignment = .right
         view.numberOfLines = 1
         return view
     }()
@@ -67,7 +64,7 @@ class ChatListCell: UITableViewCell {
         usernameLabel.text = data?.displayName
         productNameLabel.text = data?.postTitle
         messageLabel.text = data?.content
-        dateLabel.text = data?.sentAt //TODO: Тут отформативанная дата
+        dateLabel.text = dateFormatter(data?.sentAt)
     }
     
     private func configureSubviews() {
@@ -75,6 +72,7 @@ class ChatListCell: UITableViewCell {
         addSubview(usernameLabel)
         addSubview(productNameLabel)
         addSubview(messageLabel)
+        addSubview(dateLabel)
     }
     
     private func configureConstraints() {
@@ -86,8 +84,14 @@ class ChatListCell: UITableViewCell {
         
         usernameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
-            make.trailing.trailing.equalToSuperview().inset(16)
             make.leading.equalTo(avatarImageView.snp.trailing).offset(8)
+            make.height.equalTo(20)
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.trailing.trailing.equalToSuperview().inset(16)
+            make.width.equalTo(100)
             make.height.equalTo(20)
         }
         
@@ -113,6 +117,31 @@ class ChatListCell: UITableViewCell {
         messageLabel.textColor = Palette.AccentText.secondary
         dateLabel.textColor = Palette.AccentText.secondary
         selectionStyle = .none
+    }
+    
+    private func dateFormatter(_ dateString: String?) -> String {
+        let originalDate = DateFormatter()
+        originalDate.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        guard let dateString = dateString,
+                let date = originalDate.date(from: dateString) else { return "" }
+        
+        guard Date().timeIntervalSince(date) / 3600 >= 1 else {
+            return "Только что"
+        }
+        
+        let convertedDate = DateFormatter()
+        convertedDate.locale = Locale(identifier: "ru_RU")
+        
+        if Calendar.current.isDateInToday(date) {
+            convertedDate.dateFormat = "Сегодня в HH:mm"
+        } else if Calendar.current.isDateInYesterday(date) {
+            convertedDate.dateFormat = "Вчера в HH:mm"
+        } else {
+            convertedDate.dateFormat = "dd MMMM"
+        }
+        
+        return convertedDate.string(from: date)
     }
     
     required init?(coder: NSCoder) {

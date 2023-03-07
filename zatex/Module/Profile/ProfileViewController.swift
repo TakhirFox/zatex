@@ -24,10 +24,10 @@ class ProfileViewController: BaseViewController {
     let tableView = UITableView()
     let headerView = ProfileHeaderView()
     let authorView = ProfileAuthorView()
+    let loginLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         headerView.setupCell(name: "")
         authorView.setupCell(name: "")

@@ -12,15 +12,14 @@ class ReceivedChatCell: UITableViewCell {
     
     private let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = .init(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.2)
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 10
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         return view
     }()
     
     private let messageLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 15)
+        view.font = UIFont(name: "Montserrat-Medium", size: 14)
         view.preferredMaxLayoutWidth = 300
         view.numberOfLines = 0
         return view
@@ -28,12 +27,25 @@ class ReceivedChatCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let view = UILabel()
-        view.text = "12:75"
-        view.font = .systemFont(ofSize: 12)
+        view.font = UIFont(name: "Montserrat-Medium", size: 11)
         view.textAlignment = .right
         view.numberOfLines = 1
         return view
     }()
+    
+    private let curveView = UIView()
+    
+    private let path: UIBezierPath = {
+        let view = UIBezierPath()
+        view.move(to: CGPoint(x: 15, y: -15))
+        view.addCurve(to: CGPoint(x: 0, y: 0),
+                      controlPoint1: CGPoint(x: 7.5, y: 0),
+                      controlPoint2: CGPoint(x: 0, y: 0))
+        view.addLine(to: CGPoint(x: 15, y: 0))
+        return view
+    }()
+    
+    private let shape = CAShapeLayer()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,42 +61,64 @@ class ReceivedChatCell: UITableViewCell {
     
     func setupCell(_ data: ChatMessageResult?) {
         messageLabel.text = data?.content
-        dateLabel.text = data?.sentAt // TODO: format
+        dateLabel.text = dateFormatter(data?.sentAt)
     }
     
     private func configureSubviews() {
+        addSubview(curveView)
         addSubview(bubbleView)
         bubbleView.addSubview(dateLabel)
         bubbleView.addSubview(messageLabel)
+        curveView.layer.addSublayer(shape)
+        shape.path = path.cgPath
     }
     
     private func configureConstraints() {
-        bubbleView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(4)
-            make.leading.equalToSuperview().inset(16)
+        curveView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(6)
             make.bottom.equalToSuperview().inset(4)
         }
         
-        dateLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(bubbleView).inset(10)
-            make.top.equalTo(bubbleView).inset(10)
-            make.height.equalTo(16)
+        bubbleView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(4)
+            make.leading.equalToSuperview().inset(21)
+            make.bottom.equalToSuperview().inset(4)
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(bubbleView).inset(10)
-            make.top.equalTo(dateLabel.snp.bottom).offset(2)
+            make.leading.equalTo(bubbleView).inset(10)
+            make.top.equalTo(bubbleView).inset(10)
             make.bottom.equalTo(bubbleView).inset(10)
+            make.trailing.equalTo(dateLabel.snp.leading).inset(0)
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(bubbleView).inset(10)
+            make.top.equalTo(bubbleView).offset(10)
+            make.width.equalTo(35)
         }
     }
+        
+    private func updateAppearence() {
+        backgroundColor = .clear
+        bubbleView.backgroundColor = Palette.ChatStyle.yourBubble
+        messageLabel.textColor = Palette.ChatStyle.text
+        dateLabel.textColor = Palette.ChatStyle.time
+        shape.fillColor = Palette.ChatStyle.yourBubble.cgColor
+        selectionStyle = .none
+    }
     
-    private func updateAppearence() { // TODO: appearence
-//        backgroundColor = Palette.Background.secondary
-//        usernameLabel.textColor = Palette.Text.primary
-//        productNameLabel.textColor = Palette.Text.primary
-//        messageLabel.textColor = Palette.AccentText.secondary
-//        dateLabel.textColor = Palette.AccentText.secondary
-//        selectionStyle = .none
+    private func dateFormatter(_ dateString: String?) -> String {
+        let originalDate = DateFormatter()
+        originalDate.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        guard let dateString = dateString,
+                let date = originalDate.date(from: dateString) else { return "" }
+        
+        let convertedDate = DateFormatter()
+        convertedDate.dateFormat = "HH:mm"
+
+        return convertedDate.string(from: date)
     }
     
     required init?(coder: NSCoder) {
