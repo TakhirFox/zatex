@@ -8,6 +8,7 @@
 
 protocol ProfilePresenterProtocol: AnyObject {
     func goToSettings()
+    func goToAuthView()
 }
 
 class ProfilePresenter: BasePresenter {
@@ -23,6 +24,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     // MARK: To Router
     func goToSettings() {
         router?.routeToSettings()
+    }
+    
+    func goToAuthView() {
+        router?.routeToAuthView()
     }
     
     // MARK: To View

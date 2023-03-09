@@ -20,7 +20,10 @@ class ChatDetailInteractor: BaseInteractor {
 extension ChatDetailInteractor: ChatDetailInteractorProtocol {
     
     func getChatMessages() {
-        self.service.fetchChatMessages(page: 0, chatId: chatId) { result in
+        self.service.fetchChatMessages(
+            page: 0,
+            chatId: chatId
+        ) { result in // TODO: page: 0 to dynamic
             self.presenter?.setChatMesssages(data: result)
         }
     }
