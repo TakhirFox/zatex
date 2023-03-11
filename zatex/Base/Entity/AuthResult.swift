@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct AuthResult: Codable {
-    let token, userEmail, userNicename, userDisplayName: String?
+public struct AuthResult: Codable {
+    let userId, token, userEmail, userNicename, userDisplayName: String?
 
-    enum CodingKeys: String, CodingKey {
+    public enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
         case token
         case userEmail = "user_email"
         case userNicename = "user_nicename"

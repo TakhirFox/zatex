@@ -14,7 +14,9 @@ class AuthAssembly: BaseAssemblyProtocol {
         let presenter = AuthPresenter()
         let interactor = AuthInteractor()
         let router = AuthRouter()
+        
         let networkService = AuthService.shared
+        let userSettingsService = UserSettingsService.shared
         
         viewController.presenter = presenter
         
@@ -24,6 +26,7 @@ class AuthAssembly: BaseAssemblyProtocol {
         
         interactor.presenter = presenter
         interactor.service = networkService
+        interactor.userSettings = userSettingsService
         
         router.viewController = viewController
         

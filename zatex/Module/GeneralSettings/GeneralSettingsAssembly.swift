@@ -15,6 +15,8 @@ class GeneralSettingsAssembly: BaseAssemblyProtocol {
         let interactor = GeneralSettingsInteractor()
         let router = GeneralSettingsRouter()
         
+        let userSettingsService = UserSettingsService.shared
+        
         viewController.presenter = presenter
         
         presenter.view = viewController
@@ -22,6 +24,7 @@ class GeneralSettingsAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.userSettings = userSettingsService
         
         router.viewController = viewController
         

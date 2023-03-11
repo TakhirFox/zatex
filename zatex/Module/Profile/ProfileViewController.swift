@@ -36,9 +36,11 @@ class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let asdasd = 0
-        
-        if asdasd == 1 {
+        loadProfileView()
+    }
+    
+    func loadProfileView() {
+        if !UserSettingsService.shared.token.isEmpty {
             headerView.setupCell(name: "")
             authorView.setupCell(name: "")
             

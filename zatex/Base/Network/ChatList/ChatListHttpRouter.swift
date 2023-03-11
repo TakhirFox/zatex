@@ -13,6 +13,10 @@ enum ChatListHttpRouter {
 
 extension ChatListHttpRouter: HttpRouter {
     
+    private var token: String {
+        return UserSettingsService.shared.token
+    }
+    
     var baseUrlString: String {
         return "https://zakirovweb.online"
     }
@@ -36,7 +40,7 @@ extension ChatListHttpRouter: HttpRouter {
         case .getChatList:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3pha2lyb3Z3ZWIub25saW5lIiwiaWF0IjoxNjc4MDIzMjUzLCJuYmYiOjE2NzgwMjMyNTMsImV4cCI6MTY3ODYyODA1MywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.NnFF6rMeOtv4W3i0KGvSWH8pEFXahEg_Opvj3tJOGJM" //TODO: token?
+                "Authorization": "Bearer \(token)"
             ]
         }
     }

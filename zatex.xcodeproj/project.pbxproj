@@ -94,6 +94,7 @@
 		ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */; };
 		ADC97C6729163F3300A7FC78 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC97C6629163F3300A7FC78 /* SettingsCell.swift */; };
 		ADCA881F2918441C00885EEF /* FieldEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCA881E2918441C00885EEF /* FieldEditCell.swift */; };
+		ADCE94FC29BA181A00C8F717 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */; };
 		ADCF768C29B89B65007FF164 /* AuthHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCF768B29B89B65007FF164 /* AuthHttpService.swift */; };
 		ADCF768E29B89B98007FF164 /* AuthHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCF768D29B89B98007FF164 /* AuthHttpRouter.swift */; };
 		ADCF769129B89F57007FF164 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCF769029B89F57007FF164 /* AuthAPI.swift */; };
@@ -236,6 +237,7 @@
 		ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthorView.swift; sourceTree = "<group>"; };
 		ADC97C6629163F3300A7FC78 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		ADCA881E2918441C00885EEF /* FieldEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldEditCell.swift; sourceTree = "<group>"; };
+		ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
 		ADCF768B29B89B65007FF164 /* AuthHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHttpService.swift; sourceTree = "<group>"; };
 		ADCF768D29B89B98007FF164 /* AuthHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHttpRouter.swift; sourceTree = "<group>"; };
 		ADCF769029B89F57007FF164 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				AD9B25FD28FD457800C15139 /* Module */,
 				AD9B25FC28FD3FCC00C15139 /* Supporting files */,
 				AD49A88728ED577300D159CA /* Info.plist */,
+				ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */,
 			);
 			path = zatex;
 			sourceTree = "<group>";
@@ -1021,6 +1024,7 @@
 				AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */,
 				8947C16AD0A33EE46551FC7A /* GeneralSettingsRouter.swift in Sources */,
 				ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */,
+				ADCE94FC29BA181A00C8F717 /* UserSettingsService.swift in Sources */,
 				062D3CB1322D4D23DA407539 /* GeneralSettingsAssembly.swift in Sources */,
 				477D309F6770F4F673E01BBD /* ProfileEditViewController.swift in Sources */,
 				9765467E5568B7C0F2728303 /* ProfileEditPresenter.swift in Sources */,
