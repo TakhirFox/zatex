@@ -19,14 +19,15 @@ class ChatDetailViewController: BaseViewController {
     var presenter: ChatDetailPresenterProtocol?
     
     var messages: [ChatMessageResult] = []
+    var messageContent = String()
     
+    let chatInfoView = ChatInfoView()
     let chatView = UIView()
-    
     let tableView = UITableView()
     
     let chatTextFieldView: UIView = {
         let view = UIView()
-        view.backgroundColor = .init(red: 143/255, green: 206/255, blue: 0/255, alpha: 0.5)
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 20
         return view
     }()
@@ -41,7 +42,6 @@ class ChatDetailViewController: BaseViewController {
         let view = UIButton()
         view.layer.cornerRadius = 16
         view.setImage(UIImage(systemName: "paperplane"), for: .normal)
-        view.backgroundColor = .init(red: 143/255, green: 206/255, blue: 0/255, alpha: 1)
         view.tintColor = .white
         view.addTarget(self, action: #selector(sendMessageAction), for: .touchUpInside)
         return view
@@ -70,7 +70,20 @@ class ChatDetailViewController: BaseViewController {
         setupTableView()
         setupSubviews()
         setupConstraints()
+        setupNavigationView()
+        updateAppearence()
         registerKeyboardNotifications()
+        resubmitRequest()
+        
+        Appearance.shared.theme.bind(self) { [weak self] newTheme in
+            self?.updateAppearence()
+        }
+    }
+    
+    private func updateAppearence() {
+        chatTextFieldView.layer.borderColor = Palette.BorderField.primary.cgColor
+        chatTextFieldView.backgroundColor = Palette.Background.secondary
+        sendButton.backgroundColor = Palette.Button.primary
     }
     
     func setupTableView() {
@@ -86,6 +99,11 @@ class ChatDetailViewController: BaseViewController {
         textView.delegate = self
     }
     
+    func setupNavigationView() {
+        navigationItem.titleView = chatInfoView
+        chatInfoView.setupCell(author: "")
+    }
+    
     func setupSubviews() {
         view.addSubview(chatView)
         chatView.addSubview(tableView)
@@ -95,6 +113,10 @@ class ChatDetailViewController: BaseViewController {
     }
     
     func setupConstraints() {
+        chatInfoView.snp.makeConstraints { make in
+            make.width.equalTo(view.frame.width)
+        }
+        
         chatView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
@@ -102,12 +124,12 @@ class ChatDetailViewController: BaseViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(chatView)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalTo(chatView)
         }
         
         chatTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(tableView.snp.bottom)
+            make.top.equalTo(tableView.snp.bottom).offset(8)
             make.trailing.leading.equalTo(chatView).inset(16)
             make.bottom.equalTo(chatView).inset(26)
             make.height.equalTo(40)
@@ -135,13 +157,20 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myUserId = UserSettingsService.shared.getTokens().userId
-        
-        if messages[indexPath.row].senderID == myUserId {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell", for: indexPath) as! SentChatCell
+
+        if messages[indexPath.row].senderID == nil {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell",
+                                                     for: indexPath) as! SentChatCell
+            cell.setupCell(messages[indexPath.row])
+            return cell
+        } else if messages[indexPath.row].senderID != myUserId {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "receivedChatCell",
+                                                     for: indexPath) as! ReceivedChatCell
             cell.setupCell(messages[indexPath.row])
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "receivedChatCell", for: indexPath) as! ReceivedChatCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell",
+                                                     for: indexPath) as! SentChatCell
             cell.setupCell(messages[indexPath.row])
             return cell
         }
@@ -151,11 +180,18 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
 extension ChatDetailViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-//        messageContent = textView.text
+        messageContent = textView.text
     }
 }
 
 extension ChatDetailViewController {
+    
+    func resubmitRequest() {
+        Timer.scheduledTimer(withTimeInterval: 30.0,
+                             repeats: true) { _ in
+            self.presenter?.getChatMessages()
+        }
+    }
     
     func registerKeyboardNotifications() {
         NotificationCenter.default.addObserver(self,
@@ -170,6 +206,7 @@ extension ChatDetailViewController {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
+        
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
@@ -187,33 +224,38 @@ extension ChatDetailViewController {
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            
-            chatView.snp.updateConstraints { make in
-                make.height.equalTo(self.view.frame.height)
-            }
-        }
         
+        chatView.snp.updateConstraints { make in
+            make.height.equalTo(self.view.frame.height)
+        }
+
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             self.view.layoutIfNeeded()
         }
     }
     
     private func goToBottomCell() {
-//        guard let messages = messages else {
-//            return
-//        }
-//
-//        if messages.count > 0 {
-//            let lastRow = self.tableView.numberOfRows(inSection: 0) - 1
-//            let indexPath = IndexPath(row: lastRow, section: 0);
-//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-//        }
+        
+        if messages.count > 0 {
+            let lastRow = self.tableView.numberOfRows(inSection: 0) - 1
+            let indexPath = IndexPath(row: lastRow, section: 0);
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
     
     @objc func sendMessageAction() {
+        messages.append(ChatMessageResult(messageID: nil, senderID: nil, receiverID: nil, content: messageContent, sentAt: nil))
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
         textView.text = ""
-//        presenter?.sendMessageTo(message: messageContent)
+        presenter?.sendChatMessage(message: messageContent)
+        
+        DispatchQueue.main.async {
+            self.goToBottomCell()
+        }
     }
 }
 
@@ -223,6 +265,7 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.messages = data
             self?.tableView.reloadData()
+            self?.goToBottomCell()
         }
     }
 }

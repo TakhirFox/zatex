@@ -47,8 +47,16 @@ class ReceivedChatCell: UITableViewCell {
     
     private let shape = CAShapeLayer()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    func setupCell(_ data: ChatMessageResult?) {
+        messageLabel.text = data?.content
+        dateLabel.text = dateFormatter(data?.sentAt)
         
         configureSubviews()
         configureConstraints()
@@ -57,11 +65,6 @@ class ReceivedChatCell: UITableViewCell {
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
         }
-    }
-    
-    func setupCell(_ data: ChatMessageResult?) {
-        messageLabel.text = data?.content
-        dateLabel.text = dateFormatter(data?.sentAt)
     }
     
     private func configureSubviews() {
@@ -89,10 +92,10 @@ class ReceivedChatCell: UITableViewCell {
             make.leading.equalTo(bubbleView).inset(10)
             make.top.equalTo(bubbleView).inset(10)
             make.bottom.equalTo(bubbleView).inset(10)
-            make.trailing.equalTo(dateLabel.snp.leading).inset(0)
         }
         
         dateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(messageLabel.snp.trailing).inset(0)
             make.trailing.equalTo(bubbleView).inset(10)
             make.top.equalTo(bubbleView).offset(10)
             make.width.equalTo(35)

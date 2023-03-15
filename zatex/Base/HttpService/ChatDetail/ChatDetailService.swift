@@ -13,6 +13,7 @@ class ChatDetailService {
 }
 
 extension ChatDetailService: ChatDetailAPI {
+    
     func fetchChatMessages(
         page: Int,
         chatId: String,
@@ -31,9 +32,33 @@ extension ChatDetailService: ChatDetailAPI {
                         print("LOG 09989090990092: Ошибка  \(error)")
                     }
                 }
-            
         } catch {
             print("LOG 904539430375: Ошибка получения переписки")
+        }
+    }
+    
+    func sendChatMessage(
+        chatId: String,
+        message: String,
+        completion: @escaping SendMessageClosure
+    ) {
+        do {
+            try ChatDetailHttpRouter
+                .sendChatMessage(
+                    chatId: chatId,
+                    message: message
+                )
+                .request(usingHttpService: httpService)
+                .responseDecodable(of: SendMessageResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(data)
+                    case .failure(let error):
+                        print("LOG 999898992292t342164: Ошибка  \(error)")
+                    }
+                }
+        } catch {
+            print("LOG 552888200023: Ошибка отправки сообщения")
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DetailDetailRouter.swift
+//  DetailRouter.swift
 //  zatex
 //
 //  Created by iamtheorangefox@gmail.com on 03/11/2022.
@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DetailRouterProtocol: AnyObject {
-    
+    func routeToMessage(chatId: String)
 }
 
 class DetailRouter: BaseRouter {
@@ -18,5 +18,8 @@ class DetailRouter: BaseRouter {
 }
 
 extension DetailRouter: DetailRouterProtocol {
-    
+    func routeToMessage(chatId: String) {
+        let view = ChatDetailAssembly.create(chatId: chatId)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }

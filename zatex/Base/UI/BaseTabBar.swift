@@ -45,7 +45,7 @@ class BaseTabBar: UITabBar {
         roundLayer.path = bezierPath.cgPath
         
         layer.insertSublayer(roundLayer, at: 0)
-        itemWidth = width / 5
+        itemWidth = width / 6
         itemPositioning = .centered
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 10)!], for: .normal)

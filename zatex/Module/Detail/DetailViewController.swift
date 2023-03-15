@@ -1,5 +1,5 @@
 //
-//  DetailDetailViewController.swift
+//  DetailViewController.swift
 //  zatex
 //
 //  Created by iamtheorangefox@gmail.com on 03/11/2022.
@@ -11,6 +11,8 @@ import UIKit
 protocol DetailViewControllerProtocol: AnyObject {
     var presenter: DetailPresenterProtocol? { get set }
 
+    func setProductInfo(data: ProductResult)
+    func setStoreInfo(data: StoreInfoResult)
 }
 
 class DetailViewController: BaseViewController {
@@ -21,16 +23,25 @@ class DetailViewController: BaseViewController {
     
     var presenter: DetailPresenterProtocol?
     
+    var product: ProductResult?
+    var storeInfo: StoreInfoResult?
+    
     let tableView = UITableView()
     let headerView = ShopHeaderView()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter?.getProductInfo()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        headerView.setupCell(name: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        }
         
         setupTableView()
-        
         setupSubviews()
         setupConstraints()
     }
@@ -79,31 +90,39 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         switch rows {
         case .images:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! ImagesProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ") // TODO: Change
             return cell
         case .productInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            
+            if let name = product?.name,
+               let price = product?.price {
+                cell.setupCell(
+                    name: name,
+                    cost: "\(price) Р")
+            }
+            
             return cell
         case .mapShop:
             let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.setupCell(map: product?.store?.address)
             return cell
         case .buttons:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ") // TODO: Change
             cell.messageButton.addTarget(self, action: #selector(goToChat), for: .touchUpInside)
+            cell.callButton.addTarget(self, action: #selector(callPhone), for: .touchUpInside)
             return cell
         case .descriptions:
             let cell = tableView.dequeueReusableCell(withIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.setupCell(description: product?.description ?? "")
             return cell
         case .author:
             let cell = tableView.dequeueReusableCell(withIdentifier: "authorCell", for: indexPath) as! AuthorProdCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            cell.setupCell(author: storeInfo)
             return cell
         case .similarProduct:
-            return UITableViewCell()
+            return UITableViewCell() // TODO: Change
         case .none:
             return UITableViewCell()
         }
@@ -127,10 +146,38 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 extension DetailViewController {
     
     @objc private func goToChat() {
-        print("Open chat")
+        if let productId = product?.id,
+           let authorId = product?.store?.id {
+            presenter?.checkChatExists(
+                productAuthor: String(authorId),
+                productId: String(productId))
+        }
+    }
+    
+    @objc private func callPhone() {
+        print("Open call phone")
     }
 }
 
 extension DetailViewController: DetailViewControllerProtocol {
-   
+    
+    func setProductInfo(data: ProductResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.product = data
+            
+            if let storeId = data.store?.id {
+                self?.presenter?.getStoreInfo(authorId: storeId)
+            }
+            
+            self?.tableView.reloadData()
+        }
+    }
+    
+    func setStoreInfo(data: StoreInfoResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.headerView.setupCell(author: data)
+            self?.storeInfo = data
+            self?.tableView.reloadData()
+        }
+    }
 }

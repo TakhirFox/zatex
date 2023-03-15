@@ -33,6 +33,11 @@ class SentChatCell: UITableViewCell {
         return view
     }()
     
+    private let spinner: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        return view
+    }()
+    
     private let curveView = UIView()
     
     private let path: UIBezierPath = {
@@ -47,8 +52,16 @@ class SentChatCell: UITableViewCell {
     
     private let shape = CAShapeLayer()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    func setupCell(_ data: ChatMessageResult?) {
+        messageLabel.text = data?.content
+        dateLabel.text = dateFormatter(data?.sentAt)
         
         configureSubviews()
         configureConstraints()
@@ -57,17 +70,19 @@ class SentChatCell: UITableViewCell {
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
         }
-    }
-    
-    func setupCell(_ data: ChatMessageResult?) {
-        messageLabel.text = data?.content
-        dateLabel.text = dateFormatter(data?.sentAt)
+        
+        if dateLabel.text != nil, dateLabel.text!.isEmpty {
+            spinner.startAnimating()
+        } else {
+            spinner.stopAnimating()
+        }
     }
     
     private func configureSubviews() {
         addSubview(curveView)
         addSubview(bubbleView)
         bubbleView.addSubview(dateLabel)
+        bubbleView.addSubview(spinner)
         bubbleView.addSubview(messageLabel)
         curveView.layer.addSublayer(shape)
         shape.path = path.cgPath
@@ -89,13 +104,22 @@ class SentChatCell: UITableViewCell {
             make.leading.equalTo(bubbleView).inset(10)
             make.top.equalTo(bubbleView).inset(10)
             make.bottom.equalTo(bubbleView).inset(10)
-            make.trailing.equalTo(dateLabel.snp.leading).inset(0)
         }
         
-        dateLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(bubbleView).inset(10)
-            make.top.equalTo(bubbleView).offset(10)
-            make.width.equalTo(35)
+        if dateLabel.text != nil, dateLabel.text!.isEmpty {
+            spinner.snp.makeConstraints { make in
+                make.leading.equalTo(messageLabel.snp.trailing).inset(0)
+                make.trailing.equalTo(bubbleView).inset(10)
+                make.top.equalTo(bubbleView).offset(10)
+                make.width.equalTo(35)
+            }
+        } else {
+            dateLabel.snp.makeConstraints { make in
+                make.leading.equalTo(messageLabel.snp.trailing).inset(0)
+                make.trailing.equalTo(bubbleView).inset(10)
+                make.top.equalTo(bubbleView).offset(10)
+                make.width.equalTo(35)
+            }
         }
     }
     

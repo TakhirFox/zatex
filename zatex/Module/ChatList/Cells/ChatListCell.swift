@@ -42,7 +42,7 @@ class ChatListCell: UITableViewCell {
     
     private let dateLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 14)
+        view.font = .systemFont(ofSize: 12)
         view.textAlignment = .right
         view.numberOfLines = 1
         return view
@@ -111,7 +111,7 @@ class ChatListCell: UITableViewCell {
     }
     
     private func updateAppearence() {
-        backgroundColor = Palette.Background.secondary
+        backgroundColor = .clear
         usernameLabel.textColor = Palette.Text.primary
         productNameLabel.textColor = Palette.Text.primary
         messageLabel.textColor = Palette.AccentText.secondary

@@ -9,6 +9,7 @@
 
 protocol ChatDetailInteractorProtocol {
     func getChatMessages()
+    func sendChatMessage(message: String)
 }
 
 class ChatDetailInteractor: BaseInteractor {
@@ -25,6 +26,15 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
             chatId: chatId
         ) { result in // TODO: page: 0 to dynamic
             self.presenter?.setChatMesssages(data: result)
+        }
+    }
+    
+    func sendChatMessage(message: String) {
+        self.service.sendChatMessage(
+            chatId: chatId,
+            message: message
+        ) { result in
+            self.getChatMessages()
         }
     }
 }

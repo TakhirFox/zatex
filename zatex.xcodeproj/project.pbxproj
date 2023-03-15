@@ -40,6 +40,8 @@
 		947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8250DC0AE56793344BE26B80 /* ProfileAssembly.swift */; };
 		9765467E5568B7C0F2728303 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CE9D6D8CCF534010FED72 /* ProfileEditPresenter.swift */; };
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
+		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
+		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87628ED577200D159CA /* AppDelegate.swift */; };
 		AD49A87928ED577200D159CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87828ED577200D159CA /* SceneDelegate.swift */; };
 		AD49A88128ED577200D159CA /* zatex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87F28ED577200D159CA /* zatex.xcdatamodeld */; };
@@ -57,6 +59,7 @@
 		AD4A987C29198ED600709745 /* DescriptionProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A987B29198ED600709745 /* DescriptionProductCell.swift */; };
 		AD4A987E2919917900709745 /* AuthorProdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A987D2919917900709745 /* AuthorProdCell.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
+		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
 		AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC52903F52B001CB847 /* HttpService.swift */; };
 		AD86EAC82904203C001CB847 /* HttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC72904203C001CB847 /* HttpRouter.swift */; };
 		AD86EACA290422BC001CB847 /* ProductHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC9290422BC001CB847 /* ProductHttpService.swift */; };
@@ -94,6 +97,13 @@
 		ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */; };
 		ADC97C6729163F3300A7FC78 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC97C6629163F3300A7FC78 /* SettingsCell.swift */; };
 		ADCA881F2918441C00885EEF /* FieldEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCA881E2918441C00885EEF /* FieldEditCell.swift */; };
+		ADCC3F5A29BCF41000D7E022 /* SendMessageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */; };
+		ADCDDE0729BDFAE7001F34D9 /* ProductDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE0629BDFAE7001F34D9 /* ProductDetailAPI.swift */; };
+		ADCDDE0929BDFAF1001F34D9 /* ProductDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE0829BDFAF1001F34D9 /* ProductDetailService.swift */; };
+		ADCDDE0D29BE0130001F34D9 /* ProductDetailHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE0C29BE0130001F34D9 /* ProductDetailHttpService.swift */; };
+		ADCDDE0F29BE0170001F34D9 /* ProductDetailHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE0E29BE0170001F34D9 /* ProductDetailHttpRouter.swift */; };
+		ADCDDE1129BE3293001F34D9 /* CheckChatResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */; };
+		ADCDDE1329BE3B05001F34D9 /* CheckChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */; };
 		ADCE94FC29BA181A00C8F717 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */; };
 		ADCF768C29B89B65007FF164 /* AuthHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCF768B29B89B65007FF164 /* AuthHttpService.swift */; };
 		ADCF768E29B89B98007FF164 /* AuthHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCF768D29B89B98007FF164 /* AuthHttpRouter.swift */; };
@@ -181,6 +191,8 @@
 		A04B881456910C43F8D86E63 /* ProfileInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
+		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
+		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD49A87328ED577200D159CA /* zatex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zatex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD49A87628ED577200D159CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD49A87828ED577200D159CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +212,7 @@
 		AD4A987B29198ED600709745 /* DescriptionProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionProductCell.swift; sourceTree = "<group>"; };
 		AD4A987D2919917900709745 /* AuthorProdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorProdCell.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
+		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
 		AD86EAC52903F52B001CB847 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
 		AD86EAC72904203C001CB847 /* HttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRouter.swift; sourceTree = "<group>"; };
 		AD86EAC9290422BC001CB847 /* ProductHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHttpService.swift; sourceTree = "<group>"; };
@@ -237,6 +250,13 @@
 		ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthorView.swift; sourceTree = "<group>"; };
 		ADC97C6629163F3300A7FC78 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		ADCA881E2918441C00885EEF /* FieldEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldEditCell.swift; sourceTree = "<group>"; };
+		ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageResult.swift; sourceTree = "<group>"; };
+		ADCDDE0629BDFAE7001F34D9 /* ProductDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailAPI.swift; sourceTree = "<group>"; };
+		ADCDDE0829BDFAF1001F34D9 /* ProductDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailService.swift; sourceTree = "<group>"; };
+		ADCDDE0C29BE0130001F34D9 /* ProductDetailHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailHttpService.swift; sourceTree = "<group>"; };
+		ADCDDE0E29BE0170001F34D9 /* ProductDetailHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailHttpRouter.swift; sourceTree = "<group>"; };
+		ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatResult.swift; sourceTree = "<group>"; };
+		ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatResponse.swift; sourceTree = "<group>"; };
 		ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
 		ADCF768B29B89B65007FF164 /* AuthHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHttpService.swift; sourceTree = "<group>"; };
 		ADCF768D29B89B98007FF164 /* AuthHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHttpRouter.swift; sourceTree = "<group>"; };
@@ -434,6 +454,7 @@
 				ADB8D55528FE850700F0006F /* NetworkService.swift */,
 				ADC3B41B2906E04500A7AE66 /* Base */,
 				ADC3B41D2906E07300A7AE66 /* Feed */,
+				ADCDDE0429BDFAB6001F34D9 /* ProductDetail */,
 				ADBE136F290DB04A004BDEB3 /* Search */,
 				ADF53FF029B4729600BF8516 /* ChatList */,
 				ADF5400129B4C63100BF8516 /* ChatDetail */,
@@ -452,6 +473,11 @@
 				ADF53FF429B4733800BF8516 /* ChatListResult.swift */,
 				ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */,
 				ADCF769429B89F91007FF164 /* AuthResult.swift */,
+				ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */,
+				ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */,
+				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
+				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
+				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -462,6 +488,7 @@
 				AD86EAD4290439B3001CB847 /* StubService.swift */,
 				ADF53FF129B472A600BF8516 /* ChatList */,
 				ADC3B41E2906E0C900A7AE66 /* Feed */,
+				ADCDDE0529BDFAC0001F34D9 /* ProductDetail */,
 				ADBE1368290DA4DA004BDEB3 /* Search */,
 				ADF5400629B4CBC800BF8516 /* ChatDetail */,
 				ADCF768F29B89F40007FF164 /* Auth */,
@@ -646,6 +673,24 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		ADCDDE0429BDFAB6001F34D9 /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				ADCDDE0C29BE0130001F34D9 /* ProductDetailHttpService.swift */,
+				ADCDDE0E29BE0170001F34D9 /* ProductDetailHttpRouter.swift */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
+		ADCDDE0529BDFAC0001F34D9 /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				ADCDDE0629BDFAE7001F34D9 /* ProductDetailAPI.swift */,
+				ADCDDE0829BDFAF1001F34D9 /* ProductDetailService.swift */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
 		ADCF768A29B89B4A007FF164 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +761,7 @@
 			children = (
 				ADF53FFD29B4C46500BF8516 /* SentChatCell.swift */,
 				ADF53FFF29B4C46F00BF8516 /* ReceivedChatCell.swift */,
+				AD2440E129BF636400AA6B25 /* ChatInfoView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -928,10 +974,13 @@
 				ADF53FF729B4748E00BF8516 /* ChatListService.swift in Sources */,
 				AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */,
 				AD86EAD329043936001CB847 /* CategoryResult.swift in Sources */,
+				ADCDDE0F29BE0170001F34D9 /* ProductDetailHttpRouter.swift in Sources */,
 				ADAC844C290A725400F15330 /* BaseTextField.swift in Sources */,
 				ADCF769329B89F69007FF164 /* AuthService.swift in Sources */,
 				AD9B260728FD477F00C15139 /* BaseRouterProtocol.swift in Sources */,
 				AD9B260328FD476F00C15139 /* BaseInteractor.swift in Sources */,
+				ADCDDE0D29BE0130001F34D9 /* ProductDetailHttpService.swift in Sources */,
+				ADCDDE0929BDFAF1001F34D9 /* ProductDetailService.swift in Sources */,
 				AD49A88128ED577200D159CA /* zatex.xcdatamodeld in Sources */,
 				ADF5400329B4C64B00BF8516 /* ChatDetailHttpService.swift in Sources */,
 				AD4A9872291964AA00709745 /* ShopHeaderView.swift in Sources */,
@@ -975,6 +1024,7 @@
 				AD4A986F2919034200709745 /* BackImageCell.swift in Sources */,
 				AD9B261F28FDB3BE00C15139 /* BannerFeedCell.swift in Sources */,
 				AD4A986D2918F41900709745 /* BaseRatioButton.swift in Sources */,
+				ADCDDE1129BE3293001F34D9 /* CheckChatResult.swift in Sources */,
 				AD9B261028FD55FC00C15139 /* ThemeManager.swift in Sources */,
 				ADF5400829B4CBD400BF8516 /* ChatDetailAPI.swift in Sources */,
 				AD86EAD5290439B3001CB847 /* StubService.swift in Sources */,
@@ -986,8 +1036,10 @@
 				5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */,
 				1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */,
 				947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */,
+				ADCC3F5A29BCF41000D7E022 /* SendMessageResult.swift in Sources */,
 				AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */,
 				ADCF769129B89F57007FF164 /* AuthAPI.swift in Sources */,
+				AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */,
 				AD4A98782919894200709745 /* MapProductCell.swift in Sources */,
 				AD4A98742919825F00709745 /* ImagesProductCell.swift in Sources */,
 				ADF5400C29B4CCB100BF8516 /* ChatMessageResult.swift in Sources */,
@@ -1028,9 +1080,11 @@
 				062D3CB1322D4D23DA407539 /* GeneralSettingsAssembly.swift in Sources */,
 				477D309F6770F4F673E01BBD /* ProfileEditViewController.swift in Sources */,
 				9765467E5568B7C0F2728303 /* ProfileEditPresenter.swift in Sources */,
+				ADCDDE1329BE3B05001F34D9 /* CheckChatResponse.swift in Sources */,
 				65546E979E410FEBA551D1B2 /* ProfileEditInteractor.swift in Sources */,
 				ADF53FF329B472BF00BF8516 /* ChatListAPI.swift in Sources */,
 				ADF5400029B4C46F00BF8516 /* ReceivedChatCell.swift in Sources */,
+				AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */,
 				9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */,
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
 				E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */,
@@ -1045,8 +1099,10 @@
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
 				E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */,
 				E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */,
+				AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */,
 				C55C71B536EB03C3451461CB /* AuthPresenter.swift in Sources */,
 				FB4022CF39E51B84D53B4898 /* AuthInteractor.swift in Sources */,
+				ADCDDE0729BDFAE7001F34D9 /* ProductDetailAPI.swift in Sources */,
 				83C87E62BC0AB43875D05135 /* AuthRouter.swift in Sources */,
 				B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */,
 			);

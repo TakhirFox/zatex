@@ -31,8 +31,8 @@ class DescriptionProductCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        titleLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque neque ex, sodales vitae scelerisque eu, rutrum a ex. Aenean id elit condimentum, efficitur mi vel, commodo neque. Fusce et turpis ut lectus mattis dictum. Cras viverra sapien quam, sed pretium nibh sodales id. Cras elementum tortor at ex ornare, a accumsan sem volutpat. Nam sodales libero eros, id faucibus enim tristique nec. Nunc dapibus in purus vel fermentum. Phasellus vehicula metus egestas vestibulum elementum."
+    func setupCell(description: String) {
+        titleLabel.text = description
     }
     
     private func updateAppearence() {

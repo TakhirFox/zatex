@@ -8,11 +8,13 @@
 
 protocol ChatDetailPresenterProtocol: AnyObject {
     func getChatMessages()
+    func sendChatMessage(message: String)
     
     func setChatMesssages(data: [ChatMessageResult])
 }
 
 class ChatDetailPresenter: BasePresenter {
+    
     weak var view: ChatDetailViewControllerProtocol?
     var interactor: ChatDetailInteractorProtocol?
     var router: ChatDetailRouterProtocol?
@@ -23,6 +25,10 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     // MARK: To Interactor
     func getChatMessages() {
         interactor?.getChatMessages()
+    }
+    
+    func sendChatMessage(message: String) {
+        interactor?.sendChatMessage(message: message)
     }
     
     // MARK: To Router

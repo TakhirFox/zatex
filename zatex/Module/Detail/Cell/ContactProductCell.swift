@@ -44,8 +44,8 @@ class ContactProductCell: UITableViewCell {
     }
     
     private func configureSubviews() {
-        addSubview(callButton)
-        addSubview(messageButton)
+        contentView.addSubview(callButton)
+        contentView.addSubview(messageButton)
     }
     
     private func configureConstraints() {

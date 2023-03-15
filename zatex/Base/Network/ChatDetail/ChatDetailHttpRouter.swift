@@ -67,12 +67,12 @@ extension ChatDetailHttpRouter: HttpRouter {
         case .getChatMessage:
             return nil
         case let .sendChatMessage(_, message):
-            let data = ASdas(message: message) //TODO: Change
+            let data = ASdas(content: message) //TODO: Change
             return try JSONEncoder().encode(data)
         }
     }
 }
 
 struct ASdas: Encodable { //TODO: Change
-    let message: String
+    let content: String
 }

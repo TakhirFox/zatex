@@ -7,71 +7,70 @@
 
 import Foundation
 
-// MARK: - ProductResult
 struct ProductResult: Decodable, Hashable {
     let id: Int?
-    let name, dateModified, status, catalogVisibility: String?
-    let price, regularPrice, salePrice: String?
+    let name: String?
+    let dateModified: String?
+    let status: String?
+    let description: String?
+    let price, regularPrice: String?
     let onSale: Bool?
-    let images: [Image]?
-    let store: Store?
+    let reviewsAllowed: Bool?
+    let averageRating: String?
+    let ratingCount: Int?
+    let categories: [ProductResult.Category]?
+    let images: [ProductResult.Image]?
+    let store: ProductResult.Store?
 
     enum CodingKeys: String, CodingKey {
         case id, name
         case dateModified = "date_modified"
         case status
-        case catalogVisibility = "catalog_visibility"
+        case description
         case price
         case regularPrice = "regular_price"
-        case salePrice = "sale_price"
         case onSale = "on_sale"
-        case images, store
+        case reviewsAllowed = "reviews_allowed"
+        case averageRating = "average_rating"
+        case ratingCount = "rating_count"
+        case categories, images
+        case store
     }
-}
-
-extension ProductResult {
-    // MARK: - Image
-    struct Image: Codable, Hashable {
+    
+    struct Category: Decodable, Hashable {
         let id: Int?
-        let dateCreated, dateCreatedGmt, dateModified, dateModifiedGmt: String?
+        let name: String?
+    }
+
+    struct Image: Decodable, Hashable {
+        let id: Int?
         let src: String?
-        let name, alt: String?
-        let position: Int?
 
         enum CodingKeys: String, CodingKey {
             case id
-            case dateCreated = "date_created"
-            case dateCreatedGmt = "date_created_gmt"
-            case dateModified = "date_modified"
-            case dateModifiedGmt = "date_modified_gmt"
-            case src, name, alt, position
+            case src
         }
     }
 
-    // MARK: - Store
-    struct Store: Codable, Hashable {
+    struct Store: Decodable, Hashable {
         let id: Int?
-        let name, shopName: String?
-        let url: String?
-        let address: Address?
+        let name: String?
+        let shopName: String?
+        let address: ProductResult.Address?
 
         enum CodingKeys: String, CodingKey {
             case id, name
             case shopName = "shop_name"
-            case url, address
+            case address
         }
     }
-
-    // MARK: - Address
-    struct Address: Codable, Hashable {
-        let street1, street2, city, zip: String?
-        let country, state: String?
+    
+    struct Address: Decodable, Hashable {
+        let street1, city: String?
 
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
-            case street2 = "street_2"
-            case city, zip, country, state
+            case city
         }
     }
-
 }
