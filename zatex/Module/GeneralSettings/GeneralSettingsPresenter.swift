@@ -8,7 +8,7 @@
 
 protocol GeneralSettingsPresenterProtocol: AnyObject {
     func goToProfileEdit()
-    
+    func logout()
 }
 
 class GeneralSettingsPresenter: BasePresenter {
@@ -19,8 +19,16 @@ class GeneralSettingsPresenter: BasePresenter {
 }
 
 extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
+    
+    // MARK: To Router
     func goToProfileEdit() {
         router?.routeToProfileEdit()
     }
     
+    // MARK: To Interactor
+    func logout() {
+        interactor?.logout()
+    }
+    
+    // MARK: To View
 }

@@ -46,7 +46,6 @@ extension ProductHttpRouter: HttpRouter {
                 "Content-Type": "application/json; charset=UTF-8"
             ]
         }
-        
     }
     
     var parameters: Alamofire.Parameters? {
@@ -67,7 +66,6 @@ extension ProductHttpRouter: HttpRouter {
                 "consumer_secret": "cs_188789d20497ddad20fe6598be304aa2efcaeec0"
             ]
         }
-        
     }
     
     func body() throws -> Data? {
@@ -76,6 +74,4 @@ extension ProductHttpRouter: HttpRouter {
             return nil
         }
     }
-    
-    
 }

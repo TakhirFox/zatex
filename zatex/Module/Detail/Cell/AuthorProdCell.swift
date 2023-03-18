@@ -49,10 +49,19 @@ class AuthorProdCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        avatarView.image = UIImage(named: "avatar")
-        titleLabel.text = "NitikaRST"
-        ratingView.image = UIImage(named: "rat4")
+    func setupCell(author: StoreInfoResult?) {
+        let avatarUrl = URL(string: author?.gravatar ?? "")
+        
+        avatarView.kf.setImage(with: avatarUrl)
+        titleLabel.text = author?.storeName ?? ""
+        ratingView.image = UIImage(named: "rat0")
+        
+        if let rating = author?.rating?.rating {
+            if author?.rating?.count != 0 {
+                let ratingStar = "rat\(rating)"
+                ratingView.image = UIImage(named: ratingStar)
+            }
+        }
     }
     
     private func updateAppearence() {

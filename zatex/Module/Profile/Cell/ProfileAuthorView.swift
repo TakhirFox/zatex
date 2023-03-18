@@ -11,7 +11,7 @@ class ProfileAuthorView: UIView {
     
     private let backView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = 4
         return view
     }()
     

@@ -10,7 +10,7 @@ import UIKit
 
 protocol ProfileRouterProtocol: AnyObject {
     func routeToSettings()
-    
+    func routeToAuthView()
 }
 
 class ProfileRouter: BaseRouter {
@@ -22,5 +22,10 @@ extension ProfileRouter: ProfileRouterProtocol {
     func routeToSettings() {
         let view = GeneralSettingsAssembly.create()
         viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToAuthView() {
+        let view = AuthAssembly.create()
+        viewController?.present(view, animated: true)
     }
 }

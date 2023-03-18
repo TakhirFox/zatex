@@ -10,7 +10,6 @@ import UIKit
 
 protocol GeneralSettingsViewControllerProtocol: AnyObject {
     var presenter: GeneralSettingsPresenterProtocol? { get set }
-
 }
 
 class GeneralSettingsViewController: BaseViewController {
@@ -121,7 +120,7 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
         case .changePush:
             print("N0thing bro")
         case .logout:
-            print("go to exit")
+            presenter?.logout()
         case .none:
             print("N0thing bro")
         }

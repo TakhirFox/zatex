@@ -1,5 +1,5 @@
 //
-//  DetailDetailAssembly.swift
+//  DetailAssembly.swift
 //  zatex
 //
 //  Created by iamtheorangefox@gmail.com on 03/11/2022.
@@ -15,6 +15,8 @@ class DetailAssembly {
         let interactor = DetailInteractor()
         let router = DetailRouter()
         
+        let networkService = ProductDetailService.shared
+        
         viewController.presenter = presenter
         
         presenter.view = viewController
@@ -22,6 +24,8 @@ class DetailAssembly {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
+        interactor.productId = id
         
         router.viewController = viewController
         

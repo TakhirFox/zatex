@@ -12,9 +12,5 @@ final class ProductHttpService: HttpService {
     
     func request(_ urlRequest: URLRequestConvertible) -> DataRequest {
         return sessionManager.request(urlRequest).validate(statusCode: 200..<400)
-    }
-    
-    
-    
-    
+    } 
 }

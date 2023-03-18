@@ -46,8 +46,11 @@ class MapProductCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        titleLabel.text = "Томск, ул. Пушкина, 32"
+    func setupCell(map: ProductResult.Address?) {
+        if let city = map?.city,
+            let street = map?.street1 {
+            titleLabel.text = "\(city), \(street)"
+        }
     }
     
     private func updateAppearence() {

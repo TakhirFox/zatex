@@ -33,15 +33,26 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
     
     func setupTabItems() {
         viewControllers = [
-            createNavController(viewController: FeedAssembly.create(),
-                                title: "Feed",
-                                image: UIImage(named: "FeedIcon")!),
-            createNavController(viewController: CreateProductAssembly.create(),
-                                title: "Create",
-                                 image: UIImage(named: "CreateIcon")!),
-            createNavController(viewController: ProfileAssembly.create(),
-                                title: "Profile",
-                                 image: UIImage(named: "ProfileIcon")!)
+            createNavController(
+                viewController: FeedAssembly.create(),
+                title: "Feed",
+                image: UIImage(named: "FeedIcon")!
+            ),
+            createNavController(
+                viewController: CreateProductAssembly.create(),
+                title: "Create",
+                image: UIImage(named: "CreateIcon")!
+            ),
+            createNavController(
+                viewController: ChatListAssembly.create(),
+                title: "Chat",
+                image: UIImage(named: "CreateIcon")!//TODO: Change icon
+            ),
+            createNavController(
+                viewController: ProfileAssembly.create(),
+                title: "Profile",
+                image: UIImage(named: "ProfileIcon")!
+            )
         ]
     }
     

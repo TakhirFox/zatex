@@ -25,19 +25,34 @@ class ProfileViewController: BaseViewController {
     let headerView = ProfileHeaderView()
     let authorView = ProfileAuthorView()
     
+    let loginButton: UIButton = {
+        let view = UIButton()
+        view.setTitle("Войти", for: .normal)
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)
+        view.addTarget(nil, action: #selector(showLoginView), for: .touchUpInside)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        headerView.setupCell(name: "")
-        authorView.setupCell(name: "")
-        
-        setupNavigationItem()
-        setupTableView()
-        
-        setupSubviews()
-        setupConstraints()
-        
+        loadProfileView()
+    }
+    
+    func loadProfileView() {
+        if !UserSettingsService.shared.token.isEmpty {
+            headerView.setupCell(name: "")
+            authorView.setupCell(name: "")
+            
+            setupNavigationItem()
+            setupTableView()
+            
+            setupSubviewsProfile()
+            setupConstraintsProfile()
+        } else {
+            setupSubviewsNotAuthorized()
+            setupConstraintsNotAuthorized()
+        }
     }
     
     func setupTableView() {        
@@ -50,19 +65,32 @@ class ProfileViewController: BaseViewController {
         tableView.backgroundColor = .clear
     }
     
-    func setupSubviews() {
+    func setupSubviewsProfile() {
         view.addSubview(tableView)
         view.addSubview(headerView)
         headerView.addSubview(authorView)
     }
     
-    func setupConstraints() {
+    func setupConstraintsProfile() {
         tableView.contentInset = UIEdgeInsets(top: 280, left: 0, bottom: 0, right: 0)
 
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+    }
+    
+    func setupSubviewsNotAuthorized() {
+        view.addSubview(loginButton)
+    }
+    
+    func setupConstraintsNotAuthorized() {
+        loginButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.width.equalTo(100)
         }
     }
     
@@ -115,6 +143,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 extension ProfileViewController: ProfileViewControllerProtocol {
     @objc func goToSettings() {
         presenter?.goToSettings()
+    }
+    
+    @objc func showLoginView() {
+        presenter?.goToAuthView()
     }
     
 }

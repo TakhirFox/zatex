@@ -21,6 +21,11 @@ public enum Color {
     static public let filedStrokeLight = UIColor(hex: 0xEDF3FD)
     static public let primaryButtonLight = UIColor(hex: 0xF78628)
     
+    static public let backgroundMyBubbleLight = UIColor(hex: 0x83C0DB)
+    static public let backgroundYourBubbleLight = UIColor(hex: 0xB6CEF4)
+    static public let textMessageLight = UIColor(hex: 0x363636)
+    static public let timeMessageLight = UIColor(hex: 0xEDF3FD)
+    
     
     static public let primaryBackgroundDark = UIColor(hex: 0x202020)
     static public let secondaryBackgroundDark = UIColor(hex: 0x292929)
@@ -34,6 +39,11 @@ public enum Color {
     
     static public let filedStrokeDark = UIColor(hex: 0x454545)
     static public let primaryButtonDark = UIColor(hex: 0xED9349)
+    
+    static public let backgroundMyBubbleDark = UIColor(hex: 0x4E656F)
+    static public let backgroundYourBubbleDark = UIColor(hex: 0x68707C)
+    static public let textMessageDark = UIColor(hex: 0xE1E1E1)
+    static public let timeMessageDark = UIColor(hex: 0x98A8C2)
 }
 
 var currentTheme: AppTheme { Appearance.shared.theme.value }
@@ -136,5 +146,43 @@ public enum Palette {
         }
     }
     
+    // MARK: - Chat style
+    public enum ChatStyle {
+        public static var myBubble: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.backgroundMyBubbleLight
+            case .dark:
+                return Color.backgroundMyBubbleDark
+            }
+        }
+        
+        public static var yourBubble: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.backgroundYourBubbleLight
+            case .dark:
+                return Color.backgroundYourBubbleDark
+            }
+        }
+        
+        public static var text: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.textMessageLight
+            case .dark:
+                return Color.textMessageDark
+            }
+        }
+        
+        public static var time: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.timeMessageLight
+            case .dark:
+                return Color.timeMessageDark
+            }
+        }
+    }
     
 }

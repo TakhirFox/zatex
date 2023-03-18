@@ -8,10 +8,18 @@
 
 
 protocol GeneralSettingsInteractorProtocol {
-    
+    func logout()
 }
 
-class GeneralSettingsInteractor: BaseInteractor, GeneralSettingsInteractorProtocol {
+class GeneralSettingsInteractor: BaseInteractor {
+    
     weak var presenter: GeneralSettingsPresenterProtocol?
+    var userSettings: UserSettingsAPI!
+}
 
+extension GeneralSettingsInteractor: GeneralSettingsInteractorProtocol {
+    
+    func logout() {
+        self.userSettings.clearTokens()
+    }
 }

@@ -54,11 +54,27 @@ class ShopHeaderView: UIView {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        backgroundImageView.image = UIImage(named: "backimage")
-        avatarView.image = UIImage(named: "avatar")
-        titleLabel.text = "NitikaRST"
-        ratingView.image = UIImage(named: "rat4")
+    func setupCell(author: StoreInfoResult?) {
+        let avatarUrl = URL(string: author?.gravatar ?? "")
+        
+        avatarView.kf.setImage(with: avatarUrl)
+        backgroundImageView.image = UIImage(named: "defaultBanner")
+        titleLabel.text = author?.storeName ?? ""
+        ratingView.image = UIImage(named: "rat0")
+
+        if author?.banner != nil, !(author?.banner!.isEmpty)! {
+            let banner = (author?.banner?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let bannerUrl = URL(string: banner)
+            
+            backgroundImageView.kf.setImage(with: bannerUrl)
+        }
+        
+        if let rating = author?.rating?.rating {
+            if author?.rating?.count != 0 {
+                let ratingStar = "rat\(rating)"
+                ratingView.image = UIImage(named: ratingStar)
+            }
+        }
     }
     
     private func updateAppearence() {
