@@ -38,9 +38,6 @@ class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        }
-        
         setupTableView()
         setupSubviews()
         setupConstraints()
@@ -90,41 +87,43 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         switch rows {
         case .images:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! ImagesProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ") // TODO: Change
+            cell.setupCell(images: product?.images)
             return cell
+            
         case .productInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoProductCell
-            
-            if let name = product?.name,
-               let price = product?.price {
-                cell.setupCell(
-                    name: name,
-                    cost: "\(price) Р")
-            }
-            
+            cell.setupCell(name: product?.name,
+                           cost: product?.price)
             return cell
+            
         case .mapShop:
             let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapProductCell
             cell.setupCell(map: product?.store?.address)
             return cell
+            
         case .buttons:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ") // TODO: Change
+            cell.setupCell()
             cell.messageButton.addTarget(self, action: #selector(goToChat), for: .touchUpInside)
             cell.callButton.addTarget(self, action: #selector(callPhone), for: .touchUpInside)
             return cell
+            
         case .descriptions:
             let cell = tableView.dequeueReusableCell(withIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
             cell.setupCell(description: product?.description ?? "")
             return cell
+            
         case .author:
             let cell = tableView.dequeueReusableCell(withIdentifier: "authorCell", for: indexPath) as! AuthorProdCell
             cell.setupCell(author: storeInfo)
             return cell
+            
         case .similarProduct:
             return UITableViewCell() // TODO: Change
+            
         case .none:
             return UITableViewCell()
+            
         }
     }
     

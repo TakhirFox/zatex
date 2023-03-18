@@ -9,11 +9,13 @@ import UIKit
 
 class ImagesProductCell: UITableViewCell {
     
-    private let imagesView: UIImageView = {
-        let view = UIImageView()
-        view.layer.cornerRadius = 8
-        view.contentMode = .scaleAspectFill
-        return view
+    var images: [ProductResult.Image]?
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -22,6 +24,7 @@ class ImagesProductCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         
+        configureCollectionView()
         configureSubviews()
         configureConstraints()
         updateAppearence()
@@ -31,29 +34,56 @@ class ImagesProductCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        imagesView.image = UIImage(named: "demoimage")
+    func setupCell(images: [ProductResult.Image]?) {
+        self.images = images
+        collectionView.reloadData()
     }
     
-    private func updateAppearence() {
-        
+    private func configureCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(ProductImageCell.self, forCellWithReuseIdentifier: "cell")
     }
+    
+    private func updateAppearence() {}
     
     private func configureSubviews() {
-        addSubview(imagesView)
+        contentView.addSubview(collectionView)
     }
     
     private func configureConstraints() {
-        imagesView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+        collectionView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(280)
+            make.height.equalTo(300)
         }
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension ImagesProductCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ProductImageCell
+        cell.setupCell(image: images?[indexPath.row].src)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: frame.width, height: frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+}
+

@@ -80,6 +80,7 @@
 		AD9B261728FDA90600C15139 /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B261628FDA90600C15139 /* ProductCell.swift */; };
 		AD9B261B28FDAB0000C15139 /* CategoryFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B261A28FDAB0000C15139 /* CategoryFeedCell.swift */; };
 		AD9B261F28FDB3BE00C15139 /* BannerFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B261E28FDB3BE00C15139 /* BannerFeedCell.swift */; };
+		ADA0063F29C3783E0035F4B2 /* ProductImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA0063E29C3783E0035F4B2 /* ProductImageCell.swift */; };
 		ADAC844C290A725400F15330 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAC844B290A725400F15330 /* BaseTextField.swift */; };
 		ADAC8451290A79B400F15330 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADAC844E290A79B400F15330 /* Montserrat-Medium.ttf */; };
 		ADAC8452290A79B400F15330 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADAC844F290A79B400F15330 /* Montserrat-SemiBold.ttf */; };
@@ -233,6 +234,7 @@
 		AD9B261628FDA90600C15139 /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		AD9B261A28FDAB0000C15139 /* CategoryFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFeedCell.swift; sourceTree = "<group>"; };
 		AD9B261E28FDB3BE00C15139 /* BannerFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerFeedCell.swift; sourceTree = "<group>"; };
+		ADA0063E29C3783E0035F4B2 /* ProductImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCell.swift; sourceTree = "<group>"; };
 		ADAC844B290A725400F15330 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		ADAC844E290A79B400F15330 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		ADAC844F290A79B400F15330 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 			children = (
 				AD4A9871291964AA00709745 /* ShopHeaderView.swift */,
 				AD4A98732919825F00709745 /* ImagesProductCell.swift */,
+				ADA0063E29C3783E0035F4B2 /* ProductImageCell.swift */,
 				AD4A9875291987EA00709745 /* InfoProductCell.swift */,
 				AD4A98772919894200709745 /* MapProductCell.swift */,
 				AD4A987929198D8600709745 /* ContactProductCell.swift */,
@@ -973,6 +976,7 @@
 				ADF53FFB29B4751F00BF8516 /* ChatListHttpRouter.swift in Sources */,
 				ADF53FF729B4748E00BF8516 /* ChatListService.swift in Sources */,
 				AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */,
+				ADA0063F29C3783E0035F4B2 /* ProductImageCell.swift in Sources */,
 				AD86EAD329043936001CB847 /* CategoryResult.swift in Sources */,
 				ADCDDE0F29BE0170001F34D9 /* ProductDetailHttpRouter.swift in Sources */,
 				ADAC844C290A725400F15330 /* BaseTextField.swift in Sources */,

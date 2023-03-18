@@ -34,14 +34,12 @@ class ContactProductCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
+    func setupCell() {
         callButton.setTitle("Позвонить", for: .normal)
         messageButton.setTitle("Написать", for: .normal)
     }
     
-    private func updateAppearence() {
-        
-    }
+    private func updateAppearence() {}
     
     private func configureSubviews() {
         contentView.addSubview(callButton)
@@ -62,7 +60,6 @@ class ContactProductCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(6)
         }
-        
     }
     
     required init?(coder: NSCoder) {

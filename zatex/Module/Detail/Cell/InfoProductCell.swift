@@ -39,9 +39,12 @@ class InfoProductCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String, cost: String) {
-        titleLabel.text = name
-        costLabel.text = cost
+    func setupCell(name: String?, cost: String?) {
+        titleLabel.text = name ?? ""
+        
+        if cost != nil {
+            costLabel.text = "\(cost!) Р"
+        }
     }
     
     private func updateAppearence() {
