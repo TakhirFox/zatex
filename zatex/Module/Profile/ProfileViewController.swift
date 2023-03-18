@@ -75,8 +75,8 @@ class ProfileViewController: BaseViewController {
         tableView.contentInset = UIEdgeInsets(top: 280, left: 0, bottom: 0, right: 0)
 
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(65)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview()
         }
     }
@@ -106,7 +106,7 @@ class ProfileViewController: BaseViewController {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
