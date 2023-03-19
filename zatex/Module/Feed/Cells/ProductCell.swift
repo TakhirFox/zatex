@@ -71,7 +71,8 @@ class ProductCell: UICollectionViewCell {
         }
 
         if let imageUrl = post.images, let firstUrl = imageUrl.first, let src = firstUrl.src {
-            let urlString = URL(string: src)
+            let url = (src.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let urlString = URL(string: url)
             imageView.kf.setImage(with: urlString)
         }
     }

@@ -120,8 +120,6 @@ class ShopHeaderView: UIView {
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
             make.bottom.equalToSuperview()
         }
-
-        
     }
     
     required init?(coder: NSCoder) {

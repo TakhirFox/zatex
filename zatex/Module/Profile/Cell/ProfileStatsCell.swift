@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileStatsCell: UITableViewCell {
+class ProfileStatsCell: UICollectionViewCell {
     
     private let staticView: UIView = {
         let view = UIView()
@@ -102,10 +102,8 @@ class ProfileStatsCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        selectionStyle = .none
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         backgroundColor = .clear
                 
         configureViews()
@@ -118,8 +116,8 @@ class ProfileStatsCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        countRatingLabel.text = "123"
+    func setupCell(stats: StoreInfoResult?) {
+        countRatingLabel.text = String(stats?.rating?.count ?? 0)
         nameRatingLabel.text = "Отзывов"
         
         countActiveLabel.text = "16"
@@ -128,7 +126,7 @@ class ProfileStatsCell: UITableViewCell {
         countSalesLabel.text = "96"
         nameSalesLabel.text = "Продано"
         
-        sinceStoreLabel.text = "На Затекс с мая 2019"
+        sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: stats?.registered))"
     }
     
     private func updateAppearence() {
@@ -190,6 +188,19 @@ class ProfileStatsCell: UITableViewCell {
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.trailing.equalToSuperview().inset(16)
         }
+    }
+    
+    private func dateFormatter(date: String?) -> String {
+        guard let date = date else { return ""}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let newDate = dateFormatter.date(from: date) ?? Date()
+        let isCurrentDate = Calendar.current.isDateInToday(newDate)
+        
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: newDate)
     }
     
     required init?(coder: NSCoder) {

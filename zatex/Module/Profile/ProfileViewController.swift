@@ -11,17 +11,22 @@ import UIKit
 protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
 
+    func setStoreInfo(data: StoreInfoResult)
+    func setStoreProduct(data: [ProductResult])
 }
 
 class ProfileViewController: BaseViewController {
     
     enum RowKind: Int {
-        case stats, myProducts
+        case stats, productSection, myProducts
     }
     
     var presenter: ProfilePresenterProtocol?
     
-    let tableView = UITableView()
+    var profileStoreInfo: StoreInfoResult?
+    var profileProducts: [ProductResult]?
+    
+    var collectionView: UICollectionView!
     let headerView = ProfileHeaderView()
     let authorView = ProfileAuthorView()
     
@@ -33,6 +38,15 @@ class ProfileViewController: BaseViewController {
         return view
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let id = Int(UserSettingsService.shared.getTokens().userId ?? "") ?? 0
+        // TODO: id???
+        self.presenter?.getStoreInfo(authorId: id)
+        self.presenter?.getStoreProduct(authorId: id)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,12 +55,8 @@ class ProfileViewController: BaseViewController {
     
     func loadProfileView() {
         if !UserSettingsService.shared.token.isEmpty {
-            headerView.setupCell(name: "")
-            authorView.setupCell(name: "")
-            
             setupNavigationItem()
-            setupTableView()
-            
+            setupCollectionView()
             setupSubviewsProfile()
             setupConstraintsProfile()
         } else {
@@ -55,28 +65,29 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    func setupTableView() {        
-        tableView.register(ProfileStatsCell.self, forCellReuseIdentifier: "statsCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+    func setupCollectionView() {
+        let collectionFlowLayout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(ProfileStatsCell.self, forCellWithReuseIdentifier: "statsCell")
+        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "productCell")
+        collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
+        collectionView.backgroundColor = .clear
     }
     
     func setupSubviewsProfile() {
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         view.addSubview(headerView)
         headerView.addSubview(authorView)
     }
     
     func setupConstraintsProfile() {
-        tableView.contentInset = UIEdgeInsets(top: 280, left: 0, bottom: 0, right: 0)
-
-        tableView.snp.makeConstraints { make in
+        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 0, right: 16)
+        
+        collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
@@ -101,31 +112,107 @@ class ProfileViewController: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
     }
-    
 }
 
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rows = RowKind(rawValue: indexPath.row)
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        let rows = RowKind(rawValue: section)
         switch rows {
         case .stats:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
-            return cell
+            return 1
+            
+        case .productSection:
+            return 1
+            
         case .myProducts:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
-            return cell
+            return profileProducts?.count ?? 0
+            
         case .none:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(name: "ИЗМЕНИТЬ МОДЕЛЬ")
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let rows = RowKind(rawValue: indexPath.section)
+        switch rows {
+        case .stats:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
+            cell.setupCell(stats: profileStoreInfo)
+            return cell
+            
+        case .productSection:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sectionCell", for: indexPath) as! ProfileSectionCell
+            let storeName = profileStoreInfo?.storeName ?? ""
+            cell.setupCell(name: "Товары \(storeName)")
+            return cell
+            
+        case .myProducts:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
+            cell.setupCell(profileProducts?[indexPath.row])
+            return cell
+            
+        case .none:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
+            cell.setupCell(stats: profileStoreInfo)
             return cell
         }
-       
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let rows = RowKind(rawValue: indexPath.section)
+        switch rows {
+        case .stats:
+            return .init(width: view.frame.width - 32, height: 130)
+            
+        case .productSection:
+            return .init(width: view.frame.width, height: 45)
+            
+        case .myProducts:
+            return .init(width: view.frame.width / 2 - 24, height: 200)
+            
+        case .none:
+            return .zero
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        let rows = RowKind(rawValue: indexPath.section)
+        switch rows {
+        case .stats:
+            return
+            
+        case .productSection:
+            return
+            
+        case .myProducts:
+            let idProduct = String(profileProducts?[indexPath.item].id ?? 0)
+            presenter?.goToDetail(id: idProduct)
+            
+        case .none:
+            return
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -137,10 +224,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         authorView.updateView(scrollView: scrollView)
     }
-    
 }
 
-extension ProfileViewController: ProfileViewControllerProtocol {
+extension ProfileViewController {
+    
     @objc func goToSettings() {
         presenter?.goToSettings()
     }
@@ -148,5 +235,23 @@ extension ProfileViewController: ProfileViewControllerProtocol {
     @objc func showLoginView() {
         presenter?.goToAuthView()
     }
+}
+
+extension ProfileViewController: ProfileViewControllerProtocol {
     
+    func setStoreInfo(data: StoreInfoResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.profileStoreInfo = data
+            self?.headerView.setupCell(store: data)
+            self?.authorView.setupCell(store: data)
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setStoreProduct(data: [ProductResult]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.profileProducts = data
+            self?.collectionView.reloadData()
+        }
+    }
 }

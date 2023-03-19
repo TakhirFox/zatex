@@ -11,6 +11,7 @@ import UIKit
 protocol ProfileRouterProtocol: AnyObject {
     func routeToSettings()
     func routeToAuthView()
+    func routeToDetail(id: String)
 }
 
 class ProfileRouter: BaseRouter {
@@ -27,5 +28,10 @@ extension ProfileRouter: ProfileRouterProtocol {
     func routeToAuthView() {
         let view = AuthAssembly.create()
         viewController?.present(view, animated: true)
+    }
+    
+    func routeToDetail(id: String) {
+        let view = DetailAssembly.create(id: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }
