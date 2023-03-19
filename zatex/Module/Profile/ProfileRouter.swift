@@ -12,6 +12,7 @@ protocol ProfileRouterProtocol: AnyObject {
     func routeToSettings()
     func routeToAuthView()
     func routeToDetail(id: String)
+    func routeToReview(id: String)
 }
 
 class ProfileRouter: BaseRouter {
@@ -32,6 +33,11 @@ extension ProfileRouter: ProfileRouterProtocol {
     
     func routeToDetail(id: String) {
         let view = DetailAssembly.create(id: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToReview(id: String) {
+        let view = ReviewsAssembly.create() // TODO: id
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

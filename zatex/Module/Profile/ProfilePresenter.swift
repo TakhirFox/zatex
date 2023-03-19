@@ -13,6 +13,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     func goToSettings()
     func goToAuthView()
     func goToDetail(id: String)
+    func goToReview(id: String)
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult])
@@ -46,6 +47,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func goToDetail(id: String) {
         router?.routeToDetail(id: id)
+    }
+    
+    func goToReview(id: String) {
+        router?.routeToReview(id: id)
     }
     
     // MARK: To View

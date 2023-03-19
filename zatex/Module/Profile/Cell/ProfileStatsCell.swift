@@ -47,19 +47,15 @@ class ProfileStatsCell: UICollectionViewCell {
         return view
     }()
     
-    private let countRatingLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+    public let countRatingLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 24)
         return view
     }()
 
-    private let nameRatingLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+    public let nameRatingLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 12)
         return view
     }()
     
@@ -117,8 +113,8 @@ class ProfileStatsCell: UICollectionViewCell {
     }
     
     func setupCell(stats: StoreInfoResult?) {
-        countRatingLabel.text = String(stats?.rating?.count ?? 0)
-        nameRatingLabel.text = "Отзывов"
+        countRatingLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
+        nameRatingLabel.setTitle("Отзывов", for: .normal)
         
         countActiveLabel.text = "16"
         nameActiveLabel.text = "Активных"
@@ -134,8 +130,8 @@ class ProfileStatsCell: UICollectionViewCell {
         sinceStoreView.backgroundColor = Palette.Background.secondary
         sinceStoreLabel.textColor = Palette.Text.primary
         
-        countRatingLabel.textColor = Palette.Text.primary
-        nameRatingLabel.textColor = Palette.AccentText.primary
+        countRatingLabel.setTitleColor(Palette.Text.primary, for: .normal)
+        nameRatingLabel.setTitleColor(Palette.AccentText.primary, for: .normal)
         
         countActiveLabel.textColor = Palette.Text.primary
         nameActiveLabel.textColor = Palette.AccentText.primary
@@ -197,7 +193,6 @@ class ProfileStatsCell: UICollectionViewCell {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let newDate = dateFormatter.date(from: date) ?? Date()
-        let isCurrentDate = Calendar.current.isDateInToday(newDate)
         
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: newDate)

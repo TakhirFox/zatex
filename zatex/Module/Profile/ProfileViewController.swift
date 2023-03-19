@@ -145,6 +145,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
             cell.setupCell(stats: profileStoreInfo)
+            cell.countRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
+            cell.nameRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
             return cell
             
         case .productSection:
@@ -234,6 +236,10 @@ extension ProfileViewController {
     
     @objc func showLoginView() {
         presenter?.goToAuthView()
+    }
+    
+    @objc func goToReviews() {
+        presenter?.goToReview(id: "") // TODO: Reviews
     }
 }
 
