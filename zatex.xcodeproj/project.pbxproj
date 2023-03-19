@@ -21,8 +21,10 @@
 		466D50C96200B7E5284A3D1B /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4443D6D6E295938F34939B /* DetailAssembly.swift */; };
 		477D309F6770F4F673E01BBD /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */; };
 		4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13BDB76D9D05622CD5BFC62 /* ChatDetailRouter.swift */; };
+		4F8207833F6F7F38264AD19D /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2821A58A737E8032C5B440DA /* ReviewsViewController.swift */; };
 		4F8340B0FF4E02C1A7EB5772 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0624D0413BE404919F996EEB /* DetailViewController.swift */; };
 		57A0C4C75D02CB5FCB96B973 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EC14780C4F4179EED7C5BA /* GeneralSettingsViewController.swift */; };
+		5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */; };
 		5B8A7F123DD7DDED3810A5F5 /* ChatDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3868CDEC00C3EB8F12E30C7 /* ChatDetailPresenter.swift */; };
 		5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04B881456910C43F8D86E63 /* ProfileInteractor.swift */; };
 		65546E979E410FEBA551D1B2 /* ProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038A40CB1710234016F4DE /* ProfileEditInteractor.swift */; };
@@ -39,6 +41,7 @@
 		945EDFF6AFA607CC682B2BC0 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC3D699E4C334D5F418290 /* MainTabBarViewController.swift */; };
 		947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8250DC0AE56793344BE26B80 /* ProfileAssembly.swift */; };
 		9765467E5568B7C0F2728303 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147CE9D6D8CCF534010FED72 /* ProfileEditPresenter.swift */; };
+		9C37DF708E2A1E7F885FFE34 /* ReviewsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */; };
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
@@ -144,6 +147,7 @@
 		C9A3C0F696627B5CB5492B3A /* SearchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEEBB065FBC3F9145CD0C72 /* SearchAssembly.swift */; };
 		D2897DEADF100A13E1D0FA9C /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC08851A2BCC78B2850496E9 /* SearchInteractor.swift */; };
 		D773758C477D04823E627EA3 /* CreateProductAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88074299A628E0D8748A3745 /* CreateProductAssembly.swift */; };
+		DA2DB56D8A489813AD1F7EC2 /* ReviewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */; };
 		E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */; };
 		E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E673BE585FC86B964EC1A /* AuthViewController.swift */; };
 		E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AFD7A8B6FFAC541D1CF33D /* ChatListRouter.swift */; };
@@ -152,6 +156,7 @@
 		E5D79D234070D764FDAB11B1 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98100CDB928013572D0417D9 /* DetailPresenter.swift */; };
 		F202222FECB72391990B0E22 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BE0E284DFB4207C01AD4A /* FeedViewController.swift */; };
 		F4AB94BD430BC1EBBC04C093 /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FDEF90887570EA0CB1AFC7 /* MainTabBarRouter.swift */; };
+		F64097E127073872342DF797 /* ReviewsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3ACCC8094B0B13F474C2A2 /* ReviewsPresenter.swift */; };
 		F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708FE6EB72523E404301C9BB /* ProfileEditAssembly.swift */; };
 		F7792221005745ADBCB9D937 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992429B8D9C0B8DA09153B3B /* SearchRouter.swift */; };
 		FB4022CF39E51B84D53B4898 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7D859512D2BA0CCF59FB /* AuthInteractor.swift */; };
@@ -163,6 +168,8 @@
 		0FEDCDC847093BA91F819D3D /* AuthPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		147CE9D6D8CCF534010FED72 /* ProfileEditPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditPresenter.swift; sourceTree = "<group>"; };
 		17CE19F1E6A8F4E07D1FC26D /* CreateProductInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductInteractor.swift; sourceTree = "<group>"; };
+		1B3ACCC8094B0B13F474C2A2 /* ReviewsPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsPresenter.swift; sourceTree = "<group>"; };
+		2821A58A737E8032C5B440DA /* ReviewsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsInteractor.swift; sourceTree = "<group>"; };
 		2D7E673BE585FC86B964EC1A /* AuthViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +182,7 @@
 		43D50EA60736641544E57735 /* CreateProductRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductRouter.swift; sourceTree = "<group>"; };
 		544BE0E284DFB4207C01AD4A /* FeedViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		5606FE5C4DD9FF5512963A68 /* DetailRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsRouter.swift; sourceTree = "<group>"; };
 		5ACFB8A6565B9B313516A0E9 /* ChatDetailInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailInteractor.swift; sourceTree = "<group>"; };
 		5B5C7D859512D2BA0CCF59FB /* AuthInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		5F408209F845D51605514B35 /* SearchViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 		992429B8D9C0B8DA09153B3B /* SearchRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		9EF89B21ED4462AC5C183854 /* FeedPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		A04B881456910C43F8D86E63 /* ProfileInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsInteractor.swift; sourceTree = "<group>"; };
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
@@ -298,6 +307,7 @@
 		BA4C4848DF5B7BB7614C3648 /* Pods-zatex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zatex.debug.xcconfig"; path = "Target Support Files/Pods-zatex/Pods-zatex.debug.xcconfig"; sourceTree = "<group>"; };
 		BDF38FF91734A4D45ADA4672 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		C783B39D2D7F18A08681D171 /* MainTabBarInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarInteractor.swift; sourceTree = "<group>"; };
+		CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsAssembly.swift; sourceTree = "<group>"; };
 		CCB3081EA9610A1B393705FF /* FeedRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedRouter.swift; sourceTree = "<group>"; };
 		CD1EB836D5BD8A38DB52C9AA /* ProfileRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		CDA830CD52EB99A0E54AA0AB /* MainTabBarAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarAssembly.swift; sourceTree = "<group>"; };
@@ -374,6 +384,19 @@
 				60B7C4678A8612CED92F7A4B /* FeedAssembly.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		6BA4F8B2CAAB98BBDF9451DF /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				2821A58A737E8032C5B440DA /* ReviewsViewController.swift */,
+				1B3ACCC8094B0B13F474C2A2 /* ReviewsPresenter.swift */,
+				A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */,
+				584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */,
+				CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */,
+			);
+			name = Reviews;
+			path = Reviews;
 			sourceTree = "<group>";
 		};
 		840411B614E7666442AB6359 /* ChatList */ = {
@@ -545,6 +568,7 @@
 				840411B614E7666442AB6359 /* ChatList */,
 				FE630FE8003E38B9A0D6997F /* ChatDetail */,
 				BD1AF720F08B824C0A13CE3A /* Auth */,
+				6BA4F8B2CAAB98BBDF9451DF /* Reviews */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -1145,6 +1169,11 @@
 				ADCDDE0729BDFAE7001F34D9 /* ProductDetailAPI.swift in Sources */,
 				83C87E62BC0AB43875D05135 /* AuthRouter.swift in Sources */,
 				B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */,
+				4F8207833F6F7F38264AD19D /* ReviewsViewController.swift in Sources */,
+				F64097E127073872342DF797 /* ReviewsPresenter.swift in Sources */,
+				9C37DF708E2A1E7F885FFE34 /* ReviewsInteractor.swift in Sources */,
+				DA2DB56D8A489813AD1F7EC2 /* ReviewsRouter.swift in Sources */,
+				5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
