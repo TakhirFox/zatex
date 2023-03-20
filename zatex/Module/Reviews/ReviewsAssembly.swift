@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ReviewsAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class ReviewsAssembly {
+    static func create(id: String) -> UIViewController {
         let viewController = ReviewsViewController()
         let presenter = ReviewsPresenter()
         let interactor = ReviewsInteractor()
         let router = ReviewsRouter()
+        
+        let networkService = ReviewsService.shared
         
         viewController.presenter = presenter
         
@@ -22,6 +24,8 @@ class ReviewsAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
+        interactor.id = id
         
         router.viewController = viewController
         

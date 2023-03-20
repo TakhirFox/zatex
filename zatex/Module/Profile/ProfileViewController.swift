@@ -161,9 +161,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .none:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(stats: profileStoreInfo)
-            return cell
+            return UICollectionViewCell()
         }
     }
     
@@ -239,7 +237,10 @@ extension ProfileViewController {
     }
     
     @objc func goToReviews() {
-        presenter?.goToReview(id: "") // TODO: Reviews
+        let id = UserSettingsService.shared.getTokens().userId ?? ""
+        // TODO: id???
+        
+        presenter?.goToReview(id: id) // TODO: Reviews
     }
 }
 

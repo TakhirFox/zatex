@@ -45,6 +45,13 @@
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
+		AD46D78F29C89A01002A6E1F /* ReviewsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D78E29C89A01002A6E1F /* ReviewsHeaderCell.swift */; };
+		AD46D79129C89A0A002A6E1F /* ReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79029C89A0A002A6E1F /* ReviewsCell.swift */; };
+		AD46D79529C89F48002A6E1F /* ReviewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79429C89F48002A6E1F /* ReviewsService.swift */; };
+		AD46D79729C89F53002A6E1F /* ReviewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79629C89F53002A6E1F /* ReviewsAPI.swift */; };
+		AD46D79929C89F87002A6E1F /* ReviewsListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */; };
+		AD46D79B29C8A095002A6E1F /* ReviewsHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79A29C8A095002A6E1F /* ReviewsHttpService.swift */; };
+		AD46D79D29C8A0AA002A6E1F /* ReviewsHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79C29C8A0AA002A6E1F /* ReviewsHttpRouter.swift */; };
 		AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87628ED577200D159CA /* AppDelegate.swift */; };
 		AD49A87928ED577200D159CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87828ED577200D159CA /* SceneDelegate.swift */; };
 		AD49A88128ED577200D159CA /* zatex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87F28ED577200D159CA /* zatex.xcdatamodeld */; };
@@ -208,6 +215,13 @@
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
+		AD46D78E29C89A01002A6E1F /* ReviewsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHeaderCell.swift; sourceTree = "<group>"; };
+		AD46D79029C89A0A002A6E1F /* ReviewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCell.swift; sourceTree = "<group>"; };
+		AD46D79429C89F48002A6E1F /* ReviewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsService.swift; sourceTree = "<group>"; };
+		AD46D79629C89F53002A6E1F /* ReviewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsAPI.swift; sourceTree = "<group>"; };
+		AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsListResult.swift; sourceTree = "<group>"; };
+		AD46D79A29C8A095002A6E1F /* ReviewsHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHttpService.swift; sourceTree = "<group>"; };
+		AD46D79C29C8A0AA002A6E1F /* ReviewsHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHttpRouter.swift; sourceTree = "<group>"; };
 		AD49A87328ED577200D159CA /* zatex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zatex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD49A87628ED577200D159CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD49A87828ED577200D159CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -389,13 +403,13 @@
 		6BA4F8B2CAAB98BBDF9451DF /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
+				AD46D78D29C899FA002A6E1F /* Cells */,
 				2821A58A737E8032C5B440DA /* ReviewsViewController.swift */,
 				1B3ACCC8094B0B13F474C2A2 /* ReviewsPresenter.swift */,
 				A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */,
 				584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */,
 				CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */,
 			);
-			name = Reviews;
 			path = Reviews;
 			sourceTree = "<group>";
 		};
@@ -436,6 +450,33 @@
 				D9AB4311EF0C63B9378CF4CD /* GeneralSettingsAssembly.swift */,
 			);
 			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
+		AD46D78D29C899FA002A6E1F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AD46D78E29C89A01002A6E1F /* ReviewsHeaderCell.swift */,
+				AD46D79029C89A0A002A6E1F /* ReviewsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		AD46D79229C89E16002A6E1F /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				AD46D79A29C8A095002A6E1F /* ReviewsHttpService.swift */,
+				AD46D79C29C8A0AA002A6E1F /* ReviewsHttpRouter.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		AD46D79329C89E23002A6E1F /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				AD46D79429C89F48002A6E1F /* ReviewsService.swift */,
+				AD46D79629C89F53002A6E1F /* ReviewsAPI.swift */,
+			);
+			path = Reviews;
 			sourceTree = "<group>";
 		};
 		AD49A86A28ED577200D159CA = {
@@ -489,6 +530,7 @@
 			children = (
 				ADB8D55528FE850700F0006F /* NetworkService.swift */,
 				ADC3B41B2906E04500A7AE66 /* Base */,
+				AD46D79229C89E16002A6E1F /* Reviews */,
 				ADA28B8029C6181F006A2EA9 /* Profile */,
 				ADC3B41D2906E07300A7AE66 /* Feed */,
 				ADCDDE0429BDFAB6001F34D9 /* ProductDetail */,
@@ -515,6 +557,7 @@
 				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
 				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
+				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -524,6 +567,7 @@
 			children = (
 				AD86EAD4290439B3001CB847 /* StubService.swift */,
 				ADA28B8129C61842006A2EA9 /* Profile */,
+				AD46D79329C89E23002A6E1F /* Reviews */,
 				ADF53FF129B472A600BF8516 /* ChatList */,
 				ADC3B41E2906E0C900A7AE66 /* Feed */,
 				ADCDDE0529BDFAC0001F34D9 /* ProductDetail */,
@@ -1027,6 +1071,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADF53FF529B4733800BF8516 /* ChatListResult.swift in Sources */,
+				AD46D79D29C8A0AA002A6E1F /* ReviewsHttpRouter.swift in Sources */,
 				AD4A987A29198D8600709745 /* ContactProductCell.swift in Sources */,
 				ADF53FFB29B4751F00BF8516 /* ChatListHttpRouter.swift in Sources */,
 				ADF53FF729B4748E00BF8516 /* ChatListService.swift in Sources */,
@@ -1052,6 +1097,7 @@
 				AD9B260128FD476700C15139 /* BaseViewController.swift in Sources */,
 				ADD8DE502918119A00A3E435 /* SettingsModel.swift in Sources */,
 				BDB5589D543E04E55F1F0D7F /* MainTabBarInteractor.swift in Sources */,
+				AD46D79729C89F53002A6E1F /* ReviewsAPI.swift in Sources */,
 				AD9B260928FD478600C15139 /* BaseAssemblyProtocol.swift in Sources */,
 				ADF53FEF29B4675A00BF8516 /* ChatListCell.swift in Sources */,
 				ADBE136A290DA4F1004BDEB3 /* SearchAPI.swift in Sources */,
@@ -1088,6 +1134,7 @@
 				ADCDDE1129BE3293001F34D9 /* CheckChatResult.swift in Sources */,
 				AD9B261028FD55FC00C15139 /* ThemeManager.swift in Sources */,
 				ADF5400829B4CBD400BF8516 /* ChatDetailAPI.swift in Sources */,
+				AD46D79929C89F87002A6E1F /* ReviewsListResult.swift in Sources */,
 				AD86EAD5290439B3001CB847 /* StubService.swift in Sources */,
 				AD4A9876291987EA00709745 /* InfoProductCell.swift in Sources */,
 				ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */,
@@ -1097,6 +1144,8 @@
 				5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */,
 				1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */,
 				947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */,
+				AD46D79129C89A0A002A6E1F /* ReviewsCell.swift in Sources */,
+				AD46D79529C89F48002A6E1F /* ReviewsService.swift in Sources */,
 				ADCC3F5A29BCF41000D7E022 /* SendMessageResult.swift in Sources */,
 				AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */,
 				ADCF769129B89F57007FF164 /* AuthAPI.swift in Sources */,
@@ -1119,6 +1168,7 @@
 				ADF53FFE29B4C46500BF8516 /* SentChatCell.swift in Sources */,
 				4F8340B0FF4E02C1A7EB5772 /* DetailViewController.swift in Sources */,
 				E5D79D234070D764FDAB11B1 /* DetailPresenter.swift in Sources */,
+				AD46D79B29C8A095002A6E1F /* ReviewsHttpService.swift in Sources */,
 				70FADA8F65E60DE73206333E /* DetailInteractor.swift in Sources */,
 				21819ECCE7FF77077F7A72DB /* DetailRouter.swift in Sources */,
 				466D50C96200B7E5284A3D1B /* DetailAssembly.swift in Sources */,
@@ -1153,6 +1203,7 @@
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
 				E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */,
 				15308D3FA9F3DD384B8A9475 /* ChatListPresenter.swift in Sources */,
+				AD46D78F29C89A01002A6E1F /* ReviewsHeaderCell.swift in Sources */,
 				AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */,
 				E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */,
 				ADCF768E29B89B98007FF164 /* AuthHttpRouter.swift in Sources */,

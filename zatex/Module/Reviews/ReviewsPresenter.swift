@@ -7,7 +7,11 @@
 //
 
 protocol ReviewsPresenterProtocol: AnyObject {
-
+    func getReviews()
+    func getStoreInfo()
+    
+    func setReviews(data: [ReviewsListResult])
+    func setStoreInfo(data: StoreInfoResult)
 }
 
 class ReviewsPresenter: BasePresenter {
@@ -18,5 +22,21 @@ class ReviewsPresenter: BasePresenter {
 }
 
 extension ReviewsPresenter: ReviewsPresenterProtocol {
+    // MARK: To Interactor
+    func getReviews() {
+        interactor?.getReviews()
+    }
     
+    func getStoreInfo() {
+        interactor?.getStoreInfo()
+    }
+    
+    // MARK: To View
+    func setReviews(data: [ReviewsListResult]) {
+        view?.setReviews(data: data)
+    }
+    
+    func setStoreInfo(data: StoreInfoResult) {
+        view?.setStoreInfo(data: data)
+    }
 }

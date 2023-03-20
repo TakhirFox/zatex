@@ -27,11 +27,11 @@ extension ProfileService: ProfileAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 237777894567: Ошибка  \(error)")
+                        print("LOG: 237777894567 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 5577777016: Ошибка получения информации о магазине в профиле")
+            print("LOG: 5577777016 Ошибка получения информации о магазине в профиле")
         }
     }
     
@@ -48,11 +48,11 @@ extension ProfileService: ProfileAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 2379450909967: Ошибка  \(error)")
+                        print("LOG: 2379450909967 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 45678886764568: Ошибка получения товаров в профиле")
+            print("LOG: 45678886764568: Ошибка получения товаров в профиле")
         }
     }
 }

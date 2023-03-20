@@ -8,10 +8,27 @@
 
 
 protocol ReviewsInteractorProtocol {
-    
+    func getReviews()
+    func getStoreInfo()
 }
 
-class ReviewsInteractor: BaseInteractor, ReviewsInteractorProtocol {
+class ReviewsInteractor: BaseInteractor {
     weak var presenter: ReviewsPresenterProtocol?
+    var service: ReviewsAPI!
+    var id = ""
+}
 
+extension ReviewsInteractor: ReviewsInteractorProtocol {
+    
+    func getReviews() {
+        self.service.fetchReviews(authorId: id) { result in
+            self.presenter?.setReviews(data: result)
+        }
+    }
+    
+    func getStoreInfo() {
+        self.service.fetchStoreInfo(authorId: id) { result in
+            self.presenter?.setStoreInfo(data: result)
+        }
+    }
 }

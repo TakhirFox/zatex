@@ -37,7 +37,7 @@ extension ProfileRouter: ProfileRouterProtocol {
     }
     
     func routeToReview(id: String) {
-        let view = ReviewsAssembly.create() // TODO: id
+        let view = ReviewsAssembly.create(id: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }
