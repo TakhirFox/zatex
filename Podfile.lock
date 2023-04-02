@@ -4,6 +4,7 @@ PODS:
   - Kingfisher (7.6.2)
   - SnapKit (4.2.0)
   - SwiftKeychainWrapper (4.0.1)
+  - YandexMapsMobile (4.3.1-lite)
 
 DEPENDENCIES:
   - Alamofire
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - Kingfisher
   - SnapKit (~> 4.0)
   - SwiftKeychainWrapper
+  - YandexMapsMobile (= 4.3.1-lite)
 
 SPEC REPOS:
   trunk:
@@ -19,6 +21,7 @@ SPEC REPOS:
     - Kingfisher
     - SnapKit
     - SwiftKeychainWrapper
+    - YandexMapsMobile
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
@@ -26,7 +29,8 @@ SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+  YandexMapsMobile: ac7be2e2876883430675cbfa5eeb39544f8d7c20
 
-PODFILE CHECKSUM: 04cf02617a369afa14208acf1d4b2d77471b9774
+PODFILE CHECKSUM: 3c10f4e9dc552a020e5ced20c76b148622137a22
 
 COCOAPODS: 1.11.3

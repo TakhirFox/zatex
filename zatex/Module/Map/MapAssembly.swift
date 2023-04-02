@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MapAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class MapAssembly {
+    static func create(coordinates: CoordinareEntity) -> UIViewController {
         let viewController = MapViewController()
         let presenter = MapPresenter()
         let interactor = MapInteractor()
@@ -20,6 +20,7 @@ class MapAssembly: BaseAssemblyProtocol {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.coordinates = coordinates
         
         interactor.presenter = presenter
         

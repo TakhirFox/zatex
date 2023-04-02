@@ -7,16 +7,28 @@
 //
 
 protocol MapPresenterProtocol: AnyObject {
-
+    
+    func showMapPlace()
+    
+    func setMapPlace()
 }
 
 class MapPresenter: BasePresenter {
+    
     weak var view: MapViewControllerProtocol?
     var interactor: MapInteractorProtocol?
     var router: MapRouterProtocol?
-    
+    var coordinates: CoordinareEntity?
 }
 
 extension MapPresenter: MapPresenterProtocol {
     
+    func showMapPlace() {
+        setMapPlace()
+    }
+    
+    // MARK: To View
+    func setMapPlace() {
+        view?.setMapPlace(coordinates: coordinates!)
+    }
 }

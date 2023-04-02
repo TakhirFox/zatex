@@ -127,6 +127,40 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rows = RowKind(rawValue: indexPath.row)
+        switch rows {
+        case .images:
+            break
+            
+        case .productInfo:
+            break
+            
+        case .mapShop:
+            presenter?.goToMapScreen(
+                coordinates: CoordinareEntity(
+                    latitude: 55.018803, // TODO: Added dynamic data
+                    longitude: 82.933952
+                )
+            )
+            
+        case .buttons:
+            break
+            
+        case .descriptions:
+            break
+            
+        case .author:
+            break
+            
+        case .similarProduct:
+            break
+            
+        case .none:
+            break
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = -scrollView.contentOffset.y
         let maxHeight = max(offsetY, 100)

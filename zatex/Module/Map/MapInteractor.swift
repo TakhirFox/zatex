@@ -11,7 +11,11 @@ protocol MapInteractorProtocol {
     
 }
 
-class MapInteractor: BaseInteractor, MapInteractorProtocol {
+class MapInteractor: BaseInteractor {
     weak var presenter: MapPresenterProtocol?
 
+}
+
+extension MapInteractor: MapInteractorProtocol {
+    
 }

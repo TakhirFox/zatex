@@ -81,6 +81,7 @@
 		AD86EAD329043936001CB847 /* CategoryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAD229043936001CB847 /* CategoryResult.swift */; };
 		AD86EAD5290439B3001CB847 /* StubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAD4290439B3001CB847 /* StubService.swift */; };
 		AD86EAD829043A7B001CB847 /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAD729043A7B001CB847 /* ProductService.swift */; };
+		AD9306A829D948D80004E3AC /* CoordinareEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9306A729D948D80004E3AC /* CoordinareEntity.swift */; };
 		AD9B260128FD476700C15139 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260028FD476700C15139 /* BaseViewController.swift */; };
 		AD9B260328FD476F00C15139 /* BaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260228FD476F00C15139 /* BaseInteractor.swift */; };
 		AD9B260528FD477700C15139 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260428FD477700C15139 /* BasePresenter.swift */; };
@@ -258,6 +259,7 @@
 		AD86EAD229043936001CB847 /* CategoryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryResult.swift; sourceTree = "<group>"; };
 		AD86EAD4290439B3001CB847 /* StubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubService.swift; sourceTree = "<group>"; };
 		AD86EAD729043A7B001CB847 /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
+		AD9306A729D948D80004E3AC /* CoordinareEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinareEntity.swift; sourceTree = "<group>"; };
 		AD9B260028FD476700C15139 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		AD9B260228FD476F00C15139 /* BaseInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInteractor.swift; sourceTree = "<group>"; };
 		AD9B260428FD477700C15139 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
 				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
+				AD9306A729D948D80004E3AC /* CoordinareEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -960,7 +963,6 @@
 				64731D66E5594ED96D1223EF /* MapRouter.swift */,
 				893E3FCAF60F5DA4814F3D89 /* MapAssembly.swift */,
 			);
-			name = Map;
 			path = Map;
 			sourceTree = "<group>";
 		};
@@ -989,6 +991,7 @@
 				AD49A87028ED577200D159CA /* Frameworks */,
 				AD49A87128ED577200D159CA /* Resources */,
 				37B807843DCF30D0BD78B846 /* [CP] Embed Pods Frameworks */,
+				E2B6BC178BB87AA8389679A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1085,6 +1088,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2B6BC178BB87AA8389679A0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1246,6 +1266,7 @@
 				B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */,
 				4F8207833F6F7F38264AD19D /* ReviewsViewController.swift in Sources */,
 				F64097E127073872342DF797 /* ReviewsPresenter.swift in Sources */,
+				AD9306A829D948D80004E3AC /* CoordinareEntity.swift in Sources */,
 				9C37DF708E2A1E7F885FFE34 /* ReviewsInteractor.swift in Sources */,
 				DA2DB56D8A489813AD1F7EC2 /* ReviewsRouter.swift in Sources */,
 				5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */,
