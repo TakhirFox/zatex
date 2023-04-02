@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContactProductCell: UITableViewCell {
+class ContactProductCell: UICollectionViewCell {
     
     let callButton: BaseButton = {
         let view = BaseButton()
@@ -19,10 +19,9 @@ class ContactProductCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
                 
         configureSubviews()

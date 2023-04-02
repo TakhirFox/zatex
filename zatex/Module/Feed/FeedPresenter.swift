@@ -13,7 +13,7 @@ protocol FeedPresenterProtocol: AnyObject {
     func getProductByCategory(id: String)
     
     func goToSearchResult(text: String)
-    func goToDetail(id: String)
+    func goToDetail(id: Int)
     
     func setProducts(data: [ProductResult])
     func setCategories(data: [CategoryResult])
@@ -53,7 +53,7 @@ extension FeedPresenter: FeedPresenterProtocol {
         router?.routeToSearchResult(text: text)
     }
     
-    func goToDetail(id: String) {
+    func goToDetail(id: Int) {
         router?.routeToDetail(id: id)
     }
     

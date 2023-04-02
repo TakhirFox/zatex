@@ -14,7 +14,7 @@ class ProductDetailService {
 
 extension ProductDetailService: ProductDetailAPI {
     func fetchProductInfo(
-        productId: String,
+        productId: Int,
         completion: @escaping ProductDetailClosure
     ) {
         do {

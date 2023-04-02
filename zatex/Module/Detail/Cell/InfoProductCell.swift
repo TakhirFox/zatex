@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoProductCell: UITableViewCell {
+class InfoProductCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let view = UILabel()
@@ -23,10 +23,9 @@ class InfoProductCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
         contentView.isUserInteractionEnabled = false
         

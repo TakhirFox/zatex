@@ -9,6 +9,7 @@
 
 protocol DetailInteractorProtocol {
     func getProductInfo()
+    func getSimilarProducts(productId: Int)
     func getStoreInfo(authorId: Int)
     func checkChatExists(
         productAuthor: String,
@@ -18,7 +19,7 @@ protocol DetailInteractorProtocol {
 class DetailInteractor: BaseInteractor {
     weak var presenter: DetailPresenterProtocol?
     var service: ProductDetailAPI!
-    var productId = ""
+    var productId = 0
 }
 
 extension DetailInteractor: DetailInteractorProtocol {
@@ -32,6 +33,12 @@ extension DetailInteractor: DetailInteractorProtocol {
     func getStoreInfo(authorId: Int) {
         self.service.fetchStoreInfo(authorId: authorId) { result in
             self.presenter?.setStoreInfo(data: result)
+        }
+    }
+    
+    func getSimilarProducts(productId: Int) {
+        self.service.fetchProductInfo(productId: productId) { result in
+            self.presenter?.setSimilarProducts(data: result)
         }
     }
     

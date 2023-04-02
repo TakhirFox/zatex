@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailAssembly {
-    static func create(id: String) -> UIViewController {
+    static func create(id: Int) -> UIViewController {
         let viewController = DetailViewController()
         let presenter = DetailPresenter()
         let interactor = DetailInteractor()

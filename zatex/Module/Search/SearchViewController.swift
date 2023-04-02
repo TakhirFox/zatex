@@ -114,7 +114,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let productId = self.resultProducts[indexPath.row].id else { return }
-        presenter?.goToDetail(id: "\(productId)")
+        presenter?.goToDetail(id: productId)
     }
     
 }

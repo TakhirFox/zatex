@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImagesProductCell: UITableViewCell {
+class ImagesProductCell: UICollectionViewCell {
     
     var images: [ProductResult.Image]?
     
@@ -18,10 +18,9 @@ class ImagesProductCell: UITableViewCell {
         return collectionView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
         
         configureCollectionView()

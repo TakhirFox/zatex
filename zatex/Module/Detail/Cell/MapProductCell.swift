@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MapProductCell: UITableViewCell {
+class MapProductCell: UICollectionViewCell {
     
     private let backView: UIView = {
         let view = UIView()
@@ -28,10 +28,9 @@ class MapProductCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
         contentView.isUserInteractionEnabled = false
         

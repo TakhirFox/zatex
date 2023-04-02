@@ -209,7 +209,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return
             
         case .myProducts:
-            let idProduct = String(profileProducts?[indexPath.item].id ?? 0)
+            let idProduct = profileProducts?[indexPath.item].id ?? 0
             presenter?.goToDetail(id: idProduct)
             
         case .none:

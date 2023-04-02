@@ -8,7 +8,7 @@
 import Alamofire
 
 enum ProductDetailHttpRouter {
-    case getProductInfo(productId: String)
+    case getProductInfo(productId: Int)
     case getStoreInfo(authorId: Int)
     case checkChat(productAuthor: String,
                    productId: String)
