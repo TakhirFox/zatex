@@ -14,6 +14,7 @@ protocol DetailPresenterProtocol: AnyObject {
         productId: String)
     
     func routeToMessage(chatId: String)
+    func goToMapScreen(coordinates: CoordinareEntity)
 
     func setProductInfo(data: ProductResult)
     func setStoreInfo(data: StoreInfoResult)
@@ -47,6 +48,10 @@ extension DetailPresenter: DetailPresenterProtocol {
     // MARK: To Router
     func routeToMessage(chatId: String) {
         router?.routeToMessage(chatId: chatId)
+    }
+    
+    func goToMapScreen(coordinates: CoordinareEntity) {
+        router?.routeToMap(coordinates: coordinates)
     }
     
     // MARK: To View

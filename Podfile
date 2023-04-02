@@ -11,5 +11,6 @@ target 'zatex' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'FLEX', :configurations => ['Debug']
+  pod 'YandexMapsMobile', '4.3.1-lite'
   
 end
