@@ -10,7 +10,7 @@ import UIKit
 
 protocol FeedRouterProtocol: AnyObject {
     func routeToSearchResult(text: String)
-    func routeToDetail(id: String)
+    func routeToDetail(id: Int)
     
 }
 
@@ -25,7 +25,7 @@ extension FeedRouter: FeedRouterProtocol {
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     
-    func routeToDetail(id: String) {
+    func routeToDetail(id: Int) {
         let view = DetailAssembly.create(id: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }

@@ -11,6 +11,7 @@ import UIKit
 protocol DetailRouterProtocol: AnyObject {
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: CoordinareEntity)
+    func routeToDetail(id: Int)
 }
 
 class DetailRouter: BaseRouter {
@@ -26,6 +27,11 @@ extension DetailRouter: DetailRouterProtocol {
     
     func routeToMap(coordinates: CoordinareEntity) {
         let view = MapAssembly.create(coordinates: coordinates)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToDetail(id: Int) {
+        let view = DetailAssembly.create(id: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

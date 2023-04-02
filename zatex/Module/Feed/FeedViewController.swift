@@ -263,7 +263,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             presenter?.getProductByCategory(id: "\(categoryId)")
         case .products:
             guard let productId = self.products[indexPath.row].id else { return }
-            presenter?.goToDetail(id: "\(productId)")
+            presenter?.goToDetail(id: productId)
         case .none:
             print("none")
         }

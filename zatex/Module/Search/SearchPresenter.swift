@@ -9,7 +9,7 @@
 protocol SearchPresenterProtocol: AnyObject {
     func getSearchData(text: String)
     
-    func goToDetail(id: String)
+    func goToDetail(id: Int)
     
     func setResultProducts(data: [ProductResult])
 }
@@ -28,7 +28,7 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     // MARK: To Router
-    func goToDetail(id: String) {
+    func goToDetail(id: Int) {
         router?.routeToDetail(id: id)
     }
     

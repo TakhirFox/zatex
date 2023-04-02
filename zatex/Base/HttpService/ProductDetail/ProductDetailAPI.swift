@@ -14,7 +14,7 @@ typealias CheckChatClosure = (CheckChatResult) -> (Void)
 protocol ProductDetailAPI {
     
     func fetchProductInfo(
-        productId: String,
+        productId: Int,
         completion: @escaping ProductDetailClosure
     ) -> (Void)
     

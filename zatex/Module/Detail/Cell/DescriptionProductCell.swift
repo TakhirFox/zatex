@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DescriptionProductCell: UITableViewCell {
+class DescriptionProductCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let view = UILabel()
@@ -16,10 +16,9 @@ class DescriptionProductCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
                 
         configureSubviews()
@@ -50,6 +49,12 @@ class DescriptionProductCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(6)
         }
         
+    }
+    
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        titleLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - contentView.layoutMargins.left - contentView.layoutMargins.left
+        layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+        return layoutAttributes
     }
     
     required init?(coder: NSCoder) {

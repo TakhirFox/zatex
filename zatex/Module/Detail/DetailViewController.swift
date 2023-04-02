@@ -10,8 +10,9 @@ import UIKit
 
 protocol DetailViewControllerProtocol: AnyObject {
     var presenter: DetailPresenterProtocol? { get set }
-
+    
     func setProductInfo(data: ProductResult)
+    func setSimilarProducts(data: ProductResult)
     func setStoreInfo(data: StoreInfoResult)
 }
 
@@ -24,9 +25,10 @@ class DetailViewController: BaseViewController {
     var presenter: DetailPresenterProtocol?
     
     var product: ProductResult?
+    var similarProducts: [ProductResult] = []
     var storeInfo: StoreInfoResult?
     
-    let tableView = UITableView()
+    var collectionView: UICollectionView!
     let headerView = ShopHeaderView()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,102 +40,178 @@ class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTableView()
+        setupCollectionView()
         setupSubviews()
         setupConstraints()
     }
     
-    func setupTableView() {
-        title = ""
-        
-        tableView.register(ImagesProductCell.self, forCellReuseIdentifier: "imagesCell")
-        tableView.register(InfoProductCell.self, forCellReuseIdentifier: "infoCell")
-        tableView.register(MapProductCell.self, forCellReuseIdentifier: "mapCell")
-        tableView.register(ContactProductCell.self, forCellReuseIdentifier: "buttonsCell")
-        tableView.register(DescriptionProductCell.self, forCellReuseIdentifier: "descCell")
-        tableView.register(AuthorProdCell.self, forCellReuseIdentifier: "authorCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+    func setupCollectionView() {
+        let collectionFlowLayout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(ImagesProductCell.self, forCellWithReuseIdentifier: "imagesCell")
+        collectionView.register(InfoProductCell.self, forCellWithReuseIdentifier: "infoCell")
+        collectionView.register(MapProductCell.self, forCellWithReuseIdentifier: "mapCell")
+        collectionView.register(ContactProductCell.self, forCellWithReuseIdentifier: "buttonsCell")
+        collectionView.register(DescriptionProductCell.self, forCellWithReuseIdentifier: "descCell")
+        collectionView.register(AuthorProdCell.self, forCellWithReuseIdentifier: "authorCell")
+        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "similarCell")
     }
     
     func setupSubviews() {
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         view.addSubview(headerView)
     }
     
     func setupConstraints() {
-        tableView.contentInset = UIEdgeInsets(top: 280, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 16, right: 16)
         
-        tableView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
-    
 }
 
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 7
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let rows = RowKind(rawValue: indexPath.row)
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        let rows = RowKind(rawValue: section)
         switch rows {
         case .images:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! ImagesProductCell
+            return 1
+            
+        case .productInfo:
+            return 1
+            
+        case .mapShop:
+            return 1
+            
+        case .buttons:
+            return 1
+            
+        case .descriptions:
+            return 1
+            
+        case .author:
+            return 1
+            
+        case .similarProduct:
+            return similarProducts.count
+            
+        case .none:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let rows = RowKind(rawValue: indexPath.section)
+        switch rows {
+        case .images:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imagesCell", for: indexPath) as! ImagesProductCell
             cell.setupCell(images: product?.images)
             return cell
             
         case .productInfo:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath) as! InfoProductCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "infoCell", for: indexPath) as! InfoProductCell
             cell.setupCell(name: product?.name,
                            cost: product?.price)
             return cell
             
         case .mapShop:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "mapCell", for: indexPath) as! MapProductCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as! MapProductCell
             cell.setupCell(map: product?.store?.address)
             return cell
             
         case .buttons:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
             cell.setupCell()
             cell.messageButton.addTarget(self, action: #selector(goToChat), for: .touchUpInside)
             cell.callButton.addTarget(self, action: #selector(callPhone), for: .touchUpInside)
             return cell
             
         case .descriptions:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
             cell.setupCell(description: product?.description ?? "")
             return cell
             
         case .author:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "authorCell", for: indexPath) as! AuthorProdCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "authorCell", for: indexPath) as! AuthorProdCell
             cell.setupCell(author: storeInfo)
             return cell
             
         case .similarProduct:
-            return UITableViewCell() // TODO: Change
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "similarCell", for: indexPath) as! ProductCell
+            cell.setupCell(similarProducts[indexPath.row])
+            return cell
             
         case .none:
-            return UITableViewCell()
-            
+            return UICollectionViewCell()
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rows = RowKind(rawValue: indexPath.row)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let rows = RowKind(rawValue: indexPath.section)
+        switch rows {
+        case .images:
+            return .init(width: view.frame.width, height: 280)
+            
+        case .productInfo:
+            return .init(width: view.frame.width, height: 80)
+            
+        case .mapShop:
+            return .init(width: view.frame.width, height: 100)
+            
+        case .buttons:
+            return .init(width: view.frame.width, height: 50)
+            
+        case .descriptions:
+            return .init(width: view.frame.width, height: 130)
+            
+        case .author:
+            return .init(width: view.frame.width, height: 150)
+            
+        case .similarProduct:
+            return .init(width: view.frame.width / 2 - 24, height: 200)
+            
+        case .none:
+            return .zero
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        let rows = RowKind(rawValue: indexPath.section)
         switch rows {
         case .images:
             break
             
-        case .productInfo:
+        case .productInfo,
+                .descriptions,
+                .author,
+                .buttons:
             break
             
         case .mapShop:
@@ -143,18 +221,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                     longitude: 82.933952
                 )
             )
-            
-        case .buttons:
-            break
-            
-        case .descriptions:
-            break
-            
-        case .author:
-            break
-            
+
         case .similarProduct:
-            break
+            presenter?.goToDetail(id: similarProducts[indexPath.row].id ?? 0)
             
         case .none:
             break
@@ -202,7 +271,14 @@ extension DetailViewController: DetailViewControllerProtocol {
                 self?.presenter?.getStoreInfo(authorId: storeId)
             }
             
-            self?.tableView.reloadData()
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setSimilarProducts(data: ProductResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.similarProducts.append(data)
+            self?.collectionView.reloadData()
         }
     }
     
@@ -210,7 +286,7 @@ extension DetailViewController: DetailViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.headerView.setupCell(author: data)
             self?.storeInfo = data
-            self?.tableView.reloadData()
+            self?.collectionView.reloadData()
         }
     }
 }

@@ -21,6 +21,7 @@ struct ProductResult: Decodable, Hashable {
     let categories: [ProductResult.Category]?
     let images: [ProductResult.Image]?
     let store: ProductResult.Store?
+    let relatedIDS: [Int]?
 
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -35,6 +36,7 @@ struct ProductResult: Decodable, Hashable {
         case ratingCount = "rating_count"
         case categories, images
         case store
+        case relatedIDS = "related_ids"
     }
     
     struct Category: Decodable, Hashable {
