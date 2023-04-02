@@ -10,10 +10,13 @@ import UIKit
 
 class ProfileAssembly: BaseAssemblyProtocol {
     static func create() -> UIViewController {
+        //TODO: Передавать лучше ID, или для других пользователей отдельный экран???
         let viewController = ProfileViewController()
         let presenter = ProfilePresenter()
         let interactor = ProfileInteractor()
         let router = ProfileRouter()
+        
+        let networkService = ProfileService.shared
         
         viewController.presenter = presenter
         
@@ -22,6 +25,7 @@ class ProfileAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

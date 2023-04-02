@@ -30,13 +30,18 @@ class ProfileHeaderView: UIView {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        backgroundImageView.image = UIImage(named: "backimage")
+    func setupCell(store: StoreInfoResult?) {
+        backgroundImageView.image = UIImage(named: "defaultBanner")
+        
+        if store?.banner != nil, !(store?.banner!.isEmpty)! {
+            let banner = (store?.banner?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let bannerUrl = URL(string: banner)
+            
+            backgroundImageView.kf.setImage(with: bannerUrl)
+        }
     }
     
-    private func updateAppearence() {
-//        titleLabel.textColor = Palette.Text.primary
-    }
+    private func updateAppearence() {}
     
     private func configureSubviews() {
         addSubview(backgroundImageView)
@@ -48,12 +53,9 @@ class ProfileHeaderView: UIView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-                
-
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

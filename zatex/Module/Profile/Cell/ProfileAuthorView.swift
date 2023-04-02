@@ -48,10 +48,19 @@ class ProfileAuthorView: UIView {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        avatarView.image = UIImage(named: "avatar")
-        titleLabel.text = "NikitaRSTBest"
-        ratingView.image = UIImage(named: "rat4")
+    func setupCell(store: StoreInfoResult?) {
+        let avatarUrl = URL(string: store?.gravatar ?? "")
+        
+        avatarView.kf.setImage(with: avatarUrl)
+        titleLabel.text = store?.storeName ?? ""
+        ratingView.image = UIImage(named: "rat0")
+        
+        if let rating = store?.rating?.rating {
+            if store?.rating?.count != 0 {
+                let ratingStar = "rat\(rating)"
+                ratingView.image = UIImage(named: ratingStar)
+            }
+        }
     }
     
     func updateView(scrollView: UIScrollView) {
@@ -132,11 +141,9 @@ class ProfileAuthorView: UIView {
             make.bottom.equalToSuperview().inset(26)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
         }
-                
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

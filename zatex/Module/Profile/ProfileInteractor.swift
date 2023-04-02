@@ -8,10 +8,26 @@
 
 
 protocol ProfileInteractorProtocol {
-    
+    func getStoreInfo(authorId: Int)
+    func getStoreProduct(authorId: Int)
 }
 
-class ProfileInteractor: BaseInteractor, ProfileInteractorProtocol {
+class ProfileInteractor: BaseInteractor {
     weak var presenter: ProfilePresenterProtocol?
+    var service: ProfileAPI!
+}
 
+extension ProfileInteractor: ProfileInteractorProtocol {
+    
+    func getStoreInfo(authorId: Int) {
+        self.service.fetchStoreInfo(authorId: authorId) { result in
+            self.presenter?.setStoreInfo(data: result)
+        }
+    }
+    
+    func getStoreProduct(authorId: Int) {
+        self.service.fetchStoreProducts(authorId: authorId) { result in
+            self.presenter?.setStoreProduct(data: result)
+        }
+    }
 }

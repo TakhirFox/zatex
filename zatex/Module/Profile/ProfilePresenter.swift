@@ -7,8 +7,16 @@
 //
 
 protocol ProfilePresenterProtocol: AnyObject {
+    func getStoreInfo(authorId: Int)
+    func getStoreProduct(authorId: Int)
+
     func goToSettings()
     func goToAuthView()
+    func goToDetail(id: String)
+    func goToReview(id: String)
+    
+    func setStoreInfo(data: StoreInfoResult)
+    func setStoreProduct(data: [ProductResult])
 }
 
 class ProfilePresenter: BasePresenter {
@@ -20,6 +28,13 @@ class ProfilePresenter: BasePresenter {
 
 extension ProfilePresenter: ProfilePresenterProtocol {
     // MARK: To Interactor
+    func getStoreInfo(authorId: Int) {
+        interactor?.getStoreInfo(authorId: authorId)
+    }
+    
+    func getStoreProduct(authorId: Int) {
+        interactor?.getStoreProduct(authorId: authorId)
+    }
     
     // MARK: To Router
     func goToSettings() {
@@ -30,5 +45,20 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         router?.routeToAuthView()
     }
     
+    func goToDetail(id: String) {
+        router?.routeToDetail(id: id)
+    }
+    
+    func goToReview(id: String) {
+        router?.routeToReview(id: id)
+    }
+    
     // MARK: To View
+    func setStoreInfo(data: StoreInfoResult) {
+        view?.setStoreInfo(data: data)
+    }
+    
+    func setStoreProduct(data: [ProductResult]) {
+        view?.setStoreProduct(data: data)
+    }
 }

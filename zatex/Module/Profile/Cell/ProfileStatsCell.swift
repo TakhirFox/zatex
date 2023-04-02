@@ -7,30 +7,99 @@
 
 import UIKit
 
-class ProfileStatsCell: UITableViewCell {
+class ProfileStatsCell: UICollectionViewCell {
     
-    private let ratingView = UIView()
-    private let ratingLabel = UILabel()
-    private let ratingScoreLabel = UILabel()
-    private let ratingTitleLabel = UILabel()
+    private let staticView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 8
+        return view
+    }()
     
-    private let createView = UIView()
-    private let sinceLabel = UILabel()
-    private let sinceMonthLabel = UILabel()
-    private let sinceYearLabel = UILabel()
+    private let sinceStoreView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 8
+        return view
+    }()
     
-    private let activeProdView = UIView()
-    private let countActiveLabel = UILabel()
-    private let titleActiveLabel = UILabel()
+    private let basicStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .fillEqually
+        view.alignment = .center
+        return view
+    }()
     
-    private let salesProdView = UIView()
-    private let countSalesLabel = UILabel()
-    private let titleSalesLabel = UILabel()
+    private let firstStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        return view
+    }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        selectionStyle = .none
+    private let secondStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        return view
+    }()
+    
+    private let thirdStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        return view
+    }()
+    
+    public let countRatingLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        return view
+    }()
+
+    public let nameRatingLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 12)
+        return view
+    }()
+    
+    private let countActiveLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.textAlignment = .center
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        return view
+    }()
+
+    private let nameActiveLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.textAlignment = .center
+        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+        return view
+    }()
+    
+    private let countSalesLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.textAlignment = .center
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        return view
+    }()
+
+    private let nameSalesLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.textAlignment = .center
+        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+        return view
+    }()
+    
+    private let sinceStoreLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         backgroundColor = .clear
                 
         configureViews()
@@ -43,214 +112,90 @@ class ProfileStatsCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) { // TODO: Изменить
-        ratingLabel.text = "4.6"
-        ratingScoreLabel.text = "1563"
-        ratingTitleLabel.text = "Отзывов"
+    func setupCell(stats: StoreInfoResult?) {
+        countRatingLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
+        nameRatingLabel.setTitle("Отзывов", for: .normal)
         
-        sinceLabel.text = "Основан"
-        sinceMonthLabel.text = "Ноябрь"
-        sinceYearLabel.text = "2014"
+        countActiveLabel.text = "16"
+        nameActiveLabel.text = "Активных"
         
-        countActiveLabel.text = "25"
-        titleActiveLabel.text = "Активно"
+        countSalesLabel.text = "96"
+        nameSalesLabel.text = "Продано"
         
-        countSalesLabel.text = "164"
-        titleSalesLabel.text = "Продано"
+        sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: stats?.registered))"
     }
     
     private func updateAppearence() {
-        ratingView.backgroundColor = Palette.Background.tertiary
-        ratingLabel.textColor = Palette.AccentText.secondary
-        ratingScoreLabel.textColor = Palette.AccentText.secondary
-        ratingTitleLabel.textColor = Palette.AccentText.secondary
+        staticView.backgroundColor = Palette.Background.secondary
+        sinceStoreView.backgroundColor = Palette.Background.secondary
+        sinceStoreLabel.textColor = Palette.Text.primary
         
-        createView.backgroundColor = Palette.Background.tertiary
-        sinceLabel.textColor = Palette.AccentText.secondary
-        sinceMonthLabel.textColor = Palette.AccentText.secondary
-        sinceYearLabel.textColor = Palette.AccentText.secondary
+        countRatingLabel.setTitleColor(Palette.Text.primary, for: .normal)
+        nameRatingLabel.setTitleColor(Palette.AccentText.primary, for: .normal)
         
-        activeProdView.backgroundColor = Palette.Background.tertiary
-        countActiveLabel.textColor = Palette.AccentText.secondary
-        titleActiveLabel.textColor = Palette.AccentText.secondary
+        countActiveLabel.textColor = Palette.Text.primary
+        nameActiveLabel.textColor = Palette.AccentText.primary
         
-        salesProdView.backgroundColor = Palette.Background.tertiary
-        countSalesLabel.textColor = Palette.AccentText.secondary
-        titleSalesLabel.textColor = Palette.AccentText.secondary
+        countSalesLabel.textColor = Palette.Text.primary
+        nameSalesLabel.textColor = Palette.AccentText.primary
     }
     
     private func configureSubviews() {
-        addSubview(ratingView)
-        ratingView.addSubview(ratingLabel)
-        ratingView.addSubview(ratingScoreLabel)
-        ratingView.addSubview(ratingTitleLabel)
+        addSubview(staticView)
+        staticView.addSubview(basicStackView)
         
-        addSubview(createView)
-        createView.addSubview(sinceLabel)
-        createView.addSubview(sinceMonthLabel)
-        createView.addSubview(sinceYearLabel)
+        basicStackView.addArrangedSubview(firstStackView)
+        firstStackView.addArrangedSubview(countRatingLabel)
+        firstStackView.addArrangedSubview(nameRatingLabel)
         
-        addSubview(activeProdView)
-        activeProdView.addSubview(countActiveLabel)
-        activeProdView.addSubview(titleActiveLabel)
+        basicStackView.addArrangedSubview(secondStackView)
+        secondStackView.addArrangedSubview(countActiveLabel)
+        secondStackView.addArrangedSubview(nameActiveLabel)
         
-        addSubview(salesProdView)
-        salesProdView.addSubview(countSalesLabel)
-        salesProdView.addSubview(titleSalesLabel)
+        basicStackView.addArrangedSubview(thirdStackView)
+        thirdStackView.addArrangedSubview(countSalesLabel)
+        thirdStackView.addArrangedSubview(nameSalesLabel)
+        
+        addSubview(sinceStoreView)
+        sinceStoreView.addSubview(sinceStoreLabel)
     }
     
-    private func configureViews() {
-        // rating
-        ratingView.layer.cornerRadius = 8
-        
-        ratingLabel.numberOfLines = 1
-        ratingLabel.textAlignment = .center
-        ratingLabel.font = UIFont(name: "Montserrat-SemiBold", size: 32)
-        
-        ratingScoreLabel.numberOfLines = 1
-        ratingScoreLabel.textAlignment = .center
-        ratingScoreLabel.font = UIFont(name: "Montserrat-SemiBold", size: 16)
-        
-        ratingTitleLabel.numberOfLines = 1
-        ratingTitleLabel.textAlignment = .center
-        ratingTitleLabel.font = UIFont(name: "Montserrat-SemiBold", size: 13)
-        // since
-        createView.layer.cornerRadius = 8
-        
-        sinceLabel.numberOfLines = 1
-        sinceLabel.textAlignment = .center
-        sinceLabel.font = UIFont(name: "Montserrat-SemiBold", size: 13)
-        
-        sinceMonthLabel.numberOfLines = 1
-        sinceMonthLabel.textAlignment = .center
-        sinceMonthLabel.font = UIFont(name: "Montserrat-SemiBold", size: 16)
-        
-        sinceYearLabel.numberOfLines = 1
-        sinceYearLabel.textAlignment = .center
-        sinceYearLabel.font = UIFont(name: "Montserrat-SemiBold", size: 24)
-        // active
-        activeProdView.layer.cornerRadius = 8
-        
-        countActiveLabel.numberOfLines = 1
-        countActiveLabel.textAlignment = .center
-        countActiveLabel.font = UIFont(name: "Montserrat-SemiBold", size: 32)
-        
-        titleActiveLabel.numberOfLines = 1
-        titleActiveLabel.textAlignment = .center
-        titleActiveLabel.font = UIFont(name: "Montserrat-SemiBold", size: 12)
-        // sales
-        salesProdView.layer.cornerRadius = 8
-        
-        countSalesLabel.numberOfLines = 1
-        countSalesLabel.textAlignment = .center
-        countSalesLabel.font = UIFont(name: "Montserrat-SemiBold", size: 32)
-        
-        titleSalesLabel.numberOfLines = 1
-        titleSalesLabel.textAlignment = .center
-        titleSalesLabel.font = UIFont(name: "Montserrat-SemiBold", size: 12)
-
-    }
+    private func configureViews() {}
     
     private func configureConstraints() {
-        ratingView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(85)
+        staticView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(75)
         }
         
-        ratingLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10 )
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(32)
+        basicStackView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
-        ratingScoreLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.ratingLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(16)
+        sinceStoreView.snp.makeConstraints { make in
+            make.top.equalTo(staticView.snp.bottom).offset(8)
+            make.bottom.equalToSuperview().inset(4)
+            make.leading.trailing.equalToSuperview()
         }
         
-        ratingTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.ratingScoreLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(13)
+        sinceStoreLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
+    }
+    
+    private func dateFormatter(date: String?) -> String {
+        guard let date = date else { return ""}
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        createView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalTo(self.ratingView.snp.trailing).offset(16)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(85)
-        }
+        let newDate = dateFormatter.date(from: date) ?? Date()
         
-        sinceLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10 )
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(13)
-        }
-        
-        sinceMonthLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.sinceLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(16)
-        }
-        
-        sinceYearLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.sinceMonthLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(24)
-        }
-        
-        
-        activeProdView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalTo(self.createView.snp.trailing).offset(16)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(85)
-        }
-        
-        countActiveLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(32)
-        }
-        
-        
-        titleActiveLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.countActiveLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(12)
-        }
-        
-        salesProdView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalTo(self.activeProdView.snp.trailing).offset(16)
-            make.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(85)
-        }
-        
-        countSalesLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(32)
-        }
-        
-        
-        titleSalesLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.countSalesLabel.snp.bottom).offset(2)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.bottom.equalToSuperview().inset(10)
-            make.height.equalTo(12)
-        }
-        
-
-        
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: newDate)
     }
     
     required init?(coder: NSCoder) {

@@ -33,12 +33,11 @@ class ChatListViewController: BaseViewController {
         super.viewDidLoad()
         
         setupTableView()
-        
         setupSubviews()
         setupConstraints()
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         tableView.register(ChatListCell.self, forCellReuseIdentifier: "chatCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,11 +49,11 @@ class ChatListViewController: BaseViewController {
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
     
-    func setupSubviews() {
+    private func setupSubviews() {
         view.addSubview(tableView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalToSuperview()
