@@ -41,10 +41,12 @@ class ProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let id = Int(UserSettingsService.shared.getTokens().userId ?? "") ?? 0
+        let id = Int(UserSettingsService.shared.getTokens().userId ?? "") ?? nil
         // TODO: id???
-        self.presenter?.getStoreInfo(authorId: id)
-        self.presenter?.getStoreProduct(authorId: id)
+        if let id = id {
+            self.presenter?.getStoreInfo(authorId: id)
+            self.presenter?.getStoreProduct(authorId: id)
+        }
     }
     
     override func viewDidLoad() {
