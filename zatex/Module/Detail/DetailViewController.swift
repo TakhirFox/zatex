@@ -257,7 +257,7 @@ extension DetailViewController {
     }
     
     @objc private func callPhone() {
-        print("Open call phone")
+        presenter?.callPhone(number: storeInfo?.phone)
     }
 }
 
