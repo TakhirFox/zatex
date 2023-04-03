@@ -6,12 +6,15 @@
 //  Copyright © 2022 zakirovweb. All rights reserved.
 //
 
+import UIKit
+
 protocol DetailPresenterProtocol: AnyObject {
     func getProductInfo()
     func getStoreInfo(authorId: Int)
     func checkChatExists(
         productAuthor: String,
         productId: String)
+    func callPhone(number: String?)
     
     func routeToMessage(chatId: String)
     func goToMapScreen(coordinates: CoordinareEntity)
@@ -45,6 +48,15 @@ extension DetailPresenter: DetailPresenterProtocol {
         productId: String
     ) {
         interactor?.checkChatExists(productAuthor: productAuthor, productId: productId)
+    }
+    
+    func callPhone(number: String?) {
+        if number != nil {
+            if let url = URL(string: "tel://\(number!)"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
     
     // MARK: To Router
