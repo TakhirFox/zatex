@@ -16,6 +16,7 @@ class DetailAssembly {
         let router = DetailRouter()
         
         let networkService = ProductDetailService.shared
+        let mapNetworkService = MapService.shared
         
         viewController.presenter = presenter
         
@@ -25,6 +26,7 @@ class DetailAssembly {
         
         interactor.presenter = presenter
         interactor.service = networkService
+        interactor.mapService = mapNetworkService
         interactor.productId = id
         
         router.viewController = viewController

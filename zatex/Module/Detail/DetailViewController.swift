@@ -215,12 +215,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             break
             
         case .mapShop:
-            presenter?.goToMapScreen(
-                coordinates: CoordinareEntity(
-                    latitude: 55.018803, // TODO: Added dynamic data
-                    longitude: 82.933952
-                )
-            )
+            presenter?.getCoordinatesAndGoToMap(address: product?.store?.address)
 
         case .similarProduct:
             presenter?.goToDetail(id: similarProducts[indexPath.row].id ?? 0)
