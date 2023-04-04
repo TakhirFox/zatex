@@ -134,6 +134,11 @@
 		ADD8DE502918119A00A3E435 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */; };
 		ADE8175329093A76004895DD /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175229093A76004895DD /* BaseButton.swift */; };
 		ADE8175529093E3D004895DD /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175429093E3D004895DD /* BaseTabBar.swift */; };
+		ADF1C4BF29DC846D00532EDD /* CoordinatesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */; };
+		ADF1C4C229DC84F400532EDD /* MapHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C129DC84F400532EDD /* MapHttpService.swift */; };
+		ADF1C4C429DC851100532EDD /* MapHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C329DC851100532EDD /* MapHttpRouter.swift */; };
+		ADF1C4C729DC85DC00532EDD /* MapAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C629DC85DC00532EDD /* MapAPI.swift */; };
+		ADF1C4C929DC861200532EDD /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C829DC861200532EDD /* MapService.swift */; };
 		ADF53FEF29B4675A00BF8516 /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF53FEE29B4675A00BF8516 /* ChatListCell.swift */; };
 		ADF53FF329B472BF00BF8516 /* ChatListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF53FF229B472BF00BF8516 /* ChatListAPI.swift */; };
 		ADF53FF529B4733800BF8516 /* ChatListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF53FF429B4733800BF8516 /* ChatListResult.swift */; };
@@ -312,6 +317,11 @@
 		ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		ADE8175229093A76004895DD /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		ADE8175429093E3D004895DD /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesResult.swift; sourceTree = "<group>"; };
+		ADF1C4C129DC84F400532EDD /* MapHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHttpService.swift; sourceTree = "<group>"; };
+		ADF1C4C329DC851100532EDD /* MapHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHttpRouter.swift; sourceTree = "<group>"; };
+		ADF1C4C629DC85DC00532EDD /* MapAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAPI.swift; sourceTree = "<group>"; };
+		ADF1C4C829DC861200532EDD /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		ADF53FEE29B4675A00BF8516 /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
 		ADF53FF229B472BF00BF8516 /* ChatListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListAPI.swift; sourceTree = "<group>"; };
 		ADF53FF429B4733800BF8516 /* ChatListResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListResult.swift; sourceTree = "<group>"; };
@@ -550,6 +560,7 @@
 				ADF53FF029B4729600BF8516 /* ChatList */,
 				ADF5400129B4C63100BF8516 /* ChatDetail */,
 				ADCF768A29B89B4A007FF164 /* Auth */,
+				ADF1C4C029DC84D600532EDD /* Map */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -571,6 +582,7 @@
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
 				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
 				AD9306A729D948D80004E3AC /* CoordinareEntity.swift */,
+				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -587,6 +599,7 @@
 				ADBE1368290DA4DA004BDEB3 /* Search */,
 				ADF5400629B4CBC800BF8516 /* ChatDetail */,
 				ADCF768F29B89F40007FF164 /* Auth */,
+				ADF1C4C529DC85C200532EDD /* Map */,
 			);
 			path = HttpService;
 			sourceTree = "<group>";
@@ -844,6 +857,24 @@
 				AD4A986C2918F41900709745 /* BaseRatioButton.swift */,
 			);
 			name = BaseComponents;
+			sourceTree = "<group>";
+		};
+		ADF1C4C029DC84D600532EDD /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				ADF1C4C129DC84F400532EDD /* MapHttpService.swift */,
+				ADF1C4C329DC851100532EDD /* MapHttpRouter.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		ADF1C4C529DC85C200532EDD /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				ADF1C4C629DC85DC00532EDD /* MapAPI.swift */,
+				ADF1C4C829DC861200532EDD /* MapService.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		ADF53FED29B4674C00BF8516 /* Cells */ = {
@@ -1155,6 +1186,7 @@
 				AD9B261B28FDAB0000C15139 /* CategoryFeedCell.swift in Sources */,
 				ADA28B8529C6187E006A2EA9 /* ProfileHttpRouter.swift in Sources */,
 				AD4A987C29198ED600709745 /* DescriptionProductCell.swift in Sources */,
+				ADF1C4C429DC851100532EDD /* MapHttpRouter.swift in Sources */,
 				AD9B260528FD477700C15139 /* BasePresenter.swift in Sources */,
 				F202222FECB72391990B0E22 /* FeedViewController.swift in Sources */,
 				AD9B261428FD5C6900C15139 /* Dynamic.swift in Sources */,
@@ -1170,6 +1202,7 @@
 				1FA402342D3AD78CE62A330E /* FeedRouter.swift in Sources */,
 				ADBE1373290DB098004BDEB3 /* SearchHttpRouter.swift in Sources */,
 				17BB80572696066FE0C34244 /* FeedAssembly.swift in Sources */,
+				ADF1C4C729DC85DC00532EDD /* MapAPI.swift in Sources */,
 				AD86EACE29043061001CB847 /* ProductAPI.swift in Sources */,
 				AD9B261728FDA90600C15139 /* ProductCell.swift in Sources */,
 				AD4A986F2919034200709745 /* BackImageCell.swift in Sources */,
@@ -1181,6 +1214,7 @@
 				AD46D79929C89F87002A6E1F /* ReviewsListResult.swift in Sources */,
 				AD86EAD5290439B3001CB847 /* StubService.swift in Sources */,
 				AD4A9876291987EA00709745 /* InfoProductCell.swift in Sources */,
+				ADF1C4C229DC84F400532EDD /* MapHttpService.swift in Sources */,
 				ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */,
 				ADE8175529093E3D004895DD /* BaseTabBar.swift in Sources */,
 				C241F43970B44F62AEFC8665 /* ProfileViewController.swift in Sources */,
@@ -1198,12 +1232,14 @@
 				AD4A98742919825F00709745 /* ImagesProductCell.swift in Sources */,
 				ADCECFE229C7713B009DDFA4 /* ProfileSectionCell.swift in Sources */,
 				ADF5400C29B4CCB100BF8516 /* ChatMessageResult.swift in Sources */,
+				ADF1C4BF29DC846D00532EDD /* CoordinatesResult.swift in Sources */,
 				2AE2EECA8D14BB79E3D6DB47 /* SearchViewController.swift in Sources */,
 				68CD2C08D8432F5F5CC5C8D0 /* SearchPresenter.swift in Sources */,
 				ADBE1371290DB066004BDEB3 /* SearchHttpService.swift in Sources */,
 				D2897DEADF100A13E1D0FA9C /* SearchInteractor.swift in Sources */,
 				AD4A98692918D38800709745 /* AvatarEditCell.swift in Sources */,
 				ADE8175329093A76004895DD /* BaseButton.swift in Sources */,
+				ADF1C4C929DC861200532EDD /* MapService.swift in Sources */,
 				F7792221005745ADBCB9D937 /* SearchRouter.swift in Sources */,
 				ADC1D682290C58F6007B7972 /* HeaderCell.swift in Sources */,
 				ADBE136C290DA537004BDEB3 /* ProductResult.swift in Sources */,

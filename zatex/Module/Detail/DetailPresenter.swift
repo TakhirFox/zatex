@@ -15,9 +15,10 @@ protocol DetailPresenterProtocol: AnyObject {
         productAuthor: String,
         productId: String)
     func callPhone(number: String?)
+    func getCoordinatesAndGoToMap(address: ProductResult.Address?)
     
     func routeToMessage(chatId: String)
-    func goToMapScreen(coordinates: CoordinareEntity)
+    func routeToMap(coordinates: [CoordinatesResult])
     func goToDetail(id: Int)
 
     func setProductInfo(data: ProductResult)
@@ -59,13 +60,28 @@ extension DetailPresenter: DetailPresenterProtocol {
         }
     }
     
+    func getCoordinatesAndGoToMap(address: ProductResult.Address?) {
+        guard let city = address?.city else { return }
+        guard let street = address?.street1 else { return }
+        
+        interactor?.getCoordinates(address: "\(city) \(street)")
+    }
+    
     // MARK: To Router
     func routeToMessage(chatId: String) {
         router?.routeToMessage(chatId: chatId)
     }
     
-    func goToMapScreen(coordinates: CoordinareEntity) {
-        router?.routeToMap(coordinates: coordinates)
+    func routeToMap(coordinates: [CoordinatesResult]) {
+        guard let lat = Double(coordinates.first?.lat ?? "") else { return }
+        guard let lon = Double(coordinates.first?.lon ?? "") else { return }
+        
+        let coord = CoordinareEntity(
+            latitude: lat,
+            longitude: lon
+        )
+        
+        router?.routeToMap(coordinates: coord)
     }
     
     func goToDetail(id: Int) {

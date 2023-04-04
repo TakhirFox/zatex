@@ -14,11 +14,13 @@ protocol DetailInteractorProtocol {
     func checkChatExists(
         productAuthor: String,
         productId: String)
+    func getCoordinates(address: String)
 }
 
 class DetailInteractor: BaseInteractor {
     weak var presenter: DetailPresenterProtocol?
     var service: ProductDetailAPI!
+    var mapService: MapAPI!
     var productId = 0
 }
 
@@ -51,6 +53,12 @@ extension DetailInteractor: DetailInteractorProtocol {
             productId: productId
         ) { result in
             self.presenter?.routeToMessage(chatId: result.chatID ?? "")
+        }
+    }
+    
+    func getCoordinates(address: String) {
+        self.mapService.fetchCoordinates(address: address) { result in
+            self.presenter?.routeToMap(coordinates: result)
         }
     }
 }
