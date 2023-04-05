@@ -33,7 +33,6 @@ class ProfileEditViewController: BaseViewController {
         super.viewDidLoad()
         
         setupTableView()
-        
         setupSubviews()
         setupConstraints()
     }
