@@ -14,6 +14,7 @@ class CreateProductAssembly: BaseAssemblyProtocol {
         let presenter = CreateProductPresenter()
         let interactor = CreateProductInteractor()
         let router = CreateProductRouter()
+        let networkService = CreateProductService.shared
         
         viewController.presenter = presenter
         
@@ -22,6 +23,7 @@ class CreateProductAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

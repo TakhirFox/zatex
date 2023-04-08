@@ -1,23 +1,16 @@
 //
-//  CreateProductFieldCell.swift
+//  CreateProductButtonCell.swift
 //  zatex
 //
-//  Created by Zakirov Tahir on 05.04.2023.
+//  Created by Zakirov Tahir on 08.04.2023.
 //
 
 import UIKit
 
-class CreateProductFieldCell: UITableViewCell {
+class CreateProductButtonCell: UITableViewCell {
     
-    private let titleLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 13)
-        return view
-    }()
-    
-    let textField: BaseTextField = {
-        let view = BaseTextField()
+    let sendButton: BaseButton = {
+        let view = BaseButton()
         return view
     }()
     
@@ -38,31 +31,21 @@ class CreateProductFieldCell: UITableViewCell {
     }
     
     func setupCell(name: String) {
-        titleLabel.text = name
+        sendButton.setTitle(name, for: .normal)
     }
     
-    private func updateAppearence() {
-        titleLabel.textColor = Palette.Text.primary
-    }
+    private func updateAppearence() {}
     
     private func configureSubviews() {
-        addSubview(titleLabel)
-        addSubview(textField)
+        addSubview(sendButton)
     }
     
     private func configureConstraints() {
-        titleLabel.snp.makeConstraints { make in
+        sendButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(9)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(22)
-        }
-        
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(9)
         }
-        
     }
     
     required init?(coder: NSCoder) {

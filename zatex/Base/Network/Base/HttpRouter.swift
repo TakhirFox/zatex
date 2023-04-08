@@ -8,6 +8,7 @@
 import Alamofire
 
 protocol HttpRouter: URLRequestConvertible {
+    var token: String { get }
     var baseUrlString: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -20,6 +21,10 @@ protocol HttpRouter: URLRequestConvertible {
 }
 
 extension HttpRouter {
+    var token: String {
+        return UserSettingsService.shared.token
+    }
+    
     var parameter: Parameters? { return nil }
     func body() throws -> Data? { return nil }
     

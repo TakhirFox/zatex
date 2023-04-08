@@ -16,7 +16,7 @@ class CreateProductDesctiptionCell: UITableViewCell {
         return view
     }()
     
-    private let textView: BaseTextView = {
+    let textView: BaseTextView = {
         let view = BaseTextView()
         return view
     }()
