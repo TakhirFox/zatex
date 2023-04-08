@@ -14,10 +14,6 @@ enum ChatDetailHttpRouter {
 
 extension ChatDetailHttpRouter: HttpRouter {
     
-    private var token: String {
-        return UserSettingsService.shared.token
-    }
-    
     var baseUrlString: String {
         return "https://zakirovweb.online"
     }

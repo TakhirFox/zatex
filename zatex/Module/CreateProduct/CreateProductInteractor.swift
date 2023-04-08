@@ -8,10 +8,27 @@
 
 
 protocol CreateProductInteractorProtocol {
-    
+    func getCategories()
+    func publishProduct(data: ProductResponse)
 }
 
-class CreateProductInteractor: BaseInteractor, CreateProductInteractorProtocol {
+class CreateProductInteractor: BaseInteractor {
+    
     weak var presenter: CreateProductPresenterProtocol?
+    var service: CreateProductAPI!
+}
 
+extension CreateProductInteractor: CreateProductInteractorProtocol {
+    
+    func getCategories() {
+        self.service.fetchCategories { result in
+            self.presenter?.setCategories(data: result)
+        }
+    }
+    
+    func publishProduct(data: ProductResponse) {
+        self.service.createProduct(product: data) {
+            self.presenter?.showSuccess()
+        }
+    }
 }

@@ -15,11 +15,6 @@ enum ProductDetailHttpRouter {
 }
 
 extension ProductDetailHttpRouter: HttpRouter {
-    
-    private var token: String {
-        return UserSettingsService.shared.token
-    }
-    
     var baseUrlString: String {
         return "https://zakirovweb.online"
     }
