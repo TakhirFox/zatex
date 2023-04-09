@@ -6,11 +6,15 @@
 //  Copyright © 2022 zakirovweb. All rights reserved.
 //
 
+import UIKit
+
 protocol CreateProductPresenterProtocol: AnyObject {
     func getCategories()
+    func uploadImage(image: UIImage)
     func publishProduct(data: ProductEntity)
     
     func setCategories(data: [CategoryResult])
+    func setImage(image: MediaResult)
     func showSuccess()
 }
 
@@ -19,6 +23,7 @@ class CreateProductPresenter: BasePresenter {
     var interactor: CreateProductInteractorProtocol?
     var router: CreateProductRouterProtocol?
     
+    private var uploadedImages: [ProductResponse.Image] = []
 }
 
 extension CreateProductPresenter: CreateProductPresenterProtocol {
@@ -28,23 +33,21 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         interactor?.getCategories()
     }
     
+    func uploadImage(image: UIImage) {
+        interactor?.uploadImage(image: image)
+    }
+    
     func publishProduct(data: ProductEntity) {
         
         let category = ProductResponse.Category(id: data.category)
-        var image: [ProductResponse.Image] = []
-        
-//        for img in data.images.count { // TODO: Понадобится при загрузке фоток
-//            image = img
-//        }
         
         let product = ProductResponse(
             name: data.productName,
             description: data.description,
             regularPrice: data.cost,
             categories: [category],
-            images: image
+            images: uploadedImages
         )
-        
         
         interactor?.publishProduct(data: product)
     }
@@ -54,6 +57,13 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     // MARK: To View
     func setCategories(data: [CategoryResult]) {
         view?.setCategories(data: data)
+    }
+    
+    func setImage(image: MediaResult) {
+        let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
+        let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
+        uploadedImages.insert(imageEntity, at: 0)
+        view?.stopImageSpinner()
     }
     
     func showSuccess() {

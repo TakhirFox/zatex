@@ -12,13 +12,14 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     var presenter: CreateProductPresenterProtocol? { get set }
     
     func setCategories(data: [CategoryResult])
+    func stopImageSpinner()
     func showSuccess()
 }
 
 class CreateProductViewController: BaseViewController {
     
     enum RowKind: Int {
-        case productName, category, description, cost, send
+        case productName, category, description, cost, images, send
     }
     
     var presenter: CreateProductPresenterProtocol?
@@ -28,6 +29,7 @@ class CreateProductViewController: BaseViewController {
     
     let tableView = UITableView()
     let pickerView = UIPickerView()
+    let imagePicker = UIImagePickerController()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -38,6 +40,7 @@ class CreateProductViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupImagePicker()
         setupPickerView()
         setupTableView()
         setupSubviews()
@@ -57,8 +60,11 @@ class CreateProductViewController: BaseViewController {
     private func setupTableView() {
         title = "Добавить товар"
         
-        tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "fieldCell")
+        tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "nameFieldCell")
+        tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "categoryFieldCell")
+        tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "costFieldCell")
         tableView.register(CreateProductDesctiptionCell.self, forCellReuseIdentifier: "descriptionCell")
+        tableView.register(CreateProductImagesCell.self, forCellReuseIdentifier: "imagesCell")
         tableView.register(CreateProductButtonCell.self, forCellReuseIdentifier: "buttonCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -72,6 +78,11 @@ class CreateProductViewController: BaseViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
     }
+    
+    func setupImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    }
 }
 
 extension CreateProductViewController: UITableViewDelegate, UITableViewDataSource {
@@ -80,7 +91,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(
@@ -91,14 +102,14 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
         let row = RowKind(rawValue: indexPath.row)
         switch row {
         case .productName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! CreateProductFieldCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "nameFieldCell", for: indexPath) as! CreateProductFieldCell
             cell.setupCell(name: "Название")
             cell.textField.addTarget(self, action: #selector(productNameDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
             return cell
             
         case .category:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! CreateProductFieldCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "categoryFieldCell", for: indexPath) as! CreateProductFieldCell
             cell.setupCell(name: "Категория")
             
             if productPost.category != nil, let categoryName = categories[productPost.category ?? 0].name {
@@ -116,11 +127,18 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
             
         case .cost:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! CreateProductFieldCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "costFieldCell", for: indexPath) as! CreateProductFieldCell
             cell.setupCell(name: "Укажите цену")
             cell.textField.addTarget(self, action: #selector(costDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
             cell.textField.keyboardType = .numberPad
+            return cell
+            
+        case .images:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
+            cell.setupCell(images: productPost.images)
+            cell.reloadCell()
+            cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
             return cell
             
         case .send:
@@ -193,6 +211,29 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
     
 }
 
+extension CreateProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        
+        guard let image = info[.editedImage] as? UIImage else {
+            return
+        }
+
+        productPost.images.insert(image, at: 0)
+        presenter?.uploadImage(image: image)
+        tableView.reloadData()
+        imagePicker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 extension CreateProductViewController {
     
     @objc func productNameDidChange(_ textField: UITextField) {
@@ -211,6 +252,23 @@ extension CreateProductViewController {
         // TODO: Нужно сперва сделать проверку товара
         presenter?.publishProduct(data: productPost)
     }
+    
+    @objc func showImagePicker() { // TODO: Refactoring
+        let alert = UIAlertController(title: "Загрузить изображение", message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Камера", style: .default) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        let libraryAction = UIAlertAction(title: "Галерея", style: .default) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension CreateProductViewController: CreateProductViewControllerProtocol {
@@ -223,7 +281,12 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
+    func stopImageSpinner() {}
+    
     func showSuccess() {
-        // TODO: Show success 
+        // TODO: Show success
+        // Create new product or go to created product
+        let createProductController = CreateProductViewController()
+        navigationController?.setViewControllers([createProductController], animated: false)
     }
 }
