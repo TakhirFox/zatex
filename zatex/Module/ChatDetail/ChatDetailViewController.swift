@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct ChatAuthorInfoEntity {
+    let authorProductName: String
+    let productName: String
+    let authorProductImage: String
+}
+
 protocol ChatDetailViewControllerProtocol: AnyObject {
     var presenter: ChatDetailPresenterProtocol? { get set }
 
@@ -101,7 +107,10 @@ class ChatDetailViewController: BaseViewController {
     
     func setupNavigationView() {
         navigationItem.titleView = chatInfoView
-        chatInfoView.setupCell(author: "")
+        
+        let authorProduct = ChatAuthorInfoEntity(authorProductName: "hhh", productName: "sadasd", authorProductImage: "sas")
+        
+        chatInfoView.setupCell(author: authorProduct)
     }
     
     func setupSubviews() {
@@ -189,7 +198,7 @@ extension ChatDetailViewController {
     func resubmitRequest() {
         Timer.scheduledTimer(withTimeInterval: 30.0,
                              repeats: true) { _ in
-            self.presenter?.getChatMessages()
+            self.presenter?.getChatMessagesAndAuthor()
         }
     }
     
