@@ -8,6 +8,7 @@
 import Foundation
 
 typealias ChatMessageClosure = ([ChatMessageResult]) -> (Void)
+typealias ChatInfoClosure = (ChatInfoResult) -> (Void)
 typealias SendMessageClosure = (SendMessageResult) -> (Void)
 
 protocol ChatDetailAPI {
@@ -16,6 +17,11 @@ protocol ChatDetailAPI {
         page: Int,
         chatId: String,
         completion: @escaping ChatMessageClosure
+    ) -> (Void)
+    
+    func fetchChatInfo(
+        chatId: String,
+        completion: @escaping ChatInfoClosure
     ) -> (Void)
     
     func sendChatMessage(

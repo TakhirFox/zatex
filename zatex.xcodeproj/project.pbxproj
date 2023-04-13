@@ -46,6 +46,7 @@
 		9C37DF708E2A1E7F885FFE34 /* ReviewsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */; };
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
 		A255B3A14F895C9642DDF5AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EB64AD11EDF21F6F569BE /* MapViewController.swift */; };
+		AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD3AF69729E13AC100ABDC1A /* ImagesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */; };
@@ -244,6 +245,7 @@
 		A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsInteractor.swift; sourceTree = "<group>"; };
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
+		AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoResult.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpService.swift; sourceTree = "<group>"; };
@@ -640,6 +642,7 @@
 				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
 				ADD029A029E11D5E002E5608 /* ProductResponse.swift */,
 				AD3AF69F29E299A200ABDC1A /* MediaResult.swift */,
+				AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1398,6 +1401,7 @@
 				ADE7406F29DF17BB004A667C /* CreateProductHttpRouter.swift in Sources */,
 				346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */,
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
+				AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */,
 				E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */,
 				E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */,
 				AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */,

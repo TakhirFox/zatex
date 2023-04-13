@@ -12,6 +12,7 @@ protocol ChatDetailViewControllerProtocol: AnyObject {
     var presenter: ChatDetailPresenterProtocol? { get set }
 
     func setChatMesssages(data: [ChatMessageResult])
+    func setChatInfo(data: ChatInfoResult)
 }
 
 class ChatDetailViewController: BaseViewController {
@@ -19,6 +20,7 @@ class ChatDetailViewController: BaseViewController {
     var presenter: ChatDetailPresenterProtocol?
     
     var messages: [ChatMessageResult] = []
+    var chatInfo: ChatInfoResult?
     var messageContent = String()
     
     let chatInfoView = ChatInfoView()
@@ -51,6 +53,7 @@ class ChatDetailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presenter?.getChatMessages()
+        presenter?.getChatInfo()
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             self.tabBarController?.tabBar.frame.origin.y += 100
@@ -101,7 +104,6 @@ class ChatDetailViewController: BaseViewController {
     
     func setupNavigationView() {
         navigationItem.titleView = chatInfoView
-        chatInfoView.setupCell(author: "")
     }
     
     func setupSubviews() {
@@ -266,6 +268,12 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
             self?.messages = data
             self?.tableView.reloadData()
             self?.goToBottomCell()
+        }
+    }
+    
+    func setChatInfo(data: ChatInfoResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.chatInfoView.setupCell(author: data)
         }
     }
 }

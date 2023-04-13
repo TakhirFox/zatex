@@ -37,6 +37,27 @@ extension ChatDetailService: ChatDetailAPI {
         }
     }
     
+    func fetchChatInfo(
+        chatId: String,
+        completion: @escaping ChatInfoClosure
+    ) {
+        do {
+            try ChatDetailHttpRouter
+                .getChatInfo(chatId: chatId)
+                .request(usingHttpService: httpService)
+                .responseDecodable(of: ChatInfoResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(data)
+                    case .failure(let error):
+                        print("LOG 43267435734: Ошибка  \(error)")
+                    }
+                }
+        } catch {
+            print("LOG 34573568245: Ошибка получения информации о чате")
+        }
+    }
+    
     func sendChatMessage(
         chatId: String,
         message: String,

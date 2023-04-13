@@ -54,10 +54,16 @@ class ChatInfoView: UIView {
         }
     }
     
-    func setupCell(author: String) { // TODO:
-        imageProductView.image = UIImage(named: "asd")
-        authorNameLabel.text = "NIKITARsT"
-        productNameLabel.text = "iPHone 15 5tb 6g"
+    func setupCell(author: ChatInfoResult?) {
+        if author?.imageURL != nil {
+            let image = (author!.imageURL?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let imageUrl = URL(string: image)
+            
+            imageProductView.kf.setImage(with: imageUrl)
+        }
+        
+        authorNameLabel.text = author?.authorUsername ?? ""
+        productNameLabel.text = author?.authorProduct ?? ""
     }
     
     private func configureSubviews() {
