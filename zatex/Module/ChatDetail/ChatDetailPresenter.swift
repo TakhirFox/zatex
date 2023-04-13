@@ -8,9 +8,11 @@
 
 protocol ChatDetailPresenterProtocol: AnyObject {
     func getChatMessages()
+    func getChatInfo()
     func sendChatMessage(message: String)
     
     func setChatMesssages(data: [ChatMessageResult])
+    func setChatInfo(data: ChatInfoResult)
 }
 
 class ChatDetailPresenter: BasePresenter {
@@ -27,6 +29,10 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
         interactor?.getChatMessages()
     }
     
+    func getChatInfo() {
+        interactor?.getChatInfo()
+    }
+    
     func sendChatMessage(message: String) {
         interactor?.sendChatMessage(message: message)
     }
@@ -36,5 +42,9 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     // MARK: To View
     func setChatMesssages(data: [ChatMessageResult]) {
         view?.setChatMesssages(data: data)
+    }
+    
+    func setChatInfo(data: ChatInfoResult) {
+        view?.setChatInfo(data: data)
     }
 }
