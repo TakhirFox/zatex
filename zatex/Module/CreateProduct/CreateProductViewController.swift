@@ -27,7 +27,7 @@ class CreateProductViewController: BaseViewController {
     var productPost = ProductEntity()
     var categories: [CategoryResult] = []
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     let pickerView = UIPickerView()
     let imagePicker = UIImagePickerController()
     
