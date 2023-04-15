@@ -8,9 +8,8 @@
 import UIKit
 
 class BaseTabBar: UITabBar {
-    let positionOnX: CGFloat = 10
+    let positionOnX: CGFloat = 16
     let positionOnY: CGFloat = 0
-    
     
     let roundLayer = CAShapeLayer()
     
@@ -25,7 +24,7 @@ class BaseTabBar: UITabBar {
     }
     
     func configure() {
-        setUI()
+        setupUI()
         updateAppearence()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
@@ -33,11 +32,11 @@ class BaseTabBar: UITabBar {
         }
     }
     
-    func setUI() {
+    func setupUI() {
         let width = bounds.width - positionOnX * 2
         let height = (bounds.height) + positionOnY * 2
         let bezierPath = UIBezierPath(roundedRect: CGRect(x: positionOnX,
-                                                          y: bounds.minY - positionOnY,
+                                                          y: bounds.minY - positionOnY - 5,
                                                           width: width,
                                                           height: height),
                                       cornerRadius: height / 2)
@@ -49,6 +48,10 @@ class BaseTabBar: UITabBar {
         itemPositioning = .centered
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 10)!], for: .normal)
+        
+        isTranslucent = true
+        backgroundImage = UIImage()
+        shadowImage = UIImage()        
     }
     
     func updateAppearence() {

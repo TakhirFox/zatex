@@ -46,7 +46,7 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
             createNavController(
                 viewController: ChatListAssembly.create(),
                 title: "Chat",
-                image: UIImage(named: "CreateIcon")!//TODO: Change icon
+                image: UIImage(named: "ChatIcon")!
             ),
             createNavController(
                 viewController: ProfileAssembly.create(),
@@ -63,10 +63,8 @@ extension MainTabBarViewController {
                              title: String,
                              image: UIImage) -> UIViewController {
         let navConroller = UINavigationController(rootViewController: viewController)
-        navConroller.tabBarController?.title = title
         navConroller.tabBarItem.image = image
         viewController.navigationItem.title = title
-        navConroller.tabBarItem.title = title
         return navConroller
     }
     
