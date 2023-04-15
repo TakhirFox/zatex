@@ -221,8 +221,10 @@ extension CreateProductViewController: UIImagePickerControllerDelegate, UINaviga
         guard let image = info[.editedImage] as? UIImage else {
             return
         }
-
-        productPost.images.insert(image, at: 0)
+        
+        let imageEntity = ProductEntity.Image(image: image, isLoaded: false)
+        
+        productPost.images.insert(imageEntity, at: 0)
         presenter?.uploadImage(image: image)
         tableView.reloadData()
         imagePicker.dismiss(animated: true)
@@ -281,7 +283,13 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
-    func stopImageSpinner() {}
+    func stopImageSpinner() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            productPost.images[0].isLoaded = true
+            self.tableView.reloadData()
+        }
+    }
     
     func showSuccess() {
         // TODO: Show success

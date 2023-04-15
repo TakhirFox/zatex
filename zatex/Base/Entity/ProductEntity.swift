@@ -8,9 +8,15 @@
 import UIKit
 
 struct ProductEntity {
+    
+    struct Image {
+        var image: UIImage
+        var isLoaded: Bool
+    }
+    
     var productName: String?
     var category: Int?
     var description: String?
     var cost: String?
-    var images: [UIImage] = []
+    var images: [ProductEntity.Image] = []
 }

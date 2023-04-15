@@ -63,6 +63,7 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
         let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
         uploadedImages.insert(imageEntity, at: 0)
+        
         view?.stopImageSpinner()
     }
     
