@@ -21,7 +21,7 @@ class UploadProductImageCell: UICollectionViewCell {
         let view = UIActivityIndicatorView(style: .medium)
         return view
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,16 +35,22 @@ class UploadProductImageCell: UICollectionViewCell {
         }
     }
     
-    func setupCell(image: UIImage) {
-        productImageView.image = image
+    func setupCell(image: ProductEntity.Image) {
+        
+        productImageView.image = image.image
+        
+        if image.isLoaded {
+            spinner.stopAnimating()
+            productImageView.alpha = 1
+        } else {
+            spinner.startAnimating()
+            productImageView.alpha = 0.5
+        }
     }
     
     private func configureView() {
         backgroundColor = .clear
         contentView.isUserInteractionEnabled = false
-        
-//        spinner.startAnimating() // TODO: Для индикации загрузки
-//        productImageView.alpha = 0.5
     }
     
     private func updateAppearence() {}
@@ -59,7 +65,7 @@ class UploadProductImageCell: UICollectionViewCell {
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
-        
+
         productImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()

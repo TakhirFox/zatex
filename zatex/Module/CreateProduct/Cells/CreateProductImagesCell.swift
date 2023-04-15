@@ -9,12 +9,11 @@ import UIKit
 
 class CreateProductImagesCell: UITableViewCell {
     
-    var images = [UIImage]()
+    var images: [ProductEntity.Image] = []
     
     private let viewContainer: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
-        view.layer.borderColor = Palette.BorderField.primary.cgColor
         view.layer.borderWidth = 2
         return view
     }()
@@ -56,7 +55,7 @@ class CreateProductImagesCell: UITableViewCell {
         }
     }
     
-    func setupCell(images: [UIImage]) {
+    func setupCell(images: [ProductEntity.Image]) {
         titleLabel.text = "Фотографии"
         self.images = images
         collectionView.reloadData()
@@ -71,6 +70,8 @@ class CreateProductImagesCell: UITableViewCell {
     
     private func updateAppearence() {
         titleLabel.textColor = Palette.Text.primary
+        viewContainer.layer.borderColor = Palette.BorderField.primary.cgColor
+        viewContainer.backgroundColor = Palette.Background.secondary
     }
     
     private func configureSubviews() {
@@ -126,7 +127,7 @@ extension CreateProductImagesCell: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 100, height: frame.height)
+        return .init(width: 100, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
