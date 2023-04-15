@@ -19,7 +19,7 @@ protocol DetailViewControllerProtocol: AnyObject {
 class DetailViewController: BaseViewController {
     
     enum RowKind: Int {
-        case images, productInfo, mapShop, buttons, descriptions, author, similarProduct
+        case images, productInfo, mapShop, contact, descriptions, author, similarProduct
     }
     
     var presenter: DetailPresenterProtocol?
@@ -94,7 +94,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .mapShop:
             return 1
             
-        case .buttons:
+        case .contact:
+            let myUserId = UserSettingsService.shared.getTokens().userId
+            let storeId = String(product?.store?.id ?? 0)
+            
+            if storeId == myUserId {
+                return 0
+            }
+            
             return 1
             
         case .descriptions:
@@ -131,7 +138,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.setupCell(map: product?.store?.address)
             return cell
             
-        case .buttons:
+        case .contact:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "buttonsCell", for: indexPath) as! ContactProductCell
             cell.setupCell()
             cell.messageButton.addTarget(self, action: #selector(goToChat), for: .touchUpInside)
@@ -172,7 +179,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .mapShop:
             return .init(width: view.frame.width, height: 100)
             
-        case .buttons:
+        case .contact:
             return .init(width: view.frame.width, height: 50)
             
         case .descriptions:
@@ -211,7 +218,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .productInfo,
                 .descriptions,
                 .author,
-                .buttons:
+                .contact:
             break
             
         case .mapShop:
