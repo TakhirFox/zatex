@@ -40,12 +40,20 @@ class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationView()
         setupCollectionView()
         setupSubviews()
         setupConstraints()
     }
     
-    func setupCollectionView() {
+    private func setupNavigationView() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    private func setupCollectionView() {
         let collectionFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
         collectionView.backgroundColor = .clear
@@ -60,12 +68,12 @@ class DetailViewController: BaseViewController {
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "similarCell")
     }
     
-    func setupSubviews() {
+    private func setupSubviews() {
         view.addSubview(collectionView)
         view.addSubview(headerView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 16, right: 16)
         
         collectionView.snp.makeConstraints { make in

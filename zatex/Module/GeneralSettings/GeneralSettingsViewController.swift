@@ -20,9 +20,15 @@ class GeneralSettingsViewController: BaseViewController {
     
     var presenter: GeneralSettingsPresenterProtocol?
     
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .grouped)
     
     var settingsModel: [SettingsModel] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showNavigationView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +73,7 @@ class GeneralSettingsViewController: BaseViewController {
     func setupTableView() {
         title = "Настройки"
         
+        tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "cell")
         tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: "switchCell")
         tableView.delegate = self
@@ -76,6 +83,12 @@ class GeneralSettingsViewController: BaseViewController {
         tableView.backgroundColor = .clear
     }
     
+    func showNavigationView() {
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.barTintColor = Palette.Background.primary
+        navigationController?.navigationBar.backgroundColor = Palette.Background.primary
+    }
 }
 
 extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSource {

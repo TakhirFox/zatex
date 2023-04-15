@@ -47,6 +47,8 @@ class ProfileViewController: BaseViewController {
             self.presenter?.getStoreInfo(authorId: id)
             self.presenter?.getStoreProduct(authorId: id)
         }
+        
+        hideNavigationView()
     }
     
     override func viewDidLoad() {
@@ -113,6 +115,12 @@ class ProfileViewController: BaseViewController {
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
+    }
+    
+    func hideNavigationView() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = .clear
     }
 }
 

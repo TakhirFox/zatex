@@ -38,6 +38,8 @@ class ChatListViewController: BaseViewController {
     }
     
     private func setupTableView() {
+        title = "Сообщения"
+        
         tableView.register(ChatListCell.self, forCellReuseIdentifier: "chatCell")
         tableView.delegate = self
         tableView.dataSource = self

@@ -25,6 +25,8 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
+            self?.navigationController?.navigationBar.barTintColor = Palette.Background.primary
+            self?.navigationController?.navigationBar.backgroundColor = Palette.Background.primary
             self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
             
             self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
@@ -33,10 +35,8 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     }
     
     func setNavigationItems() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backgroundColor = .clear
+        
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
         
         let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
