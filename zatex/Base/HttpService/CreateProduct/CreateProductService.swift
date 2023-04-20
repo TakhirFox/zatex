@@ -41,14 +41,14 @@ extension CreateProductService: CreateProductAPI {
             try CreateProductHttpRouter
                 .createProduct(product: product)
                 .request(usingHttpService: httpService)
-                .response(completionHandler: { response in
+                .responseDecodable(of: ProductResult.self) { response in
                     switch response.result {
-                    case .success:
-                        completion()
+                    case .success(let data):
+                        completion(data)
                     case .failure(let error):
                         print("LOG 9928364: Ошибка  \(error)")
                     }
-                })
+                }
         } catch {
             print("LOG 345632364645: Ошибка создание товара на экране создания товара")
         }

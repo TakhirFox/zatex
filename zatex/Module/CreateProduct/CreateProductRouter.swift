@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CreateProductRouterProtocol: AnyObject {
-    
+    func routeToDetail(id: Int)
 }
 
 class CreateProductRouter: BaseRouter {
@@ -18,5 +18,8 @@ class CreateProductRouter: BaseRouter {
 }
 
 extension CreateProductRouter: CreateProductRouterProtocol {
-    
+    func routeToDetail(id: Int) {
+        let view = DetailAssembly.create(id: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }

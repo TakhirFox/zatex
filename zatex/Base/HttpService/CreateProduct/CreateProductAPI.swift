@@ -8,7 +8,7 @@
 import Foundation
 
 typealias CreateProductCategoriesClosure = ([CategoryResult]) -> (Void)
-typealias CreateProductPostClosure = () -> (Void)
+typealias CreateProductPostClosure = (ProductResult) -> (Void)
 
 protocol CreateProductAPI {
 
