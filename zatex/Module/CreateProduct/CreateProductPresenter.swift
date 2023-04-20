@@ -13,9 +13,11 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func uploadImage(image: UIImage)
     func publishProduct(data: ProductEntity)
     
+    func goToDetail(id: Int)
+    
     func setCategories(data: [CategoryResult])
     func setImage(image: MediaResult)
-    func showSuccess()
+    func showSuccess(product: ProductResult)
 }
 
 class CreateProductPresenter: BasePresenter {
@@ -54,6 +56,10 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     
     // MARK: To Router
     
+    func goToDetail(id: Int) {
+        router?.routeToDetail(id: id)
+    }
+    
     // MARK: To View
     func setCategories(data: [CategoryResult]) {
         view?.setCategories(data: data)
@@ -67,7 +73,7 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         view?.stopImageSpinner()
     }
     
-    func showSuccess() {
-        view?.showSuccess()
+    func showSuccess(product: ProductResult) {
+        view?.showSuccess(product: product)
     }
 }

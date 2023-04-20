@@ -30,8 +30,8 @@ extension CreateProductInteractor: CreateProductInteractorProtocol {
     }
     
     func publishProduct(data: ProductResponse) {
-        self.service.createProduct(product: data) {
-            self.presenter?.showSuccess()
+        self.service.createProduct(product: data) { result in
+            self.presenter?.showSuccess(product: result)
         }
     }
     

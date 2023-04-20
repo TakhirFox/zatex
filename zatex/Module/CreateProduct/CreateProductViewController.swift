@@ -13,7 +13,7 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     
     func setCategories(data: [CategoryResult])
     func stopImageSpinner()
-    func showSuccess()
+    func showSuccess(product: ProductResult)
 }
 
 class CreateProductViewController: BaseViewController {
@@ -26,7 +26,9 @@ class CreateProductViewController: BaseViewController {
     
     var productPost = ProductEntity()
     var categories: [CategoryResult] = []
+    var loadedProduct: ProductResult?
     
+    let successView = SuccessProductView()
     let tableView = UITableView(frame: .zero, style: .grouped)
     let pickerView = UIPickerView()
     let imagePicker = UIImagePickerController()
@@ -45,13 +47,19 @@ class CreateProductViewController: BaseViewController {
         setupTableView()
         setupSubviews()
         setupConstraints()
+        setSuccessView()
     }
     
     private func setupSubviews() {
         view.addSubview(tableView)
+        view.addSubview(successView)
     }
     
     private func setupConstraints() {
+        successView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -79,9 +87,15 @@ class CreateProductViewController: BaseViewController {
         pickerView.dataSource = self
     }
     
-    func setupImagePicker() {
+    private func setupImagePicker() {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+    }
+    
+    private func setSuccessView() {
+        successView.isHidden = true
+        successView.newProductButton.addTarget(self, action: #selector(createNewProduct), for: .touchUpInside)
+        successView.showProductButton.addTarget(self, action: #selector(goToCreatedProduct), for: .touchUpInside)
     }
 }
 
@@ -271,6 +285,17 @@ extension CreateProductViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    @objc func createNewProduct() {
+        let createProductController = CreateProductViewController()
+        navigationController?.setViewControllers([createProductController], animated: false)
+    }
+    
+    @objc func goToCreatedProduct() {
+        guard let productId = loadedProduct?.id else { return }
+        
+        presenter?.goToDetail(id: productId)
+    }
 }
 
 extension CreateProductViewController: CreateProductViewControllerProtocol {
@@ -291,10 +316,8 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
-    func showSuccess() {
-        // TODO: Show success
-        // Create new product or go to created product
-        let createProductController = CreateProductViewController()
-        navigationController?.setViewControllers([createProductController], animated: false)
+    func showSuccess(product: ProductResult) {
+        loadedProduct = product
+        successView.isHidden = false
     }
 }
