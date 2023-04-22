@@ -26,7 +26,7 @@ public enum Color {
     static public let textMessageLight = UIColor(hex: 0x363636)
     static public let timeMessageLight = UIColor(hex: 0xEDF3FD)
     
-    
+    // Dark
     static public let primaryBackgroundDark = UIColor(hex: 0x202020)
     static public let secondaryBackgroundDark = UIColor(hex: 0x292929)
     static public let tertiarybackgroundDark = UIColor(hex: 0x4E656F)
