@@ -27,6 +27,7 @@
 		5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */; };
 		5B8A7F123DD7DDED3810A5F5 /* ChatDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3868CDEC00C3EB8F12E30C7 /* ChatDetailPresenter.swift */; };
 		5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04B881456910C43F8D86E63 /* ProfileInteractor.swift */; };
+		61717B24BC06DF8511477CDF /* Pods_zatex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B0DE61386A6798A3563828 /* Pods_zatex.framework */; };
 		65546E979E410FEBA551D1B2 /* ProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75038A40CB1710234016F4DE /* ProfileEditInteractor.swift */; };
 		65C73662C0461BA7AA1C1F59 /* ChatListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75775A25CAD6C10BA73E3594 /* ChatListAssembly.swift */; };
 		681507BCE22319967454F570 /* GeneralSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */; };
@@ -49,6 +50,7 @@
 		AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
+		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
 		AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */; };
 		AD3AF69729E13AC100ABDC1A /* ImagesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */; };
 		AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */; };
@@ -117,6 +119,8 @@
 		ADAD60CB29DDD94A00309AC9 /* CreateProductFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD60CA29DDD94A00309AC9 /* CreateProductFieldCell.swift */; };
 		ADAD60CD29DDDA0F00309AC9 /* CreateProductDesctiptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD60CC29DDDA0F00309AC9 /* CreateProductDesctiptionCell.swift */; };
 		ADAD60CF29DDDAF300309AC9 /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD60CE29DDDAF300309AC9 /* BaseTextView.swift */; };
+		ADB817D829FC312F00CF09F9 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB817D729FC312F00CF09F9 /* ReviewDetailView.swift */; };
+		ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB817D929FD546600CF09F9 /* ReviewEntity.swift */; };
 		ADBE136A290DA4F1004BDEB3 /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE1369290DA4F1004BDEB3 /* SearchAPI.swift */; };
 		ADBE136C290DA537004BDEB3 /* ProductResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE136B290DA537004BDEB3 /* ProductResult.swift */; };
 		ADBE136E290DAAFA004BDEB3 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE136D290DAAFA004BDEB3 /* SearchService.swift */; };
@@ -171,8 +175,9 @@
 		ADF5400829B4CBD400BF8516 /* ChatDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400729B4CBD400BF8516 /* ChatDetailAPI.swift */; };
 		ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400929B4CBDA00BF8516 /* ChatDetailService.swift */; };
 		ADF5400C29B4CCB100BF8516 /* ChatMessageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */; };
+		ADFB4C6829FADEAA00C885EE /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFB4C6729FADEAA00C885EE /* ButtonStyle.swift */; };
+		ADFB4C6A29FAE9D800C885EE /* ReviewProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFB4C6929FAE9D800C885EE /* ReviewProductCell.swift */; };
 		AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34DFAE3CC15707BA8F90C24 /* ChatListInteractor.swift */; };
-		AE1F75F161B3F97B1F5D5B27 /* Pods_zatex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327CAD6D41D644E4D118E8DC /* Pods_zatex.framework */; };
 		B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86989039874A919941560835 /* AuthAssembly.swift */; };
 		B83DACA69BFEB5F84485F6EB /* MainTabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA830CD52EB99A0E54AA0AB /* MainTabBarAssembly.swift */; };
 		BDAD22F91898ABA1AE960B3C /* CreateProductRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D50EA60736641544E57735 /* CreateProductRouter.swift */; };
@@ -211,11 +216,11 @@
 		28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsInteractor.swift; sourceTree = "<group>"; };
 		2D7E673BE585FC86B964EC1A /* AuthViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
-		327CAD6D41D644E4D118E8DC /* Pods_zatex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zatex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34FDEF90887570EA0CB1AFC7 /* MainTabBarRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
 		36AC3D699E4C334D5F418290 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		3988B6A343C452A77B06D65B /* GeneralSettingsPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPresenter.swift; sourceTree = "<group>"; };
 		3CEEBB065FBC3F9145CD0C72 /* SearchAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchAssembly.swift; sourceTree = "<group>"; };
+		3EA58FA7C8D4149DE597106C /* Pods-zatex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zatex.debug.xcconfig"; path = "Target Support Files/Pods-zatex/Pods-zatex.debug.xcconfig"; sourceTree = "<group>"; };
 		404257A0E36E5DF048D5603F /* ProfileViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		43D50EA60736641544E57735 /* CreateProductRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductRouter.swift; sourceTree = "<group>"; };
 		544BE0E284DFB4207C01AD4A /* FeedViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +231,7 @@
 		5F408209F845D51605514B35 /* SearchViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		60B7C4678A8612CED92F7A4B /* FeedAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedAssembly.swift; sourceTree = "<group>"; };
 		64731D66E5594ED96D1223EF /* MapRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		6FDC6E49ED910327B0798754 /* Pods-zatex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zatex.release.xcconfig"; path = "Target Support Files/Pods-zatex/Pods-zatex.release.xcconfig"; sourceTree = "<group>"; };
 		708FE6EB72523E404301C9BB /* ProfileEditAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditAssembly.swift; sourceTree = "<group>"; };
 		73C3A1F36E497FC961D7EB70 /* SearchPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		75038A40CB1710234016F4DE /* ProfileEditInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditInteractor.swift; sourceTree = "<group>"; };
@@ -244,11 +250,13 @@
 		9EF89B21ED4462AC5C183854 /* FeedPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		A04B881456910C43F8D86E63 /* ProfileInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsInteractor.swift; sourceTree = "<group>"; };
+		A7B0DE61386A6798A3563828 /* Pods_zatex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zatex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
 		AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoResult.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
+		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
 		AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessProductView.swift; sourceTree = "<group>"; };
 		AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpService.swift; sourceTree = "<group>"; };
 		AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpRouter.swift; sourceTree = "<group>"; };
@@ -319,6 +327,8 @@
 		ADAD60CA29DDD94A00309AC9 /* CreateProductFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductFieldCell.swift; sourceTree = "<group>"; };
 		ADAD60CC29DDDA0F00309AC9 /* CreateProductDesctiptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductDesctiptionCell.swift; sourceTree = "<group>"; };
 		ADAD60CE29DDDAF300309AC9 /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
+		ADB817D729FC312F00CF09F9 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
+		ADB817D929FD546600CF09F9 /* ReviewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEntity.swift; sourceTree = "<group>"; };
 		ADBE1369290DA4F1004BDEB3 /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		ADBE136B290DA537004BDEB3 /* ProductResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResult.swift; sourceTree = "<group>"; };
 		ADBE136D290DAAFA004BDEB3 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -373,11 +383,11 @@
 		ADF5400729B4CBD400BF8516 /* ChatDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailAPI.swift; sourceTree = "<group>"; };
 		ADF5400929B4CBDA00BF8516 /* ChatDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailService.swift; sourceTree = "<group>"; };
 		ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageResult.swift; sourceTree = "<group>"; };
-		AEDC9E904BEB2F553BA86920 /* Pods-zatex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zatex.release.xcconfig"; path = "Target Support Files/Pods-zatex/Pods-zatex.release.xcconfig"; sourceTree = "<group>"; };
+		ADFB4C6729FADEAA00C885EE /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		ADFB4C6929FAE9D800C885EE /* ReviewProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProductCell.swift; sourceTree = "<group>"; };
 		B34DFAE3CC15707BA8F90C24 /* ChatListInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListInteractor.swift; sourceTree = "<group>"; };
 		B5406A5C9A2F0FBE5E51FAAD /* MapInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		B6D711608797CE350809BC22 /* DetailInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
-		BA4C4848DF5B7BB7614C3648 /* Pods-zatex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zatex.debug.xcconfig"; path = "Target Support Files/Pods-zatex/Pods-zatex.debug.xcconfig"; sourceTree = "<group>"; };
 		BDF38FF91734A4D45ADA4672 /* ChatDetailViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailViewController.swift; sourceTree = "<group>"; };
 		C783B39D2D7F18A08681D171 /* MainTabBarInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarInteractor.swift; sourceTree = "<group>"; };
 		CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsAssembly.swift; sourceTree = "<group>"; };
@@ -403,7 +413,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE1F75F161B3F97B1F5D5B27 /* Pods_zatex.framework in Frameworks */,
+				61717B24BC06DF8511477CDF /* Pods_zatex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +583,7 @@
 				AD49A87528ED577200D159CA /* zatex */,
 				AD49A87428ED577200D159CA /* Products */,
 				D830788BC309F95075D29D2D /* Pods */,
-				BF8BEEADD62B786AB53E821C /* Frameworks */,
+				E3D6FBA880A0023E7CF90822 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -609,6 +619,8 @@
 				AD4A987929198D8600709745 /* ContactProductCell.swift */,
 				AD4A987B29198ED600709745 /* DescriptionProductCell.swift */,
 				AD4A987D2919917900709745 /* AuthorProdCell.swift */,
+				ADFB4C6929FAE9D800C885EE /* ReviewProductCell.swift */,
+				ADB817D729FC312F00CF09F9 /* ReviewDetailView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -645,6 +657,7 @@
 				ADCF769429B89F91007FF164 /* AuthResult.swift */,
 				ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */,
 				ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */,
+				AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */,
 				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
 				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
@@ -654,6 +667,7 @@
 				ADD029A029E11D5E002E5608 /* ProductResponse.swift */,
 				AD3AF69F29E299A200ABDC1A /* MediaResult.swift */,
 				AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */,
+				ADB817D929FD546600CF09F9 /* ReviewEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -946,6 +960,7 @@
 			isa = PBXGroup;
 			children = (
 				ADE8175129093A5A004895DD /* BaseComponents */,
+				ADFB4C6629FADE6E00C885EE /* Styles */,
 				ADC3B41A2906DEF500A7AE66 /* Theme */,
 			);
 			path = UI;
@@ -1036,6 +1051,14 @@
 			path = ChatDetail;
 			sourceTree = "<group>";
 		};
+		ADFB4C6629FADE6E00C885EE /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				ADFB4C6729FADEAA00C885EE /* ButtonStyle.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
 		B2D02A16E3C3758D7A4C104C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1061,21 +1084,21 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		BF8BEEADD62B786AB53E821C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				327CAD6D41D644E4D118E8DC /* Pods_zatex.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D830788BC309F95075D29D2D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BA4C4848DF5B7BB7614C3648 /* Pods-zatex.debug.xcconfig */,
-				AEDC9E904BEB2F553BA86920 /* Pods-zatex.release.xcconfig */,
+				3EA58FA7C8D4149DE597106C /* Pods-zatex.debug.xcconfig */,
+				6FDC6E49ED910327B0798754 /* Pods-zatex.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E3D6FBA880A0023E7CF90822 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7B0DE61386A6798A3563828 /* Pods_zatex.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EF24441614FE46792B8A8968 /* MainTabBar */ = {
@@ -1122,12 +1145,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD49A88A28ED577300D159CA /* Build configuration list for PBXNativeTarget "zatex" */;
 			buildPhases = (
-				E021F3CC9C300550DBF39A64 /* [CP] Check Pods Manifest.lock */,
+				E87CA9124FD08DE33B6BD044 /* [CP] Check Pods Manifest.lock */,
 				AD49A86F28ED577200D159CA /* Sources */,
 				AD49A87028ED577200D159CA /* Frameworks */,
 				AD49A87128ED577200D159CA /* Resources */,
-				37B807843DCF30D0BD78B846 /* [CP] Embed Pods Frameworks */,
-				E2B6BC178BB87AA8389679A0 /* [CP] Copy Pods Resources */,
+				77B04705C309F2EA0D7132FD /* [CP] Embed Pods Frameworks */,
+				BDE0FF02CBDF38A9B359DFCF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1187,7 +1210,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		37B807843DCF30D0BD78B846 /* [CP] Embed Pods Frameworks */ = {
+		77B04705C309F2EA0D7132FD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1204,7 +1227,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E021F3CC9C300550DBF39A64 /* [CP] Check Pods Manifest.lock */ = {
+		BDE0FF02CBDF38A9B359DFCF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E87CA9124FD08DE33B6BD044 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1224,23 +1264,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E2B6BC178BB87AA8389679A0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-zatex/Pods-zatex-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1272,11 +1295,13 @@
 				945EDFF6AFA607CC682B2BC0 /* MainTabBarViewController.swift in Sources */,
 				4149DFE8F205CB1F51E8D8F0 /* MainTabBarPresenter.swift in Sources */,
 				ADF5400529B4C65800BF8516 /* ChatDetailHttpRouter.swift in Sources */,
+				ADFB4C6A29FAE9D800C885EE /* ReviewProductCell.swift in Sources */,
 				AD86EAC82904203C001CB847 /* HttpRouter.swift in Sources */,
 				AD9B261228FD5BF400C15139 /* Appearance.swift in Sources */,
 				AD9B260128FD476700C15139 /* BaseViewController.swift in Sources */,
 				ADD8DE502918119A00A3E435 /* SettingsModel.swift in Sources */,
 				BDB5589D543E04E55F1F0D7F /* MainTabBarInteractor.swift in Sources */,
+				ADFB4C6829FADEAA00C885EE /* ButtonStyle.swift in Sources */,
 				ADE7406729DF1507004A667C /* ProductEntity.swift in Sources */,
 				AD46D79729C89F53002A6E1F /* ReviewsAPI.swift in Sources */,
 				AD9B260928FD478600C15139 /* BaseAssemblyProtocol.swift in Sources */,
@@ -1329,6 +1354,7 @@
 				270F3F85B52E201D0DA22817 /* ProfilePresenter.swift in Sources */,
 				5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */,
 				1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */,
+				ADB817D829FC312F00CF09F9 /* ReviewDetailView.swift in Sources */,
 				947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */,
 				AD46D79129C89A0A002A6E1F /* ReviewsCell.swift in Sources */,
 				ADAD60CF29DDDAF300309AC9 /* BaseTextView.swift in Sources */,
@@ -1348,6 +1374,7 @@
 				68CD2C08D8432F5F5CC5C8D0 /* SearchPresenter.swift in Sources */,
 				ADBE1371290DB066004BDEB3 /* SearchHttpService.swift in Sources */,
 				D2897DEADF100A13E1D0FA9C /* SearchInteractor.swift in Sources */,
+				AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */,
 				ADD029A129E11D5E002E5608 /* ProductResponse.swift in Sources */,
 				AD4A98692918D38800709745 /* AvatarEditCell.swift in Sources */,
 				AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */,
@@ -1433,6 +1460,7 @@
 				CBCB612BAD393A8F01E1B3E4 /* MapPresenter.swift in Sources */,
 				AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */,
 				6D6A5D5CEA9626A8B431B5EE /* MapInteractor.swift in Sources */,
+				ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */,
 				FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */,
 				91DE834C4063C8E2C67C7D0A /* MapAssembly.swift in Sources */,
 			);
@@ -1568,7 +1596,7 @@
 		};
 		AD49A88B28ED577300D159CA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA4C4848DF5B7BB7614C3648 /* Pods-zatex.debug.xcconfig */;
+			baseConfigurationReference = 3EA58FA7C8D4149DE597106C /* Pods-zatex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1598,7 +1626,7 @@
 		};
 		AD49A88C28ED577300D159CA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEDC9E904BEB2F553BA86920 /* Pods-zatex.release.xcconfig */;
+			baseConfigurationReference = 6FDC6E49ED910327B0798754 /* Pods-zatex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

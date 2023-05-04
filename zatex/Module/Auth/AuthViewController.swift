@@ -32,6 +32,7 @@ class AuthViewController: BaseViewController {
     
     let loginButton: BaseButton = {
         let view = BaseButton()
+        view.set(style: .primary)
         view.setTitle("Войти", for: .normal)
         view.addTarget(nil, action: #selector(checkTextFieldAction), for: .touchUpInside)
         return view

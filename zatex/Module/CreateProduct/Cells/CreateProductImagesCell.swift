@@ -34,6 +34,7 @@ class CreateProductImagesCell: UITableViewCell {
     
     let plusButton: BaseButton = {
         let view = BaseButton()
+        view.set(style: .primary)
         view.setImage(UIImage(named: "plusImage"), for: .normal)
         return view
     }()

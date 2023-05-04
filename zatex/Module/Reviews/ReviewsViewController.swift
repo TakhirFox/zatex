@@ -107,9 +107,7 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ReviewsViewController: ReviewsViewControllerProtocol {
    
-    func setReviews(data: [ReviewsListResult]) {
-        print("LOG: setReviews \(data)")
-        
+    func setReviews(data: [ReviewsListResult]) {        
         DispatchQueue.main.async { [weak self] in
             self?.reviewList = data
             self?.tableView.reloadData()
@@ -117,8 +115,6 @@ extension ReviewsViewController: ReviewsViewControllerProtocol {
     }
     
     func setStoreInfo(data: StoreInfoResult) {
-        print("LOG: setStoreInfo \(data)")
-        
         DispatchQueue.main.async { [weak self] in
             self?.reviewStoreInfo = data
             self?.tableView.reloadData()

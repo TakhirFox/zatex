@@ -10,6 +10,8 @@ import Foundation
 typealias ProductDetailClosure = (ProductResult) -> (Void)
 typealias StoreInfoClosure = (StoreInfoResult) -> (Void)
 typealias CheckChatClosure = (CheckChatResult) -> (Void)
+typealias CheckChatReviewClosure = (CheckChatReviewResult) -> (Void)
+typealias ReviewClosure = () -> (Void)
 
 protocol ProductDetailAPI {
     
@@ -24,8 +26,20 @@ protocol ProductDetailAPI {
     ) -> (Void)
     
     func fetchCheckChat(
-        productAuthor: String,
-        productId: String,
+        productAuthor: Int,
+        productId: Int,
         completion: @escaping CheckChatClosure
+    ) -> (Void)
+    
+    func fetchCheckChatToReview(
+        productAuthor: Int,
+        productId: Int,
+        completion: @escaping CheckChatReviewClosure
+    ) -> (Void)
+    
+    func sendReview(
+        id: Int,
+        review: ReviewEntity,
+        completion: @escaping ReviewClosure
     ) -> (Void)
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 struct CheckChatResponse: Encodable {
-    let authorId: String
-    let productId: String
+    let authorId: Int
+    let productId: Int
     
     enum CodingKeys: String, CodingKey {
         case authorId = "user2_id"

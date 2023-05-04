@@ -20,6 +20,7 @@ public enum Color {
     
     static public let filedStrokeLight = UIColor(hex: 0xEDF3FD)
     static public let primaryButtonLight = UIColor(hex: 0xF78628)
+    static public let secondaryButtonLight = UIColor(hex: 0xFFD2AD)
     
     static public let backgroundMyBubbleLight = UIColor(hex: 0x83C0DB)
     static public let backgroundYourBubbleLight = UIColor(hex: 0xB6CEF4)
@@ -39,6 +40,7 @@ public enum Color {
     
     static public let filedStrokeDark = UIColor(hex: 0x454545)
     static public let primaryButtonDark = UIColor(hex: 0xED9349)
+    static public let secondaryButtonDark = UIColor(hex: 0x654021)
     
     static public let backgroundMyBubbleDark = UIColor(hex: 0x4E656F)
     static public let backgroundYourBubbleDark = UIColor(hex: 0x68707C)
@@ -88,6 +90,15 @@ public enum Palette {
                 return Color.primaryButtonLight
             case .dark:
                 return Color.primaryButtonDark
+            }
+        }
+        
+        public static var secondary: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.secondaryButtonLight
+            case .dark:
+                return Color.secondaryButtonDark
             }
         }
     }

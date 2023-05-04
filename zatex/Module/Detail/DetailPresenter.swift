@@ -9,21 +9,39 @@
 import UIKit
 
 protocol DetailPresenterProtocol: AnyObject {
+    
+    // Interactor
     func getProductInfo()
     func getStoreInfo(authorId: Int)
+    
     func checkChatExists(
-        productAuthor: String,
-        productId: String)
+        productAuthor: Int,
+        productId: Int)
+    
+    func checkStartChat(
+        productAuthor: Int,
+        productId: Int)
+    
     func callPhone(number: String?)
     func getCoordinatesAndGoToMap(address: ProductResult.Address?)
+    func sendReview(
+        userId: Int?,
+        productName: String?,
+        content: String?,
+        rating: Int?
+    )
     
+    // Router
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: [CoordinatesResult])
     func goToDetail(id: Int)
-
+    
+    // View
     func setProductInfo(data: ProductResult)
     func setSimilarProducts(data: ProductResult)
     func setStoreInfo(data: StoreInfoResult)
+    func showSuccessReview()
+    func showReviewButton(data: CheckChatReviewResult)
 }
 
 class DetailPresenter: BasePresenter {
@@ -45,10 +63,23 @@ extension DetailPresenter: DetailPresenterProtocol {
     }
     
     func checkChatExists(
-        productAuthor: String,
-        productId: String
+        productAuthor: Int,
+        productId: Int
     ) {
-        interactor?.checkChatExists(productAuthor: productAuthor, productId: productId)
+        interactor?.checkChatExists(
+            productAuthor: productAuthor,
+            productId: productId
+        )
+    }
+    
+    func checkStartChat(
+        productAuthor: Int,
+        productId: Int
+    ) {
+        interactor?.checkStartChat(
+            productAuthor: productAuthor,
+            productId: productId
+        )
     }
     
     func callPhone(number: String?) {
@@ -65,6 +96,27 @@ extension DetailPresenter: DetailPresenterProtocol {
         guard let street = address?.street1 else { return }
         
         interactor?.getCoordinates(address: "\(city) \(street)")
+    }
+    
+    func sendReview(
+        userId: Int?,
+        productName: String?,
+        content: String?,
+        rating: Int?
+    ) {
+        guard let userId = userId,
+                let productName = productName,
+                let rating = rating,
+              rating != 0
+        else { return }
+        
+        let review = ReviewEntity(
+            title: productName,
+            content: content,
+            rating: rating
+        )
+        
+        interactor?.sendReview(id: userId, review: review)
     }
     
     // MARK: To Router
@@ -103,5 +155,13 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func setStoreInfo(data: StoreInfoResult) {
         view?.setStoreInfo(data: data)
+    }
+    
+    func showSuccessReview() {
+        view?.showSuccessReview()
+    }
+    
+    func showReviewButton(data: CheckChatReviewResult) {
+        view?.showReviewButton(data: data)
     }
 }
