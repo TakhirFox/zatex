@@ -10,8 +10,18 @@ import Alamofire
 enum ProductDetailHttpRouter {
     case getProductInfo(productId: Int)
     case getStoreInfo(authorId: Int)
-    case checkChat(productAuthor: String,
-                   productId: String)
+    
+    case checkChat(
+        productAuthor: Int,
+        productId: Int
+    )
+    
+    case checkChatToReview(
+        productAuthor: Int,
+        productId: Int
+    )
+    
+    case sendReview(id: Int, review: ReviewEntity)
 }
 
 extension ProductDetailHttpRouter: HttpRouter {
@@ -27,15 +37,21 @@ extension ProductDetailHttpRouter: HttpRouter {
             return "/wp-json/dokan/v1/stores/\(authorId)"
         case .checkChat:
             return "/wp-json/chats/v1/chats/check"
+        case .checkChatToReview:
+            return "/wp-json/chats/v1/chats/checkToReview"
+        case let .sendReview(id, _):
+            return "/wp-json/dokan/v1/stores/\(id)/reviews"
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
         case .getProductInfo,
-                .getStoreInfo:
+                .getStoreInfo,
+                .checkChatToReview:
             return .get
-        case .checkChat:
+        case .checkChat,
+                .sendReview:
             return .post
         }
     }
@@ -47,7 +63,9 @@ extension ProductDetailHttpRouter: HttpRouter {
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
-        case .checkChat:
+        case .checkChat,
+                .checkChatToReview,
+                .sendReview:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
                 "Authorization": "Bearer \(token)"
@@ -66,6 +84,13 @@ extension ProductDetailHttpRouter: HttpRouter {
             return nil
         case .checkChat:
             return nil
+        case let .checkChatToReview(productId, productAuthor):
+            return [
+                "user2_id": productAuthor,
+                "product_id": productId
+            ]
+        case .sendReview:
+            return nil
         }
     }
     
@@ -80,6 +105,10 @@ extension ProductDetailHttpRouter: HttpRouter {
                 productId: productId)
             
             return try JSONEncoder().encode(data)
+        case .checkChatToReview:
+            return nil
+        case let .sendReview(_, review):
+            return try JSONEncoder().encode(review)
         }
     }
 }

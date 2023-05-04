@@ -11,11 +11,13 @@ class ContactProductCell: UICollectionViewCell {
     
     let callButton: BaseButton = {
         let view = BaseButton()
+        view.set(style: .primary)
         return view
     }()
     
     let messageButton: BaseButton = {
         let view = BaseButton()
+        view.set(style: .primary)
         return view
     }()
     

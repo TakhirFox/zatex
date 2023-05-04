@@ -11,10 +11,23 @@ protocol DetailInteractorProtocol {
     func getProductInfo()
     func getSimilarProducts(productId: Int)
     func getStoreInfo(authorId: Int)
+    
     func checkChatExists(
-        productAuthor: String,
-        productId: String)
+        productAuthor: Int,
+        productId: Int
+    )
+    
+    func checkStartChat(
+        productAuthor: Int,
+        productId: Int
+    )
+    
     func getCoordinates(address: String)
+    
+    func sendReview(
+        id: Int,
+        review: ReviewEntity
+    )
 }
 
 class DetailInteractor: BaseInteractor {
@@ -45,8 +58,8 @@ extension DetailInteractor: DetailInteractorProtocol {
     }
     
     func checkChatExists(
-        productAuthor: String,
-        productId: String
+        productAuthor: Int,
+        productId: Int
     ) {
         self.service.fetchCheckChat(
             productAuthor: productAuthor,
@@ -56,9 +69,30 @@ extension DetailInteractor: DetailInteractorProtocol {
         }
     }
     
+    func checkStartChat(
+        productAuthor: Int,
+        productId: Int
+    ) {
+        self.service.fetchCheckChatToReview(
+            productAuthor: productAuthor,
+            productId: productId
+        ) { result in
+            self.presenter?.showReviewButton(data: result)
+        }
+    }
+    
     func getCoordinates(address: String) {
         self.mapService.fetchCoordinates(address: address) { result in
             self.presenter?.routeToMap(coordinates: result)
+        }
+    }
+    
+    func sendReview(
+        id: Int,
+        review: ReviewEntity
+    ) {
+        self.service.sendReview(id: id, review: review) {
+            self.presenter?.showSuccessReview()
         }
     }
 }

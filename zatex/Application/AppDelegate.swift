@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import FLEX
 import YandexMapsMobile
 
 @main
@@ -16,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         Appearance.apply()
-        FLEXManager.shared.showExplorer()
         YMKMapKit.setApiKey("5cb43a37-08b8-4451-97f4-b03ea20732c4")
         YMKMapKit.sharedInstance()
         

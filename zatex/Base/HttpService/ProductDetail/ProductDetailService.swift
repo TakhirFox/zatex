@@ -21,16 +21,19 @@ extension ProductDetailService: ProductDetailAPI {
             try ProductDetailHttpRouter
                 .getProductInfo(productId: productId)
                 .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: getProductInfo \(description)")
+                }
                 .responseDecodable(of: ProductResult.self) { response in
                     switch response.result {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 0998909099230092: Ошибка  \(error)")
+                        print("LOG: 0998909099230092 Ошибка \(error)")
                     }
                 }
         } catch {
-            print("LOG 0027637771677716: Ошибка получения информации о товаре")
+            print("LOG: 0027637771677716 Ошибка получения информации о товаре")
         }
     }
     
@@ -47,17 +50,17 @@ extension ProductDetailService: ProductDetailAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 23777454545232: Ошибка  \(error)")
+                        print("LOG: 23777454545232 Ошибка \(error)")
                     }
                 }
         } catch {
-            print("LOG 557916778716: Ошибка получения информации о магазине")
+            print("LOG: 557916778716 Ошибка получения информации о магазине")
         }
     }
     
     func fetchCheckChat(
-        productAuthor: String,
-        productId: String,
+        productAuthor: Int,
+        productId: Int,
         completion: @escaping CheckChatClosure
     ) {
         do {
@@ -71,11 +74,63 @@ extension ProductDetailService: ProductDetailAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 0998666230092: Ошибка  \(error)")
+                        print("LOG: 0998666230092 Ошибка \(error)")
                     }
                 }
         } catch {
-            print("LOG 9952737243: Ошибка проверки чата")
+            print("LOG: 9952737243 Ошибка проверки чата")
+        }
+    }
+    
+    func fetchCheckChatToReview(
+        productAuthor: Int,
+        productId: Int,
+        completion: @escaping CheckChatReviewClosure
+    ) {
+        do {
+            try ProductDetailHttpRouter
+                .checkChatToReview(
+                    productAuthor: productAuthor,
+                    productId: productId)
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: checkChatToReview \(description)")
+                }
+                .responseDecodable(of: CheckChatReviewResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(data)
+                    case .failure(let error):
+                        print("LOG: 734556474568 Ошибка \(error)")
+                    }
+                }
+        } catch {
+            print("LOG: 53464574658458 Ошибка проверки чата для ревью")
+        }
+    }
+    
+    func sendReview(
+        id: Int,
+        review: ReviewEntity,
+        completion: @escaping ReviewClosure
+    ) {
+        do {
+            try ProductDetailHttpRouter
+                .sendReview(id: id, review: review)
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: sendReview \(description)")
+                }
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        completion()
+                    case .failure(let error):
+                        print("LOG: 239784892734 Ошибка \(error)")
+                    }
+                }
+        } catch {
+            print("LOG: 25230895 Ошибка отправки отзыва")
         }
     }
 }

@@ -14,12 +14,14 @@ protocol DetailViewControllerProtocol: AnyObject {
     func setProductInfo(data: ProductResult)
     func setSimilarProducts(data: ProductResult)
     func setStoreInfo(data: StoreInfoResult)
+    func showSuccessReview()
+    func showReviewButton(data: CheckChatReviewResult)
 }
 
 class DetailViewController: BaseViewController {
     
     enum RowKind: Int {
-        case images, productInfo, mapShop, contact, descriptions, author, similarProduct
+        case images, productInfo, mapShop, contact, review, descriptions, author, similarProduct
     }
     
     var presenter: DetailPresenterProtocol?
@@ -27,9 +29,12 @@ class DetailViewController: BaseViewController {
     var product: ProductResult?
     var similarProducts: [ProductResult] = []
     var storeInfo: StoreInfoResult?
+    var reviewContent: String?
+    var isShowReviewButton: Bool = false
     
     var collectionView: UICollectionView!
     let headerView = ShopHeaderView()
+    let reviewDetailView = ReviewDetailView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,6 +47,7 @@ class DetailViewController: BaseViewController {
         
         setupNavigationView()
         setupCollectionView()
+        setupReviewDetailView()
         setupSubviews()
         setupConstraints()
     }
@@ -51,6 +57,13 @@ class DetailViewController: BaseViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    private func setupReviewDetailView() {
+        reviewDetailView.isHidden = true
+        reviewDetailView.textView.delegate = self
+        reviewDetailView.sendReviewButton.addTarget(self, action: #selector(sendReview), for: .touchUpInside)
+        reviewDetailView.setupCell()
     }
     
     private func setupCollectionView() {
@@ -63,6 +76,7 @@ class DetailViewController: BaseViewController {
         collectionView.register(InfoProductCell.self, forCellWithReuseIdentifier: "infoCell")
         collectionView.register(MapProductCell.self, forCellWithReuseIdentifier: "mapCell")
         collectionView.register(ContactProductCell.self, forCellWithReuseIdentifier: "buttonsCell")
+        collectionView.register(ReviewProductCell.self, forCellWithReuseIdentifier: "reviewCell")
         collectionView.register(DescriptionProductCell.self, forCellWithReuseIdentifier: "descCell")
         collectionView.register(AuthorProdCell.self, forCellWithReuseIdentifier: "authorCell")
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "similarCell")
@@ -71,6 +85,7 @@ class DetailViewController: BaseViewController {
     private func setupSubviews() {
         view.addSubview(collectionView)
         view.addSubview(headerView)
+        view.addSubview(reviewDetailView)
     }
     
     private func setupConstraints() {
@@ -81,6 +96,16 @@ class DetailViewController: BaseViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        reviewDetailView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
@@ -111,6 +136,9 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
             
             return 1
+            
+        case .review:
+            return isShowReviewButton ? 1 : 0
             
         case .descriptions:
             return 1
@@ -153,6 +181,12 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.callButton.addTarget(self, action: #selector(callPhone), for: .touchUpInside)
             return cell
             
+        case .review:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviewCell", for: indexPath) as! ReviewProductCell
+            cell.setupCell()
+            cell.reviewButton.addTarget(self, action: #selector(showReviewDialog), for: .touchUpInside)
+            return cell
+            
         case .descriptions:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "descCell", for: indexPath) as! DescriptionProductCell
             cell.setupCell(description: product?.description ?? "")
@@ -188,6 +222,9 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return .init(width: view.frame.width, height: 100)
             
         case .contact:
+            return .init(width: view.frame.width, height: 50)
+            
+        case .review:
             return .init(width: view.frame.width, height: 50)
             
         case .descriptions:
@@ -226,7 +263,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .productInfo,
                 .descriptions,
                 .author,
-                .contact:
+                .contact,
+                .review:
             break
             
         case .mapShop:
@@ -255,19 +293,41 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
+extension DetailViewController: UITextViewDelegate, UITextFieldDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text != nil {
+            reviewContent = textView.text
+        }
+    }
+    
+}
+
 extension DetailViewController {
     
     @objc private func goToChat() {
         if let productId = product?.id,
            let authorId = product?.store?.id {
             presenter?.checkChatExists(
-                productAuthor: String(authorId),
-                productId: String(productId))
+                productAuthor: authorId,
+                productId: productId)
         }
     }
     
     @objc private func callPhone() {
         presenter?.callPhone(number: storeInfo?.phone)
+    }
+    
+    @objc private func showReviewDialog() {
+        reviewDetailView.isHidden = false
+    }
+    
+    @objc private func sendReview() {
+        presenter?.sendReview(
+            userId: product?.store?.id,
+            productName: product?.name,
+            content: reviewContent,
+            rating: reviewDetailView.selectedRating
+        )
     }
 }
 
@@ -279,6 +339,14 @@ extension DetailViewController: DetailViewControllerProtocol {
             
             if let storeId = data.store?.id {
                 self?.presenter?.getStoreInfo(authorId: storeId)
+            }
+            
+            if let productId = self?.product?.id,
+               let authorId = self?.product?.store?.id {
+                self?.presenter?.checkStartChat(
+                    productAuthor: productId,
+                    productId: authorId
+                )
             }
             
             self?.collectionView.reloadData()
@@ -297,6 +365,18 @@ extension DetailViewController: DetailViewControllerProtocol {
             self?.headerView.setupCell(author: data)
             self?.storeInfo = data
             self?.collectionView.reloadData()
+        }
+    }
+    
+    func showSuccessReview() {
+        DispatchQueue.main.async { [weak self] in
+            self?.reviewDetailView.isHidden = true
+        }
+    }
+    
+    func showReviewButton(data: CheckChatReviewResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.isShowReviewButton = data.success ?? false
         }
     }
 }

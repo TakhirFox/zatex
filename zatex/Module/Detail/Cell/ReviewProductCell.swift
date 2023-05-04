@@ -1,27 +1,25 @@
 //
-//  CreateProductButtonCell.swift
+//  ReviewProductCell.swift
 //  zatex
 //
-//  Created by Zakirov Tahir on 08.04.2023.
+//  Created by Zakirov Tahir on 28.04.2023.
 //
 
 import UIKit
 
-class CreateProductButtonCell: UITableViewCell {
+class ReviewProductCell: UICollectionViewCell {
     
-    let sendButton: BaseButton = {
+    let reviewButton: BaseButton = {
         let view = BaseButton()
-        view.set(style: .primary)
+        view.set(style: .sedondary)
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
-        contentView.isUserInteractionEnabled = false
-        
+                
         configureSubviews()
         configureConstraints()
         updateAppearence()
@@ -31,21 +29,21 @@ class CreateProductButtonCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) {
-        sendButton.setTitle(name, for: .normal)
+    func setupCell() {
+        reviewButton.setTitle("Оставить отзыв", for: .normal)
     }
     
     private func updateAppearence() {}
     
     private func configureSubviews() {
-        addSubview(sendButton)
+        contentView.addSubview(reviewButton)
     }
     
     private func configureConstraints() {
-        sendButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(9)
+        reviewButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(9)
+            make.bottom.equalToSuperview().offset(16)
         }
     }
     

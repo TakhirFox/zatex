@@ -8,6 +8,9 @@
 import UIKit
 
 class BaseButton: UIButton {
+    
+    private var style: ButtonStyle?
+    
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: 50)
     }
@@ -22,7 +25,12 @@ class BaseButton: UIButton {
         configure()
     }
     
-    func configure() {
+    open func set(style: ButtonStyle) {
+        self.style = style
+        updateAppearence()
+    }
+    
+    private func configure() {
         updateAppearence()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
@@ -30,11 +38,13 @@ class BaseButton: UIButton {
         }
     }
     
-    func updateAppearence() {
+    private func updateAppearence() {
+        guard let style = style else { return }
+        
         titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)
-        backgroundColor = Palette.Button.primary
-        tintColor = Palette.Background.secondary
-        setTitleColor(Palette.Background.secondary, for: .normal)
-        layer.cornerRadius = 8
+        backgroundColor = style.backgroundColor
+        tintColor = style.tintColor
+        setTitleColor(style.tintColor, for: .normal)
+        layer.cornerRadius = style.cornerRadius
     }
 }
