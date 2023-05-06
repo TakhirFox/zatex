@@ -24,6 +24,7 @@ protocol DetailPresenterProtocol: AnyObject {
     
     func callPhone(number: String?)
     func getCoordinatesAndGoToMap(address: ProductResult.Address?)
+    
     func sendReview(
         userId: Int?,
         productName: String?,
@@ -35,6 +36,11 @@ protocol DetailPresenterProtocol: AnyObject {
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: [CoordinatesResult])
     func goToDetail(id: Int)
+    
+    func goToFullscreen(
+        images: [ProductResult.Image]?,
+        selected: Int
+    )
     
     // View
     func setProductInfo(data: ProductResult)
@@ -138,6 +144,15 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func goToDetail(id: Int) {
         router?.routeToDetail(id: id)
+    }
+    
+    func goToFullscreen(
+        images: [ProductResult.Image]?,
+        selected: Int
+    ) {
+        guard let images = images?.map ({ $0.src! }) else { return }
+        
+        router?.routeToFullscreen(images: images, id: selected)
     }
     
     // MARK: To View

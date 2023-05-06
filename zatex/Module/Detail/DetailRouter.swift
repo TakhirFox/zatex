@@ -12,6 +12,11 @@ protocol DetailRouterProtocol: AnyObject {
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: CoordinareEntity)
     func routeToDetail(id: Int)
+    
+    func routeToFullscreen(
+        images: [String],
+        id: Int
+    )
 }
 
 class DetailRouter: BaseRouter {
@@ -33,5 +38,14 @@ extension DetailRouter: DetailRouterProtocol {
     func routeToDetail(id: Int) {
         let view = DetailAssembly.create(id: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToFullscreen(
+        images: [String],
+        id: Int
+    ) {
+        let view = FullscreenAssembly.create(images: images, selected: id)
+        view.modalPresentationStyle = .fullScreen
+        viewController?.present(view, animated: true)
     }
 }

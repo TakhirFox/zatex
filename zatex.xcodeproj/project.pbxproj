@@ -16,6 +16,7 @@
 		21819ECCE7FF77077F7A72DB /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5606FE5C4DD9FF5512963A68 /* DetailRouter.swift */; };
 		270F3F85B52E201D0DA22817 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BC2A611D47A581276F696 /* ProfilePresenter.swift */; };
 		2AE2EECA8D14BB79E3D6DB47 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F408209F845D51605514B35 /* SearchViewController.swift */; };
+		2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */; };
 		346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFB8A6565B9B313516A0E9 /* ChatDetailInteractor.swift */; };
 		4149DFE8F205CB1F51E8D8F0 /* MainTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7BEA59CB62571178F0A48 /* MainTabBarPresenter.swift */; };
 		466D50C96200B7E5284A3D1B /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4443D6D6E295938F34939B /* DetailAssembly.swift */; };
@@ -25,6 +26,7 @@
 		4F8340B0FF4E02C1A7EB5772 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0624D0413BE404919F996EEB /* DetailViewController.swift */; };
 		57A0C4C75D02CB5FCB96B973 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EC14780C4F4179EED7C5BA /* GeneralSettingsViewController.swift */; };
 		5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC1E1EA98C1D3F31AE07CC2 /* ReviewsAssembly.swift */; };
+		5AA0089D5CAC3AE2C49267BC /* FullscreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31789EE168BC64CC14BE81A /* FullscreenInteractor.swift */; };
 		5B8A7F123DD7DDED3810A5F5 /* ChatDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3868CDEC00C3EB8F12E30C7 /* ChatDetailPresenter.swift */; };
 		5CEA9AFC25E16D94AADB1EE4 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04B881456910C43F8D86E63 /* ProfileInteractor.swift */; };
 		61717B24BC06DF8511477CDF /* Pods_zatex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B0DE61386A6798A3563828 /* Pods_zatex.framework */; };
@@ -33,6 +35,7 @@
 		681507BCE22319967454F570 /* GeneralSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */; };
 		68CD2C08D8432F5F5CC5C8D0 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3A1F36E497FC961D7EB70 /* SearchPresenter.swift */; };
 		699C6A230215CD40B9476784 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF89B21ED4462AC5C183854 /* FeedPresenter.swift */; };
+		6CBBCC238B4DA197EB988292 /* FullscreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D219ECB3B0E3460F7EDAE /* FullscreenRouter.swift */; };
 		6D05043059D418C5C323A9DC /* CreateProductPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABD079C842559E044E11C48 /* CreateProductPresenter.swift */; };
 		6D6A5D5CEA9626A8B431B5EE /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5406A5C9A2F0FBE5E51FAAD /* MapInteractor.swift */; };
 		70FADA8F65E60DE73206333E /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D711608797CE350809BC22 /* DetailInteractor.swift */; };
@@ -192,6 +195,7 @@
 		E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */; };
 		E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E673BE585FC86B964EC1A /* AuthViewController.swift */; };
 		E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AFD7A8B6FFAC541D1CF33D /* ChatListRouter.swift */; };
+		E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */; };
 		E4EC418E7B7F125BA39837BC /* CreateProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91D648E4DA4B5F5BC713673 /* CreateProductViewController.swift */; };
 		E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF8469AF5B3A39727784EC /* ChatDetailAssembly.swift */; };
 		E5D79D234070D764FDAB11B1 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98100CDB928013572D0417D9 /* DetailPresenter.swift */; };
@@ -203,6 +207,7 @@
 		FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64731D66E5594ED96D1223EF /* MapRouter.swift */; };
 		FB4022CF39E51B84D53B4898 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7D859512D2BA0CCF59FB /* AuthInteractor.swift */; };
 		FBA3841059048F4ACBB0EF6C /* CreateProductInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE19F1E6A8F4E07D1FC26D /* CreateProductInteractor.swift */; };
+		FBED3E37DE0FC80342AC35CE /* FullscreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB2FE10D8C9EABCDBBC035C /* FullscreenAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,10 +217,12 @@
 		17CE19F1E6A8F4E07D1FC26D /* CreateProductInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductInteractor.swift; sourceTree = "<group>"; };
 		1B3ACCC8094B0B13F474C2A2 /* ReviewsPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsPresenter.swift; sourceTree = "<group>"; };
 		1D5EB64AD11EDF21F6F569BE /* MapViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenViewController.swift; sourceTree = "<group>"; };
 		2821A58A737E8032C5B440DA /* ReviewsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsInteractor.swift; sourceTree = "<group>"; };
 		2D7E673BE585FC86B964EC1A /* AuthViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenPresenter.swift; sourceTree = "<group>"; };
 		34FDEF90887570EA0CB1AFC7 /* MainTabBarRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
 		36AC3D699E4C334D5F418290 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		3988B6A343C452A77B06D65B /* GeneralSettingsPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPresenter.swift; sourceTree = "<group>"; };
@@ -228,6 +235,7 @@
 		584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsRouter.swift; sourceTree = "<group>"; };
 		5ACFB8A6565B9B313516A0E9 /* ChatDetailInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailInteractor.swift; sourceTree = "<group>"; };
 		5B5C7D859512D2BA0CCF59FB /* AuthInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
+		5CB2FE10D8C9EABCDBBC035C /* FullscreenAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenAssembly.swift; sourceTree = "<group>"; };
 		5F408209F845D51605514B35 /* SearchViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		60B7C4678A8612CED92F7A4B /* FeedAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedAssembly.swift; sourceTree = "<group>"; };
 		64731D66E5594ED96D1223EF /* MapRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
@@ -397,6 +405,8 @@
 		D4F7BEA59CB62571178F0A48 /* MainTabBarPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabBarPresenter.swift; sourceTree = "<group>"; };
 		D9AB4311EF0C63B9378CF4CD /* GeneralSettingsAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsAssembly.swift; sourceTree = "<group>"; };
 		DABD079C842559E044E11C48 /* CreateProductPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductPresenter.swift; sourceTree = "<group>"; };
+		DB9D219ECB3B0E3460F7EDAE /* FullscreenRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenRouter.swift; sourceTree = "<group>"; };
+		E31789EE168BC64CC14BE81A /* FullscreenInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenInteractor.swift; sourceTree = "<group>"; };
 		E3868CDEC00C3EB8F12E30C7 /* ChatDetailPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailPresenter.swift; sourceTree = "<group>"; };
 		E91D648E4DA4B5F5BC713673 /* CreateProductViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateProductViewController.swift; sourceTree = "<group>"; };
 		E9E3A23C0761BD55E27F06FE /* FeedInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedInteractor.swift; sourceTree = "<group>"; };
@@ -470,6 +480,19 @@
 				60B7C4678A8612CED92F7A4B /* FeedAssembly.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		5AE8A9598146578527B14F7A /* Fullscreen */ = {
+			isa = PBXGroup;
+			children = (
+				267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */,
+				2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */,
+				E31789EE168BC64CC14BE81A /* FullscreenInteractor.swift */,
+				DB9D219ECB3B0E3460F7EDAE /* FullscreenRouter.swift */,
+				5CB2FE10D8C9EABCDBBC035C /* FullscreenAssembly.swift */,
+			);
+			name = Fullscreen;
+			path = Fullscreen;
 			sourceTree = "<group>";
 		};
 		6BA4F8B2CAAB98BBDF9451DF /* Reviews */ = {
@@ -727,6 +750,7 @@
 				BD1AF720F08B824C0A13CE3A /* Auth */,
 				6BA4F8B2CAAB98BBDF9451DF /* Reviews */,
 				F3426EEFF50757FDC6E8F923 /* Map */,
+				5AE8A9598146578527B14F7A /* Fullscreen */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -1463,6 +1487,11 @@
 				ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */,
 				FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */,
 				91DE834C4063C8E2C67C7D0A /* MapAssembly.swift in Sources */,
+				E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */,
+				2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */,
+				5AA0089D5CAC3AE2C49267BC /* FullscreenInteractor.swift in Sources */,
+				6CBBCC238B4DA197EB988292 /* FullscreenRouter.swift in Sources */,
+				FBED3E37DE0FC80342AC35CE /* FullscreenAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
