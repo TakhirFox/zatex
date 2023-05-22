@@ -51,6 +51,7 @@
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
 		A255B3A14F895C9642DDF5AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EB64AD11EDF21F6F569BE /* MapViewController.swift */; };
 		AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */; };
+		AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
@@ -262,6 +263,7 @@
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListPresenter.swift; sourceTree = "<group>"; };
 		AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoResult.swift; sourceTree = "<group>"; };
+		AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenNavigationView.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
@@ -486,12 +488,12 @@
 			isa = PBXGroup;
 			children = (
 				267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */,
+				AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */,
 				2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */,
 				E31789EE168BC64CC14BE81A /* FullscreenInteractor.swift */,
 				DB9D219ECB3B0E3460F7EDAE /* FullscreenRouter.swift */,
 				5CB2FE10D8C9EABCDBBC035C /* FullscreenAssembly.swift */,
 			);
-			name = Fullscreen;
 			path = Fullscreen;
 			sourceTree = "<group>";
 		};
@@ -1486,6 +1488,7 @@
 				6D6A5D5CEA9626A8B431B5EE /* MapInteractor.swift in Sources */,
 				ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */,
 				FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */,
+				AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */,
 				91DE834C4063C8E2C67C7D0A /* MapAssembly.swift in Sources */,
 				E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */,
 				2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */,

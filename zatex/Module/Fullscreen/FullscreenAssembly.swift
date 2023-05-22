@@ -17,6 +17,7 @@ class FullscreenAssembly {
         
         viewController.presenter = presenter
         viewController.images = images
+        viewController.selectedId = selected
         
         presenter.view = viewController
         presenter.interactor = interactor
