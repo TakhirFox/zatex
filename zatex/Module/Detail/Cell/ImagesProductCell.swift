@@ -9,7 +9,12 @@ import UIKit
 
 class ImagesProductCell: UICollectionViewCell {
     
+    enum Signal {
+        case onOpenImage(id: Int)
+    }
+    
     var images: [ProductResult.Image]?
+    var onSignal: (Signal) -> Void = { _ in }
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -82,6 +87,10 @@ extension ImagesProductCell: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        onSignal(.onOpenImage(id: indexPath.row))
     }
     
 }

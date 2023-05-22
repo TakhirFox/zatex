@@ -161,6 +161,12 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .images:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imagesCell", for: indexPath) as! ImagesProductCell
             cell.setupCell(images: product?.images)
+            cell.onSignal = { signal in
+                switch signal {
+                case let .onOpenImage(id):
+                    self.presenter?.goToFullscreen(images: self.product?.images, selected: id)
+                }
+            }
             return cell
             
         case .productInfo:
