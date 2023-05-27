@@ -26,6 +26,7 @@ class DetailViewController: BaseViewController {
     
     var presenter: DetailPresenterProtocol?
     
+    var sessionProvider: SessionProvider?
     var product: ProductResult?
     var similarProducts: [ProductResult] = []
     var storeInfo: StoreInfoResult?
@@ -128,14 +129,16 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return 1
             
         case .contact:
-            let myUserId = UserSettingsService.shared.getTokens().userId
             let storeId = String(product?.store?.id ?? 0)
             
-            if storeId == myUserId {
-                return 0
+            if sessionProvider != nil,
+               sessionProvider!.isAuthorized,
+               storeId != sessionProvider!.getSession()?.userId
+            {
+                return 1
             }
             
-            return 1
+            return 0
             
         case .review:
             return isShowReviewButton ? 1 : 0

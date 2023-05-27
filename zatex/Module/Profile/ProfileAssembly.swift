@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ProfileAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class ProfileAssembly {
+    static func create(updateTabBarHandler: @escaping (() -> Void)) -> UIViewController {
         //TODO: Передавать лучше ID, или для других пользователей отдельный экран???
         let viewController = ProfileViewController()
         let presenter = ProfilePresenter()
@@ -17,12 +17,15 @@ class ProfileAssembly: BaseAssemblyProtocol {
         let router = ProfileRouter()
         
         let networkService = ProfileService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
+        viewController.sessionProvider = sessionProvider
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.updateTabBarHandler = updateTabBarHandler
         
         interactor.presenter = presenter
         interactor.service = networkService

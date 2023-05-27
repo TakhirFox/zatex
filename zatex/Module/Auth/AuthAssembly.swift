@@ -8,25 +8,26 @@
 
 import UIKit
 
-class AuthAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class AuthAssembly {
+    static func create(authorizationHandler: @escaping (() -> Void)) -> UIViewController {
         let viewController = AuthViewController()
         let presenter = AuthPresenter()
         let interactor = AuthInteractor()
         let router = AuthRouter()
         
         let networkService = AuthService.shared
-        let userSettingsService = UserSettingsService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.authorizationHandler = authorizationHandler
         
         interactor.presenter = presenter
         interactor.service = networkService
-        interactor.userSettings = userSettingsService
+        interactor.sessionProvider = sessionProvider
         
         router.viewController = viewController
         

@@ -134,6 +134,7 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             print("N0thing bro")
         case .logout:
             presenter?.logout()
+            navigationController?.popViewController(animated: true)
         case .none:
             print("N0thing bro")
         }

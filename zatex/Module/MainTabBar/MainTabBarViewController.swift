@@ -10,20 +10,28 @@ import UIKit
 
 protocol MainTabBarViewControllerProtocol: AnyObject {
     var presenter: MainTabBarPresenterProtocol? { get set }
-
+    
 }
 
 class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProtocol {
     
     var presenter: MainTabBarPresenterProtocol?
+    var sessionProvider: SessionProvider
+    
+    var chatController: UIViewController?
+    var createProductController: UIViewController?
     
     override func viewDidLoad() {
         setTabbarAppereance()
         setupTabItems()
     }
     
-    init(presenter: MainTabBarPresenterProtocol) {
+    init(
+        presenter: MainTabBarPresenterProtocol,
+        sessionProvider: SessionProvider
+    ) {
         self.presenter = presenter
+        self.sessionProvider = sessionProvider
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,23 +47,47 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
                 image: UIImage(named: "FeedIcon")!
             ),
             createNavController(
-                viewController: CreateProductAssembly.create(),
-                title: "Create",
-                image: UIImage(named: "CreateIcon")!
-            ),
-            createNavController(
-                viewController: ChatListAssembly.create(),
-                title: "Chat",
-                image: UIImage(named: "ChatIcon")!
-            ),
-            createNavController(
-                viewController: ProfileAssembly.create(),
+                viewController: ProfileAssembly.create(updateTabBarHandler: { [weak self] in
+                    self?.addChatView()
+                }),
                 title: "Profile",
                 image: UIImage(named: "ProfileIcon")!
             )
         ]
+        
+        
+        self.addChatView()
     }
     
+    private func addChatView() {
+        if sessionProvider.isAuthorized {
+            createProductController = createNavController(
+                viewController: CreateProductAssembly.create(),
+                title: "Create",
+                image: UIImage(named: "CreateIcon")!
+            )
+            
+            chatController = createNavController(
+                viewController: ChatListAssembly.create(),
+                title: "Chat",
+                image: UIImage(named: "ChatIcon")!
+            )
+            
+            viewControllers?.insert(createProductController!, at: 1)
+            viewControllers?.insert(chatController!, at: 2)
+        } else {
+            guard createProductController != nil,
+                  chatController != nil else { return }
+            
+            if let viewControllers = viewControllers,
+               viewControllers.contains(createProductController!),
+               viewControllers.contains(chatController!) {
+                
+                self.viewControllers?.remove(at: 2)
+                self.viewControllers?.remove(at: 1)
+            }
+        }
+    }
 }
 
 extension MainTabBarViewController {

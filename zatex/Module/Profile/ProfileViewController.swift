@@ -13,6 +13,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
 
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult])
+    func updateView()
 }
 
 class ProfileViewController: BaseViewController {
@@ -23,6 +24,7 @@ class ProfileViewController: BaseViewController {
     
     var presenter: ProfilePresenterProtocol?
     
+    var sessionProvider: SessionProvider?
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
     
@@ -41,31 +43,40 @@ class ProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let id = Int(UserSettingsService.shared.getTokens().userId ?? "") ?? nil
-        // TODO: id???
-        if let id = id {
-            self.presenter?.getStoreInfo(authorId: id)
-            self.presenter?.getStoreProduct(authorId: id)
+        
+
+        if let userId = sessionProvider?.getSession()?.userId,
+            let id = Int(userId) {
+            presenter?.getStoreInfo(authorId: id)
+            presenter?.getStoreProduct(authorId: id)
         }
         
-        hideNavigationView()
+        self.hideNavigationView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationItem()
+        setupCollectionView()
+        setupSubviews()
+        setupConstraints()
         loadProfileView()
     }
     
     func loadProfileView() {
-        if !UserSettingsService.shared.token.isEmpty {
-            setupNavigationItem()
-            setupCollectionView()
-            setupSubviewsProfile()
-            setupConstraintsProfile()
+        if sessionProvider != nil,
+           sessionProvider!.isAuthorized
+        {
+            navigationController?.isNavigationBarHidden = false
+            collectionView.isHidden = false
+            headerView.isHidden = false
+            loginButton.isHidden = true
         } else {
-            setupSubviewsNotAuthorized()
-            setupConstraintsNotAuthorized()
+            navigationController?.isNavigationBarHidden = true
+            collectionView.isHidden = true
+            headerView.isHidden = true
+            loginButton.isHidden = false
         }
     }
     
@@ -80,32 +91,27 @@ class ProfileViewController: BaseViewController {
         collectionView.backgroundColor = .clear
     }
     
-    func setupSubviewsProfile() {
+    func setupSubviews() {
+        view.addSubview(loginButton)
         view.addSubview(collectionView)
         view.addSubview(headerView)
         headerView.addSubview(authorView)
     }
     
-    func setupConstraintsProfile() {
+    func setupConstraints() {
+        loginButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.width.equalTo(100)
+        }
+        
         collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 0, right: 16)
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
-        }
-    }
-    
-    func setupSubviewsNotAuthorized() {
-        view.addSubview(loginButton)
-    }
-    
-    func setupConstraintsNotAuthorized() {
-        loginButton.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(100)
         }
     }
     
@@ -247,10 +253,8 @@ extension ProfileViewController {
     }
     
     @objc func goToReviews() {
-        let id = UserSettingsService.shared.getTokens().userId ?? ""
-        // TODO: id???
-        
-        presenter?.goToReview(id: id) // TODO: Reviews
+        guard let userId = sessionProvider?.getSession()?.userId else { return }
+        presenter?.goToReview(id: userId)
     }
 }
 
@@ -270,5 +274,9 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             self?.profileProducts = data
             self?.collectionView.reloadData()
         }
+    }
+    
+    func updateView() {
+        loadProfileView()
     }
 }

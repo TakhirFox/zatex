@@ -14,7 +14,7 @@ protocol AuthInteractorProtocol {
 class AuthInteractor: BaseInteractor {
     weak var presenter: AuthPresenterProtocol?
     var service: AuthAPI!
-    var userSettings: UserSettingsAPI!
+    var sessionProvider: SessionProvider!
 }
 
 extension AuthInteractor: AuthInteractorProtocol {
@@ -28,7 +28,7 @@ extension AuthInteractor: AuthInteractorProtocol {
         ) { result in
             
             if result.token != nil {
-                self.userSettings.saveTokens(tokenData: result)
+                self.sessionProvider.setSession(result)
             }
             
             self.presenter?.authSuccess()

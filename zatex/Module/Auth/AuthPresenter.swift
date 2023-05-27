@@ -15,7 +15,7 @@ class AuthPresenter: BasePresenter {
     weak var view: AuthViewControllerProtocol?
     var interactor: AuthInteractorProtocol?
     var router: AuthRouterProtocol?
-    
+    var authorizationHandler: (() -> Void) = {}
 }
 
 extension AuthPresenter: AuthPresenterProtocol {
@@ -39,6 +39,7 @@ extension AuthPresenter: AuthPresenterProtocol {
     }
     
     func authSuccess() {
-        view?.updateView()
+        authorizationHandler()
+        view?.closeView()
     }
 }

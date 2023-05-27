@@ -20,10 +20,11 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 class ProfilePresenter: BasePresenter {
+    
     weak var view: ProfileViewControllerProtocol?
     var interactor: ProfileInteractorProtocol?
     var router: ProfileRouterProtocol?
-    
+    var updateTabBarHandler: (() -> Void) = {}
 }
 
 extension ProfilePresenter: ProfilePresenterProtocol {
@@ -38,11 +39,17 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     // MARK: To Router
     func goToSettings() {
-        router?.routeToSettings()
+        router?.routeToSettings(logoutHandler: { [weak self] in
+            self?.view?.updateView()
+            self?.updateTabBarHandler()
+        })
     }
     
     func goToAuthView() {
-        router?.routeToAuthView()
+        router?.routeToAuthView(signInHandler: { [weak self] in
+            self?.view?.updateView()
+            self?.updateTabBarHandler()
+        })
     }
     
     func goToDetail(id: Int) {

@@ -9,8 +9,8 @@
 import UIKit
 
 protocol ProfileRouterProtocol: AnyObject {
-    func routeToSettings()
-    func routeToAuthView()
+    func routeToSettings(logoutHandler: @escaping () -> Void)
+    func routeToAuthView(signInHandler: @escaping () -> Void)
     func routeToDetail(id: Int)
     func routeToReview(id: String)
 }
@@ -21,13 +21,14 @@ class ProfileRouter: BaseRouter {
 }
 
 extension ProfileRouter: ProfileRouterProtocol {
-    func routeToSettings() {
-        let view = GeneralSettingsAssembly.create()
+    func routeToSettings(logoutHandler: @escaping () -> Void) {
+        let view = GeneralSettingsAssembly.create(logoutHandler: logoutHandler)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     
-    func routeToAuthView() {
-        let view = AuthAssembly.create()
+    func routeToAuthView(signInHandler: @escaping () -> Void) {
+        let view = AuthAssembly.create(authorizationHandler: signInHandler)
+        view.modalPresentationStyle = .fullScreen
         viewController?.present(view, animated: true)
     }
     
