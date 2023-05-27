@@ -14,12 +14,13 @@ protocol GeneralSettingsInteractorProtocol {
 class GeneralSettingsInteractor: BaseInteractor {
     
     weak var presenter: GeneralSettingsPresenterProtocol?
-    var userSettings: UserSettingsAPI!
+    var sessionProvider: SessionProvider!
 }
 
 extension GeneralSettingsInteractor: GeneralSettingsInteractorProtocol {
     
     func logout() {
-        self.userSettings.clearTokens()
+        self.sessionProvider.logout()
+        
     }
 }

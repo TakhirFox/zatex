@@ -10,7 +10,7 @@ import UIKit
 
 protocol AuthViewControllerProtocol: AnyObject {
     var presenter: AuthPresenterProtocol? { get set }
-    func updateView()
+    func closeView()
 }
 
 class AuthViewController: BaseViewController {
@@ -71,7 +71,6 @@ class AuthViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideKeyboardWhenTapped()
         setupSubviews()
         setupConstraints()
@@ -122,7 +121,7 @@ extension AuthViewController: AuthViewControllerProtocol {
                                        pass: passwordTextField.text)
     }
     
-    func updateView() {
+    func closeView() {
         DispatchQueue.main.async {
             self.dismiss(animated: true)
         }

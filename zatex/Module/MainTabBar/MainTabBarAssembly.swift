@@ -13,9 +13,10 @@ class MainTabBarAssembly: BaseAssemblyProtocol {
         let presenter = MainTabBarPresenter()
         let interactor = MainTabBarInteractor()
         let router = MainTabBarRouter()
-        let viewController = MainTabBarViewController(presenter: presenter)
         
-        viewController.presenter = presenter
+        let sessionProvider = AppSessionProvider()
+        
+        let viewController = MainTabBarViewController(presenter: presenter, sessionProvider: sessionProvider)
         
         presenter.view = viewController
         presenter.interactor = interactor

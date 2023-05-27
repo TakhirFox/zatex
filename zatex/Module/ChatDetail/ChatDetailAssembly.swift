@@ -16,8 +16,10 @@ class ChatDetailAssembly {
         let router = ChatDetailRouter()
         
         let networkService = ChatDetailService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
+        viewController.userId = sessionProvider.getSession()?.userId
         
         presenter.view = viewController
         presenter.interactor = interactor

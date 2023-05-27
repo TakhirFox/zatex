@@ -8,23 +8,24 @@
 
 import UIKit
 
-class GeneralSettingsAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class GeneralSettingsAssembly {
+    static func create(logoutHandler: @escaping (() -> Void)) -> UIViewController {
         let viewController = GeneralSettingsViewController()
         let presenter = GeneralSettingsPresenter()
         let interactor = GeneralSettingsInteractor()
         let router = GeneralSettingsRouter()
         
-        let userSettingsService = UserSettingsService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.logoutHandler = logoutHandler
         
         interactor.presenter = presenter
-        interactor.userSettings = userSettingsService
+        interactor.sessionProvider = sessionProvider
         
         router.viewController = viewController
         

@@ -22,6 +22,7 @@ class ChatDetailViewController: BaseViewController {
     var messages: [ChatMessageResult] = []
     var chatInfo: ChatInfoResult?
     var messageContent = String()
+    var userId: String?
     
     let chatInfoView = ChatInfoView()
     let chatView = UIView()
@@ -158,14 +159,12 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myUserId = UserSettingsService.shared.getTokens().userId
-
         if messages[indexPath.row].senderID == nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell",
                                                      for: indexPath) as! SentChatCell
             cell.setupCell(messages[indexPath.row])
             return cell
-        } else if messages[indexPath.row].senderID != myUserId {
+        } else if messages[indexPath.row].senderID != userId {
             let cell = tableView.dequeueReusableCell(withIdentifier: "receivedChatCell",
                                                      for: indexPath) as! ReceivedChatCell
             cell.setupCell(messages[indexPath.row])

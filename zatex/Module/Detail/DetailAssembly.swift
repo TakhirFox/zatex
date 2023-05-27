@@ -17,8 +17,10 @@ class DetailAssembly {
         
         let networkService = ProductDetailService.shared
         let mapNetworkService = MapService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
+        viewController.sessionProvider = sessionProvider
         
         presenter.view = viewController
         presenter.interactor = interactor
