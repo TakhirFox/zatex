@@ -501,6 +501,7 @@
 		5AE8A9598146578527B14F7A /* Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
+				AD037FE52A23856500DB0F60 /* Subviews */,
 				267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */,
 				AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */,
 				2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */,
@@ -570,6 +571,13 @@
 				ADCE94FB29BA181A00C8F717 /* UserSettingsService.swift */,
 			);
 			path = SessionProvider;
+			sourceTree = "<group>";
+		};
+		AD037FE52A23856500DB0F60 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		AD2FA11A29F054A500EC75D3 /* Views */ = {
@@ -762,20 +770,20 @@
 		AD9B25FD28FD457800C15139 /* Module */ = {
 			isa = PBXGroup;
 			children = (
-				EF24441614FE46792B8A8968 /* MainTabBar */,
-				509B4C98104A8482F16F1EBD /* Feed */,
-				01A97103F41A51C9D317FF5D /* Search */,
-				2107F3DC83F5E355101B65C5 /* Profile */,
-				B2D02A16E3C3758D7A4C104C /* Detail */,
-				1700263E537C78475A234668 /* CreateProduct */,
-				AB165390F8C898527A97D966 /* GeneralSettings */,
-				993BFF05F4E16DA98AAECC97 /* ProfileEdit */,
-				840411B614E7666442AB6359 /* ChatList */,
-				FE630FE8003E38B9A0D6997F /* ChatDetail */,
 				BD1AF720F08B824C0A13CE3A /* Auth */,
-				6BA4F8B2CAAB98BBDF9451DF /* Reviews */,
-				F3426EEFF50757FDC6E8F923 /* Map */,
+				FE630FE8003E38B9A0D6997F /* ChatDetail */,
+				840411B614E7666442AB6359 /* ChatList */,
+				1700263E537C78475A234668 /* CreateProduct */,
+				B2D02A16E3C3758D7A4C104C /* Detail */,
+				509B4C98104A8482F16F1EBD /* Feed */,
 				5AE8A9598146578527B14F7A /* Fullscreen */,
+				AB165390F8C898527A97D966 /* GeneralSettings */,
+				EF24441614FE46792B8A8968 /* MainTabBar */,
+				F3426EEFF50757FDC6E8F923 /* Map */,
+				2107F3DC83F5E355101B65C5 /* Profile */,
+				993BFF05F4E16DA98AAECC97 /* ProfileEdit */,
+				6BA4F8B2CAAB98BBDF9451DF /* Reviews */,
+				01A97103F41A51C9D317FF5D /* Search */,
 				B54CF41BE7FB369770C8717A /* SignUp */,
 			);
 			path = Module;
@@ -1132,7 +1140,6 @@
 				CD33B7BDAA66C672478F8BEA /* SignUpRouter.swift */,
 				CFE0A3856865E8897E324FCC /* SignUpAssembly.swift */,
 			);
-			name = SignUp;
 			path = SignUp;
 			sourceTree = "<group>";
 		};

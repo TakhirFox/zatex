@@ -28,8 +28,11 @@ extension ProfileRouter: ProfileRouterProtocol {
     
     func routeToAuthView(signInHandler: @escaping () -> Void) {
         let view = AuthAssembly.create(authorizationHandler: signInHandler)
-        view.modalPresentationStyle = .fullScreen
-        viewController?.present(view, animated: true)
+        
+        let navigationController = UINavigationController(rootViewController: view)
+        navigationController.modalPresentationStyle = .fullScreen
+        
+        viewController?.present(navigationController, animated: true)
     }
     
     func routeToDetail(id: Int) {
