@@ -63,6 +63,8 @@
 		AD037FF02A2397A100DB0F60 /* SignUpHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FEF2A2397A100DB0F60 /* SignUpHttpRouter.swift */; };
 		AD037FF22A2397AB00DB0F60 /* SignUpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FF12A2397AB00DB0F60 /* SignUpAPI.swift */; };
 		AD037FF42A2397B300DB0F60 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FF32A2397B300DB0F60 /* SignUpService.swift */; };
+		AD037FF62A23B29400DB0F60 /* SignUpEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FF52A23B29400DB0F60 /* SignUpEntity.swift */; };
+		AD037FF82A23DD9D00DB0F60 /* SignUpResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FF72A23DD9D00DB0F60 /* SignUpResult.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
@@ -285,6 +287,8 @@
 		AD037FEF2A2397A100DB0F60 /* SignUpHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpHttpRouter.swift; sourceTree = "<group>"; };
 		AD037FF12A2397AB00DB0F60 /* SignUpAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAPI.swift; sourceTree = "<group>"; };
 		AD037FF32A2397B300DB0F60 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		AD037FF52A23B29400DB0F60 /* SignUpEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpEntity.swift; sourceTree = "<group>"; };
+		AD037FF72A23DD9D00DB0F60 /* SignUpResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResult.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
@@ -764,6 +768,8 @@
 				AD3AF69F29E299A200ABDC1A /* MediaResult.swift */,
 				AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */,
 				ADB817D929FD546600CF09F9 /* ReviewEntity.swift */,
+				AD037FF52A23B29400DB0F60 /* SignUpEntity.swift */,
+				AD037FF72A23DD9D00DB0F60 /* SignUpResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1465,6 +1471,7 @@
 				AD4A9876291987EA00709745 /* InfoProductCell.swift in Sources */,
 				ADF1C4C229DC84F400532EDD /* MapHttpService.swift in Sources */,
 				ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */,
+				AD037FF82A23DD9D00DB0F60 /* SignUpResult.swift in Sources */,
 				ADE8175529093E3D004895DD /* BaseTabBar.swift in Sources */,
 				C241F43970B44F62AEFC8665 /* ProfileViewController.swift in Sources */,
 				270F3F85B52E201D0DA22817 /* ProfilePresenter.swift in Sources */,
@@ -1510,6 +1517,7 @@
 				21819ECCE7FF77077F7A72DB /* DetailRouter.swift in Sources */,
 				466D50C96200B7E5284A3D1B /* DetailAssembly.swift in Sources */,
 				E4EC418E7B7F125BA39837BC /* CreateProductViewController.swift in Sources */,
+				AD037FF62A23B29400DB0F60 /* SignUpEntity.swift in Sources */,
 				ADCF768C29B89B65007FF164 /* AuthHttpService.swift in Sources */,
 				6D05043059D418C5C323A9DC /* CreateProductPresenter.swift in Sources */,
 				AD4A987E2919917900709745 /* AuthorProdCell.swift in Sources */,

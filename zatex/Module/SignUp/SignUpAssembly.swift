@@ -15,6 +15,9 @@ class SignUpAssembly: BaseAssemblyProtocol {
         let interactor = SignUpInteractor()
         let router = SignUpRouter()
         
+        let networkService = SignUpService.shared
+        let sessionProvider = AppSessionProvider()
+        
         viewController.presenter = presenter
         
         presenter.view = viewController
@@ -22,6 +25,8 @@ class SignUpAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
+        interactor.sessionProvider = sessionProvider
         
         router.viewController = viewController
         

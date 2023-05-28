@@ -21,6 +21,8 @@ class SignUpViewController: BaseViewController {
     
     var presenter: SignUpPresenterProtocol?
     
+    var signUpData = SignUpEntity()
+    
     let tableView = UITableView(frame: .zero, style: .grouped)
     
     override func viewDidLoad() {
@@ -69,27 +71,60 @@ extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
         switch row {
         case .username:
             let cell = tableView.dequeueReusableCell(withIdentifier: "usernameFieldCell", for: indexPath) as! FieldSignUpCell
+            cell.textField.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
             cell.setupCell(name: "Имя пользователя", field: "")
             return cell
             
         case .email:
             let cell = tableView.dequeueReusableCell(withIdentifier: "emailFieldCell", for: indexPath) as! FieldSignUpCell
+            cell.textField.addTarget(self, action: #selector(emailDidChange(_:)), for: .editingChanged)
             cell.setupCell(name: "Email", field: "")
             return cell
             
         case .password:
             let cell = tableView.dequeueReusableCell(withIdentifier: "passwordFieldCell", for: indexPath) as! FieldSignUpCell
+            cell.textField.addTarget(self, action: #selector(passwordDidChange(_:)), for: .editingChanged)
             cell.setupCell(name: "Password", field: "")
             return cell
             
         case .send:
             let cell = tableView.dequeueReusableCell(withIdentifier: "signUpButtonCell", for: indexPath) as! SignUpButtonCell
+            cell.sendButton.addTarget(self, action: #selector(signUpAction), for: .touchUpInside)
             cell.setupCell(name: "Зарегистрировать")
             return cell
             
         case .none:
             return UITableViewCell()
         }
+    }
+}
+
+extension SignUpViewController {
+    
+    @objc func usernameDidChange(_ textField: UITextField) {
+        if textField.text != nil {
+            signUpData.username = textField.text
+        }
+    }
+    
+    @objc func emailDidChange(_ textField: UITextField) {
+        if textField.text != nil {
+            signUpData.email = textField.text
+        }
+    }
+    
+    @objc func passwordDidChange(_ textField: UITextField) {
+        if textField.text != nil {
+            signUpData.pass = textField.text
+        }
+    }
+    
+    @objc func signUpAction() {
+        presenter?.checkTextFieldEmpty(
+            username: signUpData.username,
+            email: signUpData.email,
+            pass: signUpData.pass
+        )
     }
 }
 

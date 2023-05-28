@@ -27,10 +27,10 @@ extension SignUpService: SignUpAPI {
                     password: pass
                 )
                 .request(usingHttpService: httpService)
-                .response { response in
+                .responseDecodable(of: SignUpResult.self) { response in
                     switch response.result {
-                    case .success:
-                        completion()
+                    case .success(let data):
+                        completion(data)
                     case .failure(let error):
                         print("LOG 23775296589328: Ошибка  \(error)")
                     }

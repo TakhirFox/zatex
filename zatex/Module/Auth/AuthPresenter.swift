@@ -7,6 +7,7 @@
 //
 
 protocol AuthPresenterProtocol: AnyObject {
+    
     func checkTextFieldEmpty(login: String?, pass: String?)
     
     func goToSignUp()
@@ -16,6 +17,7 @@ protocol AuthPresenterProtocol: AnyObject {
 }
 
 class AuthPresenter: BasePresenter {
+    
     weak var view: AuthViewControllerProtocol?
     var interactor: AuthInteractorProtocol?
     var router: AuthRouterProtocol?
@@ -23,6 +25,7 @@ class AuthPresenter: BasePresenter {
 }
 
 extension AuthPresenter: AuthPresenterProtocol {
+    
     // MARK: To Interactor
     func checkTextFieldEmpty(login: String?, pass: String?) {
         if let login = login, login == ""  {
