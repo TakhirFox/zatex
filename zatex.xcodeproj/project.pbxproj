@@ -57,6 +57,8 @@
 		AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */; };
 		AD037FE02A1E8C8000DB0F60 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FDF2A1E8C8000DB0F60 /* SessionProvider.swift */; };
 		AD037FE42A225C2000DB0F60 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FE32A225C2000DB0F60 /* ApplicationCoordinator.swift */; };
+		AD037FE82A23920D00DB0F60 /* FieldSignUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FE72A23920D00DB0F60 /* FieldSignUpCell.swift */; };
+		AD037FEA2A23964300DB0F60 /* SignUpButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FE92A23964300DB0F60 /* SignUpButtonCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
@@ -273,6 +275,8 @@
 		AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenNavigationView.swift; sourceTree = "<group>"; };
 		AD037FDF2A1E8C8000DB0F60 /* SessionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionProvider.swift; sourceTree = "<group>"; };
 		AD037FE32A225C2000DB0F60 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		AD037FE72A23920D00DB0F60 /* FieldSignUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldSignUpCell.swift; sourceTree = "<group>"; };
+		AD037FE92A23964300DB0F60 /* SignUpButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpButtonCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
@@ -580,6 +584,15 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		AD037FE62A2391F800DB0F60 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AD037FE72A23920D00DB0F60 /* FieldSignUpCell.swift */,
+				AD037FE92A23964300DB0F60 /* SignUpButtonCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		AD2FA11A29F054A500EC75D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,18 +697,18 @@
 		AD86EAC42903F506001CB847 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				AD3AF69529E13AB000ABDC1A /* Images */,
-				ADC3B41B2906E04500A7AE66 /* Base */,
-				AD46D79229C89E16002A6E1F /* Reviews */,
-				ADA28B8029C6181F006A2EA9 /* Profile */,
-				ADC3B41D2906E07300A7AE66 /* Feed */,
-				ADCDDE0429BDFAB6001F34D9 /* ProductDetail */,
-				ADBE136F290DB04A004BDEB3 /* Search */,
-				ADF53FF029B4729600BF8516 /* ChatList */,
-				ADF5400129B4C63100BF8516 /* ChatDetail */,
 				ADCF768A29B89B4A007FF164 /* Auth */,
+				ADC3B41B2906E04500A7AE66 /* Base */,
+				ADF5400129B4C63100BF8516 /* ChatDetail */,
+				ADF53FF029B4729600BF8516 /* ChatList */,
 				ADE7406829DF1762004A667C /* CreateProduct */,
+				ADC3B41D2906E07300A7AE66 /* Feed */,
+				AD3AF69529E13AB000ABDC1A /* Images */,
 				ADF1C4C029DC84D600532EDD /* Map */,
+				ADCDDE0429BDFAB6001F34D9 /* ProductDetail */,
+				ADA28B8029C6181F006A2EA9 /* Profile */,
+				AD46D79229C89E16002A6E1F /* Reviews */,
+				ADBE136F290DB04A004BDEB3 /* Search */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -731,17 +744,17 @@
 		AD86EAD629043A5A001CB847 /* HttpService */ = {
 			isa = PBXGroup;
 			children = (
-				AD86EAD4290439B3001CB847 /* StubService.swift */,
-				AD3AF69A29E13B4100ABDC1A /* Images */,
-				AD46D79329C89E23002A6E1F /* Reviews */,
-				ADF53FF129B472A600BF8516 /* ChatList */,
-				ADC3B41E2906E0C900A7AE66 /* Feed */,
-				ADCDDE0529BDFAC0001F34D9 /* ProductDetail */,
-				ADBE1368290DA4DA004BDEB3 /* Search */,
-				ADF5400629B4CBC800BF8516 /* ChatDetail */,
 				ADCF768F29B89F40007FF164 /* Auth */,
+				ADF5400629B4CBC800BF8516 /* ChatDetail */,
+				ADF53FF129B472A600BF8516 /* ChatList */,
 				ADE7406B29DF177F004A667C /* CreateProduct */,
+				ADC3B41E2906E0C900A7AE66 /* Feed */,
+				AD3AF69A29E13B4100ABDC1A /* Images */,
 				ADF1C4C529DC85C200532EDD /* Map */,
+				ADCDDE0529BDFAC0001F34D9 /* ProductDetail */,
+				AD46D79329C89E23002A6E1F /* Reviews */,
+				ADBE1368290DA4DA004BDEB3 /* Search */,
+				AD86EAD4290439B3001CB847 /* StubService.swift */,
 			);
 			path = HttpService;
 			sourceTree = "<group>";
@@ -1134,6 +1147,7 @@
 		B54CF41BE7FB369770C8717A /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				AD037FE62A2391F800DB0F60 /* Cells */,
 				F493626B0AB2EF1401BAEC1E /* SignUpViewController.swift */,
 				FD95C4B811CE4E8F55E2D22E /* SignUpPresenter.swift */,
 				C3CCDD3CD9033B561567EF73 /* SignUpInteractor.swift */,
@@ -1478,6 +1492,7 @@
 				AD037FE42A225C2000DB0F60 /* ApplicationCoordinator.swift in Sources */,
 				D773758C477D04823E627EA3 /* CreateProductAssembly.swift in Sources */,
 				57A0C4C75D02CB5FCB96B973 /* GeneralSettingsViewController.swift in Sources */,
+				AD037FE82A23920D00DB0F60 /* FieldSignUpCell.swift in Sources */,
 				0FCA7DD594C65E0F9D762530 /* GeneralSettingsPresenter.swift in Sources */,
 				681507BCE22319967454F570 /* GeneralSettingsInteractor.swift in Sources */,
 				ADA28B8929C618A8006A2EA9 /* ProfileService.swift in Sources */,
@@ -1524,6 +1539,7 @@
 				B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */,
 				4F8207833F6F7F38264AD19D /* ReviewsViewController.swift in Sources */,
 				F64097E127073872342DF797 /* ReviewsPresenter.swift in Sources */,
+				AD037FEA2A23964300DB0F60 /* SignUpButtonCell.swift in Sources */,
 				AD9306A829D948D80004E3AC /* CoordinareEntity.swift in Sources */,
 				9C37DF708E2A1E7F885FFE34 /* ReviewsInteractor.swift in Sources */,
 				ADE7407129DF17CF004A667C /* CreateProductAPI.swift in Sources */,
