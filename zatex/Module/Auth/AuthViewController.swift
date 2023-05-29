@@ -42,7 +42,7 @@ class AuthViewController: BaseViewController {
         let view = UIButton()
         view.setTitle("Зарегистрироваться", for: .normal)
         view.titleLabel?.font = UIFont(name: "Montserrat", size: 13)
-//        view.addTarget(self, action: #selector(routeToSignUpAction), for: .touchUpInside)  // TODO: Допилить
+        view.addTarget(self, action: #selector(goToSignUpAction), for: .touchUpInside)
         return view
     }()
     
@@ -50,7 +50,7 @@ class AuthViewController: BaseViewController {
         let view = UIButton()
         view.setTitle("Зыбыл пароль", for: .normal)
         view.titleLabel?.font = UIFont(name: "Montserrat", size: 13)
-//        view.addTarget(self, action: #selector(routeToForgetPasswordAction), for: .touchUpInside)  // TODO: Допилить
+        view.addTarget(self, action: #selector(goToResetPasswordAction), for: .touchUpInside)
         return view
     }()
     
@@ -119,6 +119,14 @@ extension AuthViewController: AuthViewControllerProtocol {
         view.endEditing(true)
         presenter?.checkTextFieldEmpty(login: loginTextField.text,
                                        pass: passwordTextField.text)
+    }
+    
+    @objc func goToSignUpAction() {
+        presenter?.goToSignUp()
+    }
+    
+    @objc func goToResetPasswordAction() {
+        presenter?.goToResetPassword()
     }
     
     func closeView() {

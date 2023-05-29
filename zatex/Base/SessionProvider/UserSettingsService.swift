@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias SessionData = AuthResult
+public typealias SessionData = AuthResult // TODO: Change to SessionModel
 
 public protocol UserSettingsAPI {
     var token: String { get }
