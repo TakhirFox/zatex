@@ -10,7 +10,7 @@ import UIKit
 
 protocol AuthRouterProtocol: AnyObject {
     
-    func routeToSignUp()
+    func routeToSignUp(closeViewHandler: @escaping () -> Void)
     func routeToResetPassword()
 }
 
@@ -21,8 +21,8 @@ class AuthRouter: BaseRouter {
 
 extension AuthRouter: AuthRouterProtocol {
     
-    func routeToSignUp() {
-        let view = SignUpAssembly.create()
+    func routeToSignUp(closeViewHandler: @escaping () -> Void) {
+        let view = SignUpAssembly.create(closeViewHandler: closeViewHandler)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     

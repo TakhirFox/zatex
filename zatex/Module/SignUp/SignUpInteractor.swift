@@ -45,9 +45,8 @@ extension SignUpInteractor: SignUpInteractorProtocol {
                     userDisplayName: nil
                 )
                 
-                self.sessionProvider.setSession(session)
-                
-                // Dismissed view. Updated profile view
+                self.sessionProvider.setSession(session)                
+                self.presenter?.signUpSuccess()
             }
         }
     }

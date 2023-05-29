@@ -18,10 +18,15 @@ protocol AuthPresenterProtocol: AnyObject {
 
 class AuthPresenter: BasePresenter {
     
+    enum Signal {
+        case successAuth
+        case successSignUp
+    }
+    
     weak var view: AuthViewControllerProtocol?
     var interactor: AuthInteractorProtocol?
     var router: AuthRouterProtocol?
-    var authorizationHandler: (() -> Void) = {}
+    var onSignal: (Signal) -> Void = { _ in }
 }
 
 extension AuthPresenter: AuthPresenterProtocol {
@@ -48,7 +53,10 @@ extension AuthPresenter: AuthPresenterProtocol {
     
     // MARK: To Router
     func goToSignUp() {
-        router?.routeToSignUp()
+        router?.routeToSignUp { [weak self] in
+            self?.onSignal(.successSignUp)
+            self?.view?.closeView()
+        }
     }
     
     func goToResetPassword() {
@@ -57,7 +65,7 @@ extension AuthPresenter: AuthPresenterProtocol {
     
     // MARK: To View
     func authSuccess() {
-        authorizationHandler()
+        onSignal(.successAuth)
         view?.closeView()
     }
 }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SignUpAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class SignUpAssembly {
+    static func create(closeViewHandler: @escaping (() -> Void)) -> UIViewController {
         let viewController = SignUpViewController()
         let presenter = SignUpPresenter()
         let interactor = SignUpInteractor()
@@ -23,6 +23,7 @@ class SignUpAssembly: BaseAssemblyProtocol {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.closeViewHandler = closeViewHandler
         
         interactor.presenter = presenter
         interactor.service = networkService

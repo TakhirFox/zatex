@@ -84,6 +84,7 @@ extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
         case .password:
             let cell = tableView.dequeueReusableCell(withIdentifier: "passwordFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(passwordDidChange(_:)), for: .editingChanged)
+            cell.textField.isSecureTextEntry = true
             cell.setupCell(name: "Password", field: "")
             return cell
             

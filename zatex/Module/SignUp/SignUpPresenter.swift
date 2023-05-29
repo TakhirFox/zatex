@@ -13,6 +13,8 @@ protocol SignUpPresenterProtocol: AnyObject {
         email: String?,
         pass: String?
     )
+    
+    func signUpSuccess()
 }
 
 class SignUpPresenter: BasePresenter {
@@ -20,7 +22,7 @@ class SignUpPresenter: BasePresenter {
     weak var view: SignUpViewControllerProtocol?
     var interactor: SignUpInteractorProtocol?
     var router: SignUpRouterProtocol?
-    
+    var closeViewHandler: (() -> Void) = {}
 }
 
 extension SignUpPresenter: SignUpPresenterProtocol {
@@ -70,4 +72,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     // MARK: To Router
     
     // MARK: To View
+    func signUpSuccess() {
+        closeViewHandler()
+    }
 }

@@ -29,9 +29,8 @@ extension AuthInteractor: AuthInteractorProtocol {
             
             if result.token != nil {
                 self.sessionProvider.setSession(result)
+                self.presenter?.authSuccess()
             }
-            
-            self.presenter?.authSuccess()
         }
     }
 }

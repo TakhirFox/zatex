@@ -23,7 +23,17 @@ class AuthAssembly {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
-        presenter.authorizationHandler = authorizationHandler
+        presenter.onSignal = { signal in
+            
+            switch signal {
+            case .successAuth:
+                authorizationHandler()
+                
+            case .successSignUp:
+                authorizationHandler()
+                
+            }
+        }
         
         interactor.presenter = presenter
         interactor.service = networkService
