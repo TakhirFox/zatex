@@ -65,7 +65,6 @@ extension AuthPresenter: AuthPresenterProtocol {
     
     // MARK: To View
     func authSuccess() {
-        onSignal(.successAuth)
         view?.closeView()
     }
 }

@@ -1,54 +1,60 @@
 //
-//  SignUpSignUpViewController.swift
+//  ResetPasswordResetPasswordViewController.swift
 //  zatex
 //
-//  Created by winzero on 28/05/2023.
+//  Created by winzero on 30/05/2023.
 //  Copyright © 2023 zakirovweb. All rights reserved.
 //
 
 import UIKit
 
-protocol SignUpViewControllerProtocol: AnyObject {
-    var presenter: SignUpPresenterProtocol? { get set }
+protocol ResetPasswordViewControllerProtocol: AnyObject {
+    var presenter: ResetPasswordPresenterProtocol? { get set }
 
+    func showSuccess()
 }
 
-class SignUpViewController: BaseViewController {
+class ResetPasswordViewController: BaseViewController {
     
     enum RowKind: Int {
-        case username, email, password, send
+        case username, send
     }
     
-    var presenter: SignUpPresenterProtocol?
+    var presenter: ResetPasswordPresenterProtocol?
     
-    var signUpData = SignUpEntity()
+    var username = ""
     
+    let successView = SuccessResetPasswordView()
     let tableView = UITableView(frame: .zero, style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         setupTableView()
         setupSubviews()
         setupConstraints()
+        setSuccessView()
     }
     
     func setupSubviews() {
         view.addSubview(tableView)
+        view.addSubview(successView)
     }
     
     func setupConstraints() {
+        successView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
     func setupTableView() {
-        title = "Регистрация"
+        title = "Сброс пароля"
         
         tableView.register(FieldSignUpCell.self, forCellReuseIdentifier: "usernameFieldCell")
-        tableView.register(FieldSignUpCell.self, forCellReuseIdentifier: "emailFieldCell")
-        tableView.register(FieldSignUpCell.self, forCellReuseIdentifier: "passwordFieldCell")
         tableView.register(SignUpButtonCell.self, forCellReuseIdentifier: "signUpButtonCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -57,12 +63,16 @@ class SignUpViewController: BaseViewController {
         tableView.backgroundColor = .clear
     }
     
+    private func setSuccessView() {
+        successView.isHidden = true
+        successView.okButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
+    }
 }
 
-extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
+extension ResetPasswordViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,19 +83,6 @@ extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "usernameFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
             cell.setupCell(name: "Имя пользователя", field: "")
-            return cell
-            
-        case .email:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "emailFieldCell", for: indexPath) as! FieldSignUpCell
-            cell.textField.addTarget(self, action: #selector(emailDidChange(_:)), for: .editingChanged)
-            cell.setupCell(name: "Email", field: "")
-            return cell
-            
-        case .password:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "passwordFieldCell", for: indexPath) as! FieldSignUpCell
-            cell.textField.addTarget(self, action: #selector(passwordDidChange(_:)), for: .editingChanged)
-            cell.textField.isSecureTextEntry = true
-            cell.setupCell(name: "Password", field: "")
             return cell
             
         case .send:
@@ -100,33 +97,27 @@ extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension SignUpViewController {
-    
+extension ResetPasswordViewController {
     @objc func usernameDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            signUpData.username = textField.text
-        }
-    }
-    
-    @objc func emailDidChange(_ textField: UITextField) {
-        if textField.text != nil {
-            signUpData.email = textField.text
-        }
-    }
-    
-    @objc func passwordDidChange(_ textField: UITextField) {
-        if textField.text != nil {
-            signUpData.pass = textField.text
+            username = textField.text ?? ""
         }
     }
     
     @objc func signUpAction() {
         presenter?.checkTextFieldEmpty(
-            username: signUpData.username,
-            email: signUpData.email,
-            pass: signUpData.pass
+            username: username
         )
+    }
+    
+    @objc func closeView() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
-extension SignUpViewController: SignUpViewControllerProtocol { }
+extension ResetPasswordViewController: ResetPasswordViewControllerProtocol {
+    
+    func showSuccess() {
+        successView.isHidden = false
+    }
+}
