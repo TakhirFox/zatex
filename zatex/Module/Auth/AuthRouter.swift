@@ -27,6 +27,7 @@ extension AuthRouter: AuthRouterProtocol {
     }
     
     func routeToResetPassword() {
-        
+        let view = ResetPasswordAssembly.create()
+        viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

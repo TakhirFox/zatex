@@ -25,6 +25,9 @@ extension AuthService: AuthAPI {
                     pass: pass
                 )
                 .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: authorization \(description)")
+                }
                 .responseDecodable(of: AuthResult.self) { response in
                     switch response.result {
                     case .success(let data):
