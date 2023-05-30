@@ -77,12 +77,8 @@ extension ChatDetailHttpRouter: HttpRouter {
         case .getChatInfo:
             return nil
         case let .sendChatMessage(_, message):
-            let data = ASdas(content: message) //TODO: Change
+            let data = MessageRequest(content: message)
             return try JSONEncoder().encode(data)
         }
     }
-}
-
-struct ASdas: Encodable { //TODO: Change
-    let content: String
 }

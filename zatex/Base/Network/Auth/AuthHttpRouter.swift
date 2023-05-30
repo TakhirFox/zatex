@@ -56,8 +56,3 @@ extension AuthHttpRouter: HttpRouter {
         }
     }
 }
-
-struct AuthRequest: Encodable { //TODO: Change
-    let username: String
-    let password: String
-}

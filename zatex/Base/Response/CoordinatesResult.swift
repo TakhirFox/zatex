@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CoordinatesResult: Codable {
+struct CoordinatesResult: Decodable {
     let placeID: Int?
     let lat, lon, displayName: String?
 

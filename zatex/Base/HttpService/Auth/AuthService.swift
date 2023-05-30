@@ -33,11 +33,11 @@ extension AuthService: AuthAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 09909089878767: Ошибка  \(error)")
+                        print("LOG: 09909089878767 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 234234023402349: Ошибка авторизации")
+            print("LOG: 234234023402349 Ошибка авторизации")
         }
     }
 }

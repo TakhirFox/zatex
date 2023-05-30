@@ -61,10 +61,3 @@ extension SignUpHttpRouter: HttpRouter {
         }
     }
 }
-
-struct SignUpRequest: Encodable { //TODO: Change
-    let username: String
-    let email: String
-    let password: String
-    let role: String
-}
