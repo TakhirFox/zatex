@@ -32,11 +32,11 @@ extension SignUpService: SignUpAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 23775296589328: Ошибка  \(error)")
+                        print("LOG: 23775296589328 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 9304869923467: Ошибка регистрации")
+            print("LOG: 9304869923467 Ошибка регистрации")
         }
     }
 }

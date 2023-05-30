@@ -29,11 +29,11 @@ extension ResetPasswordService: ResetPasswordAPI {
                     case .success:
                         completion()
                     case .failure(let error):
-                        print("LOG 79834798347: Ошибка  \(error)")
+                        print("LOG: 79834798347 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 34780734805345789: Ошибка сброса пароля")
+            print("LOG: 34780734805345789 Ошибка сброса пароля")
         }
     }
 }

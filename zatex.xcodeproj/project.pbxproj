@@ -74,6 +74,9 @@
 		AD0380082A26564400DB0F60 /* ResetPasswordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380072A26564400DB0F60 /* ResetPasswordAPI.swift */; };
 		AD03800A2A26564900DB0F60 /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380092A26564900DB0F60 /* ResetPasswordService.swift */; };
 		AD03800D2A265F8C00DB0F60 /* ResetPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD03800C2A265F8C00DB0F60 /* ResetPasswordRequest.swift */; };
+		AD03800F2A26612000DB0F60 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD03800E2A26612000DB0F60 /* AuthRequest.swift */; };
+		AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380102A26614D00DB0F60 /* MessageRequest.swift */; };
+		AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380122A26617100DB0F60 /* SignUpRequest.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
@@ -311,6 +314,9 @@
 		AD0380072A26564400DB0F60 /* ResetPasswordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordAPI.swift; sourceTree = "<group>"; };
 		AD0380092A26564900DB0F60 /* ResetPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordService.swift; sourceTree = "<group>"; };
 		AD03800C2A265F8C00DB0F60 /* ResetPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordRequest.swift; sourceTree = "<group>"; };
+		AD03800E2A26612000DB0F60 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		AD0380102A26614D00DB0F60 /* MessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
+		AD0380122A26617100DB0F60 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
@@ -687,9 +693,37 @@
 		AD03800B2A265F7700DB0F60 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
 				AD03800C2A265F8C00DB0F60 /* ResetPasswordRequest.swift */,
+				AD03800E2A26612000DB0F60 /* AuthRequest.swift */,
+				AD0380102A26614D00DB0F60 /* MessageRequest.swift */,
+				AD0380122A26617100DB0F60 /* SignUpRequest.swift */,
+				ADB817D929FD546600CF09F9 /* ReviewEntity.swift */,
+				ADD029A029E11D5E002E5608 /* ProductResponse.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		AD0380142A2661B900DB0F60 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				ADBE136B290DA537004BDEB3 /* ProductResult.swift */,
+				AD86EAD229043936001CB847 /* CategoryResult.swift */,
+				ADC3B41F2906EEDD00A7AE66 /* BannerResult.swift */,
+				ADF53FF429B4733800BF8516 /* ChatListResult.swift */,
+				ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */,
+				ADCF769429B89F91007FF164 /* AuthResult.swift */,
+				ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */,
+				ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */,
+				AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */,
+				AD3AF69F29E299A200ABDC1A /* MediaResult.swift */,
+				AD037FF72A23DD9D00DB0F60 /* SignUpResult.swift */,
+				AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */,
+				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
+				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
+				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		AD2FA11A29F054A500EC75D3 /* Views */ = {
@@ -817,29 +851,11 @@
 		AD86EACF29043121001CB847 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				ADBE136B290DA537004BDEB3 /* ProductResult.swift */,
 				ADE7406629DF1507004A667C /* ProductEntity.swift */,
-				AD86EAD229043936001CB847 /* CategoryResult.swift */,
-				ADC3B41F2906EEDD00A7AE66 /* BannerResult.swift */,
 				ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */,
-				ADF53FF429B4733800BF8516 /* ChatListResult.swift */,
-				ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */,
-				ADCF769429B89F91007FF164 /* AuthResult.swift */,
-				ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */,
-				ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */,
-				AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */,
-				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
 				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
-				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
-				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
 				AD9306A729D948D80004E3AC /* CoordinareEntity.swift */,
-				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
-				ADD029A029E11D5E002E5608 /* ProductResponse.swift */,
-				AD3AF69F29E299A200ABDC1A /* MediaResult.swift */,
-				AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */,
-				ADB817D929FD546600CF09F9 /* ReviewEntity.swift */,
 				AD037FF52A23B29400DB0F60 /* SignUpEntity.swift */,
-				AD037FF72A23DD9D00DB0F60 /* SignUpResult.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -918,6 +934,7 @@
 				AD86EAC42903F506001CB847 /* Network */,
 				AD86EAD629043A5A001CB847 /* HttpService */,
 				AD03800B2A265F7700DB0F60 /* Requests */,
+				AD0380142A2661B900DB0F60 /* Response */,
 				AD86EACF29043121001CB847 /* Entity */,
 			);
 			path = Base;
@@ -1537,6 +1554,7 @@
 				ADBE136E290DAAFA004BDEB3 /* SearchService.swift in Sources */,
 				ADAD60C929DDD7E100309AC9 /* CreateProductHeaderCell.swift in Sources */,
 				AD86EACC290423A5001CB847 /* ProductHttpRouter.swift in Sources */,
+				AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */,
 				AD9B260C28FD4D6000C15139 /* UIColor+hex.swift in Sources */,
 				ADA28B8329C6185C006A2EA9 /* ProfileHttpService.swift in Sources */,
 				1FA402342D3AD78CE62A330E /* FeedRouter.swift in Sources */,
@@ -1648,6 +1666,7 @@
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
 				E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */,
 				15308D3FA9F3DD384B8A9475 /* ChatListPresenter.swift in Sources */,
+				AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */,
 				AD46D78F29C89A01002A6E1F /* ReviewsHeaderCell.swift in Sources */,
 				AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */,
 				E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */,
@@ -1698,6 +1717,7 @@
 				DA2C81C725F7CDFFD6F1A350 /* SignUpInteractor.swift in Sources */,
 				0A673FD2A9D9E031C4A746A7 /* SignUpRouter.swift in Sources */,
 				219EBB7E15889641DC1CB49B /* SignUpAssembly.swift in Sources */,
+				AD03800F2A26612000DB0F60 /* AuthRequest.swift in Sources */,
 				EE27D557D1AF5782B1FBA92E /* ResetPasswordViewController.swift in Sources */,
 				FD634DBCACBB8608ACDFA33F /* ResetPasswordPresenter.swift in Sources */,
 				CB20D63C70ACD0497D6BE26E /* ResetPasswordInteractor.swift in Sources */,

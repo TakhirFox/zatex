@@ -24,12 +24,12 @@ extension CreateProductService: CreateProductAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 9263424: Ошибка  \(error)")
+                        print("LOG: 9263424 Ошибка  \(error)")
                     }
                 }
             
         } catch {
-            print("LOG 345634645: Ошибка категории на экране создания товара")
+            print("LOG: 345634645 Ошибка категории на экране создания товара")
         }
     }
     
@@ -46,11 +46,11 @@ extension CreateProductService: CreateProductAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 9928364: Ошибка  \(error)")
+                        print("LOG: 9928364 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 345632364645: Ошибка создание товара на экране создания товара")
+            print("LOG: 345632364645 Ошибка создание товара на экране создания товара")
         }
     }
 }

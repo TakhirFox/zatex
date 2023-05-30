@@ -23,11 +23,11 @@ extension SearchService: SearchAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 903941314: Ошибка  \(error)")
+                        print("LOG: 903941314 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 90767567456: Ошибка поиска")
+            print("LOG: 90767567456 Ошибка поиска")
         }
     }
     

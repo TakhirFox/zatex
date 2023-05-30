@@ -29,11 +29,11 @@ extension ChatDetailService: ChatDetailAPI {
                         completion(data)
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG 09989090990092: Ошибка  \(error)")
+                        print("LOG: 09989090990092 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 904539430375: Ошибка получения переписки")
+            print("LOG: 904539430375 Ошибка получения переписки")
         }
     }
     
@@ -50,11 +50,11 @@ extension ChatDetailService: ChatDetailAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 43267435734: Ошибка  \(error)")
+                        print("LOG: 43267435734 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 34573568245: Ошибка получения информации о чате")
+            print("LOG: 34573568245 Ошибка получения информации о чате")
         }
     }
     
@@ -75,11 +75,11 @@ extension ChatDetailService: ChatDetailAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 999898992292t342164: Ошибка  \(error)")
+                        print("LOG: 999898992292t342164 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 552888200023: Ошибка отправки сообщения")
+            print("LOG: 552888200023 Ошибка отправки сообщения")
         }
     }
 }

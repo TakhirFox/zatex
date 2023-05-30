@@ -26,11 +26,11 @@ extension ChatListService: ChatListAPI {
                         completion(data)
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG 23598238: Ошибка  \(error)")
+                        print("LOG: 23598238 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 9802355678456: Ошибка списка чата")
+            print("LOG: 9802355678456 Ошибка списка чата")
         }
     }
 }

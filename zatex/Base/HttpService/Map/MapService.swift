@@ -29,11 +29,11 @@ extension MapService: MapAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 03463468767: Ошибка  \(error)")
+                        print("LOG: 03463468767 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 37573734: Ошибка получения координатов для карт")
+            print("LOG: 37573734 Ошибка получения координатов для карт")
         }
     }
 }

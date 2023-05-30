@@ -26,12 +26,12 @@ extension ProductService: ProductAPI {
                         completion(data)
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG 213985: Ошибка  \(error)")
+                        print("LOG: 213985 Ошибка  \(error)")
                     }
                 }
             
         } catch {
-            print("LOG 089123679: Ошибка продуктов")
+            print("LOG: 089123679 Ошибка продуктов")
         }
     }
     
@@ -45,12 +45,12 @@ extension ProductService: ProductAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 9264: Ошибка  \(error)")
+                        print("LOG: 9264 Ошибка  \(error)")
                     }
                 }
             
         } catch {
-            print("LOG 089123679: Ошибка категории")
+            print("LOG: 089123679 Ошибка категории")
         }
     }
     
@@ -64,12 +64,12 @@ extension ProductService: ProductAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 7802347: Ошибка  \(error)")
+                        print("LOG: 7802347 Ошибка  \(error)")
                     }
                 }
             
         } catch {
-            print("LOG 78902345678: Ошибка баннера")
+            print("LOG: 78902345678 Ошибка баннера")
         }
     }
     
@@ -84,11 +84,11 @@ extension ProductService: ProductAPI {
                     case .success(let data):
                         completion(data)
                     case .failure(let error):
-                        print("LOG 7325893578392: Ошибка  \(error)")
+                        print("LOG: 7325893578392 Ошибка  \(error)")
                     }
                 }
         } catch {
-            print("LOG 5763830496789: Ошибка фильтра категории")
+            print("LOG: 5763830496789 Ошибка фильтра категории")
         }
     }
     

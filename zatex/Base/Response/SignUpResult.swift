@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpResult: Codable {
+struct SignUpResult: Decodable {
     let code: Int?
     let message, token, userEmail, userNicename, userID: String?
 

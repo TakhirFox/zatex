@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChatInfoResult: Codable {
+struct ChatInfoResult: Decodable {
     let authorProduct, authorUsername: String?
     let imageURL: String?
     

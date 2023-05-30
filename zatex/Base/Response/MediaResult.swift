@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct MediaResult: Codable {
+struct MediaResult: Decodable {
     
-    struct MediaDetails: Codable {
+    struct MediaDetails: Decodable {
         let sizes: MediaResult.Sizes?
     }
     
-    struct Sizes: Codable {
+    struct Sizes: Decodable {
         let woocommerceSingle: MediaResult.WoocommerceSingle?
 
         enum CodingKeys: String, CodingKey {
@@ -21,7 +21,7 @@ struct MediaResult: Codable {
         }
     }
     
-    struct WoocommerceSingle: Codable {
+    struct WoocommerceSingle: Decodable {
         let sourceURL: String?
 
         enum CodingKeys: String, CodingKey {

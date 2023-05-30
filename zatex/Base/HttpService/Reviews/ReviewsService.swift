@@ -31,7 +31,7 @@ extension ReviewsService: ReviewsAPI {
                     }
                 }
         } catch {
-            print("LOG 004988342 Ошибка списка отзывов")
+            print("LOG: 004988342 Ошибка списка отзывов")
         }
     }
     
@@ -52,7 +52,7 @@ extension ReviewsService: ReviewsAPI {
                     }
                 }
         } catch {
-            print("LOG 9908768546456 Ошибка получения инфы о магазине в отзывах")
+            print("LOG: 9908768546456 Ошибка получения инфы о магазине в отзывах")
         }
     }
 }
