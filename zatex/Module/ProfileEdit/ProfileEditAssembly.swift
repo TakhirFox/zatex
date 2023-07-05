@@ -15,13 +15,18 @@ class ProfileEditAssembly: BaseAssemblyProtocol {
         let interactor = ProfileEditInteractor()
         let router = ProfileEditRouter()
         
+        let networkService = ProfileEditService.shared
+        let sessionProvider = AppSessionProvider()
+        
         viewController.presenter = presenter
+        viewController.sessionProvider = sessionProvider
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

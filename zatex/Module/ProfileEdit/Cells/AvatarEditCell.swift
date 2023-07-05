@@ -49,9 +49,14 @@ class AvatarEditCell: UITableViewCell {
         }
     }
     
-    func setupCell(image: String) {
-        avatarImage.image = UIImage(named: image)
+    func setupCell(image: String?) {
         titleLabel.text = "Изменить"
+        
+        if image != nil {
+            let avatarUrl = URL(string: image!)
+            
+            avatarImage.kf.setImage(with: avatarUrl)
+        }
     }
     
     private func updateAppearence() {

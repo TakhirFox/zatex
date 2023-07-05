@@ -10,7 +10,8 @@ import UIKit
 
 protocol ProfileEditViewControllerProtocol: AnyObject {
     var presenter: ProfileEditPresenterProtocol? { get set }
-
+    
+    func setProfileInfo(data: StoreInfoResult)
 }
 
 class ProfileEditViewController: BaseViewController {
@@ -25,9 +26,21 @@ class ProfileEditViewController: BaseViewController {
     
     var presenter: ProfileEditPresenterProtocol?
     
+    var sessionProvider: SessionProvider?
+    var profileInfo: StoreInfoResult?
+    
     var isShopMode = false
     
     let tableView = UITableView(frame: .zero, style: .grouped)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let userId = sessionProvider?.getSession()?.userId,
+            let id = Int(userId) {
+            presenter?.getProfileInfo(id: id)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,32 +96,32 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
             switch row {
             case .avatar:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "avatarCell", for: indexPath) as! AvatarEditCell
-                cell.setupCell(image: "avatar")
+                cell.setupCell(image: profileInfo?.gravatar)
                 return cell
                 
             case .firstName:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Имя", field: "Wans")
+                cell.setupCell(name: "Имя", field: profileInfo?.firstName ?? "")
                 return cell
                 
             case .secondName:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Фамилия", field: "Wans")
+                cell.setupCell(name: "Фамилия", field: profileInfo?.lastName ?? "")
                 return cell
                 
             case .address:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Адрес", field: "Wans")
+                cell.setupCell(name: "Адрес", field: "profileInfo?.address[0]")
                 return cell
                 
             case .numberPhone:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Номер телефона", field: "Wans")
+                cell.setupCell(name: "Номер телефона", field: profileInfo?.phone ?? "")
                 return cell
                 
             case .email:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Email", field: "Wans")
+                cell.setupCell(name: "Email", field: profileInfo?.email ?? "")
                 return cell
                 
             case .shopMode:
@@ -129,7 +142,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
             switch row {
             case .shopName:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "fieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Название магазина", field: "Wans")
+                cell.setupCell(name: "Название магазина", field: profileInfo?.storeName ?? "")
                 return cell
                 
             case .colorName:
@@ -139,7 +152,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .shopImage:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "backCell", for: indexPath) as! BackImageCell
-                cell.setupCell(name: "Фон магазина", image: "backimage")
+                cell.setupCell(name: "Фон магазина", image: profileInfo?.banner)
                 return cell
                 
             case .none:
@@ -174,4 +187,10 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension ProfileEditViewController: ProfileEditViewControllerProtocol {
    
+    func setProfileInfo(data: StoreInfoResult) {
+        DispatchQueue.main.async { [weak self] in
+            self?.profileInfo = data
+            self?.tableView.reloadData()
+        }
+    }
 }

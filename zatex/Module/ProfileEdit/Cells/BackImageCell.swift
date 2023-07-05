@@ -39,9 +39,14 @@ class BackImageCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String, image: String) {
+    func setupCell(name: String, image: String?) {
         titleLabel.text = name
-        avatarImage.image = UIImage(named: image)
+        
+        if image != nil {
+            let bannerUrl = URL(string: image!)
+            
+            avatarImage.kf.setImage(with: bannerUrl)
+        }
     }
     
     private func updateAppearence() {

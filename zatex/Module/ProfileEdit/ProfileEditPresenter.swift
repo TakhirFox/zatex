@@ -7,7 +7,10 @@
 //
 
 protocol ProfileEditPresenterProtocol: AnyObject {
-
+    
+    func getProfileInfo(id: Int)
+    
+    func setProfileInfo(data: StoreInfoResult)
 }
 
 class ProfileEditPresenter: BasePresenter {
@@ -19,4 +22,15 @@ class ProfileEditPresenter: BasePresenter {
 
 extension ProfileEditPresenter: ProfileEditPresenterProtocol {
     
+    // MARK: To Interactor
+    func getProfileInfo(id: Int) {
+        interactor?.getProfileInfo(id: id)
+    }
+    
+    // MARK: To Router
+    
+    // MARK: To View
+    func setProfileInfo(data: StoreInfoResult) {
+        view?.setProfileInfo(data: data)
+    }
 }

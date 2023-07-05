@@ -15,13 +15,20 @@ struct StoreInfoResult: Decodable {
     let gravatar: String?
     let rating: StoreInfoResult.Rating?
     let registered: String?
-
+    let email: String?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case storeName = "store_name"
         case firstName = "first_name"
         case lastName = "last_name"
-        case phone, address, banner, gravatar, rating, registered
+        case phone
+        case address
+        case banner
+        case gravatar
+        case rating
+        case registered
+        case email
     }
     
     enum AddressUnion: Decodable {
