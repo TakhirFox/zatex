@@ -8,14 +8,14 @@
 import Foundation
 
 struct StoreInfoResult: Decodable {
-    let id: Int?
-    let storeName, firstName, lastName, phone: String?
-    let address: AddressUnion?
-    let banner: String?
-    let gravatar: String?
-    let rating: StoreInfoResult.Rating?
-    let registered: String?
-    let email: String?
+    var id: Int?
+    var storeName, firstName, lastName, phone: String?
+    var address: AddressUnion?
+    var banner: String?
+    var gravatar: String?
+    var rating: StoreInfoResult.Rating?
+    var registered: String?
+    var email: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -51,7 +51,7 @@ struct StoreInfoResult: Decodable {
     }
     
     struct Address: Decodable {
-        let street1, city, country: String?
+        var street1, city, country: String?
 
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
@@ -60,8 +60,8 @@ struct StoreInfoResult: Decodable {
     }
 
     struct Rating: Decodable {
-        let rating: String?
-        let count: Int?
+        var rating: String?
+        var count: Int?
     }
 
 }

@@ -10,6 +10,7 @@
 protocol ProfileEditInteractorProtocol {
     
     func getProfileInfo(id: Int)
+    func updateProfileInfo(data: ProfileEditRequest)
 }
 
 class ProfileEditInteractor: BaseInteractor {
@@ -23,6 +24,12 @@ extension ProfileEditInteractor: ProfileEditInteractorProtocol {
     func getProfileInfo(id: Int) {
         self.service.fetchStoreInfo(authorId: id) { result in
             self.presenter?.setProfileInfo(data: result)
+        }
+    }
+    
+    func updateProfileInfo(data: ProfileEditRequest) {
+        self.service.editStoreInfo(data: data) {
+            self.presenter?.successUpdateInfo()
         }
     }
 }

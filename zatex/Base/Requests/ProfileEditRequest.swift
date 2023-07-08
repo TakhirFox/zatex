@@ -8,7 +8,30 @@
 import Foundation
 
 struct ProfileEditRequest: Encodable {
-    let title: String
-    let content: String?
-    let rating: Int
+    
+    struct Address: Codable {
+        let street1: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case street1 = "street_1"
+        }
+    }
+    
+    let storeName: String?
+    let firstName: String?
+    let lastName: String?
+    let phone: String?
+    let address: Address?
+    let banner: String?
+    let gravatar: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case storeName = "store_name"
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case phone
+        case address
+        case banner
+        case gravatar
+    }
 }

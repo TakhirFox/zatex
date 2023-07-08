@@ -41,7 +41,8 @@ extension ProfileEditHttpRouter: HttpRouter {
         case .getStoreInfo,
                 .editStoreInfo:
             return [
-                "Content-Type": "application/json; charset=UTF-8"
+                "Content-Type": "application/json; charset=UTF-8",
+                "Authorization": "Bearer \(token)"
             ]
         }
     }

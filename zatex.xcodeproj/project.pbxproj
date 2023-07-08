@@ -155,6 +155,8 @@
 		ADAD60CF29DDDAF300309AC9 /* BaseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAD60CE29DDDAF300309AC9 /* BaseTextView.swift */; };
 		ADB817D829FC312F00CF09F9 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB817D729FC312F00CF09F9 /* ReviewDetailView.swift */; };
 		ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB817D929FD546600CF09F9 /* ReviewEntity.swift */; };
+		ADBC13122A59B44C009B18EF /* ProfileEditButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC13112A59B44C009B18EF /* ProfileEditButtonCell.swift */; };
+		ADBC13152A59E40F009B18EF /* SuccessUpdateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC13142A59E40F009B18EF /* SuccessUpdateProfileView.swift */; };
 		ADBE136A290DA4F1004BDEB3 /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE1369290DA4F1004BDEB3 /* SearchAPI.swift */; };
 		ADBE136C290DA537004BDEB3 /* ProductResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE136B290DA537004BDEB3 /* ProductResult.swift */; };
 		ADBE136E290DAAFA004BDEB3 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBE136D290DAAFA004BDEB3 /* SearchService.swift */; };
@@ -402,6 +404,8 @@
 		ADAD60CE29DDDAF300309AC9 /* BaseTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextView.swift; sourceTree = "<group>"; };
 		ADB817D729FC312F00CF09F9 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
 		ADB817D929FD546600CF09F9 /* ReviewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEntity.swift; sourceTree = "<group>"; };
+		ADBC13112A59B44C009B18EF /* ProfileEditButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditButtonCell.swift; sourceTree = "<group>"; };
+		ADBC13142A59E40F009B18EF /* SuccessUpdateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessUpdateProfileView.swift; sourceTree = "<group>"; };
 		ADBE1369290DA4F1004BDEB3 /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
 		ADBE136B290DA537004BDEB3 /* ProductResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResult.swift; sourceTree = "<group>"; };
 		ADBE136D290DAAFA004BDEB3 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -599,6 +603,7 @@
 		993BFF05F4E16DA98AAECC97 /* ProfileEdit */ = {
 			isa = PBXGroup;
 			children = (
+				ADBC13132A59E408009B18EF /* Views */,
 				ADCA881D291843F100885EEF /* Cells */,
 				ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */,
 				147CE9D6D8CCF534010FED72 /* ProfileEditPresenter.swift */,
@@ -1043,6 +1048,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		ADBC13132A59E408009B18EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ADBC13142A59E40F009B18EF /* SuccessUpdateProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		ADBE1368290DA4DA004BDEB3 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -1125,6 +1138,7 @@
 				AD4A98682918D38800709745 /* AvatarEditCell.swift */,
 				AD4A986A2918EFA600709745 /* CheckboxEditCell.swift */,
 				AD4A986E2919034200709745 /* BackImageCell.swift */,
+				ADBC13112A59B44C009B18EF /* ProfileEditButtonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1538,6 +1552,7 @@
 				ADA0063F29C3783E0035F4B2 /* ProductImageCell.swift in Sources */,
 				AD86EAD329043936001CB847 /* CategoryResult.swift in Sources */,
 				ADCDDE0F29BE0170001F34D9 /* ProductDetailHttpRouter.swift in Sources */,
+				ADBC13122A59B44C009B18EF /* ProfileEditButtonCell.swift in Sources */,
 				ADAC844C290A725400F15330 /* BaseTextField.swift in Sources */,
 				ADCF769329B89F69007FF164 /* AuthService.swift in Sources */,
 				AD9B260728FD477F00C15139 /* BaseRouterProtocol.swift in Sources */,
@@ -1707,6 +1722,7 @@
 				AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */,
 				E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */,
 				ADCF768E29B89B98007FF164 /* AuthHttpRouter.swift in Sources */,
+				ADBC13152A59E40F009B18EF /* SuccessUpdateProfileView.swift in Sources */,
 				65C73662C0461BA7AA1C1F59 /* ChatListAssembly.swift in Sources */,
 				878170050E2EA0075A2B698D /* ChatDetailViewController.swift in Sources */,
 				ADE7407329DF17D7004A667C /* CreateProductService.swift in Sources */,

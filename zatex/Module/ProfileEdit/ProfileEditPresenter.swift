@@ -9,8 +9,10 @@
 protocol ProfileEditPresenterProtocol: AnyObject {
     
     func getProfileInfo(id: Int)
+    func updateProfileInfo(data: StoreInfoResult? )
     
     func setProfileInfo(data: StoreInfoResult)
+    func successUpdateInfo()
 }
 
 class ProfileEditPresenter: BasePresenter {
@@ -27,10 +29,33 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
         interactor?.getProfileInfo(id: id)
     }
     
+    func updateProfileInfo(data: StoreInfoResult?) {
+        
+        let address = ProfileEditRequest.Address(
+            street1: nil
+        )
+        
+        let updatedInfo = ProfileEditRequest(
+            storeName: data?.storeName,
+            firstName: data?.firstName,
+            lastName: data?.lastName,
+            phone: data?.phone,
+            address: address,
+            banner: data?.banner,
+            gravatar: data?.gravatar
+        )
+        
+        interactor?.updateProfileInfo(data: updatedInfo)
+    }
+    
     // MARK: To Router
     
     // MARK: To View
     func setProfileInfo(data: StoreInfoResult) {
         view?.setProfileInfo(data: data)
+    }
+    
+    func successUpdateInfo() {
+        view?.successUpdateInfo()
     }
 }
