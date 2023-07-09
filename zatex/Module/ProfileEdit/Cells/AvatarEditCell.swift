@@ -9,11 +9,12 @@ import UIKit
 
 class AvatarEditCell: UITableViewCell {
     
-    private let avatarImage: UIImageView = {
+    let avatarImage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 75
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -30,6 +31,7 @@ class AvatarEditCell: UITableViewCell {
         view.numberOfLines = 1
         view.font = UIFont(name: "Montserrat-Regular", size: 13)
         view.textAlignment = .center
+        view.textColor = .white
         return view
     }()
     
@@ -39,6 +41,7 @@ class AvatarEditCell: UITableViewCell {
         
         selectionStyle = .none
         backgroundColor = .clear
+        contentView.isUserInteractionEnabled = false
         
         configureSubviews()
         configureConstraints()
@@ -49,12 +52,16 @@ class AvatarEditCell: UITableViewCell {
         }
     }
     
-    func setupCell(image: String?) {
+    func setupCell(image: String?, local: UIImage?) {
         titleLabel.text = "Изменить"
+        
+        if local != nil {
+            avatarImage.image = local
+            return
+        }
         
         if image != nil {
             let avatarUrl = URL(string: image!)
-            
             avatarImage.kf.setImage(with: avatarUrl)
         }
     }

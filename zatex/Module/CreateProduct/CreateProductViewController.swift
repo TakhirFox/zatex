@@ -186,15 +186,16 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         if textView.text != nil {
             productPost.description = textView.text
         }
     }
-    
 }
 
 extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -222,7 +223,6 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
         productPost.category = row
         tableView.reloadRows(at: [IndexPath(item: 1, section: 0)], with: .automatic)
     }
-    
 }
 
 extension CreateProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -247,7 +247,6 @@ extension CreateProductViewController: UIImagePickerControllerDelegate, UINaviga
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imagePicker.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension CreateProductViewController {

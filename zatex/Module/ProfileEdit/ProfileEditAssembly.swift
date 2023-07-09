@@ -16,6 +16,7 @@ class ProfileEditAssembly: BaseAssemblyProtocol {
         let router = ProfileEditRouter()
         
         let networkService = ProfileEditService.shared
+        let imageService = ImagesService.shared
         let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
@@ -27,6 +28,7 @@ class ProfileEditAssembly: BaseAssemblyProtocol {
         
         interactor.presenter = presenter
         interactor.service = networkService
+        interactor.imageService = imageService
         
         router.viewController = viewController
         

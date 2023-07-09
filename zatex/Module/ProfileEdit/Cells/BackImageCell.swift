@@ -16,11 +16,12 @@ class BackImageCell: UITableViewCell {
         return view
     }()
     
-    private let avatarImage: UIImageView = {
+    let avatarImage: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 8
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -29,6 +30,7 @@ class BackImageCell: UITableViewCell {
         
         selectionStyle = .none
         backgroundColor = .clear
+        contentView.isUserInteractionEnabled = false
         
         configureSubviews()
         configureConstraints()
@@ -39,12 +41,16 @@ class BackImageCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String, image: String?) {
+    func setupCell(name: String, image: String?, local: UIImage?) {
         titleLabel.text = name
+        
+        if local != nil {
+            avatarImage.image = local
+            return
+        }
         
         if image != nil {
             let bannerUrl = URL(string: image!)
-            
             avatarImage.kf.setImage(with: bannerUrl)
         }
     }

@@ -29,11 +29,17 @@ class ProfileEditViewController: BaseViewController {
     
     var sessionProvider: SessionProvider?
     var profileInfo: StoreInfoResult?
+    var updateInfo = UpdateInfoEntity()
     
     var isShopMode = false
+    var isBannerUpdate = false
     
     let successView = SuccessUpdateProfileView()
     let tableView = UITableView(frame: .zero, style: .grouped)
+    let imagePicker = UIImagePickerController()
+    
+    private let changeAvatarGesture = UITapGestureRecognizer()
+    private let changeBannerGesture = UITapGestureRecognizer()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,6 +57,7 @@ class ProfileEditViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         setupSuccessView()
+        setupImagePicker()
     }
     
     func setupSubviews() {
@@ -94,6 +101,10 @@ class ProfileEditViewController: BaseViewController {
         successView.okButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
     }
     
+    private func setupImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+    }
 }
 
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource {
@@ -118,7 +129,9 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
             switch row {
             case .avatar:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "avatarCell", for: indexPath) as! AvatarEditCell
-                cell.setupCell(image: profileInfo?.gravatar)
+                cell.setupCell(image: profileInfo?.gravatar, local: updateInfo.localAvatar)
+                cell.avatarImage.addGestureRecognizer(changeAvatarGesture)
+                changeAvatarGesture.addTarget(self, action: #selector(showAvatarDialog))
                 return cell
                 
             case .firstName:
@@ -186,7 +199,9 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .shopImage:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "backCell", for: indexPath) as! BackImageCell
-                cell.setupCell(name: "Фон магазина", image: profileInfo?.banner)
+                cell.setupCell(name: "Фон магазина", image: profileInfo?.banner, local: updateInfo.localBanner)
+                cell.avatarImage.addGestureRecognizer(changeBannerGesture)
+                changeBannerGesture.addTarget(self, action: #selector(showBannerDialog))
                 return cell
                 
             case .none:
@@ -216,59 +231,141 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
 }
 
 extension ProfileEditViewController: UITextFieldDelegate {}
 
+extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        
+        guard let image = info[.editedImage] as? UIImage else {
+            return
+        }
+        
+        if isBannerUpdate {
+            updateInfo.localBanner = image
+        } else {
+            updateInfo.localAvatar = image
+        }
+        
+        tableView.reloadData()
+        imagePicker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 extension ProfileEditViewController {
     
     @objc func updateInformation() {
-        presenter?.updateProfileInfo(data: profileInfo)
+        presenter?.updateProfileInfo(data: updateInfo)
     }
     
     @objc func firstNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            profileInfo?.firstName = textField.text
+            updateInfo.firstName = textField.text
         }
     }
     
     @objc func lastNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            profileInfo?.lastName = textField.text
+            updateInfo.lastName = textField.text
         }
     }
     
     @objc func addressDidChange(_ textField: UITextField) {
         if textField.text != nil {
-//            profileInfo?.address = textField.text // TODO: change
+            updateInfo.address = textField.text // TODO: change
         }
     }
     
     @objc func numberPhoneDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            profileInfo?.phone = textField.text
+            updateInfo.phone = textField.text
         }
     }
     
     @objc func emailDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            profileInfo?.email = textField.text
+            updateInfo.email = textField.text
         }
     }
     
     @objc func storeNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
-            profileInfo?.storeName = textField.text
+            updateInfo.storeName = textField.text
         }
     }
     
     @objc func closeView() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func showAvatarDialog() { // TODO: Пока так, потом будем объединять эти методы
+        let alertController = UIAlertController()
+        
+        let galleryButton = UIAlertAction(
+            title: "Открыть галерею",
+            style: .default
+        ) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let cameraButton = UIAlertAction(
+            title: "Сделать фотографию",
+            style: .default
+        ) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let cancelButton = UIAlertAction(title: "Отмена", style: .destructive)
+        
+        alertController.addAction(galleryButton)
+        alertController.addAction(cameraButton)
+        alertController.addAction(cancelButton)
+        
+        isBannerUpdate = false
+        
+        self.present(alertController, animated: true)
+    }
+    
+    @objc func showBannerDialog() { // TODO: Пока так, потом будем объединять эти методы
+        let alertController = UIAlertController()
+        
+        let galleryButton = UIAlertAction(
+            title: "Открыть галерею",
+            style: .default
+        ) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let cameraButton = UIAlertAction(
+            title: "Сделать фотографию",
+            style: .default
+        ) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        
+        let cancelButton = UIAlertAction(title: "Отмена", style: .destructive)
+        
+        alertController.addAction(galleryButton)
+        alertController.addAction(cameraButton)
+        alertController.addAction(cancelButton)
+        
+        isBannerUpdate = true
+        
+        self.present(alertController, animated: true)
     }
 }
 

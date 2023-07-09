@@ -8,14 +8,14 @@
 import Foundation
 
 struct StoreInfoResult: Decodable {
-    var id: Int?
-    var storeName, firstName, lastName, phone: String?
-    var address: AddressUnion?
-    var banner: String?
-    var gravatar: String?
-    var rating: StoreInfoResult.Rating?
-    var registered: String?
-    var email: String?
+    let id: Int?
+    let storeName, firstName, lastName, phone: String?
+    let address: AddressUnion?
+    let banner: String?
+    let gravatar: String?
+    let rating: StoreInfoResult.Rating?
+    let registered: String?
+    let email: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -35,7 +35,7 @@ struct StoreInfoResult: Decodable {
         
         case addressClass(StoreInfoResult.Address)
         case anythingArray([String])
-
+        
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let x = try? container.decode([String].self) {
@@ -51,18 +51,16 @@ struct StoreInfoResult: Decodable {
     }
     
     struct Address: Decodable {
-        var street1, city, country: String?
-
+        let street1, city, country: String?
+        
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
             case city, country
         }
     }
-
+    
     struct Rating: Decodable {
-        var rating: String?
-        var count: Int?
+        let rating: String?
+        let count: Int?
     }
-
 }
-
