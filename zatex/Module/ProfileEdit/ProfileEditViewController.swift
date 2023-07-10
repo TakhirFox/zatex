@@ -35,6 +35,7 @@ class ProfileEditViewController: BaseViewController {
     var isBannerUpdate = false
     
     let successView = SuccessUpdateProfileView()
+    let buttonView = ProfileEditButtonView()
     let tableView = UITableView(frame: .zero, style: .grouped)
     let imagePicker = UIImagePickerController()
     
@@ -48,6 +49,8 @@ class ProfileEditViewController: BaseViewController {
             let id = Int(userId) {
             presenter?.getProfileInfo(id: id)
         }
+        
+        self.tabBarController?.tabBar.frame.origin.y += 100
     }
     
     override func viewDidLoad() {
@@ -57,11 +60,13 @@ class ProfileEditViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         setupSuccessView()
+        setupButtonView()
         setupImagePicker()
     }
     
     func setupSubviews() {
         view.addSubview(tableView)
+        view.addSubview(buttonView)
         view.addSubview(successView)
     }
     
@@ -71,7 +76,14 @@ class ProfileEditViewController: BaseViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        buttonView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(24)
         }
     }
     
@@ -88,7 +100,6 @@ class ProfileEditViewController: BaseViewController {
         tableView.register(CheckboxEditCell.self, forCellReuseIdentifier: "storeModeBoxCell")
         tableView.register(CheckboxEditCell.self, forCellReuseIdentifier: "shopThemeBoxCell")
         tableView.register(BackImageCell.self, forCellReuseIdentifier: "backCell")
-        tableView.register(ProfileEditButtonCell.self, forCellReuseIdentifier: "buttonCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -101,6 +112,11 @@ class ProfileEditViewController: BaseViewController {
         successView.okButton.addTarget(self, action: #selector(closeView), for: .touchUpInside)
     }
     
+    private func setupButtonView() {
+        buttonView.setupView(name: "Сохранить")
+        buttonView.sendButton.addTarget(self, action: #selector(updateInformation), for: .touchUpInside)
+    }
+    
     private func setupImagePicker() {
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -109,16 +125,14 @@ class ProfileEditViewController: BaseViewController {
 
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isShopMode ? 3 : 2
+        return isShopMode ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 7
-        } else if section == 1 {
-            return 3
         } else {
-            return 1
+            return 3
         }
     }
     
@@ -182,7 +196,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 return UITableViewCell()
                 
             }
-        } else if indexPath.section == 1 {
+        } else {
             let row = RowTwoKind(rawValue: indexPath.row)
             switch row {
             case .shopName:
@@ -208,11 +222,6 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 return UITableViewCell()
                 
             }
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! ProfileEditButtonCell
-            cell.setupCell(name: "Сохранить")
-            cell.sendButton.addTarget(self, action: #selector(updateInformation), for: .touchUpInside)
-            return cell
         }
     }
     
@@ -221,7 +230,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         
         if section == 0 {
             headerView.setupCell("Основная информация")
-        } else {
+        } else if section == 1 {
             headerView.setupCell("Информация магазина")
         }
         

@@ -10,7 +10,6 @@ import UIKit
 class HeaderCell: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let view = UILabel()
-        view.text = "Баннер"
         view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
         view.numberOfLines = 1
         return view

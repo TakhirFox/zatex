@@ -1,13 +1,13 @@
 //
-//  ProfileEditButtonCell.swift
+//  ProfileEditButtonView.swift
 //  zatex
 //
-//  Created by Zakirov Tahir on 08.07.2023.
+//  Created by Zakirov Tahir on 10.07.2023.
 //
 
 import UIKit
 
-class ProfileEditButtonCell: UITableViewCell {
+class ProfileEditButtonView: UIView {
     
     let sendButton: BaseButton = {
         let view = BaseButton()
@@ -15,12 +15,11 @@ class ProfileEditButtonCell: UITableViewCell {
         return view
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        selectionStyle = .none
         backgroundColor = .clear
-        contentView.isUserInteractionEnabled = false
+        isUserInteractionEnabled = true
         
         configureSubviews()
         configureConstraints()
@@ -31,7 +30,7 @@ class ProfileEditButtonCell: UITableViewCell {
         }
     }
     
-    func setupCell(name: String) {
+    func setupView(name: String) {
         sendButton.setTitle(name, for: .normal)
     }
     
