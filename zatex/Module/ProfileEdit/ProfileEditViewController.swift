@@ -31,8 +31,8 @@ class ProfileEditViewController: BaseViewController {
     var profileInfo: StoreInfoResult?
     var updateInfo = UpdateInfoEntity()
     
-    var isShopMode = false
     var isBannerUpdate = false
+    var isShop = false
     
     let successView = SuccessUpdateProfileView()
     let buttonView = ProfileEditButtonView()
@@ -125,7 +125,8 @@ class ProfileEditViewController: BaseViewController {
 
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isShopMode ? 2 : 1
+//        guard let isShop = profileInfo?.isShop else { return 1 }
+        return isShop ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -185,9 +186,17 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .shopMode:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "storeModeBoxCell", for: indexPath) as! CheckboxEditCell
-                cell.setupCell(name: "Режим магазина", firstName: "Магазин", secondName: "Частная торговля")
-                isShopMode = cell.isFirstSelected
+                cell.setupCell(
+                    name: "Режим магазина",
+                    firstName: "Магазин",
+                    secondName: "Частная торговля",
+                    isShop: isShop
+                )
+                
+                self.updateInfo.isShop = cell.isFirstSelected
+                
                 cell.updateView = {
+                    self.isShop = cell.isFirstSelected
                     self.tableView.reloadData()
                 }
                 return cell
@@ -208,7 +217,13 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .colorName:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "shopThemeBoxCell", for: indexPath) as! CheckboxEditCell
-                cell.setupCell(name: "Цвет названия", firstName: "Светлый", secondName: "Темный")
+                cell.setupCell(
+                    name: "Цвет названия",
+                    firstName: "Светлый",
+                    secondName: "Темный",
+                    isShop: nil
+                )
+                
                 return cell
                 
             case .shopImage:
@@ -383,6 +398,7 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
     func setProfileInfo(data: StoreInfoResult) {
         DispatchQueue.main.async { [weak self] in
             self?.profileInfo = data
+            self?.isShop = data.isShop ?? false
             self?.tableView.reloadData()
         }
     }

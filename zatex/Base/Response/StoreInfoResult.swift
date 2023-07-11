@@ -16,6 +16,7 @@ struct StoreInfoResult: Decodable {
     let rating: StoreInfoResult.Rating?
     let registered: String?
     let email: String?
+    let isShop: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,6 +30,7 @@ struct StoreInfoResult: Decodable {
         case rating
         case registered
         case email
+        case isShop = "featured"
     }
     
     enum AddressUnion: Decodable {

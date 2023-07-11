@@ -69,7 +69,8 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
                 banner: self?.uploadedBanner.src,
                 bannerID: self?.uploadedBanner.position,
                 gravatar: self?.uploadedAvatar.src,
-                gravatarID: self?.uploadedAvatar.position
+                gravatarID: self?.uploadedAvatar.position,
+                isShop: data.isShop
             )
             
             self?.interactor?.updateProfileInfo(data: updatedInfo)

@@ -17,4 +17,5 @@ struct UpdateInfoEntity {
     var email: String?
     var localAvatar: UIImage?
     var localBanner: UIImage?
+    var isShop: Bool?
 }

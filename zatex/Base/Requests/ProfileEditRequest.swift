@@ -26,6 +26,7 @@ struct ProfileEditRequest: Encodable {
     let bannerID: Int?
     let gravatar: String?
     let gravatarID: Int?
+    let isShop: Bool?
     
     enum CodingKeys: String, CodingKey {
         case storeName = "store_name"
@@ -37,5 +38,6 @@ struct ProfileEditRequest: Encodable {
         case bannerID = "banner_id"
         case gravatar
         case gravatarID = "gravatar_id"
+        case isShop = "featured"
     }
 }
