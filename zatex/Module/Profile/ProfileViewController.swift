@@ -43,8 +43,6 @@ class ProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-
         if let userId = sessionProvider?.getSession()?.userId,
             let id = Int(userId) {
             presenter?.getStoreInfo(authorId: id)

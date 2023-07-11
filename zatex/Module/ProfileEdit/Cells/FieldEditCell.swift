@@ -16,7 +16,7 @@ class FieldEditCell: UITableViewCell {
         return view
     }()
     
-    private let textField: BaseTextField = {
+    let textField: BaseTextField = {
         let view = BaseTextField()
         return view
     }()

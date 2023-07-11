@@ -14,8 +14,8 @@ struct ProductResponse: Encodable {
     }
 
     struct Image: Encodable {
-        let src: String?
-        let position: Int?
+        var src: String?
+        var position: Int?
     }
     
     let name, description, regularPrice: String?

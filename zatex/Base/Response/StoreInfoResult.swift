@@ -15,20 +15,29 @@ struct StoreInfoResult: Decodable {
     let gravatar: String?
     let rating: StoreInfoResult.Rating?
     let registered: String?
-
+    let email: String?
+    let isShop: Bool?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case storeName = "store_name"
         case firstName = "first_name"
         case lastName = "last_name"
-        case phone, address, banner, gravatar, rating, registered
+        case phone
+        case address
+        case banner
+        case gravatar
+        case rating
+        case registered
+        case email
+        case isShop = "featured"
     }
     
     enum AddressUnion: Decodable {
         
         case addressClass(StoreInfoResult.Address)
         case anythingArray([String])
-
+        
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let x = try? container.decode([String].self) {
@@ -45,17 +54,15 @@ struct StoreInfoResult: Decodable {
     
     struct Address: Decodable {
         let street1, city, country: String?
-
+        
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
             case city, country
         }
     }
-
+    
     struct Rating: Decodable {
         let rating: String?
         let count: Int?
     }
-
 }
-

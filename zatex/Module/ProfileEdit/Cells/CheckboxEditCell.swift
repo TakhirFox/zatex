@@ -71,10 +71,15 @@ class CheckboxEditCell: UITableViewCell {
         self.updateView?()
     }
     
-    func setupCell(name: String, firstName: String, secondName: String) {
+    func setupCell(name: String, firstName: String, secondName: String, isShop: Bool?) {
         titleLabel.text = name
         firstLabel.text = firstName
         secondLabel.text = secondName
+        
+        if isShop != nil {
+            firstRatioButton.isSelected = isShop!
+            secondRatioButton.isSelected = !isShop!
+        }
     }
     
     private func updateAppearence() {
