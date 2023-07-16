@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 class SentChatCell: UITableViewCell {
     
@@ -33,10 +34,7 @@ class SentChatCell: UITableViewCell {
         return view
     }()
     
-    private let spinner: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .medium)
-        return view
-    }()
+    private let spinner = LottieAnimationView(name: "loader")
     
     private let curveView = UIView()
     
@@ -67,14 +65,17 @@ class SentChatCell: UITableViewCell {
         configureConstraints()
         updateAppearence()
         
+        
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
         }
         
         if dateLabel.text != nil, dateLabel.text!.isEmpty {
-            spinner.startAnimating()
+            spinner.play()
+            spinner.isHidden = false
         } else {
-            spinner.stopAnimating()
+            spinner.stop()
+            spinner.isHidden = true
         }
     }
     
@@ -110,8 +111,9 @@ class SentChatCell: UITableViewCell {
             spinner.snp.makeConstraints { make in
                 make.leading.equalTo(messageLabel.snp.trailing).inset(0)
                 make.trailing.equalTo(bubbleView).inset(10)
-                make.top.equalTo(bubbleView).offset(10)
-                make.width.equalTo(35)
+                make.top.equalTo(bubbleView).offset(5)
+                make.width.equalTo(25)
+                make.height.equalTo(25)
             }
         } else {
             dateLabel.snp.makeConstraints { make in
@@ -121,6 +123,12 @@ class SentChatCell: UITableViewCell {
                 make.width.equalTo(35)
             }
         }
+    }
+    
+    private func settingSpinner() {
+        spinner.contentMode = .scaleAspectFill
+        spinner.loopMode = .loop
+        spinner.animationSpeed = 2
     }
     
     private func updateAppearence() {

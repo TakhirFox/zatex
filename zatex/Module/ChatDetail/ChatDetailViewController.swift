@@ -59,6 +59,10 @@ class ChatDetailViewController: BaseViewController {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             self.tabBarController?.tabBar.frame.origin.y += 100
         }
+        
+        tableView.isHidden = true
+        chatView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -265,6 +269,10 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
     func setChatMesssages(data: [ChatMessageResult]) {
         DispatchQueue.main.async { [weak self] in
             self?.messages = data
+            self?.tableView.isHidden = false
+            self?.chatView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.tableView.reloadData()
             self?.goToBottomCell()
         }

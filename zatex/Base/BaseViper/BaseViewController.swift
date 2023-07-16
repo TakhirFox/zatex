@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 protocol BaseViewControllerProtocol: NSObject {
     func viewDidLoad()
@@ -14,14 +15,15 @@ protocol BaseViewControllerProtocol: NSObject {
 
 class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
-    var activityIndicator = UIActivityIndicatorView(style: .medium)
+    var loaderView = LottieAnimationView(name: "loader")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Palette.Background.primary
         self.navigationController?.isNavigationBarHidden = false
-
+        
         setNavigationItems()
+        setLoader()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
@@ -34,18 +36,33 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         }
     }
     
-    func setNavigationItems() {
+    private func setNavigationItems() {
         navigationController?.navigationBar.isTranslucent = true
-        
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
         
         let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
-
+        
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.navigationBar.topItem?.title = " "
         navigationController?.navigationBar.topItem?.backBarButtonItem?.imageInsets = UIEdgeInsets(top: -100, left: 0, bottom: 0, right: 0)
-
+    }
+    
+    private func setLoader() {
+        loaderView.contentMode = .scaleAspectFill
+        loaderView.loopMode = .loop
+        loaderView.animationSpeed = 2
+        loaderView.isHidden = true
+        loaderView.play()
+        
+        view.addSubview(loaderView)
+        
+        loaderView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

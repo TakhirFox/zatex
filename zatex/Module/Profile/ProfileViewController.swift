@@ -50,6 +50,11 @@ class ProfileViewController: BaseViewController {
         }
         
         self.hideNavigationView()
+        
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        authorView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -263,6 +268,10 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             self?.profileStoreInfo = data
             self?.headerView.setupCell(store: data)
             self?.authorView.setupCell(store: data)
+            self?.headerView.isHidden = false
+            self?.authorView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.collectionView.reloadData()
         }
     }
@@ -270,6 +279,7 @@ extension ProfileViewController: ProfileViewControllerProtocol {
     func setStoreProduct(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             self?.profileProducts = data
+            self?.collectionView.isHidden = false
             self?.collectionView.reloadData()
         }
     }

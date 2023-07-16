@@ -27,6 +27,9 @@ class ChatListViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presenter?.getChatList()
+        
+        tableView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -89,6 +92,9 @@ extension ChatListViewController: ChatListViewControllerProtocol {
     func setChatList(data: [ChatListResult]) {
         DispatchQueue.main.async { [weak self] in
             self?.chatList = data
+            self?.tableView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.tableView.reloadData()
             self?.refreshControl.endRefreshing()
         }

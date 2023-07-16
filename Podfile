@@ -11,6 +11,7 @@ target 'zatex' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'YandexMapsMobile', '4.3.1-lite'
+  pod 'lottie-ios'
   
 end
 
