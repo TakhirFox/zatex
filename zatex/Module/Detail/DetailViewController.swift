@@ -41,6 +41,10 @@ class DetailViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         presenter?.getProductInfo()
+        
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -373,6 +377,10 @@ extension DetailViewController: DetailViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.headerView.setupCell(author: data)
             self?.storeInfo = data
+            self?.collectionView.isHidden = false
+            self?.headerView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.collectionView.reloadData()
         }
     }

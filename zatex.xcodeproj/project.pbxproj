@@ -194,6 +194,7 @@
 		ADE7407329DF17D7004A667C /* CreateProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE7407229DF17D7004A667C /* CreateProductService.swift */; };
 		ADE8175329093A76004895DD /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175229093A76004895DD /* BaseButton.swift */; };
 		ADE8175529093E3D004895DD /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175429093E3D004895DD /* BaseTabBar.swift */; };
+		ADEE23772A642C1800569844 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = ADEE23762A642C1800569844 /* loader.json */; };
 		ADF1C4BF29DC846D00532EDD /* CoordinatesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */; };
 		ADF1C4C229DC84F400532EDD /* MapHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C129DC84F400532EDD /* MapHttpService.swift */; };
 		ADF1C4C429DC851100532EDD /* MapHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF1C4C329DC851100532EDD /* MapHttpRouter.swift */; };
@@ -444,6 +445,7 @@
 		ADE7407229DF17D7004A667C /* CreateProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductService.swift; sourceTree = "<group>"; };
 		ADE8175229093A76004895DD /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		ADE8175429093E3D004895DD /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		ADEE23762A642C1800569844 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatesResult.swift; sourceTree = "<group>"; };
 		ADF1C4C129DC84F400532EDD /* MapHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHttpService.swift; sourceTree = "<group>"; };
 		ADF1C4C329DC851100532EDD /* MapHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHttpRouter.swift; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 				AD9B25FE28FD471E00C15139 /* Base */,
 				AD9B25FD28FD457800C15139 /* Module */,
 				AD9B25FC28FD3FCC00C15139 /* Supporting files */,
+				ADEE23752A642BF000569844 /* Resources */,
 				AD49A88728ED577300D159CA /* Info.plist */,
 			);
 			path = zatex;
@@ -1223,6 +1226,14 @@
 			name = BaseComponents;
 			sourceTree = "<group>";
 		};
+		ADEE23752A642BF000569844 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ADEE23762A642C1800569844 /* loader.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		ADF1C4C029DC84D600532EDD /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -1470,6 +1481,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADEE23772A642C1800569844 /* loader.json in Resources */,
 				AD49A88628ED577300D159CA /* LaunchScreen.storyboard in Resources */,
 				ADAC8451290A79B400F15330 /* Montserrat-Medium.ttf in Resources */,
 				ADAC8452290A79B400F15330 /* Montserrat-SemiBold.ttf in Resources */,

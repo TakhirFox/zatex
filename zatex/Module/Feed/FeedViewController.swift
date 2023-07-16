@@ -55,11 +55,15 @@ class FeedViewController: BaseViewController {
         presenter?.getProducts(page: pageCount)
         presenter?.getCategories()
         presenter?.getBanners()
+        
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         setupCollectionView()
         setupSearchView()
         
@@ -312,13 +316,16 @@ extension FeedViewController: FeedViewControllerProtocol {
             self.isPaging = true
             self.pageCount += 1
             self.reloadData()
+            self.collectionView.isHidden = false
+            self.searchView.isHidden = false
+            self.loaderView.isHidden = true
+            self.loaderView.stop()
             self.collectionView.reloadData()
-            self.activityIndicator.stopAnimating()
             self.refreshControl.endRefreshing()
         }
     }
     
-    func setCategories(data: [CategoryResult]) {        
+    func setCategories(data: [CategoryResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.categories = data

@@ -41,6 +41,9 @@ class ReviewsViewController: BaseViewController {
         setupTableView()
         setupSubviews()
         setupConstraints()
+        
+        tableView.isHidden = true
+        loaderView.isHidden = false
     }
     
     private func setupTableView() {
@@ -117,6 +120,9 @@ extension ReviewsViewController: ReviewsViewControllerProtocol {
     func setStoreInfo(data: StoreInfoResult) {
         DispatchQueue.main.async { [weak self] in
             self?.reviewStoreInfo = data
+            self?.tableView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.tableView.reloadData()
         }
     }

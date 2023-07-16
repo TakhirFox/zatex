@@ -51,6 +51,10 @@ class ProfileEditViewController: BaseViewController {
         }
         
         self.tabBarController?.tabBar.frame.origin.y += 100
+        
+        tableView.isHidden = true
+        buttonView.isHidden = true
+        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -399,6 +403,10 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.profileInfo = data
             self?.isShop = data.isShop ?? false
+            self?.tableView.isHidden = false
+            self?.buttonView.isHidden = false
+            self?.loaderView.isHidden = true
+            self?.loaderView.stop()
             self?.tableView.reloadData()
         }
     }
