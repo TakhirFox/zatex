@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+typealias AdditionalInfoClosure = () -> (Void)
+
+protocol AdditionalInfoAPI {
+    
+    func additionalInfo(
+        data: AdditionalInfoRequest,
+        completion: @escaping AdditionalInfoClosure
+    ) -> (Void)
+}

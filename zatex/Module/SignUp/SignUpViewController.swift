@@ -56,7 +56,6 @@ class SignUpViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
     }
-    
 }
 
 extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
