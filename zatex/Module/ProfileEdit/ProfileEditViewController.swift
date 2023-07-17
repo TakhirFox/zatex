@@ -129,7 +129,6 @@ class ProfileEditViewController: BaseViewController {
 
 extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let isShop = profileInfo?.isShop else { return 1 }
         return isShop ? 2 : 1
     }
     
@@ -287,7 +286,6 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imagePicker.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension ProfileEditViewController {

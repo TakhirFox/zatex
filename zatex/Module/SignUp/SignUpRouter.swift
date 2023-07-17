@@ -10,6 +10,7 @@ import UIKit
 
 protocol SignUpRouterProtocol: AnyObject {
     
+    func routeToAdditionalInfo(closeViewHandler: @escaping () -> Void)
 }
 
 class SignUpRouter: BaseRouter {
@@ -19,4 +20,8 @@ class SignUpRouter: BaseRouter {
 
 extension SignUpRouter: SignUpRouterProtocol {
     
+    func routeToAdditionalInfo(closeViewHandler: @escaping () -> Void) {
+        let view = AdditionalInfoAssembly.create(closeViewHandler: closeViewHandler)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }

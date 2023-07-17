@@ -44,7 +44,7 @@ class ProfileViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         if let userId = sessionProvider?.getSession()?.userId,
-            let id = Int(userId) {
+           let id = Int(userId) {
             presenter?.getStoreInfo(authorId: id)
             presenter?.getStoreProduct(authorId: id)
         }
@@ -54,7 +54,14 @@ class ProfileViewController: BaseViewController {
         collectionView.isHidden = true
         headerView.isHidden = true
         authorView.isHidden = true
-        loaderView.isHidden = false
+        
+        if sessionProvider != nil,
+           sessionProvider!.isAuthorized
+        {
+            loaderView.isHidden = false
+        } else {
+            loaderView.isHidden = true
+        }
     }
     
     override func viewDidLoad() {

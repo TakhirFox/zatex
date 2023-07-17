@@ -14,7 +14,7 @@ protocol SignUpPresenterProtocol: AnyObject {
         pass: String?
     )
     
-    func signUpSuccess()
+    func goToAdditionalInfoView()
 }
 
 class SignUpPresenter: BasePresenter {
@@ -70,9 +70,11 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
     
     // MARK: To Router
+    func goToAdditionalInfoView() {
+        router?.routeToAdditionalInfo { [weak self] in
+            self?.closeViewHandler()
+        }
+    }
     
     // MARK: To View
-    func signUpSuccess() {
-        closeViewHandler()
-    }
 }

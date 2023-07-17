@@ -45,8 +45,8 @@ extension SignUpInteractor: SignUpInteractorProtocol {
                     userDisplayName: nil
                 )
                 
-                self.sessionProvider.setSession(session)                
-                self.presenter?.signUpSuccess()
+                self.sessionProvider.setSession(session)
+                self.presenter?.goToAdditionalInfoView()
             }
         }
     }
