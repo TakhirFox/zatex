@@ -22,6 +22,7 @@ class ChatListViewController: BaseViewController {
     
     let refreshControl = UIRefreshControl()
     let tableView = UITableView()
+    let emptyView = ChatEmptyView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,6 +30,7 @@ class ChatListViewController: BaseViewController {
         presenter?.getChatList()
         
         tableView.isHidden = true
+        emptyView.isHidden = true
         loaderView.isHidden = false
     }
     
@@ -37,6 +39,7 @@ class ChatListViewController: BaseViewController {
         
         setupTableView()
         setupSubviews()
+        setupEmptyView()
         setupConstraints()
     }
     
@@ -56,6 +59,7 @@ class ChatListViewController: BaseViewController {
     
     private func setupSubviews() {
         view.addSubview(tableView)
+        tableView.addSubview(emptyView)
     }
     
     private func setupConstraints() {
@@ -63,6 +67,15 @@ class ChatListViewController: BaseViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalToSuperview()
         }
+        
+        emptyView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+    }
+    
+    private func setupEmptyView() {
+        emptyView.setupCell(text: "Вам пока никто не писал!")
     }
 }
 
@@ -93,6 +106,7 @@ extension ChatListViewController: ChatListViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.chatList = data
             self?.tableView.isHidden = false
+            self?.emptyView.isHidden = false
             self?.loaderView.isHidden = true
             self?.loaderView.stop()
             self?.tableView.reloadData()
