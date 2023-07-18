@@ -49,11 +49,16 @@ class ProfileAuthorView: UIView {
     }
     
     func setupCell(store: StoreInfoResult?) {
-        let avatarUrl = URL(string: store?.gravatar ?? "")
-        
-        avatarView.kf.setImage(with: avatarUrl)
         titleLabel.text = store?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
+        avatarView.image = UIImage(named: "no-avatar")
+        
+        let avatar = store?.gravatar as? String
+        
+        if avatar != nil, !(avatar!.isEmpty) {
+            let avatarUrl = URL(string: avatar ?? "")
+            avatarView.kf.setImage(with: avatarUrl)
+        }
         
         if let rating = store?.rating?.rating {
             if store?.rating?.count != 0 {
@@ -107,7 +112,7 @@ class ProfileAuthorView: UIView {
     }
     
     private func updateAppearence() {
-        backView.backgroundColor = Palette.Background.secondary
+        backView.backgroundColor = Palette.Background.primary
         titleLabel.textColor = Palette.Text.primary
     }
     

@@ -49,11 +49,16 @@ class AuthorProdCell: UICollectionViewCell {
     }
     
     func setupCell(author: StoreInfoResult?) {
-        let avatarUrl = URL(string: author?.gravatar ?? "")
-        
-        avatarView.kf.setImage(with: avatarUrl)
+        avatarView.image = UIImage(named: "no-avatar")
         titleLabel.text = author?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
+        
+        let avatar = author?.gravatar as? String
+        
+        if avatar != nil, !(avatar!.isEmpty) {
+            let avatarUrl = URL(string: avatar ?? "")
+            avatarView.kf.setImage(with: avatarUrl)
+        }
         
         if let rating = author?.rating?.rating {
             if author?.rating?.count != 0 {

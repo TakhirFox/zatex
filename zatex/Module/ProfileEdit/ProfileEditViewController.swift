@@ -147,7 +147,7 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
             switch row {
             case .avatar:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "avatarCell", for: indexPath) as! AvatarEditCell
-                cell.setupCell(image: profileInfo?.gravatar, local: updateInfo.localAvatar)
+                cell.setupCell(image: "profileInfo?.gravatar", local: updateInfo.localAvatar)
                 cell.avatarImage.addGestureRecognizer(changeAvatarGesture)
                 changeAvatarGesture.addTarget(self, action: #selector(showAvatarDialog))
                 return cell

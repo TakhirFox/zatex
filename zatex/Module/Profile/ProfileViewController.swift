@@ -98,6 +98,7 @@ class ProfileViewController: BaseViewController {
         collectionView.register(ProfileStatsCell.self, forCellWithReuseIdentifier: "statsCell")
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
+        collectionView.register(ProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
         collectionView.backgroundColor = .clear
     }
     
@@ -157,7 +158,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
             
         case .myProducts:
-            return profileProducts?.count ?? 0
+            let count = profileProducts?.count ?? 0
+            return count == 0 ? 1 : count
             
         case .none:
             return 0
@@ -182,9 +184,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .myProducts:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
-            cell.setupCell(profileProducts?[indexPath.row])
-            return cell
+            if profileProducts != nil, !profileProducts!.isEmpty {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
+                cell.setupCell(profileProducts?[indexPath.row])
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyCell", for: indexPath) as! ProfileEmptyCell
+                cell.setupCell(text: "Тут пока ничего нет")
+                return cell
+            }
             
         case .none:
             return UICollectionViewCell()
@@ -203,7 +211,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return .init(width: view.frame.width, height: 45)
             
         case .myProducts:
-            return .init(width: view.frame.width / 2 - 24, height: 200)
+            let isEmpty = profileProducts?.isEmpty ?? false
+            
+            return .init(
+                width: isEmpty ? view.frame.width : view.frame.width / 2 - 24,
+                height: 200
+            )
             
         case .none:
             return .zero

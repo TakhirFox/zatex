@@ -12,7 +12,7 @@ struct StoreInfoResult: Decodable {
     let storeName, firstName, lastName, phone: String?
     let address: AddressUnion?
     let banner: String?
-    let gravatar: String?
+    let gravatar: GravatarUnion?
     let rating: StoreInfoResult.Rating?
     let registered: String?
     let email: String?
@@ -49,6 +49,25 @@ struct StoreInfoResult: Decodable {
                 return
             }
             throw DecodingError.typeMismatch(AddressUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AddressUnion"))
+        }
+    }
+    
+    enum GravatarUnion: Decodable {
+        
+        case addressClass(String)
+        case anythingBool(Bool)
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let x = try? container.decode(Bool.self) {
+                self = .anythingBool(x)
+                return
+            }
+            if let x = try? container.decode(String.self) {
+                self = .addressClass(x)
+                return
+            }
+            throw DecodingError.typeMismatch(GravatarUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for GravatarUnion"))
         }
     }
     

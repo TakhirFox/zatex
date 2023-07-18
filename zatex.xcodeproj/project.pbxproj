@@ -120,6 +120,8 @@
 		AD4E866B2A55C30800F002E6 /* ProfileEditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E866A2A55C30800F002E6 /* ProfileEditAPI.swift */; };
 		AD4E866D2A55C31200F002E6 /* ProfileEditService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E866C2A55C31200F002E6 /* ProfileEditService.swift */; };
 		AD4E866F2A55CBF600F002E6 /* ProfileEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */; };
+		AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */; };
+		AD5163182A66E09D00C2B60F /* ChatEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
 		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
 		AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC52903F52B001CB847 /* HttpService.swift */; };
@@ -388,6 +390,8 @@
 		AD4E866A2A55C30800F002E6 /* ProfileEditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditAPI.swift; sourceTree = "<group>"; };
 		AD4E866C2A55C31200F002E6 /* ProfileEditService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditService.swift; sourceTree = "<group>"; };
 		AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditRequest.swift; sourceTree = "<group>"; };
+		AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmptyCell.swift; sourceTree = "<group>"; };
+		AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEmptyView.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
 		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
 		AD86EAC52903F52B001CB847 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
@@ -575,6 +579,7 @@
 		2107F3DC83F5E355101B65C5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				AD5163142A66D5EE00C2B60F /* Views */,
 				ADC4D1EE291AAFA100B9472E /* Cell */,
 				404257A0E36E5DF048D5603F /* ProfileViewController.swift */,
 				796BC2A611D47A581276F696 /* ProfilePresenter.swift */,
@@ -642,6 +647,7 @@
 		840411B614E7666442AB6359 /* ChatList */ = {
 			isa = PBXGroup;
 			children = (
+				AD5163192A66E12F00C2B60F /* Views */,
 				ADF53FED29B4674C00BF8516 /* Cells */,
 				28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */,
 				AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */,
@@ -914,6 +920,23 @@
 			name = ProfileEdit;
 			sourceTree = "<group>";
 		};
+		AD5163142A66D5EE00C2B60F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ADC4D1EF291AAFB200B9472E /* ProfileHeaderView.swift */,
+				ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD5163192A66E12F00C2B60F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		AD86EAC42903F506001CB847 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -1174,8 +1197,7 @@
 		ADC4D1EE291AAFA100B9472E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				ADC4D1EF291AAFB200B9472E /* ProfileHeaderView.swift */,
-				ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */,
+				AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */,
 				AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */,
 				ADCECFE129C7713B009DDFA4 /* ProfileSectionCell.swift */,
 			);
@@ -1766,6 +1788,7 @@
 				D2897DEADF100A13E1D0FA9C /* SearchInteractor.swift in Sources */,
 				AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */,
 				ADD029A129E11D5E002E5608 /* ProductResponse.swift in Sources */,
+				AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */,
 				AD4A98692918D38800709745 /* AvatarEditCell.swift in Sources */,
 				AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */,
 				ADE8175329093A76004895DD /* BaseButton.swift in Sources */,
@@ -1833,6 +1856,7 @@
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
 				E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */,
 				15308D3FA9F3DD384B8A9475 /* ChatListPresenter.swift in Sources */,
+				AD5163182A66E09D00C2B60F /* ChatEmptyView.swift in Sources */,
 				ADEE23882A65A1C200569844 /* AddInfoButtonView.swift in Sources */,
 				AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */,
 				ADEE238E2A65A89F00569844 /* AdditionalInfoHttpRouter.swift in Sources */,

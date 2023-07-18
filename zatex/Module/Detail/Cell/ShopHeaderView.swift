@@ -55,13 +55,18 @@ class ShopHeaderView: UIView {
     }
     
     func setupCell(author: StoreInfoResult?) {
-        let avatarUrl = URL(string: author?.gravatar ?? "")
-        
-        avatarView.kf.setImage(with: avatarUrl)
         backgroundImageView.image = UIImage(named: "defaultBanner")
+        avatarView.image = UIImage(named: "no-avatar")
         titleLabel.text = author?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
-
+        
+        let avatar = author?.gravatar as? String
+        
+        if avatar != nil, !(avatar!.isEmpty) {
+            let avatarUrl = URL(string: avatar ?? "")
+            avatarView.kf.setImage(with: avatarUrl)
+        }
+        
         if author?.banner != nil, !(author?.banner!.isEmpty)! {
             let banner = (author?.banner?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
             let bannerUrl = URL(string: banner)
