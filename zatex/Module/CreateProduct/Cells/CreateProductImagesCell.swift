@@ -11,6 +11,8 @@ class CreateProductImagesCell: UITableViewCell {
     
     var images: [ProductEntity.Image] = []
     
+    var removeImageHandler: ((Int) -> Void) = { _ in }
+    
     private let viewContainer: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
@@ -123,6 +125,8 @@ extension CreateProductImagesCell: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UploadProductImageCell
+        cell.removeButton.addTarget(self, action: #selector(removeImageButtom), for: .touchUpInside)
+        cell.removeButton.tag = indexPath.row
         cell.setupCell(image: images[indexPath.row])
         return cell
     }
@@ -138,6 +142,15 @@ extension CreateProductImagesCell: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension CreateProductImagesCell {
+    
+    @objc private func removeImageButtom(sender: UIButton) {
+        images.remove(at: sender.tag)
+        removeImageHandler(sender.tag)
+        
+        DispatchQueue.main.async() {
+            self.collectionView.reloadData()
+        }
+    }
     
     func reloadCell() {
         DispatchQueue.main.async() {

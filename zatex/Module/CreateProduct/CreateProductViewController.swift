@@ -151,6 +151,12 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
         case .images:
             let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
             cell.setupCell(images: productPost.images)
+            
+            cell.removeImageHandler = { [weak self] index in
+                self?.productPost.images.remove(at: index)
+                self?.presenter?.removeImage(index: index)
+            }
+            
             cell.reloadCell()
             cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
             return cell

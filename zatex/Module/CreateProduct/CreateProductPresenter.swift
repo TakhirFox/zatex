@@ -12,6 +12,7 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func getCategories()
     func uploadImage(image: UIImage)
     func publishProduct(data: ProductEntity)
+    func removeImage(index: Int)
     
     func goToDetail(id: Int)
     
@@ -52,6 +53,10 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         )
         
         interactor?.publishProduct(data: product)
+    }
+    
+    func removeImage(index: Int) {
+        uploadedImages.remove(at: index)
     }
     
     // MARK: To Router
