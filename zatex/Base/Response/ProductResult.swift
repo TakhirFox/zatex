@@ -58,12 +58,31 @@ struct ProductResult: Decodable, Hashable {
         let id: Int?
         let name: String?
         let shopName: String?
-        let address: ProductResult.Address?
-
+        let address: ProductResult.AddressUnion?
+        
         enum CodingKeys: String, CodingKey {
             case id, name
             case shopName = "shop_name"
             case address
+        }
+    }
+    
+    enum AddressUnion: Decodable, Hashable {
+        
+        case addressClass(ProductResult.Address)
+        case anythingArray([String])
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let x = try? container.decode([String].self) {
+                self = .anythingArray(x)
+                return
+            }
+            if let x = try? container.decode(ProductResult.Address.self) {
+                self = .addressClass(x)
+                return
+            }
+            throw DecodingError.typeMismatch(AddressUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AddressUnion"))
         }
     }
     

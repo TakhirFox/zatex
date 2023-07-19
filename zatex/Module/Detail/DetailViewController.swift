@@ -184,7 +184,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case .mapShop:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as! MapProductCell
-            cell.setupCell(map: product?.store?.address)
+            cell.setupCell(map: product?.store?.address as? ProductResult.Address)
             return cell
             
         case .contact:
@@ -281,7 +281,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             break
             
         case .mapShop:
-            presenter?.getCoordinatesAndGoToMap(address: product?.store?.address)
+            presenter?.getCoordinatesAndGoToMap(address: product?.store?.address as? ProductResult.Address)
 
         case .similarProduct:
             presenter?.goToDetail(id: similarProducts[indexPath.row].id ?? 0)
