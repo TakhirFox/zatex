@@ -23,14 +23,14 @@ extension ChatListService: ChatListAPI {
                 .responseDecodable(of: [ChatListResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 23598238 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 23598238 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 9802355678456 Ошибка списка чата")
+            completion(.failure(.secondError(name: "Ошибка: 9802355678456 Ошибка списка чата")))
         }
     }
 }

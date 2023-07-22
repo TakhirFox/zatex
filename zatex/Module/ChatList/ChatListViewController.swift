@@ -12,6 +12,7 @@ protocol ChatListViewControllerProtocol: AnyObject {
     var presenter: ChatListPresenterProtocol? { get set }
     
     func setChatList(data: [ChatListResult])
+    func showError(data: String)
 }
 
 class ChatListViewController: BaseViewController {
@@ -27,11 +28,7 @@ class ChatListViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.getChatList()
-        
-        tableView.isHidden = true
-        emptyView.isHidden = true
-        loaderView.isHidden = false
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -77,6 +74,15 @@ class ChatListViewController: BaseViewController {
     private func setupEmptyView() {
         emptyView.setupCell(text: "Вам пока никто не писал!")
     }
+    
+    private func getRequests() {
+        presenter?.getChatList()
+        
+        tableView.isHidden = true
+        emptyView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+    }
 }
 
 extension ChatListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -111,6 +117,18 @@ extension ChatListViewController: ChatListViewControllerProtocol {
             self?.loaderView.stop()
             self?.tableView.reloadData()
             self?.refreshControl.endRefreshing()
+        }
+    }
+    
+    func showError(data: String) {
+        tableView.isHidden = true
+        emptyView.isHidden = false
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
         }
     }
 }

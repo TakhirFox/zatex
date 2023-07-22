@@ -13,6 +13,7 @@ protocol ChatListPresenterProtocol: AnyObject {
     func routeToMessage(chatId: String?)
     
     func setChatList(data: [ChatListResult])
+    func setError(data: String)
 }
 
 class ChatListPresenter: BasePresenter {
@@ -37,5 +38,9 @@ extension ChatListPresenter: ChatListPresenterProtocol {
     // MARK: To View
     func setChatList(data: [ChatListResult]) {
         view?.setChatList(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }
