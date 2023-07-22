@@ -13,6 +13,7 @@ protocol ChatDetailPresenterProtocol: AnyObject {
     
     func setChatMesssages(data: [ChatMessageResult])
     func setChatInfo(data: ChatInfoResult)
+    func setError(data: String)
 }
 
 class ChatDetailPresenter: BasePresenter {
@@ -48,5 +49,9 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     
     func setChatInfo(data: ChatInfoResult) {
         view?.setChatInfo(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }

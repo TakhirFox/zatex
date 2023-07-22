@@ -13,6 +13,7 @@ protocol ChatDetailViewControllerProtocol: AnyObject {
 
     func setChatMesssages(data: [ChatMessageResult])
     func setChatInfo(data: ChatInfoResult)
+    func showError(data: String)
 }
 
 class ChatDetailViewController: BaseViewController {
@@ -53,16 +54,11 @@ class ChatDetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.getChatMessages()
-        presenter?.getChatInfo()
+        getRequests()
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             self.tabBarController?.tabBar.frame.origin.y += 100
         }
-        
-        tableView.isHidden = true
-        chatView.isHidden = true
-        loaderView.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -153,6 +149,16 @@ class ChatDetailViewController: BaseViewController {
             make.width.equalTo(32)
             make.leading.equalTo(textView.snp.trailing).offset(4)
         }
+    }
+    
+    private func getRequests() {
+        presenter?.getChatMessages()
+        presenter?.getChatInfo()
+        
+        tableView.isHidden = true
+        chatView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
     }
 }
 
@@ -287,6 +293,18 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
     func setChatInfo(data: ChatInfoResult) {
         DispatchQueue.main.async { [weak self] in
             self?.chatInfoView.setupCell(author: data)
+        }
+    }
+    
+    func showError(data: String) {
+        tableView.isHidden = true
+        chatView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
         }
     }
 }

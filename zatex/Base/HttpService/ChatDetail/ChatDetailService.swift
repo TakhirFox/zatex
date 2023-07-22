@@ -26,14 +26,14 @@ extension ChatDetailService: ChatDetailAPI {
                 .responseDecodable(of: [ChatMessageResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 09989090990092 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 09989090990092 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 904539430375 Ошибка получения переписки")
+            completion(.failure(.secondError(name: "Ошибка: 904539430375 Ошибка получения переписки - \(error)")))
         }
     }
     
@@ -48,13 +48,13 @@ extension ChatDetailService: ChatDetailAPI {
                 .responseDecodable(of: ChatInfoResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 43267435734 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 43267435734 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 34573568245 Ошибка получения информации о чате")
+            completion(.failure(.secondError(name: "Ошибка: 34573568245 Ошибка получения информации о чате - \(error)")))
         }
     }
     
@@ -73,13 +73,13 @@ extension ChatDetailService: ChatDetailAPI {
                 .responseDecodable(of: SendMessageResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 999898992292t342164 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 999898992292t342164 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 552888200023 Ошибка отправки сообщения")
+            completion(.failure(.secondError(name: "Ошибка: 552888200023 Ошибка отправки сообщения - \(error)")))
         }
     }
     
@@ -94,13 +94,13 @@ extension ChatDetailService: ChatDetailAPI {
                 .response { response in
                     switch response.result {
                     case .success:
-                        completion()
+                        completion(.success(()))
                     case .failure(let error):
-                        print("LOG: 23462337 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 23462337 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 569845868 Ошибка прочтения сообщения")
+            completion(.failure(.secondError(name: "Ошибка: 569845868 Ошибка прочтения сообщения - \(error)")))
         }
     }
 }
