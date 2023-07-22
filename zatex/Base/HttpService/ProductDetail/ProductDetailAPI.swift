@@ -7,11 +7,11 @@
 
 import Foundation
 
-typealias ProductDetailClosure = (ProductResult) -> (Void)
-typealias StoreInfoClosure = (StoreInfoResult) -> (Void)
-typealias CheckChatClosure = (CheckChatResult) -> (Void)
-typealias CheckChatReviewClosure = (CheckChatReviewResult) -> (Void)
-typealias ReviewClosure = () -> (Void)
+typealias ProductDetailClosure = (Result<ProductResult, NetworkError>) -> (Void)
+typealias StoreInfoClosure = (Result<StoreInfoResult, NetworkError>) -> (Void)
+typealias CheckChatClosure = (Result<CheckChatResult, NetworkError>) -> (Void)
+typealias CheckChatReviewClosure = (Result<CheckChatReviewResult, NetworkError>) -> (Void)
+typealias ReviewClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol ProductDetailAPI {
     

@@ -16,6 +16,7 @@ protocol DetailViewControllerProtocol: AnyObject {
     func setStoreInfo(data: StoreInfoResult)
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
+    func showError(data: String)
 }
 
 class DetailViewController: BaseViewController {
@@ -40,11 +41,7 @@ class DetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.getProductInfo()
-        
-        collectionView.isHidden = true
-        headerView.isHidden = true
-        loaderView.isHidden = false
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -111,6 +108,15 @@ class DetailViewController: BaseViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    private func getRequests() {
+        presenter?.getProductInfo()
+        
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
     }
 }
 
@@ -394,6 +400,18 @@ extension DetailViewController: DetailViewControllerProtocol {
     func showReviewButton(data: CheckChatReviewResult) {
         DispatchQueue.main.async { [weak self] in
             self?.isShowReviewButton = data.success ?? false
+        }
+    }
+    
+    func showError(data: String) {
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
         }
     }
 }

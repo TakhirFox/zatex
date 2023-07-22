@@ -15,10 +15,12 @@ typealias ProdByCategoryClosure = (Result<[ProductResult], NetworkError>) -> (Vo
 protocol ProductAPI {
     func fetchProducts(
         page: Int,
-        completion: @escaping ProductsClosure) -> (Void
-        )
+        completion: @escaping ProductsClosure
+    ) -> (Void)
     
-    func fetchCategories(completion: @escaping CategoriesClosure) -> Void
+    func fetchCategories(
+        completion: @escaping CategoriesClosure
+    ) -> Void
     
     func fetchBanners(completion: @escaping BannersClosure)
     

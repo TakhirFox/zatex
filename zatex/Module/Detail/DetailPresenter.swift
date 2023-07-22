@@ -48,6 +48,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func setStoreInfo(data: StoreInfoResult)
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
+    func setError(data: String)
 }
 
 class DetailPresenter: BasePresenter {
@@ -178,5 +179,9 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func showReviewButton(data: CheckChatReviewResult) {
         view?.showReviewButton(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }
