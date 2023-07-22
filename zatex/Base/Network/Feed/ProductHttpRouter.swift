@@ -23,10 +23,13 @@ extension ProductHttpRouter: HttpRouter {
         switch self {
         case .getAllProducts:
             return "/wp-json/wc/v3/products"
+            
         case .getCategories:
             return "/wp-json/wp/v2/product_cat"
+            
         case .getBanners:
             return "/banner.json"
+            
         case .getProductsByCategory:
             return "/wp-json/wc/v3/products"
         }
@@ -57,8 +60,10 @@ extension ProductHttpRouter: HttpRouter {
                 "consumer_key": "ck_354cbc09f836cf6ab10941f5437016b7252f13cb",
                 "consumer_secret": "cs_188789d20497ddad20fe6598be304aa2efcaeec0"
             ]
+            
         case .getCategories, .getBanners:
             return nil
+            
         case .getProductsByCategory(let id):
             return [
                 "category":"\(id)",

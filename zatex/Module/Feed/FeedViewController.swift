@@ -53,13 +53,7 @@ class FeedViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         
-        presenter?.getProducts(page: pageCount)
-        presenter?.getCategories()
-        presenter?.getBanners()
-        
-        collectionView.isHidden = true
-        searchView.isHidden = true
-        loaderView.isHidden = false
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -110,6 +104,16 @@ class FeedViewController: BaseViewController {
         searchView.placeholder = "Поиск"
     }
     
+    private func getRequests() {
+        presenter?.getProducts(page: pageCount)
+        presenter?.getCategories()
+        presenter?.getBanners()
+        
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+    }
 }
 
 // MARK: CollectionView flow layout, data source
@@ -326,6 +330,7 @@ extension FeedViewController: FeedViewControllerProtocol {
             self.collectionView.isHidden = false
             self.searchView.isHidden = false
             self.loaderView.isHidden = true
+            self.errorView.isHidden = true
             self.loaderView.stop()
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
@@ -360,6 +365,14 @@ extension FeedViewController: FeedViewControllerProtocol {
     }
     
     func showError(data: String) {
-        // TODO: asd
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
     }
 }
