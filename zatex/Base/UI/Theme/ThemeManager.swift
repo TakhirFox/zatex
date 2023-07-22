@@ -26,6 +26,8 @@ public enum Color {
     static public let backgroundYourBubbleLight = UIColor(hex: 0xB6CEF4)
     static public let textMessageLight = UIColor(hex: 0x363636)
     static public let timeMessageLight = UIColor(hex: 0xEDF3FD)
+    static public let backChatUnreadLight = UIColor(hex: 0x000000).withAlphaComponent(0.1)
+    static public let backChatReadLight = UIColor.clear
     
     // Dark
     static public let primaryBackgroundDark = UIColor(hex: 0x202020)
@@ -46,6 +48,8 @@ public enum Color {
     static public let backgroundYourBubbleDark = UIColor(hex: 0x68707C)
     static public let textMessageDark = UIColor(hex: 0xE1E1E1)
     static public let timeMessageDark = UIColor(hex: 0x98A8C2)
+    static public let backChatUnreadDark = UIColor(hex: 0xFFFFFF).withAlphaComponent(0.1)
+    static public let backChatReadDark = UIColor(hex: 0x000000).withAlphaComponent(0.1)
 }
 
 var currentTheme: AppTheme { Appearance.shared.theme.value }
@@ -194,6 +198,23 @@ public enum Palette {
                 return Color.timeMessageDark
             }
         }
+        
+        public static var unreadChatCell: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.backChatUnreadLight
+            case .dark:
+                return Color.backChatUnreadDark
+            }
+        }
+        
+        public static var readChatCell: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.backChatReadLight
+            case .dark:
+                return Color.backChatReadDark
+            }
+        }
     }
-    
 }

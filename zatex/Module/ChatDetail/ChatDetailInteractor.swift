@@ -11,6 +11,7 @@ protocol ChatDetailInteractorProtocol {
     func getChatMessages()
     func getChatInfo()
     func sendChatMessage(message: String)
+    func markMessage(id: String)
 }
 
 class ChatDetailInteractor: BaseInteractor {
@@ -45,5 +46,9 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
         ) { result in
             self.getChatMessages()
         }
+    }
+    
+    func markMessage(id: String) {
+        self.service.markMessage(messageId: id) {}
     }
 }

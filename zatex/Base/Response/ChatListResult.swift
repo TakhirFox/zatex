@@ -10,6 +10,7 @@ import Foundation
 struct ChatListResult: Decodable {
     let chatID, user1ID, user2ID, productID: String?
     let content, sentAt, postTitle, displayName: String?
+    let isRead: Bool?
 
     enum CodingKeys: String, CodingKey {
         case chatID = "chat_id"
@@ -20,5 +21,6 @@ struct ChatListResult: Decodable {
         case sentAt = "sent_at"
         case postTitle = "post_title"
         case displayName = "display_name"
+        case isRead = "is_read"
     }
 }

@@ -82,4 +82,25 @@ extension ChatDetailService: ChatDetailAPI {
             print("LOG: 552888200023 Ошибка отправки сообщения")
         }
     }
+    
+    func markMessage(
+        messageId: String,
+        completion: @escaping MarkMessageClosure
+    ) {
+        do {
+            try ChatDetailHttpRouter
+                .markMessage(messageId: messageId)
+                .request(usingHttpService: httpService)
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        completion()
+                    case .failure(let error):
+                        print("LOG: 23462337 Ошибка  \(error)")
+                    }
+                }
+        } catch {
+            print("LOG: 569845868 Ошибка прочтения сообщения")
+        }
+    }
 }
