@@ -123,6 +123,7 @@
 		AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */; };
 		AD5163182A66E09D00C2B60F /* ChatEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */; };
 		AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631A2A6BC21000C2B60F /* NetworkError.swift */; };
+		AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
 		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
 		AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC52903F52B001CB847 /* HttpService.swift */; };
@@ -394,6 +395,7 @@
 		AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmptyCell.swift; sourceTree = "<group>"; };
 		AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEmptyView.swift; sourceTree = "<group>"; };
 		AD51631A2A6BC21000C2B60F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseErrorView.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
 		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
 		AD86EAC52903F52B001CB847 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
@@ -1295,6 +1297,7 @@
 			isa = PBXGroup;
 			children = (
 				ADE8175229093A76004895DD /* BaseButton.swift */,
+				AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */,
 				ADE8175429093E3D004895DD /* BaseTabBar.swift */,
 				ADAC844B290A725400F15330 /* BaseTextField.swift */,
 				ADAC8454290A805900F15330 /* BaseSwitch.swift */,
@@ -1814,6 +1817,7 @@
 				AD037FF62A23B29400DB0F60 /* SignUpEntity.swift in Sources */,
 				ADCF768C29B89B65007FF164 /* AuthHttpService.swift in Sources */,
 				6D05043059D418C5C323A9DC /* CreateProductPresenter.swift in Sources */,
+				AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */,
 				AD4A987E2919917900709745 /* AuthorProdCell.swift in Sources */,
 				FBA3841059048F4ACBB0EF6C /* CreateProductInteractor.swift in Sources */,
 				ADA28B8729C61898006A2EA9 /* ProfileAPI.swift in Sources */,

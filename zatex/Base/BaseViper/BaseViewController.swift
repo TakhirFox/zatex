@@ -16,6 +16,7 @@ protocol BaseViewControllerProtocol: NSObject {
 class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     var loaderView = LottieAnimationView(name: "loader")
+    var errorView = BaseErrorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         
         setNavigationItems()
         setLoader()
+        setErrorView()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
@@ -62,6 +64,15 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             make.centerY.equalToSuperview()
             make.width.equalTo(50)
             make.height.equalTo(50)
+        }
+    }
+    
+    private func setErrorView() {
+        errorView.isHidden = true
+        view.addSubview(errorView)
+        
+        errorView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
