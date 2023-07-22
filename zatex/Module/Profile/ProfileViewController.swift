@@ -14,6 +14,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult])
     func updateView()
+    func showError(data: String)
 }
 
 class ProfileViewController: BaseViewController {
@@ -43,25 +44,8 @@ class ProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let userId = sessionProvider?.getSession()?.userId,
-           let id = Int(userId) {
-            presenter?.getStoreInfo(authorId: id)
-            presenter?.getStoreProduct(authorId: id)
-        }
-        
-        self.hideNavigationView()
-        
-        collectionView.isHidden = true
-        headerView.isHidden = true
-        authorView.isHidden = true
-        
-        if sessionProvider != nil,
-           sessionProvider!.isAuthorized
-        {
-            loaderView.isHidden = false
-        } else {
-            loaderView.isHidden = true
-        }
+        getRequests()
+        hideNavigationView()
     }
     
     override func viewDidLoad() {
@@ -138,6 +122,27 @@ class ProfileViewController: BaseViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    private func getRequests() {
+        if let userId = sessionProvider?.getSession()?.userId,
+           let id = Int(userId) {
+            presenter?.getStoreInfo(authorId: id)
+            presenter?.getStoreProduct(authorId: id)
+        }
+        
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        authorView.isHidden = true
+        errorView.isHidden = true
+        
+        if sessionProvider != nil,
+           sessionProvider!.isAuthorized
+        {
+            loaderView.isHidden = false
+        } else {
+            loaderView.isHidden = true
+        }
     }
 }
 
@@ -306,5 +311,18 @@ extension ProfileViewController: ProfileViewControllerProtocol {
     
     func updateView() {
         loadProfileView()
+    }
+    
+    func showError(data: String) {
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        authorView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
     }
 }

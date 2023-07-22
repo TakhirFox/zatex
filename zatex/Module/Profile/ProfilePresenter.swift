@@ -17,6 +17,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult])
+    func setError(data: String)
 }
 
 class ProfilePresenter: BasePresenter {
@@ -67,5 +68,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func setStoreProduct(data: [ProductResult]) {
         view?.setStoreProduct(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }
