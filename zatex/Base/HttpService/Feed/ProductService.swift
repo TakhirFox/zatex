@@ -28,12 +28,12 @@ extension ProductService: ProductAPI {
                         completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        completion(.failure(.error(name: "LOG: 213985 Ошибка  \(error)")))
+                        completion(.failure(.error(name: "Ошибка: 213985 - \(error)")))
                     }
                 }
             
         } catch {
-            completion(.failure(.secondError(name: "LOG: 089123679 Ошибка продуктов")))
+            completion(.failure(.secondError(name: "Ошибка: 089123679 Ошибка продуктов")))
         }
     }
     
@@ -48,12 +48,12 @@ extension ProductService: ProductAPI {
                         completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        completion(.failure(.error(name: "LOG: 9264 Ошибка  \(error)")))
+                        completion(.failure(.error(name: "Ошибка: 9264 - \(error)")))
                     }
                 }
             
         } catch {
-            completion(.failure(.secondError(name: "LOG: 089123679 Ошибка категории")))
+            completion(.failure(.secondError(name: "Ошибка: 089123679 Ошибка категории")))
         }
     }
     
@@ -68,12 +68,12 @@ extension ProductService: ProductAPI {
                         completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        completion(.failure(.error(name: "LOG: 7802347 Ошибка  \(error)")))
+                        completion(.failure(.error(name: "Ошибка: 7802347 - \(error)")))
                     }
                 }
             
         } catch {
-            completion(.failure(.secondError(name: "LOG: 78902345678 Ошибка баннера")))
+            completion(.failure(.secondError(name: "Ошибка: 78902345678 Ошибка баннера")))
         }
     }
     
@@ -91,11 +91,11 @@ extension ProductService: ProductAPI {
                         completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        completion(.failure(.error(name: "LOG: 7325893578392 Ошибка  \(error)")))
+                        completion(.failure(.error(name: "Ошибка: 7325893578392 - \(error)")))
                     }
                 }
         } catch {
-            completion(.failure(.secondError(name: "LOG: 5763830496789 Ошибка фильтра категории")))
+            completion(.failure(.secondError(name: "Ошибка: 5763830496789 Ошибка фильтра категории")))
         }
     }
 }

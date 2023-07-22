@@ -33,7 +33,7 @@ extension ChatDetailService: ChatDetailAPI {
                     }
                 }
         } catch {
-            completion(.failure(.secondError(name: "Ошибка: 904539430375 Ошибка получения переписки - \(error)")))
+            completion(.failure(.secondError(name: "Ошибка: 904539430375 Ошибка получения переписки")))
         }
     }
     
@@ -54,7 +54,7 @@ extension ChatDetailService: ChatDetailAPI {
                     }
                 }
         } catch {
-            completion(.failure(.secondError(name: "Ошибка: 34573568245 Ошибка получения информации о чате - \(error)")))
+            completion(.failure(.secondError(name: "Ошибка: 34573568245 Ошибка получения информации о чате")))
         }
     }
     
@@ -79,7 +79,7 @@ extension ChatDetailService: ChatDetailAPI {
                     }
                 }
         } catch {
-            completion(.failure(.secondError(name: "Ошибка: 552888200023 Ошибка отправки сообщения - \(error)")))
+            completion(.failure(.secondError(name: "Ошибка: 552888200023 Ошибка отправки сообщения")))
         }
     }
     
@@ -100,7 +100,7 @@ extension ChatDetailService: ChatDetailAPI {
                     }
                 }
         } catch {
-            completion(.failure(.secondError(name: "Ошибка: 569845868 Ошибка прочтения сообщения - \(error)")))
+            completion(.failure(.secondError(name: "Ошибка: 569845868 Ошибка прочтения сообщения")))
         }
     }
 }
