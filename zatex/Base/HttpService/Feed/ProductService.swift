@@ -13,9 +13,11 @@ class ProductService {
 }
 
 extension ProductService: ProductAPI {
-
-    func fetchProducts(page: Int, completion: @escaping ([ProductResult]) -> (Void)) {
-        
+    
+    func fetchProducts(
+        page: Int,
+        completion: @escaping ProductsClosure
+    ) {
         do {
             try ProductHttpRouter
                 .getAllProducts(page)
@@ -23,19 +25,19 @@ extension ProductService: ProductAPI {
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 213985 Ошибка  \(error)")
+                        completion(.failure(.error(name: "LOG: 213985 Ошибка  \(error)")))
                     }
                 }
             
         } catch {
-            print("LOG: 089123679 Ошибка продуктов")
+            completion(.failure(.secondError(name: "LOG: 089123679 Ошибка продуктов")))
         }
     }
     
-    func fetchCategories(completion: @escaping ([CategoryResult]) -> (Void)) {
+    func fetchCategories(completion: @escaping CategoriesClosure) {
         do {
             try ProductHttpRouter
                 .getCategories
@@ -43,14 +45,15 @@ extension ProductService: ProductAPI {
                 .responseDecodable(of: [CategoryResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
+                        guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 9264 Ошибка  \(error)")
+                        completion(.failure(.error(name: "LOG: 9264 Ошибка  \(error)")))
                     }
                 }
             
         } catch {
-            print("LOG: 089123679 Ошибка категории")
+            completion(.failure(.secondError(name: "LOG: 089123679 Ошибка категории")))
         }
     }
     
@@ -62,19 +65,22 @@ extension ProductService: ProductAPI {
                 .responseDecodable(of: [BannerResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
+                        guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 7802347 Ошибка  \(error)")
+                        completion(.failure(.error(name: "LOG: 7802347 Ошибка  \(error)")))
                     }
                 }
             
         } catch {
-            print("LOG: 78902345678 Ошибка баннера")
+            completion(.failure(.secondError(name: "LOG: 78902345678 Ошибка баннера")))
         }
     }
     
-    func fetchProductByCategory(id: String,
-                                completion: @escaping ProdByCategoryClosure) {
+    func fetchProductByCategory(
+        id: String,
+        completion: @escaping ProdByCategoryClosure
+    ) {
         do {
             try ProductHttpRouter
                 .getProductsByCategory(id)
@@ -82,16 +88,16 @@ extension ProductService: ProductAPI {
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
+                        guard !data.isEmpty else { return }
                     case .failure(let error):
-                        print("LOG: 7325893578392 Ошибка  \(error)")
+                        completion(.failure(.error(name: "LOG: 7325893578392 Ошибка  \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 5763830496789 Ошибка фильтра категории")
+            completion(.failure(.secondError(name: "LOG: 5763830496789 Ошибка фильтра категории")))
         }
     }
-    
 }
 
 extension ProductService {

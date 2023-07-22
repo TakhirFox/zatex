@@ -15,6 +15,7 @@ protocol FeedViewControllerProtocol: AnyObject {
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
     func setProductFromCategory(data: [ProductResult])
+    func showError(data: String)
 }
 
 class FeedViewController: BaseViewController {
@@ -174,10 +175,13 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             switch section {
             case .banner:
                 return self.createBannerSection()
+                
             case .category:
                 return self.createCategorySection()
+                
             case .products:
                 return self.createProductsSection()
+                
             case .none:
                 return nil
             }
@@ -255,6 +259,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case .banner:
             print("banner")
+            
         case .category:
             for index in 0..<self.categories.count {
                 self.categories[index].selected = false
@@ -265,9 +270,11 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             
             guard let categoryId = self.categories[indexPath.row].id else { return }
             presenter?.getProductByCategory(id: "\(categoryId)")
+            
         case .products:
             guard let productId = self.products[indexPath.row].id else { return }
             presenter?.goToDetail(id: productId)
+            
         case .none:
             print("none")
         }
@@ -352,4 +359,7 @@ extension FeedViewController: FeedViewControllerProtocol {
         }
     }
     
+    func showError(data: String) {
+        // TODO: asd
+    }
 }
