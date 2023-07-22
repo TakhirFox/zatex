@@ -20,9 +20,19 @@ class SearchInteractor: BaseInteractor {
 extension SearchInteractor: SearchInteractorProtocol {
     func getSearchResult(searchText: String) {
         self.service.fetchSearchResult(search: searchText) { result in
-            self.presenter?.setResultProducts(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setResultProducts(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
-    
-    
 }

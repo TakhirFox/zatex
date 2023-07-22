@@ -12,6 +12,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func goToDetail(id: Int)
     
     func setResultProducts(data: [ProductResult])
+    func setError(data: String)
 }
 
 class SearchPresenter: BasePresenter {
@@ -35,5 +36,9 @@ extension SearchPresenter: SearchPresenterProtocol {
     // MARK: To View
     func setResultProducts(data: [ProductResult]) {
         view?.setResultProducts(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }

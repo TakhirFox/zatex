@@ -7,9 +7,11 @@
 
 import Foundation
 
-typealias SearchClosure = ([ProductResult]) -> (Void)
+typealias SearchClosure = (Result<[ProductResult], NetworkError>) -> (Void)
 
 protocol SearchAPI {
-    func fetchSearchResult(search: String,
-                           completion: @escaping SearchClosure) -> (Void)
+    func fetchSearchResult(
+        search: String,
+        completion: @escaping SearchClosure
+    ) -> (Void)
 }

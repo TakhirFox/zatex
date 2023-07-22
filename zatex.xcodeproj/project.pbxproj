@@ -853,8 +853,8 @@
 		AD46D79329C89E23002A6E1F /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
-				AD46D79429C89F48002A6E1F /* ReviewsService.swift */,
 				AD46D79629C89F53002A6E1F /* ReviewsAPI.swift */,
+				AD46D79429C89F48002A6E1F /* ReviewsService.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
