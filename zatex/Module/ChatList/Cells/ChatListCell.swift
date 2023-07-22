@@ -10,6 +10,12 @@ import SnapKit
 
 class ChatListCell: UITableViewCell {
     
+    private let backView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
     private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.layer.masksToBounds = true
@@ -65,20 +71,34 @@ class ChatListCell: UITableViewCell {
         productNameLabel.text = data?.postTitle
         messageLabel.text = data?.content
         dateLabel.text = dateFormatter(data?.sentAt)
+        
+        let isRead = data?.isRead ?? false
+        
+        if isRead {
+            backView.backgroundColor = Palette.ChatStyle.readChatCell
+        } else {
+            backView.backgroundColor = Palette.ChatStyle.unreadChatCell
+        }
     }
     
     private func configureSubviews() {
-        addSubview(avatarImageView)
-        addSubview(usernameLabel)
-        addSubview(productNameLabel)
-        addSubview(messageLabel)
-        addSubview(dateLabel)
+        addSubview(backView)
+        backView.addSubview(avatarImageView)
+        backView.addSubview(usernameLabel)
+        backView.addSubview(productNameLabel)
+        backView.addSubview(messageLabel)
+        backView.addSubview(dateLabel)
     }
     
     private func configureConstraints() {
+        backView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview().inset(2)
+        }
+        
         avatarImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
-            make.leading.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(8)
             make.height.width.equalTo(50)
         }
         

@@ -192,22 +192,28 @@ extension ChatDetailViewController: UITextViewDelegate {
 extension ChatDetailViewController {
     
     func resubmitRequest() {
-        Timer.scheduledTimer(withTimeInterval: 30.0,
-                             repeats: true) { _ in
+        Timer.scheduledTimer(
+            withTimeInterval: 30.0,
+            repeats: true
+        ) { _ in
             self.presenter?.getChatMessages()
         }
     }
     
     func registerKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -233,7 +239,7 @@ extension ChatDetailViewController {
         chatView.snp.updateConstraints { make in
             make.height.equalTo(self.view.frame.height)
         }
-
+        
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             self.view.layoutIfNeeded()
         }
@@ -249,7 +255,7 @@ extension ChatDetailViewController {
     }
     
     @objc func sendMessageAction() {
-        messages.append(ChatMessageResult(messageID: nil, senderID: nil, receiverID: nil, content: messageContent, sentAt: nil))
+        messages.append(ChatMessageResult(messageID: nil, senderID: nil, receiverID: nil, content: messageContent, sentAt: nil, isRead: nil))
         
         DispatchQueue.main.async {
             self.tableView.reloadData()

@@ -10,6 +10,7 @@ import Foundation
 typealias ChatMessageClosure = ([ChatMessageResult]) -> (Void)
 typealias ChatInfoClosure = (ChatInfoResult) -> (Void)
 typealias SendMessageClosure = (SendMessageResult) -> (Void)
+typealias MarkMessageClosure = () -> (Void)
 
 protocol ChatDetailAPI {
     
@@ -28,5 +29,10 @@ protocol ChatDetailAPI {
         chatId: String,
         message: String,
         completion: @escaping SendMessageClosure
+    ) -> Void
+    
+    func markMessage(
+        messageId: String,
+        completion: @escaping MarkMessageClosure
     ) -> Void
 }

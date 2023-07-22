@@ -106,7 +106,7 @@ extension ChatListViewController: ChatListViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.chatList = data
             self?.tableView.isHidden = false
-            self?.emptyView.isHidden = false
+            self?.emptyView.isHidden = !data.isEmpty
             self?.loaderView.isHidden = true
             self?.loaderView.stop()
             self?.tableView.reloadData()

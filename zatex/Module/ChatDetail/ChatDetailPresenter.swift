@@ -41,6 +41,8 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     
     // MARK: To View
     func setChatMesssages(data: [ChatMessageResult]) {
+        interactor?.markMessage(id: data.last?.messageID ?? "")
+        
         view?.setChatMesssages(data: data)
     }
     
