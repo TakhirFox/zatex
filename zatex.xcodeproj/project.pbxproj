@@ -122,6 +122,7 @@
 		AD4E866F2A55CBF600F002E6 /* ProfileEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */; };
 		AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */; };
 		AD5163182A66E09D00C2B60F /* ChatEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */; };
+		AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631A2A6BC21000C2B60F /* NetworkError.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
 		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
 		AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC52903F52B001CB847 /* HttpService.swift */; };
@@ -392,6 +393,7 @@
 		AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditRequest.swift; sourceTree = "<group>"; };
 		AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmptyCell.swift; sourceTree = "<group>"; };
 		AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEmptyView.swift; sourceTree = "<group>"; };
+		AD51631A2A6BC21000C2B60F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
 		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
 		AD86EAC52903F52B001CB847 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
 				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
 				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
+				AD51631A2A6BC21000C2B60F /* NetworkError.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1873,6 +1876,7 @@
 				ADE7406F29DF17BB004A667C /* CreateProductHttpRouter.swift in Sources */,
 				346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */,
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
+				AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */,
 				AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */,
 				E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */,
 				E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */,
