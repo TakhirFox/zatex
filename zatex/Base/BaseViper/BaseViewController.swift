@@ -17,6 +17,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     var loaderView = LottieAnimationView(name: "loader")
     var errorView = BaseErrorView()
+    var toastAlertView = BaseToastView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         setLoader()
         setErrorView()
         
+        
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
             self?.navigationController?.navigationBar.barTintColor = Palette.Background.primary
@@ -36,6 +38,12 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
             self?.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setToastAlertView()
     }
     
     private func setNavigationItems() {
@@ -73,6 +81,18 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         
         errorView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    func setToastAlertView() {
+        toastAlertView.isHidden = true
+        toastAlertView.frame.origin.y = -140
+        
+        view.addSubview(toastAlertView)
+        
+        toastAlertView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
     }
     
