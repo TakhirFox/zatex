@@ -108,10 +108,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }
@@ -132,10 +132,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }
@@ -159,10 +159,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    break // TODO: подумать, что показывать в качестве ошибки
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }

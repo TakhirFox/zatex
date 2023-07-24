@@ -17,6 +17,7 @@ protocol DetailViewControllerProtocol: AnyObject {
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
     func showError(data: String)
+    func showToastError(text: String)
 }
 
 class DetailViewController: BaseViewController {
@@ -412,6 +413,12 @@ extension DetailViewController: DetailViewControllerProtocol {
         errorView.setupCell(errorName: data)
         errorView.actionHandler = { [weak self] in
             self?.getRequests()
+        }
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.getRequests() // TODO: В будущем нужно будет для каждой ошибки отправлять свой запрос (after MVP)
         }
     }
 }
