@@ -75,10 +75,10 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    break // TODO: обработать
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    break
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }

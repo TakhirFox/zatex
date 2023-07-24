@@ -14,6 +14,7 @@ protocol ChatDetailViewControllerProtocol: AnyObject {
     func setChatMesssages(data: [ChatMessageResult])
     func setChatInfo(data: ChatInfoResult)
     func showError(data: String)
+    func showToastError(text: String)
 }
 
 class ChatDetailViewController: BaseViewController {
@@ -305,6 +306,12 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
         errorView.setupCell(errorName: data)
         errorView.actionHandler = { [weak self] in
             self?.getRequests()
+        }
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.sendChatMessage(message: self?.messageContent ?? "")
         }
     }
 }
