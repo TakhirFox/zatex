@@ -28,6 +28,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         setLoader()
         setErrorView()
         
+        toastAlertView.isHidden = true
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
@@ -85,13 +86,10 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     }
     
     func setToastAlertView() {
-        toastAlertView.isHidden = true
-        toastAlertView.frame.origin.y = -140
-        
         view.addSubview(toastAlertView)
         
         toastAlertView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(16)
         }
     }
@@ -114,6 +112,30 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+    }
+    
+    func toastAnimation(text: String, actionHandler: @escaping () -> Void) {
+        toastAlertView.setupCell(errorName: text)
+        
+        toastAlertView.actionHandler = { [weak self] in
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+                self?.toastAlertView.frame.origin.y = -80
+            } completion: { _ in
+                DispatchQueue.main.async {
+                    self?.toastAlertView.isHidden = true
+                }
+            }
+            
+            actionHandler()
+        }
+        
+        DispatchQueue.main.async {
+            self.toastAlertView.isHidden = false
+        }
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+            self.toastAlertView.frame.origin.y = 80
+        }
     }
 }
 
