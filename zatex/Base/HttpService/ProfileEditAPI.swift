@@ -7,8 +7,8 @@
 
 import Foundation
 
-typealias ProfileInfoClosure = (StoreInfoResult) -> (Void)
-typealias ProfileEditInfoClosure = () -> (Void)
+typealias ProfileInfoClosure = (Result<StoreInfoResult, NetworkError>) -> (Void)
+typealias ProfileEditInfoClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol ProfileEditAPI {
     

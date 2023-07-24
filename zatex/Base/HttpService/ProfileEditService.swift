@@ -25,13 +25,13 @@ extension ProfileEditService: ProfileEditAPI {
                 .responseDecodable(of: StoreInfoResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 8435879435789 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 8435879435789 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 34534637 Ошибка получения информации о пользователе")
+            completion(.failure(.secondError(name: "Ошибка: 34534637 Ошибка получения информации о пользователе")))
         }
     }
     
@@ -46,13 +46,13 @@ extension ProfileEditService: ProfileEditAPI {
                 .response { response in
                     switch response.result {
                     case .success:
-                        completion()
+                        completion(.success(()))
                     case .failure(let error):
-                        print("LOG: 8908765745 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 8908765745 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 438767398486 Ошибка изменения информации о пользователе")
+            completion(.failure(.secondError(name: "Ошибка: 438767398486 Ошибка изменения информации о пользователе")))
         }
     }
 }

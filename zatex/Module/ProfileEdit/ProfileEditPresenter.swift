@@ -16,6 +16,8 @@ protocol ProfileEditPresenterProtocol: AnyObject {
     func setProfileInfo(data: StoreInfoResult)
     func setImage(image: MediaResult, isBanner: Bool)
     func successUpdateInfo()
+    func setToastGetProfileError(text: String)
+    func setToastUpdateProfileError(text: String)
 }
 
 class ProfileEditPresenter: BasePresenter {
@@ -101,5 +103,13 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
     
     func successUpdateInfo() {
         view?.successUpdateInfo()
+    }
+    
+    func setToastGetProfileError(text: String) {
+        view?.showToastGetProfileError(text: text)
+    }
+    
+    func setToastUpdateProfileError(text: String) {
+        view?.showToastUpdateProfileError(text: text)
     }
 }

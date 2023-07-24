@@ -13,6 +13,8 @@ protocol ProfileEditViewControllerProtocol: AnyObject {
     
     func setProfileInfo(data: StoreInfoResult)
     func successUpdateInfo()
+    func showToastGetProfileError(text: String)
+    func showToastUpdateProfileError(text: String)
 }
 
 class ProfileEditViewController: BaseViewController {
@@ -411,5 +413,20 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
     
     func successUpdateInfo() {
         successView.isHidden = false
+    }
+    
+    func showToastGetProfileError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            if let userId = self?.sessionProvider?.getSession()?.userId,
+                let id = Int(userId) {
+                self?.presenter?.getProfileInfo(id: id)
+            }
+        }
+    }
+    
+    func showToastUpdateProfileError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.updateProfileInfo(data: self?.updateInfo ?? UpdateInfoEntity())
+        }
     }
 }
