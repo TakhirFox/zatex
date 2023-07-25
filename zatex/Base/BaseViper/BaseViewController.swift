@@ -27,6 +27,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         setNavigationItems()
         setLoader()
         setErrorView()
+        hideKeyboardWhenTapped()
         
         toastAlertView.isHidden = true
         
@@ -92,6 +93,13 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(16)
         }
+    }
+    
+    private func hideKeyboardWhenTapped() {
+        let tap = UITapGestureRecognizer(target: view,
+                                         action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {

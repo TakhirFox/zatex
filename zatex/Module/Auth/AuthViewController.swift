@@ -73,16 +73,8 @@ class AuthViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTapped()
         setupSubviews()
         setupConstraints()
-    }
-    
-    private func hideKeyboardWhenTapped() {
-        let tap = UITapGestureRecognizer(target: view,
-                                         action: #selector(UIView.endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
     }
     
     func setupSubviews() {
