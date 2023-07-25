@@ -12,6 +12,9 @@ protocol SignUpViewControllerProtocol: AnyObject {
     var presenter: SignUpPresenterProtocol? { get set }
     
     func showToastError(text: String)
+    func showEmptyUsername()
+    func showEmptyEmail()
+    func showEmptyPassword()
 }
 
 class SignUpViewController: BaseViewController {
@@ -121,11 +124,20 @@ extension SignUpViewController {
     }
     
     @objc func signUpAction() {
+        for index in 0..<3 {
+            setStandartColorToTextField(index: index)
+        }
+        
         presenter?.checkTextFieldEmpty(
             username: signUpData.username,
             email: signUpData.email,
             pass: signUpData.pass
         )
+    }
+    
+    private func setStandartColorToTextField(index: Int) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.primary.cgColor
     }
 }
 
@@ -139,5 +151,20 @@ extension SignUpViewController: SignUpViewControllerProtocol {
                 pass: self?.signUpData.pass
             )
         }
+    }
+    
+    func showEmptyUsername() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyEmail() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyPassword() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
     }
 }
