@@ -10,7 +10,9 @@ import UIKit
 
 protocol AuthViewControllerProtocol: AnyObject {
     var presenter: AuthPresenterProtocol? { get set }
+    
     func closeView()
+    func showToastError(text: String)
 }
 
 class AuthViewController: BaseViewController {
@@ -71,16 +73,8 @@ class AuthViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTapped()
         setupSubviews()
         setupConstraints()
-    }
-    
-    private func hideKeyboardWhenTapped() {
-        let tap = UITapGestureRecognizer(target: view,
-                                         action: #selector(UIView.endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
     }
     
     func setupSubviews() {
@@ -117,8 +111,11 @@ class AuthViewController: BaseViewController {
 extension AuthViewController: AuthViewControllerProtocol {
     @objc func checkTextFieldAction(_ sender: Any) {
         view.endEditing(true)
-        presenter?.checkTextFieldEmpty(login: loginTextField.text,
-                                       pass: passwordTextField.text)
+        
+        presenter?.checkTextFieldEmpty(
+            login: loginTextField.text,
+            pass: passwordTextField.text
+        )
     }
     
     @objc func goToSignUpAction() {
@@ -132,6 +129,15 @@ extension AuthViewController: AuthViewControllerProtocol {
     func closeView() {
         DispatchQueue.main.async {
             self.dismiss(animated: true)
+        }
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.checkTextFieldEmpty(
+                login: self?.loginTextField.text,
+                pass: self?.passwordTextField.text
+            )
         }
     }
 }

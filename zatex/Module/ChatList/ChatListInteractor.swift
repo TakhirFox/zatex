@@ -20,7 +20,19 @@ extension ChatListInteractor: ChatListInteractorProtocol {
     
     func getChatList() {
         self.service.fetchChats { result in
-            self.presenter?.setChatList(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setChatList(data: data)
+
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ protocol FeedPresenterProtocol: AnyObject {
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
     func setProductFromCategory(data: [ProductResult])
+    func setError(data: String)
 }
 
 class FeedPresenter: BasePresenter {
@@ -75,5 +76,7 @@ extension FeedPresenter: FeedPresenterProtocol {
         view?.setProductFromCategory(data: data)
     }
     
-    
+    func setError(data: String) {
+        view?.showError(data: data)
+    }
 }

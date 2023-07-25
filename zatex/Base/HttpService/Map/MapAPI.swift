@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias MapClosure = ([CoordinatesResult]) -> (Void)
+typealias MapClosure = (Result<[CoordinatesResult], NetworkError>) -> (Void)
 
 protocol MapAPI {
     

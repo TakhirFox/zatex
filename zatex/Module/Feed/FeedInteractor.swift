@@ -23,26 +23,73 @@ class FeedInteractor: BaseInteractor {
 extension FeedInteractor: FeedInteractorProtocol {
     func getProducts(page: Int) {
         self.service.fetchProducts(page: page) { result in
-            self.presenter?.setProducts(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setProducts(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getCategories() {
         self.service.fetchCategories { result in
-            self.presenter?.setCategories(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setCategories(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getBanners() {
         self.service.fetchBanners { result in
-            self.presenter?.setBanners(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setBanners(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getProductByCategory(id: String) {
         self.service.fetchProductByCategory(id: id) { result in
-            self.presenter?.setProductFromCategory(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setProductFromCategory(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
-    
 }

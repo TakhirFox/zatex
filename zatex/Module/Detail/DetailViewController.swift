@@ -16,6 +16,9 @@ protocol DetailViewControllerProtocol: AnyObject {
     func setStoreInfo(data: StoreInfoResult)
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
+    func showError(data: String)
+    func showToastError(text: String, type: ToastErrorKind)
+    func showMapError(text: String)
 }
 
 class DetailViewController: BaseViewController {
@@ -40,11 +43,7 @@ class DetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.getProductInfo()
-        
-        collectionView.isHidden = true
-        headerView.isHidden = true
-        loaderView.isHidden = false
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -111,6 +110,15 @@ class DetailViewController: BaseViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    private func getRequests() {
+        presenter?.getProductInfo()
+        
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
     }
 }
 
@@ -395,5 +403,52 @@ extension DetailViewController: DetailViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.isShowReviewButton = data.success ?? false
         }
+    }
+    
+    func showError(data: String) {
+        collectionView.isHidden = true
+        headerView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
+    }
+    
+    func showToastError(text: String, type: ToastErrorKind) {
+        toastAnimation(text: text) { [weak self] in
+            switch type {
+            case .checkChatExists:
+                if let productId = self?.product?.id,
+                   let authorId = self?.product?.store?.id {
+                    self?.presenter?.checkChatExists(
+                        productAuthor: authorId,
+                        productId: productId)
+                }
+                
+            case .checkStartChat:
+                if let productId = self?.product?.id,
+                   let authorId = self?.product?.store?.id {
+                    self?.presenter?.checkStartChat(
+                        productAuthor: productId,
+                        productId: authorId
+                    )
+                }
+                
+            case .sendReview:
+                self?.presenter?.sendReview(
+                    userId: self?.product?.store?.id,
+                    productName: self?.product?.name,
+                    content: self?.reviewContent,
+                    rating: self?.reviewDetailView.selectedRating
+                )
+            }
+        }
+    }
+    
+    func showMapError(text: String) {
+        debugPrint("LOG: Что-то") // TODO: Решить в задаче с картами
     }
 }

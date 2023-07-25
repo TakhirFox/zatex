@@ -12,6 +12,7 @@ protocol ReviewsPresenterProtocol: AnyObject {
     
     func setReviews(data: [ReviewsListResult])
     func setStoreInfo(data: StoreInfoResult)
+    func setError(data: String)
 }
 
 class ReviewsPresenter: BasePresenter {
@@ -22,6 +23,7 @@ class ReviewsPresenter: BasePresenter {
 }
 
 extension ReviewsPresenter: ReviewsPresenterProtocol {
+    
     // MARK: To Interactor
     func getReviews() {
         interactor?.getReviews()
@@ -38,5 +40,9 @@ extension ReviewsPresenter: ReviewsPresenterProtocol {
     
     func setStoreInfo(data: StoreInfoResult) {
         view?.setStoreInfo(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
     }
 }

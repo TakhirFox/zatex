@@ -23,14 +23,39 @@ class AdditionalInfoInteractor: BaseInteractor {
 extension AdditionalInfoInteractor: AdditionalInfoInteractorProtocol {
     
     func signUpAndRoute(data: AdditionalInfoRequest) {
-        self.service.additionalInfo(data: data) {
-            self.presenter?.signUpSuccess()
+        self.service.additionalInfo(data: data) { result in
+            switch result {
+            case .success:
+                self.presenter?.signUpSuccess()
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
+            }
         }
     }
     
     func uploadImage(image: UIImage, isBanner: Bool) {
         self.imageService.loadImage(image: image) { result in
-            self.presenter?.setImage(image: result, isBanner: isBanner)
+            
+            switch result {
+            case let .success(data):
+                self.presenter?.setImage(image: data, isBanner: isBanner)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastImageError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastImageError(text: name)
+                }
+            }
         }
     }
 }

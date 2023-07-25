@@ -14,6 +14,9 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     func setCategories(data: [CategoryResult])
     func stopImageSpinner()
     func showSuccess(product: ProductResult)
+    func showToastCategoryError(text: String)
+    func showToastPublishError(text: String)
+    func showToastImageError(text: String)
 }
 
 class CreateProductViewController: BaseViewController {
@@ -324,5 +327,21 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     func showSuccess(product: ProductResult) {
         loadedProduct = product
         successView.isHidden = false
+    }
+    
+    func showToastCategoryError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.getCategories()
+        }
+    }
+    
+    func showToastPublishError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.publishProduct(data: self!.productPost)
+        }
+    }
+    
+    func showToastImageError(text: String) {
+        toastAnimation(text: text) {}
     }
 }

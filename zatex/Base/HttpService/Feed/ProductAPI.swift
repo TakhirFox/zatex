@@ -7,19 +7,25 @@
 
 import Foundation
 
-typealias ProductsClosure = ([ProductResult]) -> (Void)
-typealias CategoriesClosure = ([CategoryResult]) -> (Void)
-typealias BannersClosure = ([BannerResult]) -> (Void)
-typealias ProdByCategoryClosure = ([ProductResult]) -> (Void)
+typealias ProductsClosure = (Result<[ProductResult], NetworkError>) -> (Void)
+typealias CategoriesClosure = (Result<[CategoryResult], NetworkError>) -> (Void)
+typealias BannersClosure = (Result<[BannerResult], NetworkError>) -> (Void)
+typealias ProdByCategoryClosure = (Result<[ProductResult], NetworkError>) -> (Void)
 
 protocol ProductAPI {
-    func fetchProducts(page: Int,
-                       completion: @escaping ProductsClosure) -> (Void)
+    func fetchProducts(
+        page: Int,
+        completion: @escaping ProductsClosure
+    ) -> (Void)
     
-    func fetchCategories(completion: @escaping CategoriesClosure) -> Void
+    func fetchCategories(
+        completion: @escaping CategoriesClosure
+    ) -> Void
     
     func fetchBanners(completion: @escaping BannersClosure)
     
-    func fetchProductByCategory(id: String,
-                                completion: @escaping ProdByCategoryClosure)
+    func fetchProductByCategory(
+        id: String,
+        completion: @escaping ProdByCategoryClosure
+    )
 }

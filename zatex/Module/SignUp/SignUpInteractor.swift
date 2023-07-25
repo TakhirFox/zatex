@@ -35,18 +35,29 @@ extension SignUpInteractor: SignUpInteractorProtocol {
             email: email,
             pass: pass
         ) { result in
-            
-            if result.token != nil {
-                let session = AuthResult( // TODO: Change to SessionModel
-                    userId: result.userID,
-                    token: result.token,
-                    userEmail: result.userEmail,
-                    userNicename: result.userNicename,
-                    userDisplayName: nil
-                )
+            switch result {
+            case let .success(data):
+                if data.token != nil {
+                    let session = AuthResult( // TODO: Change to SessionModel
+                        userId: data.userID,
+                        token: data.token,
+                        userEmail: data.userEmail,
+                        userNicename: data.userNicename,
+                        userDisplayName: nil
+                    )
+                    
+                    self.sessionProvider.setSession(session)
+                    self.presenter?.goToAdditionalInfoView()
+                }
                 
-                self.sessionProvider.setSession(session)
-                self.presenter?.goToAdditionalInfoView()
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
             }
         }
     }

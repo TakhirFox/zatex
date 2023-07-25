@@ -10,8 +10,9 @@ import UIKit
 
 protocol ResetPasswordViewControllerProtocol: AnyObject {
     var presenter: ResetPasswordPresenterProtocol? { get set }
-
+    
     func showSuccess()
+    func showToastError(text: String)
 }
 
 class ResetPasswordViewController: BaseViewController {
@@ -119,5 +120,13 @@ extension ResetPasswordViewController: ResetPasswordViewControllerProtocol {
     
     func showSuccess() {
         successView.isHidden = false
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.checkTextFieldEmpty(
+                username: self?.username
+            )
+        }
     }
 }

@@ -23,8 +23,20 @@ extension ResetPasswordInteractor: ResetPasswordInteractorProtocol {
     func resetPassword(username: String) {
         self.service.fetchResetPassword(
             username: username
-        ) {
-            self.presenter?.showSuccessDialog()
+        ) { result in
+            switch result {
+            case .success:
+                self.presenter?.showSuccessDialog()
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
+            }
         }
     }
 }

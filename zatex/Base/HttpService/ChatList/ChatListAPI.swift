@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ChatListClosure = ([ChatListResult]) -> (Void)
+typealias ChatListClosure = (Result<[ChatListResult], NetworkError>) -> (Void)
 
 protocol ChatListAPI  {
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias MediaClosure = (MediaResult) -> (Void)
+typealias MediaClosure = (Result<MediaResult, NetworkError>) -> (Void)
 
 protocol ImagesAPI {
     

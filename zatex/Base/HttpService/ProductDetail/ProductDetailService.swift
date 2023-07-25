@@ -27,13 +27,13 @@ extension ProductDetailService: ProductDetailAPI {
                 .responseDecodable(of: ProductResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 0998909099230092 Ошибка \(error)")
+                        completion(.failure(.error(name: "Ошибка: 0998909099230092 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 0027637771677716 Ошибка получения информации о товаре")
+            completion(.failure(.secondError(name: "Ошибка: 0027637771677716 Ошибка получения информации о товаре")))
         }
     }
     
@@ -48,13 +48,13 @@ extension ProductDetailService: ProductDetailAPI {
                 .responseDecodable(of: StoreInfoResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 23777454545232 Ошибка \(error)")
+                        completion(.failure(.error(name: "Ошибка: 23777454545232 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 557916778716 Ошибка получения информации о магазине")
+            completion(.failure(.secondError(name: "Ошибка: 557916778716 Ошибка получения информации о магазине")))
         }
     }
     
@@ -72,13 +72,13 @@ extension ProductDetailService: ProductDetailAPI {
                 .responseDecodable(of: CheckChatResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 0998666230092 Ошибка \(error)")
+                        completion(.failure(.error(name: "Ошибка: 0998666230092 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 9952737243 Ошибка проверки чата")
+            completion(.failure(.secondError(name: "Ошибка: 9952737243 Ошибка проверки чата")))
         }
     }
     
@@ -99,13 +99,13 @@ extension ProductDetailService: ProductDetailAPI {
                 .responseDecodable(of: CheckChatReviewResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 734556474568 Ошибка \(error)")
+                        completion(.failure(.error(name: "Ошибка: 734556474568 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 53464574658458 Ошибка проверки чата для ревью")
+            completion(.failure(.secondError(name: "Ошибка: 53464574658458 Ошибка проверки чата для ревью")))
         }
     }
     
@@ -124,13 +124,13 @@ extension ProductDetailService: ProductDetailAPI {
                 .response { response in
                     switch response.result {
                     case .success:
-                        completion()
+                        completion(.success(()))
                     case .failure(let error):
-                        print("LOG: 239784892734 Ошибка \(error)")
+                        completion(.failure(.error(name: "Ошибка: 239784892734 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 25230895 Ошибка отправки отзыва")
+            completion(.failure(.secondError(name: "Ошибка: 25230895 Ошибка отправки отзыва")))
         }
     }
 }

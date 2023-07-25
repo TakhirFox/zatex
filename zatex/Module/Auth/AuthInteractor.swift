@@ -26,10 +26,21 @@ extension AuthInteractor: AuthInteractorProtocol {
             login: login,
             pass: pass
         ) { result in
-            
-            if result.token != nil {
-                self.sessionProvider.setSession(result)
-                self.presenter?.authSuccess()
+            switch result {
+            case let .success(data):
+                if data.token != nil {
+                    self.sessionProvider.setSession(data)
+                    self.presenter?.authSuccess()
+                }
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
             }
         }
     }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-typealias ReviewsListClosure = ([ReviewsListResult]) -> (Void)
-typealias ReviewsStoreInfoClosure = (StoreInfoResult) -> (Void)
+typealias ReviewsListClosure = (Result<[ReviewsListResult], NetworkError>) -> (Void)
+typealias ReviewsStoreInfoClosure = (Result<StoreInfoResult, NetworkError>) -> (Void)
 
 protocol ReviewsAPI  {
     

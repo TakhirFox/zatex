@@ -10,9 +10,10 @@ import UIKit
 
 protocol ReviewsViewControllerProtocol: AnyObject {
     var presenter: ReviewsPresenterProtocol? { get set }
-
+    
     func setReviews(data: [ReviewsListResult])
     func setStoreInfo(data: StoreInfoResult)
+    func showError(data: String)
 }
 
 class ReviewsViewController: BaseViewController {
@@ -31,8 +32,7 @@ class ReviewsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.getReviews()
-        presenter?.getStoreInfo()
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -68,6 +68,14 @@ class ReviewsViewController: BaseViewController {
         }
     }
     
+    private func getRequests() {
+        presenter?.getReviews()
+        presenter?.getStoreInfo()
+        
+        tableView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+    }
 }
 
 extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -124,6 +132,17 @@ extension ReviewsViewController: ReviewsViewControllerProtocol {
             self?.loaderView.isHidden = true
             self?.loaderView.stop()
             self?.tableView.reloadData()
+        }
+    }
+    
+    func showError(data: String) {
+        tableView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
         }
     }
 }

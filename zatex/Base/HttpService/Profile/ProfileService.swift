@@ -25,13 +25,13 @@ extension ProfileService: ProfileAPI {
                 .responseDecodable(of: StoreInfoResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 237777894567 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 237777894567 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 5577777016 Ошибка получения информации о магазине в профиле")
+            completion(.failure(.secondError(name: "Ошибка: 5577777016 Ошибка получения информации о магазине в профиле")))
         }
     }
     
@@ -46,13 +46,13 @@ extension ProfileService: ProfileAPI {
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 2379450909967 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 2379450909967 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 45678886764568: Ошибка получения товаров в профиле")
+            completion(.failure(.secondError(name: "Ошибка: 45678886764568: Ошибка получения товаров в профиле")))
         }
     }
 }

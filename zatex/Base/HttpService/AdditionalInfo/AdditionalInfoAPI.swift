@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias AdditionalInfoClosure = () -> (Void)
+typealias AdditionalInfoClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol AdditionalInfoAPI {
     

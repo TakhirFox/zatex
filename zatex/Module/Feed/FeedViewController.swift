@@ -15,6 +15,7 @@ protocol FeedViewControllerProtocol: AnyObject {
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
     func setProductFromCategory(data: [ProductResult])
+    func showError(data: String)
 }
 
 class FeedViewController: BaseViewController {
@@ -47,18 +48,11 @@ class FeedViewController: BaseViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
     
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         
-        presenter?.getProducts(page: pageCount)
-        presenter?.getCategories()
-        presenter?.getBanners()
-        
-        collectionView.isHidden = true
-        searchView.isHidden = true
-        loaderView.isHidden = false
+        getRequests()
     }
     
     override func viewDidLoad() {
@@ -109,6 +103,16 @@ class FeedViewController: BaseViewController {
         searchView.placeholder = "Поиск"
     }
     
+    private func getRequests() {
+        presenter?.getProducts(page: pageCount)
+        presenter?.getCategories()
+        presenter?.getBanners()
+        
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+    }
 }
 
 // MARK: CollectionView flow layout, data source
@@ -174,10 +178,13 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             switch section {
             case .banner:
                 return self.createBannerSection()
+                
             case .category:
                 return self.createCategorySection()
+                
             case .products:
                 return self.createProductsSection()
+                
             case .none:
                 return nil
             }
@@ -255,6 +262,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case .banner:
             print("banner")
+            
         case .category:
             for index in 0..<self.categories.count {
                 self.categories[index].selected = false
@@ -265,9 +273,11 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             
             guard let categoryId = self.categories[indexPath.row].id else { return }
             presenter?.getProductByCategory(id: "\(categoryId)")
+            
         case .products:
             guard let productId = self.products[indexPath.row].id else { return }
             presenter?.goToDetail(id: productId)
+            
         case .none:
             print("none")
         }
@@ -319,6 +329,7 @@ extension FeedViewController: FeedViewControllerProtocol {
             self.collectionView.isHidden = false
             self.searchView.isHidden = false
             self.loaderView.isHidden = true
+            self.errorView.isHidden = true
             self.loaderView.stop()
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
@@ -352,4 +363,15 @@ extension FeedViewController: FeedViewControllerProtocol {
         }
     }
     
+    func showError(data: String) {
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
+    }
 }

@@ -22,13 +22,37 @@ extension ReviewsInteractor: ReviewsInteractorProtocol {
     
     func getReviews() {
         self.service.fetchReviews(authorId: id) { result in
-            self.presenter?.setReviews(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setReviews(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getStoreInfo() {
         self.service.fetchStoreInfo(authorId: id) { result in
-            self.presenter?.setStoreInfo(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setStoreInfo(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
 }

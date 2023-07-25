@@ -14,6 +14,7 @@ protocol AuthPresenterProtocol: AnyObject {
     func goToResetPassword()
     
     func authSuccess()
+    func setToastError(text: String)
 }
 
 class AuthPresenter: BasePresenter {
@@ -66,5 +67,9 @@ extension AuthPresenter: AuthPresenterProtocol {
     // MARK: To View
     func authSuccess() {
         view?.closeView()
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
     }
 }

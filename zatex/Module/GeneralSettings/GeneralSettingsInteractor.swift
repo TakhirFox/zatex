@@ -21,6 +21,5 @@ extension GeneralSettingsInteractor: GeneralSettingsInteractorProtocol {
     
     func logout() {
         self.sessionProvider.logout()
-        
     }
 }

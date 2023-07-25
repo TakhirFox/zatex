@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias AuthClosure = (AuthResult) -> (Void)
+typealias AuthClosure = (Result<AuthResult, NetworkError>) -> (Void)
 
 protocol AuthAPI {
     

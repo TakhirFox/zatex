@@ -16,6 +16,8 @@ protocol BaseViewControllerProtocol: NSObject {
 class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     var loaderView = LottieAnimationView(name: "loader")
+    var errorView = BaseErrorView()
+    var toastAlertView = BaseToastView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,10 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         
         setNavigationItems()
         setLoader()
+        setErrorView()
+        hideKeyboardWhenTapped()
+        
+        toastAlertView.isHidden = true
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.view.backgroundColor = Palette.Background.primary
@@ -34,6 +40,12 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
             self?.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setToastAlertView()
     }
     
     private func setNavigationItems() {
@@ -65,6 +77,31 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         }
     }
     
+    private func setErrorView() {
+        errorView.isHidden = true
+        view.addSubview(errorView)
+        
+        errorView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func setToastAlertView() {
+        view.addSubview(toastAlertView)
+        
+        toastAlertView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func hideKeyboardWhenTapped() {
+        let tap = UITapGestureRecognizer(target: view,
+                                         action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -83,6 +120,30 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+    }
+    
+    func toastAnimation(text: String, actionHandler: @escaping () -> Void) {
+        toastAlertView.setupCell(errorName: text)
+        
+        toastAlertView.actionHandler = { [weak self] in
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+                self?.toastAlertView.frame.origin.y = -80
+            } completion: { _ in
+                DispatchQueue.main.async {
+                    self?.toastAlertView.isHidden = true
+                }
+            }
+            
+            actionHandler()
+        }
+        
+        DispatchQueue.main.async {
+            self.toastAlertView.isHidden = false
+        }
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+            self.toastAlertView.frame.origin.y = 80
+        }
     }
 }
 

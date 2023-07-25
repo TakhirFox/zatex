@@ -27,7 +27,19 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
             page: 0,
             chatId: chatId
         ) { result in // TODO: page: 0 to dynamic
-            self.presenter?.setChatMesssages(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setChatMesssages(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
@@ -35,7 +47,19 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
         self.service.fetchChatInfo(
             chatId: chatId
         ) { result in
-            self.presenter?.setChatInfo(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setChatInfo(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
@@ -44,11 +68,23 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
             chatId: chatId,
             message: message
         ) { result in
-            self.getChatMessages()
+            switch result {
+            case .success:
+                self.getChatMessages()
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
+            }
         }
     }
     
     func markMessage(id: String) {
-        self.service.markMessage(messageId: id) {}
+        self.service.markMessage(messageId: id) { _ in }
     }
 }

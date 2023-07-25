@@ -13,7 +13,10 @@ class SearchService {
 }
 
 extension SearchService: SearchAPI {
-    func fetchSearchResult(search: String, completion: @escaping SearchClosure)  {
+    func fetchSearchResult(
+        search: String,
+        completion: @escaping SearchClosure
+    ) {
         do {
             try SearchHttpRouter
                 .getSearchResult(search)
@@ -21,15 +24,13 @@ extension SearchService: SearchAPI {
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 903941314 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 903941314 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 90767567456 Ошибка поиска")
+            completion(.failure(.secondError(name: "Ошибка: 90767567456 Ошибка поиска")))
         }
     }
-    
-    
 }

@@ -21,13 +21,37 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     
     func getStoreInfo(authorId: Int) {
         self.service.fetchStoreInfo(authorId: authorId) { result in
-            self.presenter?.setStoreInfo(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setStoreInfo(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getStoreProduct(authorId: Int) {
         self.service.fetchStoreProducts(authorId: authorId) { result in
-            self.presenter?.setStoreProduct(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setStoreProduct(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
 }

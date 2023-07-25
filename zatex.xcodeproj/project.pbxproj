@@ -122,6 +122,9 @@
 		AD4E866F2A55CBF600F002E6 /* ProfileEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */; };
 		AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */; };
 		AD5163182A66E09D00C2B60F /* ChatEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */; };
+		AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631A2A6BC21000C2B60F /* NetworkError.swift */; };
+		AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */; };
+		AD51631F2A6C374C00C2B60F /* BaseToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631E2A6C374C00C2B60F /* BaseToastView.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
 		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
 		AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAC52903F52B001CB847 /* HttpService.swift */; };
@@ -392,6 +395,9 @@
 		AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditRequest.swift; sourceTree = "<group>"; };
 		AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEmptyCell.swift; sourceTree = "<group>"; };
 		AD5163172A66E09D00C2B60F /* ChatEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEmptyView.swift; sourceTree = "<group>"; };
+		AD51631A2A6BC21000C2B60F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseErrorView.swift; sourceTree = "<group>"; };
+		AD51631E2A6C374C00C2B60F /* BaseToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseToastView.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
 		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
 		AD86EAC52903F52B001CB847 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
@@ -797,6 +803,7 @@
 				AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */,
 				AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */,
 				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
+				AD51631A2A6BC21000C2B60F /* NetworkError.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -848,8 +855,8 @@
 		AD46D79329C89E23002A6E1F /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
-				AD46D79429C89F48002A6E1F /* ReviewsService.swift */,
 				AD46D79629C89F53002A6E1F /* ReviewsAPI.swift */,
+				AD46D79429C89F48002A6E1F /* ReviewsService.swift */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -1292,11 +1299,13 @@
 			isa = PBXGroup;
 			children = (
 				ADE8175229093A76004895DD /* BaseButton.swift */,
+				AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */,
 				ADE8175429093E3D004895DD /* BaseTabBar.swift */,
 				ADAC844B290A725400F15330 /* BaseTextField.swift */,
 				ADAC8454290A805900F15330 /* BaseSwitch.swift */,
 				AD4A986C2918F41900709745 /* BaseRatioButton.swift */,
 				ADAD60CE29DDDAF300309AC9 /* BaseTextView.swift */,
+				AD51631E2A6C374C00C2B60F /* BaseToastView.swift */,
 			);
 			name = BaseComponents;
 			sourceTree = "<group>";
@@ -1811,6 +1820,7 @@
 				AD037FF62A23B29400DB0F60 /* SignUpEntity.swift in Sources */,
 				ADCF768C29B89B65007FF164 /* AuthHttpService.swift in Sources */,
 				6D05043059D418C5C323A9DC /* CreateProductPresenter.swift in Sources */,
+				AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */,
 				AD4A987E2919917900709745 /* AuthorProdCell.swift in Sources */,
 				FBA3841059048F4ACBB0EF6C /* CreateProductInteractor.swift in Sources */,
 				ADA28B8729C61898006A2EA9 /* ProfileAPI.swift in Sources */,
@@ -1836,6 +1846,7 @@
 				AD3AF6A029E299A200ABDC1A /* MediaResult.swift in Sources */,
 				8947C16AD0A33EE46551FC7A /* GeneralSettingsRouter.swift in Sources */,
 				ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */,
+				AD51631F2A6C374C00C2B60F /* BaseToastView.swift in Sources */,
 				ADCE94FC29BA181A00C8F717 /* UserSettingsService.swift in Sources */,
 				062D3CB1322D4D23DA407539 /* GeneralSettingsAssembly.swift in Sources */,
 				477D309F6770F4F673E01BBD /* ProfileEditViewController.swift in Sources */,
@@ -1873,6 +1884,7 @@
 				ADE7406F29DF17BB004A667C /* CreateProductHttpRouter.swift in Sources */,
 				346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */,
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
+				AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */,
 				AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */,
 				E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */,
 				E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */,

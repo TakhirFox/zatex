@@ -41,19 +41,55 @@ extension DetailInteractor: DetailInteractorProtocol {
     
     func getProductInfo() {
         self.service.fetchProductInfo(productId: productId) { result in
-            self.presenter?.setProductInfo(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setProductInfo(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getStoreInfo(authorId: Int) {
         self.service.fetchStoreInfo(authorId: authorId) { result in
-            self.presenter?.setStoreInfo(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setStoreInfo(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
     func getSimilarProducts(productId: Int) {
         self.service.fetchProductInfo(productId: productId) { result in
-            self.presenter?.setSimilarProducts(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setSimilarProducts(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
         }
     }
     
@@ -65,7 +101,19 @@ extension DetailInteractor: DetailInteractorProtocol {
             productAuthor: productAuthor,
             productId: productId
         ) { result in
-            self.presenter?.routeToMessage(chatId: result.chatID ?? "")
+            switch result {
+            case let .success(data):
+                self.presenter?.routeToMessage(chatId: data.chatID ?? "")
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name, type: .checkChatExists)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name, type: .checkChatExists)
+                }
+            }
         }
     }
     
@@ -77,13 +125,37 @@ extension DetailInteractor: DetailInteractorProtocol {
             productAuthor: productAuthor,
             productId: productId
         ) { result in
-            self.presenter?.showReviewButton(data: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.showReviewButton(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name, type: .checkStartChat)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name, type: .checkStartChat)
+                }
+            }
         }
     }
     
     func getCoordinates(address: String) {
         self.mapService.fetchCoordinates(address: address) { result in
-            self.presenter?.routeToMap(coordinates: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.routeToMap(coordinates: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setMapError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setMapError(text: name)
+                }
+            }
         }
     }
     
@@ -91,8 +163,20 @@ extension DetailInteractor: DetailInteractorProtocol {
         id: Int,
         review: ReviewEntity
     ) {
-        self.service.sendReview(id: id, review: review) {
-            self.presenter?.showSuccessReview()
+        self.service.sendReview(id: id, review: review) { result in
+            switch result {
+            case .success:
+                self.presenter?.showSuccessReview()
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name, type: .sendReview)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name, type: .sendReview)
+                }
+            }
         }
     }
 }

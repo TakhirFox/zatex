@@ -7,10 +7,10 @@
 
 import Foundation
 
-typealias ChatMessageClosure = ([ChatMessageResult]) -> (Void)
-typealias ChatInfoClosure = (ChatInfoResult) -> (Void)
-typealias SendMessageClosure = (SendMessageResult) -> (Void)
-typealias MarkMessageClosure = () -> (Void)
+typealias ChatMessageClosure = (Result<[ChatMessageResult], NetworkError>) -> (Void)
+typealias ChatInfoClosure = (Result<ChatInfoResult, NetworkError>) -> (Void)
+typealias SendMessageClosure = (Result<SendMessageResult, NetworkError>) -> (Void)
+typealias MarkMessageClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol ChatDetailAPI {
     

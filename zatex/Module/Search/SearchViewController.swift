@@ -10,8 +10,9 @@ import UIKit
 
 protocol SearchViewControllerProtocol: AnyObject {
     var presenter: SearchPresenterProtocol? { get set }
-
+    
     func setResultProducts(data: [ProductResult])
+    func showError(data: String)
 }
 
 class SearchViewController: BaseViewController {
@@ -23,16 +24,20 @@ class SearchViewController: BaseViewController {
     
     var resultProducts: [ProductResult] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setVisibilityViews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionView()
         setupSearchView()
-        
         setupSubviews()
         setupConstraints()
     }
-
     
     func setupSubviews() {
         view.addSubview(collectionView)
@@ -74,12 +79,19 @@ class SearchViewController: BaseViewController {
         searchView.placeholder = "Поиск"
     }
     
+    private func setVisibilityViews() {
+        collectionView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+    }
 }
 
 extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         presenter?.getSearchData(text: text)
+        collectionView.isHidden = true
+        loaderView.isHidden = false
         return true
     }
 }
@@ -116,7 +128,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let productId = self.resultProducts[indexPath.row].id else { return }
         presenter?.goToDetail(id: productId)
     }
-    
 }
 
 // MARK: Implemented SearchViewControllerProtocol
@@ -125,8 +136,24 @@ extension SearchViewController: SearchViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.resultProducts = data
+            collectionView.isHidden = false
+            searchView.isHidden = false
+            errorView.isHidden = true
+            loaderView.isHidden = true
             self.collectionView.reloadData()
         }
     }
     
+    func showError(data: String) {
+        collectionView.isHidden = true
+        searchView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.setVisibilityViews()
+            self?.presenter?.getSearchData(text: "")
+        }
+    }
 }
