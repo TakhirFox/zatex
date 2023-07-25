@@ -34,26 +34,25 @@ extension SignUpPresenter: SignUpPresenterProtocol {
         email: String?,
         pass: String?
     ) {
-        if let username = username, username == ""  {
-            //            view?.showLoginIsEmpty() // TODO: Допилить
+        if username == nil  {
+            view?.showEmptyUsername()
         }
         
-        if let email = email, email == ""  {
-            //            view?.showLoginIsEmpty() // TODO: Допилить
+        if email == nil  {
+            view?.showEmptyEmail()
         }
         
-        if let pass = pass, pass == ""  {
-            //            view?.showPassIsEmpty() // TODO: Допилить
-            
+        if pass == nil  {
+            view?.showEmptyPassword()
         }
         
-        if let username = username, username != "",
-           let email = email, email != "",
-           let pass = pass, pass != "" {
+        if username != nil,
+           email != nil,
+           pass != nil {
             signUpAndRoute(
-                username: username,
-                email: email,
-                pass: pass
+                username: username!,
+                email: email!,
+                pass: pass!
             )
         }
     }

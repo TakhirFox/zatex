@@ -17,6 +17,10 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     func showToastCategoryError(text: String)
     func showToastPublishError(text: String)
     func showToastImageError(text: String)
+    func showEmptyProductName()
+    func showEmptyDescription()
+    func showEmptyCost()
+    func showEmptyCategory()
 }
 
 class CreateProductViewController: BaseViewController {
@@ -273,8 +277,21 @@ extension CreateProductViewController {
     }
     
     @objc func publishProduct() {
-        // TODO: Нужно сперва сделать проверку товара
-        presenter?.publishProduct(data: productPost)
+        for index in 0..<4 {
+            if index == 2 {
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
+                cell.textView.layer.borderColor = Palette.BorderField.primary.cgColor
+            } else {
+                setStandartColorToTextField(index: index)
+            }
+        }
+        
+        presenter?.checkTextFieldEmpty(data: productPost)
+    }
+    
+    private func setStandartColorToTextField(index: Int) {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? CreateProductFieldCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.primary.cgColor
     }
     
     @objc func showImagePicker() { // TODO: Refactoring
@@ -343,5 +360,25 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
+    }
+    
+    func showEmptyProductName() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreateProductFieldCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyDescription() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
+        cell.textView.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyCost() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? CreateProductFieldCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyCategory() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateProductFieldCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
     }
 }

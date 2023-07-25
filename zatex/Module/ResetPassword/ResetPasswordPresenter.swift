@@ -7,7 +7,7 @@
 //
 
 protocol ResetPasswordPresenterProtocol: AnyObject {
-
+    
     func checkTextFieldEmpty(
         username: String?
     )
@@ -30,7 +30,7 @@ extension ResetPasswordPresenter: ResetPasswordPresenterProtocol {
         username: String?
     ) {
         if let username = username, username == ""  {
-            //            view?.showLoginIsEmpty() // TODO: Допилить
+            view?.showEmptyUsername()
         }
         
         if let username = username, username != "" {

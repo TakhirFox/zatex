@@ -13,6 +13,7 @@ protocol ResetPasswordViewControllerProtocol: AnyObject {
     
     func showSuccess()
     func showToastError(text: String)
+    func showEmptyUsername()
 }
 
 class ResetPasswordViewController: BaseViewController {
@@ -106,6 +107,9 @@ extension ResetPasswordViewController {
     }
     
     @objc func signUpAction() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.primary.cgColor
+        
         presenter?.checkTextFieldEmpty(
             username: username
         )
@@ -128,5 +132,10 @@ extension ResetPasswordViewController: ResetPasswordViewControllerProtocol {
                 username: self?.username
             )
         }
+    }
+    
+    func showEmptyUsername() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
     }
 }
