@@ -13,6 +13,7 @@ protocol ResetPasswordPresenterProtocol: AnyObject {
     )
     
     func showSuccessDialog()
+    func setToastError(text: String)
 }
 
 class ResetPasswordPresenter: BasePresenter {
@@ -50,5 +51,9 @@ extension ResetPasswordPresenter: ResetPasswordPresenterProtocol {
     // MARK: To View
     func showSuccessDialog() {
         view?.showSuccess()
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
     }
 }

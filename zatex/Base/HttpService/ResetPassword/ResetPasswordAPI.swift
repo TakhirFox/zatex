@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ResetPasswordClosure = () -> (Void)
+typealias ResetPasswordClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol ResetPasswordAPI {
     
