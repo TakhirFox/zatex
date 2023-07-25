@@ -14,7 +14,9 @@ class CreateProductService {
 
 extension CreateProductService: CreateProductAPI {
     
-    func fetchCategories(completion: @escaping CreateProductCategoriesClosure) {
+    func fetchCategories(
+        completion: @escaping CreateProductCategoriesClosure
+    ) {
         do {
             try CreateProductHttpRouter
                 .getCategories
@@ -22,14 +24,13 @@ extension CreateProductService: CreateProductAPI {
                 .responseDecodable(of: [CategoryResult].self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 9263424 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 9263424 - \(error)")))
                     }
                 }
-            
         } catch {
-            print("LOG: 345634645 Ошибка категории на экране создания товара")
+            completion(.failure(.secondError(name: "Ошибка: 345634645 Ошибка категории на экране создания товара")))
         }
     }
     
@@ -44,13 +45,13 @@ extension CreateProductService: CreateProductAPI {
                 .responseDecodable(of: ProductResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 9928364 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 9928364 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 345632364645 Ошибка создание товара на экране создания товара")
+            completion(.failure(.secondError(name: "Ошибка: 345632364645 Ошибка создание товара на экране создания товара")))
         }
     }
 }

@@ -19,6 +19,8 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func setCategories(data: [CategoryResult])
     func setImage(image: MediaResult)
     func showSuccess(product: ProductResult)
+    func setToastCategoryError(text: String)
+    func setToastPublishError(text: String)
 }
 
 class CreateProductPresenter: BasePresenter {
@@ -80,5 +82,13 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     
     func showSuccess(product: ProductResult) {
         view?.showSuccess(product: product)
+    }
+    
+    func setToastCategoryError(text: String) {
+        view?.showToastCategoryError(text: text)
+    }
+    
+    func setToastPublishError(text: String) {
+        view?.showToastPublishError(text: text)
     }
 }
