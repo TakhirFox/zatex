@@ -13,6 +13,7 @@ class AuthService {
 }
 
 extension AuthService: AuthAPI {
+    
     func fetchAuthorization(
         login: String,
         pass: String,
@@ -31,13 +32,13 @@ extension AuthService: AuthAPI {
                 .responseDecodable(of: AuthResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 09909089878767 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 09909089878767 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 234234023402349 Ошибка авторизации")
+            completion(.failure(.secondError(name: "Ошибка: 234234023402349 Ошибка авторизации")))
         }
     }
 }
