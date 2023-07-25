@@ -11,6 +11,7 @@ import UIKit
 protocol CreateProductPresenterProtocol: AnyObject {
     func getCategories()
     func uploadImage(image: UIImage)
+    func checkTextFieldEmpty(data: ProductEntity)
     func publishProduct(data: ProductEntity)
     func removeImage(index: Int)
     
@@ -43,8 +44,32 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         interactor?.uploadImage(image: image)
     }
     
-    func publishProduct(data: ProductEntity) {
+    func checkTextFieldEmpty(data: ProductEntity) {
+        if data.productName == nil  {
+            view?.showEmptyProductName()
+        }
         
+        if data.description == nil  {
+            view?.showEmptyDescription()
+        }
+        
+        if data.cost == nil  {
+            view?.showEmptyCost()
+        }
+        
+        if data.category == nil  {
+            view?.showEmptyCategory()
+        }
+        
+        if data.productName != nil,
+           data.description != nil,
+           data.cost != nil,
+           data.category != nil {
+            publishProduct(data: data)
+        }
+    }
+    
+    func publishProduct(data: ProductEntity) {
         let category = ProductResponse.Category(id: data.category)
         
         let product = ProductResponse(
