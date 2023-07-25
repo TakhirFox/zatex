@@ -25,13 +25,13 @@ extension ImagesService: ImagesAPI {
                 .responseDecodable(of: MediaResult.self) { response in
                     switch response.result {
                     case .success(let data):
-                        completion(data)
+                        completion(.success(data))
                     case .failure(let error):
-                        print("LOG: 237707687 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 237707687 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 5570989677016 Ошибка загрузки медиа")
+            completion(.failure(.secondError(name: "Ошибка: 5570989677016 Ошибка загрузки медиа")))
         }
     }
 }

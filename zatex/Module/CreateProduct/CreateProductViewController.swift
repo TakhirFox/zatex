@@ -16,6 +16,7 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     func showSuccess(product: ProductResult)
     func showToastCategoryError(text: String)
     func showToastPublishError(text: String)
+    func showToastImageError(text: String)
 }
 
 class CreateProductViewController: BaseViewController {
@@ -338,5 +339,9 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.publishProduct(data: self!.productPost)
         }
+    }
+    
+    func showToastImageError(text: String) {
+        toastAnimation(text: text) {}
     }
 }

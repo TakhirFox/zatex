@@ -12,6 +12,7 @@ protocol AdditionalInfoViewControllerProtocol: AnyObject {
     var presenter: AdditionalInfoPresenterProtocol? { get set }
     
     func showToastError(text: String)
+    func showToastImageError(text: String)
 }
 
 class AdditionalInfoViewController: BaseViewController {
@@ -331,5 +332,9 @@ extension AdditionalInfoViewController: AdditionalInfoViewControllerProtocol {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.saveAdditionalInfo(entity: self!.additionalInfo)
         }
+    }
+    
+    func showToastImageError(text: String) {
+        toastAnimation(text: text) {}
     }
 }

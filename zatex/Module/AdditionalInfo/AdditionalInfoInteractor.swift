@@ -42,7 +42,20 @@ extension AdditionalInfoInteractor: AdditionalInfoInteractorProtocol {
     
     func uploadImage(image: UIImage, isBanner: Bool) {
         self.imageService.loadImage(image: image) { result in
-            self.presenter?.setImage(image: result, isBanner: isBanner)
+            
+            switch result {
+            case let .success(data):
+                self.presenter?.setImage(image: data, isBanner: isBanner)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastImageError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastImageError(text: name)
+                }
+            }
         }
     }
 }

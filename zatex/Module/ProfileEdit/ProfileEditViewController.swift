@@ -15,6 +15,7 @@ protocol ProfileEditViewControllerProtocol: AnyObject {
     func successUpdateInfo()
     func showToastGetProfileError(text: String)
     func showToastUpdateProfileError(text: String)
+    func showToastImageError(text: String)
 }
 
 class ProfileEditViewController: BaseViewController {
@@ -428,5 +429,9 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.updateProfileInfo(data: self?.updateInfo ?? UpdateInfoEntity())
         }
+    }
+    
+    func showToastImageError(text: String) {
+        toastAnimation(text: text) {}
     }
 }

@@ -61,7 +61,19 @@ extension CreateProductInteractor: CreateProductInteractorProtocol {
     
     func uploadImage(image: UIImage) {
         self.imageService.loadImage(image: image) { result in
-            self.presenter?.setImage(image: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.setImage(image: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastImageError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastImageError(text: name)
+                }
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func showSuccess(product: ProductResult)
     func setToastCategoryError(text: String)
     func setToastPublishError(text: String)
+    func setToastImageError(text: String)
 }
 
 class CreateProductPresenter: BasePresenter {
@@ -90,5 +91,9 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     
     func setToastPublishError(text: String) {
         view?.showToastPublishError(text: text)
+    }
+    
+    func setToastImageError(text: String) {
+        view?.showToastImageError(text: text)
     }
 }
