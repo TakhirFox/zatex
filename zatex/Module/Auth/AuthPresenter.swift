@@ -35,11 +35,11 @@ extension AuthPresenter: AuthPresenterProtocol {
     // MARK: To Interactor
     func checkTextFieldEmpty(login: String?, pass: String?) {
         if let login = login, login == ""  {
-//            view?.showLoginIsEmpty() // TODO: Допилить
+            view?.showEmptyLogin()
         }
         
         if let pass = pass, pass == ""  {
-//            view?.showPassIsEmpty() // TODO: Допилить
+            view?.showEmptyPassword()
             
         }
         

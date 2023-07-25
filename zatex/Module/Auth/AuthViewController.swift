@@ -13,6 +13,8 @@ protocol AuthViewControllerProtocol: AnyObject {
     
     func closeView()
     func showToastError(text: String)
+    func showEmptyLogin()
+    func showEmptyPassword()
 }
 
 class AuthViewController: BaseViewController {
@@ -108,9 +110,13 @@ class AuthViewController: BaseViewController {
     }
 }
 
-extension AuthViewController: AuthViewControllerProtocol {
+extension AuthViewController {
+    
     @objc func checkTextFieldAction(_ sender: Any) {
         view.endEditing(true)
+        
+        loginTextField.layer.borderColor = Palette.BorderField.primary.cgColor
+        passwordTextField.layer.borderColor = Palette.BorderField.primary.cgColor
         
         presenter?.checkTextFieldEmpty(
             login: loginTextField.text,
@@ -125,6 +131,9 @@ extension AuthViewController: AuthViewControllerProtocol {
     @objc func goToResetPasswordAction() {
         presenter?.goToResetPassword()
     }
+}
+
+extension AuthViewController: AuthViewControllerProtocol {
     
     func closeView() {
         DispatchQueue.main.async {
@@ -139,5 +148,13 @@ extension AuthViewController: AuthViewControllerProtocol {
                 pass: self?.passwordTextField.text
             )
         }
+    }
+    
+    func showEmptyLogin() {
+        loginTextField.layer.borderColor = Palette.BorderField.wrong.cgColor
+    }
+    
+    func showEmptyPassword() {
+        passwordTextField.layer.borderColor = Palette.BorderField.wrong.cgColor
     }
 }

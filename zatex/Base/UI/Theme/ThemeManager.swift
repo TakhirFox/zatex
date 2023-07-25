@@ -19,6 +19,7 @@ public enum Color {
     static public let secondaryTextAccentLight = UIColor(hex: 0x4EB2E3)
     
     static public let filedStrokeLight = UIColor(hex: 0xEDF3FD)
+    static public let wrongFiledStrokeLight = UIColor(hex: 0xFF7373)
     static public let primaryButtonLight = UIColor(hex: 0xF78628)
     static public let secondaryButtonLight = UIColor(hex: 0xFFD2AD)
     
@@ -41,6 +42,7 @@ public enum Color {
     static public let secondaryTextAccentDark = UIColor(hex: 0xA0E0FF)
     
     static public let filedStrokeDark = UIColor(hex: 0x454545)
+    static public let wrongFiledStrokeDark = UIColor(hex: 0xFF7373)
     static public let primaryButtonDark = UIColor(hex: 0xED9349)
     static public let secondaryButtonDark = UIColor(hex: 0x654021)
     
@@ -157,6 +159,15 @@ public enum Palette {
                 return Color.filedStrokeLight
             case .dark:
                 return Color.filedStrokeDark
+            }
+        }
+        
+        public static var wrong: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.wrongFiledStrokeLight
+            case .dark:
+                return Color.wrongFiledStrokeDark
             }
         }
     }
