@@ -143,7 +143,19 @@ extension DetailInteractor: DetailInteractorProtocol {
     
     func getCoordinates(address: String) {
         self.mapService.fetchCoordinates(address: address) { result in
-            self.presenter?.routeToMap(coordinates: result)
+            switch result {
+            case let .success(data):
+                self.presenter?.routeToMap(coordinates: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setMapError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setMapError(text: name)
+                }
+            }
         }
     }
     

@@ -18,6 +18,7 @@ protocol DetailViewControllerProtocol: AnyObject {
     func showReviewButton(data: CheckChatReviewResult)
     func showError(data: String)
     func showToastError(text: String)
+    func showMapError(text: String)
 }
 
 class DetailViewController: BaseViewController {
@@ -420,5 +421,9 @@ extension DetailViewController: DetailViewControllerProtocol {
         toastAnimation(text: text) { [weak self] in
             self?.getRequests() // TODO: В будущем нужно будет для каждой ошибки отправлять свой запрос (after MVP)
         }
+    }
+    
+    func showMapError(text: String) {
+        debugPrint("LOG: Что-то") // TODO: Решить в задаче с картами
     }
 }

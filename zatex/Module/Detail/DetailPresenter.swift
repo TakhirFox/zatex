@@ -50,6 +50,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func showReviewButton(data: CheckChatReviewResult)
     func setError(data: String)
     func setToastError(text: String)
+    func setMapError(text: String)
 }
 
 class DetailPresenter: BasePresenter {
@@ -188,5 +189,9 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func setToastError(text: String) {
         view?.showToastError(text: text)
+    }
+    
+    func setMapError(text: String) {
+        view?.showMapError(text: text)
     }
 }
