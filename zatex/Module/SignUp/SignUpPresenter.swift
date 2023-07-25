@@ -15,6 +15,7 @@ protocol SignUpPresenterProtocol: AnyObject {
     )
     
     func goToAdditionalInfoView()
+    func setToastError(text: String)
 }
 
 class SignUpPresenter: BasePresenter {
@@ -77,4 +78,7 @@ extension SignUpPresenter: SignUpPresenterProtocol {
     }
     
     // MARK: To View
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
+    }
 }

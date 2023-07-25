@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias SignUpClosure = (SignUpResult) -> (Void)
+typealias SignUpClosure = (Result<SignUpResult, NetworkError>) -> (Void)
 
 protocol SignUpAPI {
     

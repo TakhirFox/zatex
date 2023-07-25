@@ -10,7 +10,8 @@ import UIKit
 
 protocol SignUpViewControllerProtocol: AnyObject {
     var presenter: SignUpPresenterProtocol? { get set }
-
+    
+    func showToastError(text: String)
 }
 
 class SignUpViewController: BaseViewController {
@@ -128,4 +129,15 @@ extension SignUpViewController {
     }
 }
 
-extension SignUpViewController: SignUpViewControllerProtocol { }
+extension SignUpViewController: SignUpViewControllerProtocol {
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.checkTextFieldEmpty(
+                username: self?.signUpData.username,
+                email: self?.signUpData.email,
+                pass: self?.signUpData.pass
+            )
+        }
+    }
+}
