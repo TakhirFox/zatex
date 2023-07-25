@@ -23,8 +23,20 @@ class AdditionalInfoInteractor: BaseInteractor {
 extension AdditionalInfoInteractor: AdditionalInfoInteractorProtocol {
     
     func signUpAndRoute(data: AdditionalInfoRequest) {
-        self.service.additionalInfo(data: data) {
-            self.presenter?.signUpSuccess()
+        self.service.additionalInfo(data: data) { result in
+            switch result {
+            case .success:
+                self.presenter?.signUpSuccess()
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name)
+                }
+            }
         }
     }
     

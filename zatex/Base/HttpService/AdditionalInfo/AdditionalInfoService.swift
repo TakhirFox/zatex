@@ -25,13 +25,13 @@ extension AdditionalInfoService: AdditionalInfoAPI {
                 .response { response in
                     switch response.result {
                     case .success:
-                        completion()
+                        completion(.success(()))
                     case .failure(let error):
-                        print("LOG: 453745757 Ошибка  \(error)")
+                        completion(.failure(.error(name: "Ошибка: 453745757 - \(error)")))
                     }
                 }
         } catch {
-            print("LOG: 3456346364 Ошибка изменения информации о пользователе")
+            completion(.failure(.secondError(name: "Ошибка: 3456346364 Ошибка изменения информации о пользователе")))
         }
     }
 }

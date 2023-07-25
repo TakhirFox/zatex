@@ -14,6 +14,7 @@ protocol AdditionalInfoPresenterProtocol: AnyObject {
     
     func setImage(image: MediaResult, isBanner: Bool)
     func signUpSuccess()
+    func setToastError(text: String)
 }
 
 class AdditionalInfoPresenter: BasePresenter {
@@ -92,5 +93,9 @@ extension AdditionalInfoPresenter: AdditionalInfoPresenterProtocol {
     
     func signUpSuccess() {
         closeViewHandler()
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
     }
 }
