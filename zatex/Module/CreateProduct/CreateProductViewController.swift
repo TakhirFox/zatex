@@ -279,10 +279,10 @@ extension CreateProductViewController {
     @objc func publishProduct() {
         for index in 0..<4 {
             if index == 2 {
-                setStandartColorToTextField(index: index)
-            } else {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
                 cell.textView.layer.borderColor = Palette.BorderField.primary.cgColor
+            } else {
+                setStandartColorToTextField(index: index)
             }
         }
         
