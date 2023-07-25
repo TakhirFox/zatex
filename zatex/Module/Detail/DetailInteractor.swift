@@ -108,10 +108,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .checkChatExists)
                     
                 case let .secondError(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .checkChatExists)
                 }
             }
         }
@@ -132,10 +132,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .checkStartChat)
                     
                 case let .secondError(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .checkStartChat)
                 }
             }
         }
@@ -171,10 +171,10 @@ extension DetailInteractor: DetailInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .sendReview)
                     
                 case let .secondError(name):
-                    self.presenter?.setToastError(text: name)
+                    self.presenter?.setToastError(text: name, type: .sendReview)
                 }
             }
         }

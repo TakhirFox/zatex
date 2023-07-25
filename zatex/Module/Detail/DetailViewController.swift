@@ -17,7 +17,7 @@ protocol DetailViewControllerProtocol: AnyObject {
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
     func showError(data: String)
-    func showToastError(text: String)
+    func showToastError(text: String, type: ToastErrorKind)
     func showMapError(text: String)
 }
 
@@ -417,9 +417,34 @@ extension DetailViewController: DetailViewControllerProtocol {
         }
     }
     
-    func showToastError(text: String) {
+    func showToastError(text: String, type: ToastErrorKind) {
         toastAnimation(text: text) { [weak self] in
-            self?.getRequests() // TODO: В будущем нужно будет для каждой ошибки отправлять свой запрос (after MVP)
+            switch type {
+            case .checkChatExists:
+                if let productId = self?.product?.id,
+                   let authorId = self?.product?.store?.id {
+                    self?.presenter?.checkChatExists(
+                        productAuthor: authorId,
+                        productId: productId)
+                }
+                
+            case .checkStartChat:
+                if let productId = self?.product?.id,
+                   let authorId = self?.product?.store?.id {
+                    self?.presenter?.checkStartChat(
+                        productAuthor: productId,
+                        productId: authorId
+                    )
+                }
+                
+            case .sendReview:
+                self?.presenter?.sendReview(
+                    userId: self?.product?.store?.id,
+                    productName: self?.product?.name,
+                    content: self?.reviewContent,
+                    rating: self?.reviewDetailView.selectedRating
+                )
+            }
         }
     }
     
