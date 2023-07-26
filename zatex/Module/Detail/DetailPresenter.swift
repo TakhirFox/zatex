@@ -23,7 +23,7 @@ protocol DetailPresenterProtocol: AnyObject {
         productId: Int)
     
     func callPhone(number: String?)
-    func getCoordinatesAndGoToMap(address: ProductResult.Address?)
+    func getCoordinatesAndGoToMap(address: ProductResult.AddressUnion?)
     
     func sendReview(
         userId: Int?,
@@ -106,11 +106,17 @@ extension DetailPresenter: DetailPresenterProtocol {
         }
     }
     
-    func getCoordinatesAndGoToMap(address: ProductResult.Address?) {
-        guard let city = address?.city else { return }
-        guard let street = address?.street1 else { return }
-        
-        interactor?.getCoordinates(address: "\(city) \(street)")
+    func getCoordinatesAndGoToMap(address: ProductResult.AddressUnion?) {
+        switch address {
+        case .address(let address):
+            guard let city = address.city else { return }
+            guard let street = address.street1 else { return }
+            
+            interactor?.getCoordinates(address: "\(city) \(street)")
+            
+        case .empty, nil:
+            return
+        }
     }
     
     func sendReview(
