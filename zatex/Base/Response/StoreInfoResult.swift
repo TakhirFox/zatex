@@ -35,17 +35,17 @@ struct StoreInfoResult: Decodable {
     
     enum AddressUnion: Decodable {
         
-        case addressClass(StoreInfoResult.Address)
-        case anythingArray([String])
+        case address(StoreInfoResult.Address)
+        case empty([String])
         
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let x = try? container.decode([String].self) {
-                self = .anythingArray(x)
+                self = .empty(x)
                 return
             }
             if let x = try? container.decode(StoreInfoResult.Address.self) {
-                self = .addressClass(x)
+                self = .address(x)
                 return
             }
             throw DecodingError.typeMismatch(AddressUnion.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AddressUnion"))
