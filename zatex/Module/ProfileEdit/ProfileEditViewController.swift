@@ -54,16 +54,7 @@ class ProfileEditViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let userId = sessionProvider?.getSession()?.userId,
-            let id = Int(userId) {
-            presenter?.getProfileInfo(id: id)
-        }
-        
-        
-        tableView.isHidden = true
-        buttonView.isHidden = true
-        loaderView.isHidden = false
-        
+        setupFirstParty()
         setupTableView()
         setupSubviews()
         setupConstraints()
@@ -72,13 +63,24 @@ class ProfileEditViewController: BaseViewController {
         setupImagePicker()
     }
     
-    func setupSubviews() {
+    private func setupFirstParty() {
+        if let userId = sessionProvider?.getSession()?.userId,
+            let id = Int(userId) {
+            presenter?.getProfileInfo(id: id)
+        }
+        
+        tableView.isHidden = true
+        buttonView.isHidden = true
+        loaderView.isHidden = false
+    }
+    
+    private func setupSubviews() {
         view.addSubview(tableView)
         view.addSubview(buttonView)
         view.addSubview(successView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         successView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -95,7 +97,7 @@ class ProfileEditViewController: BaseViewController {
         }
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         title = "Редактировать профиль"
         
         tableView.register(AvatarEditCell.self, forCellReuseIdentifier: "avatarCell")
