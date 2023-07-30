@@ -50,7 +50,8 @@ extension MapHttpRouter: HttpRouter {
         case let .directGeocoding(address):
             return [
                 "q": address,
-                "format": "json"
+                "format": "json",
+                "addressdetails": 1
             ]
             
         case let .reverseGeocoding(coordinates):
