@@ -8,6 +8,6 @@
 import Foundation
 
 struct CoordinareEntity {
-    let latitude: Double
-    let longitude: Double
+    var latitude: Double
+    var longitude: Double
 }

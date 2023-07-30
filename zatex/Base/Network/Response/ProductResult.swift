@@ -87,11 +87,10 @@ struct ProductResult: Decodable, Hashable {
     }
     
     struct Address: Decodable, Hashable {
-        let street1, city: String?
+        let street1: String?
 
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
-            case city
         }
     }
 }
