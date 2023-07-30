@@ -9,6 +9,7 @@
 import UIKit
 
 class SignUpAssembly {
+    
     static func create(closeViewHandler: @escaping (() -> Void)) -> UIViewController {
         let viewController = SignUpViewController()
         let presenter = SignUpPresenter()
