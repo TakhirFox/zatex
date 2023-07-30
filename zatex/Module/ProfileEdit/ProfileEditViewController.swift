@@ -48,20 +48,21 @@ class ProfileEditViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.tabBarController?.tabBar.frame.origin.y += 100
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         if let userId = sessionProvider?.getSession()?.userId,
             let id = Int(userId) {
             presenter?.getProfileInfo(id: id)
         }
         
-        self.tabBarController?.tabBar.frame.origin.y += 100
         
         tableView.isHidden = true
         buttonView.isHidden = true
         loaderView.isHidden = false
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         setupTableView()
         setupSubviews()
@@ -174,15 +175,14 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
                 switch profileInfo?.address {
                 case .address(let address):
-                    let city = address.city ?? ""
                     let street = address.street1 ?? ""
-                    cell.setupCell(name: "Адрес", field: "\(city), \(street)")
+                    cell.setupCell(name: "Адрес", field: street)
                     
                 case .empty, nil:
                     break
                 }
                 
-                cell.textField.addTarget(self, action: #selector(addressDidChange(_:)), for: .editingChanged)
+                cell.textField.isEnabled = false
                 cell.textField.delegate = self
                 return cell
                 
@@ -271,6 +271,19 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 0 && indexPath.row == 3 else { return }
+        
+        presenter?.goToMap(saveAddressHandler: { [weak self] address in
+            DispatchQueue.main.async { [weak self] in
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? FieldEditCell else { return }
+                cell.textField.text = address
+                
+                self?.updateInfo.address = address
+            }
+        })
+    }
 }
 
 extension ProfileEditViewController: UITextFieldDelegate {}
@@ -316,12 +329,6 @@ extension ProfileEditViewController {
     @objc func lastNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
             updateInfo.lastName = textField.text
-        }
-    }
-    
-    @objc func addressDidChange(_ textField: UITextField) {
-        if textField.text != nil {
-            updateInfo.address = textField.text // TODO: change
         }
     }
     

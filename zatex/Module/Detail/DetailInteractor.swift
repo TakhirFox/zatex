@@ -142,7 +142,7 @@ extension DetailInteractor: DetailInteractorProtocol {
     }
     
     func getCoordinates(address: String) {
-        self.mapService.fetchCoordinates(address: address) { result in
+        self.mapService.directGeocoding(address: address) { result in
             switch result {
             case let .success(data):
                 self.presenter?.routeToMap(coordinates: data)
