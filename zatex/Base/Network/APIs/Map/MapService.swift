@@ -14,13 +14,13 @@ class MapService {
 
 extension MapService: MapAPI {
     
-    func fetchCoordinates(
+    func directGeocoding(
         address: String,
-        completion: @escaping MapClosure
+        completion: @escaping DirectMapClosure
     ) {
         do {
             try MapHttpRouter
-                .coordinates(
+                .directGeocoding(
                     address: address
                 )
                 .request(usingHttpService: httpService)
@@ -34,6 +34,29 @@ extension MapService: MapAPI {
                 }
         } catch {
             completion(.failure(.secondError(name: "Ошибка: 37573734 Ошибка получения координатов для карт")))
+        }
+    }
+    
+    func reverseGeocoding(
+        coordinates: CoordinareEntity,
+        completion: @escaping ReverseMapClosure
+    ) {
+        do {
+            try MapHttpRouter
+                .reverseGeocoding(
+                    coordinates: coordinates
+                )
+                .request(usingHttpService: httpService)
+                .responseDecodable(of: AddressResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(.success(data))
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 7834673467 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 756897 Ошибка получения адреса для карт")))
         }
     }
 }

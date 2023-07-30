@@ -8,7 +8,8 @@
 import Alamofire
 
 enum MapHttpRouter {
-    case coordinates(address: String)
+    case directGeocoding(address: String)
+    case reverseGeocoding(coordinates: CoordinareEntity)
 }
 
 extension MapHttpRouter: HttpRouter {
@@ -18,21 +19,26 @@ extension MapHttpRouter: HttpRouter {
     
     var path: String {
         switch self {
-        case .coordinates:
+        case .directGeocoding:
             return "/search"
+            
+        case .reverseGeocoding:
+            return "/reverse"
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .coordinates:
+        case .directGeocoding,
+                .reverseGeocoding:
             return .get
         }
     }
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .coordinates:
+        case .directGeocoding,
+                .reverseGeocoding:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
             ]
@@ -41,17 +47,25 @@ extension MapHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .coordinates(let address):
+        case let .directGeocoding(address):
             return [
                 "q": address,
                 "format": "json"
+            ]
+            
+        case let .reverseGeocoding(coordinates):
+            return [
+                "format": "jsonv2",
+                "lat": coordinates.latitude,
+                "lon": coordinates.longitude
             ]
         }
     }
     
     func body() throws -> Data? {
         switch self {
-        case .coordinates:
+        case .directGeocoding,
+                .reverseGeocoding:
             return nil
         }
     }
