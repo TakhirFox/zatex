@@ -177,9 +177,9 @@ extension AdditionalInfoViewController: UITableViewDelegate, UITableViewDataSour
                 
             case .address:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "addressFieldCell", for: indexPath) as! FieldAddInfoCell
-                cell.textField.addTarget(self, action: #selector(addressDidChange(_:)), for: .editingChanged)
                 cell.setupCell(name: "Адрес")
                 cell.textField.delegate = self
+                cell.textField.isEnabled = false
                 return cell
                 
             case .shopImage:
@@ -194,6 +194,19 @@ extension AdditionalInfoViewController: UITableViewDelegate, UITableViewDataSour
                 
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 1 && indexPath.row == 1 else { return }
+        
+        presenter?.goToMap(saveAddressHandler: { [weak self] address in
+            DispatchQueue.main.async { [weak self] in
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? FieldAddInfoCell else { return }
+                cell.textField.text = address
+                
+                self?.additionalInfo.address = address
+            }
+        })
     }
 }
 
@@ -248,12 +261,6 @@ extension AdditionalInfoViewController {
     @objc func storeNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
             additionalInfo.storeName = textField.text
-        }
-    }
-    
-    @objc func addressDidChange(_ textField: UITextField) {
-        if textField.text != nil {
-            additionalInfo.address = textField.text
         }
     }
     
