@@ -12,6 +12,8 @@ protocol AdditionalInfoPresenterProtocol: AnyObject {
 
     func saveAdditionalInfo(entity: AdditionalInfoEntity)
     
+    func goToMap(saveAddressHandler: @escaping (String) -> Void)
+    
     func setImage(image: MediaResult, isBanner: Bool)
     func signUpSuccess()
     func setToastError(text: String)
@@ -73,6 +75,11 @@ extension AdditionalInfoPresenter: AdditionalInfoPresenterProtocol {
             
             self?.interactor?.signUpAndRoute(data: info)
         }
+    }
+    
+    // MARK: To Router
+    func goToMap(saveAddressHandler: @escaping (String) -> Void) {
+        router?.routeToMap(saveAddressHandler: saveAddressHandler)
     }
     
     // MARK: To View

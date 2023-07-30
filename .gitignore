@@ -102,3 +102,4 @@ iOSInjectionProject/
 Templates/
 Sources/
 Tests/
+Podfile.lock

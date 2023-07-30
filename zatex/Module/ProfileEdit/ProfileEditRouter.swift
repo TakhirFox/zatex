@@ -10,6 +10,9 @@ import UIKit
 
 protocol ProfileEditRouterProtocol: AnyObject {
     
+    func routeToMap(
+        saveAddressHandler: @escaping (String) -> Void
+    )
 }
 
 class ProfileEditRouter: BaseRouter {
@@ -19,4 +22,14 @@ class ProfileEditRouter: BaseRouter {
 
 extension ProfileEditRouter: ProfileEditRouterProtocol {
     
+    func routeToMap(
+        saveAddressHandler: @escaping (String) -> Void
+    ) {
+        let view = MapSetterAssembly.create { [weak self] address in
+            saveAddressHandler(address)
+            self?.viewController?.navigationController?.popViewController(animated: true)
+        }
+        
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }

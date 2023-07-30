@@ -48,21 +48,13 @@ class ProfileEditViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let userId = sessionProvider?.getSession()?.userId,
-            let id = Int(userId) {
-            presenter?.getProfileInfo(id: id)
-        }
-        
         self.tabBarController?.tabBar.frame.origin.y += 100
-        
-        tableView.isHidden = true
-        buttonView.isHidden = true
-        loaderView.isHidden = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupFirstParty()
         setupTableView()
         setupSubviews()
         setupConstraints()
@@ -71,13 +63,24 @@ class ProfileEditViewController: BaseViewController {
         setupImagePicker()
     }
     
-    func setupSubviews() {
+    private func setupFirstParty() {
+        if let userId = sessionProvider?.getSession()?.userId,
+            let id = Int(userId) {
+            presenter?.getProfileInfo(id: id)
+        }
+        
+        tableView.isHidden = true
+        buttonView.isHidden = true
+        loaderView.isHidden = false
+    }
+    
+    private func setupSubviews() {
         view.addSubview(tableView)
         view.addSubview(buttonView)
         view.addSubview(successView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         successView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -94,7 +97,7 @@ class ProfileEditViewController: BaseViewController {
         }
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         title = "Редактировать профиль"
         
         tableView.register(AvatarEditCell.self, forCellReuseIdentifier: "avatarCell")
@@ -171,8 +174,17 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .address:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "addressFieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Адрес", field: "profileInfo?.address[0]")
-                cell.textField.addTarget(self, action: #selector(addressDidChange(_:)), for: .editingChanged)
+                
+                switch profileInfo?.address {
+                case .address(let address):
+                    let street = address.street1 ?? ""
+                    cell.setupCell(name: "Адрес", field: street)
+                    
+                case .empty, nil:
+                    break
+                }
+                
+                cell.textField.isEnabled = false
                 cell.textField.delegate = self
                 return cell
                 
@@ -261,6 +273,19 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 0 && indexPath.row == 3 else { return }
+        
+        presenter?.goToMap(saveAddressHandler: { [weak self] address in
+            DispatchQueue.main.async { [weak self] in
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? FieldEditCell else { return }
+                cell.textField.text = address
+                
+                self?.updateInfo.address = address
+            }
+        })
+    }
 }
 
 extension ProfileEditViewController: UITextFieldDelegate {}
@@ -306,12 +331,6 @@ extension ProfileEditViewController {
     @objc func lastNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
             updateInfo.lastName = textField.text
-        }
-    }
-    
-    @objc func addressDidChange(_ textField: UITextField) {
-        if textField.text != nil {
-            updateInfo.address = textField.text // TODO: change
         }
     }
     

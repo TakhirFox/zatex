@@ -9,9 +9,11 @@ import UIKit
 
 class MapProductCell: UICollectionViewCell {
     
-    private let backView: UIView = {
-        let view = UIView()
+    private let backImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "map-preview")
         view.layer.cornerRadius = 8
+        view.clipsToBounds = true
         return view
     }()
     
@@ -22,19 +24,11 @@ class MapProductCell: UICollectionViewCell {
         return view
     }()
     
-    private let mapView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .clear
         contentView.isUserInteractionEnabled = false
-        
-        mapView.backgroundColor = .red
         
         configureSubviews()
         configureConstraints()
@@ -45,26 +39,30 @@ class MapProductCell: UICollectionViewCell {
         }
     }
     
-    func setupCell(map: ProductResult.Address?) {
-        if let city = map?.city,
-            let street = map?.street1 {
-            titleLabel.text = "\(city), \(street)"
+    func setupCell(map: ProductResult.AddressUnion?) {
+        switch map {
+        case .address(let address):
+            if let street = address.street1 {
+                titleLabel.text = street
+            }
+            
+        case .empty,
+                .none:
+            titleLabel.text = "Адреса нет"
         }
     }
     
     private func updateAppearence() {
-        titleLabel.textColor = Palette.AccentText.secondary
-        backView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        titleLabel.textColor = Palette.Text.primary
     }
     
     private func configureSubviews() {
-        addSubview(backView)
-        backView.addSubview(titleLabel)
-        backView.addSubview(mapView)
+        addSubview(backImageView)
+        backImageView.addSubview(titleLabel)
     }
     
     private func configureConstraints() {
-        backView.snp.makeConstraints { make in
+        backImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(6)
@@ -72,19 +70,9 @@ class MapProductCell: UICollectionViewCell {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(13)
-            make.leading.equalToSuperview().inset(13)
-            make.bottom.equalToSuperview().inset(13)
+            make.leading.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(8)
         }
-        
-        mapView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(6)
-            make.leading.equalTo(self.titleLabel.snp.trailing).offset(16)
-            make.trailing.equalToSuperview().inset(6)
-            make.bottom.equalToSuperview().inset(6)
-            make.width.equalTo(100)
-        }
-        
     }
     
     required init?(coder: NSCoder) {

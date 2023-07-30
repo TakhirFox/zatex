@@ -13,6 +13,8 @@ protocol ProfileEditPresenterProtocol: AnyObject {
     func getProfileInfo(id: Int)
     func updateProfileInfo(data: UpdateInfoEntity)
     
+    func goToMap(saveAddressHandler: @escaping (String) -> Void)
+    
     func setProfileInfo(data: StoreInfoResult)
     func setImage(image: MediaResult, isBanner: Bool)
     func successUpdateInfo()
@@ -81,6 +83,9 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
     }
     
     // MARK: To Router
+    func goToMap(saveAddressHandler: @escaping (String) -> Void) {
+        router?.routeToMap(saveAddressHandler: saveAddressHandler)
+    }
     
     // MARK: To View
     func setProfileInfo(data: StoreInfoResult) {

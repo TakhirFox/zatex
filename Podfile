@@ -10,7 +10,7 @@ target 'zatex' do
   pod 'SnapKit', '~> 4.0'
   pod 'Alamofire'
   pod 'Kingfisher'
-  pod 'YandexMapsMobile', '4.3.1-lite'
+  pod 'YandexMapsMobile', '4.3.1-full'
   pod 'lottie-ios'
   
 end
