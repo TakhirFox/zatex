@@ -191,6 +191,7 @@ class ProfileStatsCell: UICollectionViewCell {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
         
         let newDate = dateFormatter.date(from: date) ?? Date()
         
