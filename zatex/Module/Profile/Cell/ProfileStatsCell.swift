@@ -169,6 +169,30 @@ class ProfileStatsCell: UICollectionViewCell {
             make.height.equalTo(75)
         }
         
+        countRatingLabel.snp.makeConstraints { make in
+            make.height.equalTo(24)
+        }
+        
+        nameRatingLabel.snp.makeConstraints { make in
+            make.height.equalTo(12)
+        }
+        
+        countActiveLabel.snp.makeConstraints { make in
+            make.height.equalTo(24)
+        }
+        
+        nameActiveLabel.snp.makeConstraints { make in
+            make.height.equalTo(12)
+        }
+        
+        countSalesLabel.snp.makeConstraints { make in
+            make.height.equalTo(24)
+        }
+        
+        nameSalesLabel.snp.makeConstraints { make in
+            make.height.equalTo(12)
+        }
+        
         basicStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
