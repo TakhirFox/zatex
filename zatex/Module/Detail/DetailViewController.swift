@@ -249,7 +249,13 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return .init(width: view.frame.width, height: 50)
             
         case .descriptions:
-            return .init(width: view.frame.width, height: 130)
+            return .init(
+                width: view.frame.width,
+                height: (product?.description ?? "").heightForLabel(
+                    font: UIFont(name: "Montserrat-Regular", size: 14)!,
+                    width: view.frame.width - 32
+                ) + 30
+            )
             
         case .author:
             return .init(width: view.frame.width, height: 150)
