@@ -35,11 +35,15 @@ class BaseTabBar: UITabBar {
     func setupUI() {
         let width = bounds.width - positionOnX * 2
         let height = (bounds.height) + positionOnY * 2
-        let bezierPath = UIBezierPath(roundedRect: CGRect(x: positionOnX,
-                                                          y: bounds.minY - positionOnY - 5,
-                                                          width: width,
-                                                          height: height),
-                                      cornerRadius: height / 2)
+        let bezierPath = UIBezierPath(
+            roundedRect: CGRect(
+                x: positionOnX,
+                y: bounds.minY - positionOnY - 5,
+                width: width,
+                height: height
+            ),
+            cornerRadius: height / 2
+        )
         
         roundLayer.path = bezierPath.cgPath
         
@@ -48,10 +52,12 @@ class BaseTabBar: UITabBar {
         itemPositioning = .centered
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .selected)
         
         isTranslucent = true
         backgroundImage = UIImage()
-        shadowImage = UIImage()        
+        shadowImage = UIImage()
     }
     
     func updateAppearence() {
