@@ -124,7 +124,7 @@ class DetailViewController: BaseViewController {
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 7
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView,
