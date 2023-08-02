@@ -32,6 +32,7 @@ class ShopHeaderView: UIView {
     
     private let ratingView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -100,7 +101,7 @@ class ShopHeaderView: UIView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-                
+        
         backView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(12)
             make.leading.equalToSuperview().offset(16)
@@ -117,9 +118,10 @@ class ShopHeaderView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(4)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
+            make.height.equalTo(14)
             make.trailing.equalToSuperview()
         }
-
+        
         ratingView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
