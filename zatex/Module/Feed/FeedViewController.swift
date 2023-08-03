@@ -50,14 +50,12 @@ class FeedViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = true
         
         getRequests()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCollectionView()
         setupSearchView()
         
@@ -82,7 +80,7 @@ class FeedViewController: BaseViewController {
         }
     }
     
-    func setupCollectionView() {
+    func setupCollectionView() {        
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.register(CategoryFeedCell.self, forCellWithReuseIdentifier: "categoryCell")
         collectionView.register(BannerFeedCell.self, forCellWithReuseIdentifier: "bannerCell")
