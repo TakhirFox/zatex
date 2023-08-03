@@ -107,5 +107,4 @@ extension MainTabBarViewController {
         let customTabBar = BaseTabBar(frame: self.tabBar.bounds)
         self.setValue(customTabBar, forKey: "tabBar")
     }
-    
 }

@@ -109,10 +109,12 @@ class ProfileViewController: BaseViewController {
         settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
     }
     
-    private func hideNavigationView() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
+    func hideNavigationView() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func getRequests() {

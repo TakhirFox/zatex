@@ -24,12 +24,6 @@ class GeneralSettingsViewController: BaseViewController {
     
     var settingsModel: [SettingsModel] = []
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        showNavigationView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
@@ -81,13 +75,6 @@ class GeneralSettingsViewController: BaseViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-    }
-    
-    func showNavigationView() {
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.barTintColor = Palette.Background.primary
-        navigationController?.navigationBar.backgroundColor = Palette.Background.primary
     }
 }
 

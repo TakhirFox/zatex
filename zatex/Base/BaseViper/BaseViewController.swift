@@ -46,15 +46,17 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     }
     
     private func setNavigationItems() {
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
-        
         let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Palette.Background.primary
+        appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
         
-        navigationController?.navigationBar.backIndicatorImage = backImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        navigationController?.navigationBar.topItem?.title = " "
-        navigationController?.navigationBar.topItem?.backBarButtonItem?.imageInsets = UIEdgeInsets(top: -100, left: 0, bottom: 0, right: 0)
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        title = " "
     }
     
     private func setLoader() {

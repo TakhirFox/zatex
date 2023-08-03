@@ -47,9 +47,21 @@ class MapSetterViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideNavigationView()
         setupFirstParty()
         setupSubviews()
         setupConstraints()
+    }
+    
+    func hideNavigationView() {
+        let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupFirstParty() {
