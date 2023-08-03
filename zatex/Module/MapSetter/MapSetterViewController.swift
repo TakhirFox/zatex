@@ -41,19 +41,7 @@ class MapSetterViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
-            self.tabBarController?.tabBar.frame.origin.y += 100
-        }
-        
         presenter?.showMapPlace()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseIn) {
-            self.tabBarController?.tabBar.frame.origin.y -= 100
-        }
     }
     
     override func viewDidLoad() {

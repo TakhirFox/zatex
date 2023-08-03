@@ -91,10 +91,13 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
 }
 
 extension MainTabBarViewController {
-    func createNavController(viewController: UIViewController,
-                             title: String,
-                             image: UIImage) -> UIViewController {
-        let navConroller = UINavigationController(rootViewController: viewController)
+    
+    func createNavController(
+        viewController: UIViewController,
+        title: String,
+        image: UIImage
+    ) -> UIViewController {
+        let navConroller = BaseNavigationController(rootViewController: viewController)
         navConroller.tabBarItem.image = image
         viewController.navigationItem.title = title
         return navConroller
