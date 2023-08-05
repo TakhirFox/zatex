@@ -9,7 +9,7 @@
 
 protocol ProfileInteractorProtocol {
     func getStoreInfo(authorId: Int)
-    func getStoreProduct(authorId: Int)
+    func getStoreProduct(authorId: Int, isSales: Bool)
 }
 
 class ProfileInteractor: BaseInteractor {
@@ -37,11 +37,14 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         }
     }
     
-    func getStoreProduct(authorId: Int) {
+    func getStoreProduct(authorId: Int, isSales: Bool) {
         self.service.fetchStoreProducts(authorId: authorId) { result in
             switch result {
             case let .success(data):
-                self.presenter?.setStoreProduct(data: data)
+                self.presenter?.setStoreProduct(
+                    data: data,
+                    isSales: isSales
+                )
                 
             case let .failure(error):
                 switch error {

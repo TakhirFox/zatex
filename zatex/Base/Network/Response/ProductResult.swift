@@ -22,7 +22,8 @@ struct ProductResult: Decodable, Hashable {
     let images: [ProductResult.Image]?
     let store: ProductResult.Store?
     let relatedIDS: [Int]?
-
+    let isSales: Bool?
+    
     enum CodingKeys: String, CodingKey {
         case id, name
         case dateModified = "date_modified"
@@ -37,6 +38,7 @@ struct ProductResult: Decodable, Hashable {
         case categories, images
         case store
         case relatedIDS = "related_ids"
+        case isSales = "sold_individually"
     }
     
     struct Category: Decodable, Hashable {

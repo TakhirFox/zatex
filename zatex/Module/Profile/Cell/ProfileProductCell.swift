@@ -79,12 +79,15 @@ class ProfileProductCell: UICollectionViewCell {
         imageView.image = UIImage(named: "no_image")
         dateLabel.text = dateFormatter(date: post.dateModified)
         
-        productStateButton.setTitle("Снять с продажи", for: .normal)
-        productStateButton.set(style: .sedondary)
-        productStateButton.addTarget(self, action: #selector(setSalesState), for: .touchUpInside)
-//        productStateButton.setTitle("Активировать", for: .normal)
-//        productStateButton.set(style: .primary)
-//        productStateButton.addTarget(self, action: #selector(setActiveState), for: .touchUpInside)
+        if post.isSales ?? false {
+            productStateButton.setTitle("Активировать", for: .normal)
+            productStateButton.set(style: .primary)
+            productStateButton.addTarget(self, action: #selector(setActiveState), for: .touchUpInside)
+        } else {
+            productStateButton.setTitle("Снять с продажи", for: .normal)
+            productStateButton.set(style: .sedondary)
+            productStateButton.addTarget(self, action: #selector(setSalesState), for: .touchUpInside)
+        }
         
         if let cost = post.price {
             costLabel.text = "\(cost)"
@@ -102,7 +105,7 @@ class ProfileProductCell: UICollectionViewCell {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-                
+        
         let newDate = dateFormatter.date(from: date) ?? Date()
         let isCurrentDate = Calendar.current.isDateInToday(newDate)
         

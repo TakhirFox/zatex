@@ -12,7 +12,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
 
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult])
+    func setStoreProduct(data: [ProductResult], isSales: Bool)
     func updateView()
     func showError(data: String)
 }
@@ -119,7 +119,7 @@ class ProfileViewController: BaseViewController {
         if let userId = sessionProvider?.getSession()?.userId,
            let id = Int(userId) {
             presenter?.getStoreInfo(authorId: id)
-            presenter?.getStoreProduct(authorId: id)
+            presenter?.getStoreProduct(authorId: id, isSales: false)
         }
         
         collectionView.isHidden = true
@@ -133,6 +133,16 @@ class ProfileViewController: BaseViewController {
             loaderView.isHidden = false
         } else {
             loaderView.isHidden = true
+        }
+    }
+    
+    private func getFilteredRequests(isSales: Bool) {
+        if let userId = sessionProvider?.getSession()?.userId,
+           let id = Int(userId) {
+            presenter?.getStoreProduct(
+                authorId: id,
+                isSales: isSales
+            )
         }
     }
     
@@ -182,10 +192,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                     self?.goToReviews()
                     
                 case .active:
-                    self?.goToReviews()
+                    self?.getFilteredRequests(isSales: false)
                     
                 case .sales:
-                    self?.goToReviews()
+                    self?.getFilteredRequests(isSales: true)
                 }
             }
             return cell
@@ -309,9 +319,9 @@ extension ProfileViewController: ProfileViewControllerProtocol {
         }
     }
     
-    func setStoreProduct(data: [ProductResult]) {
+    func setStoreProduct(data: [ProductResult], isSales: Bool) {
         DispatchQueue.main.async { [weak self] in
-            self?.profileProducts = data
+            self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
             self?.collectionView.reloadData()
         }
