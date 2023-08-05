@@ -74,7 +74,7 @@ class ProfileViewController: BaseViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ProfileStatsCell.self, forCellWithReuseIdentifier: "statsCell")
-        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "productCell")
+        collectionView.register(ProfileProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
         collectionView.register(ProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
         collectionView.backgroundColor = .clear
@@ -176,8 +176,18 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
             cell.setupCell(stats: profileStoreInfo)
-            cell.countRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
-            cell.nameRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
+            cell.onSignal = { [weak self] signal in
+                switch signal {
+                case .stats:
+                    self?.goToReviews()
+                    
+                case .active:
+                    self?.goToReviews()
+                    
+                case .sales:
+                    self?.goToReviews()
+                }
+            }
             return cell
             
         case .productSection:
@@ -188,7 +198,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .myProducts:
             if profileProducts != nil, !profileProducts!.isEmpty {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProfileProductCell
                 cell.setupCell(profileProducts?[indexPath.row])
                 return cell
             } else {
