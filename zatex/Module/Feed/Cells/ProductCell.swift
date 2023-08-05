@@ -69,7 +69,7 @@ class ProductCell: UICollectionViewCell {
         if let cost = post.price {
             costLabel.text = "\(cost)"
         }
-
+        
         if let imageUrl = post.images, let firstUrl = imageUrl.first, let src = firstUrl.src {
             let url = (src.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
             let urlString = URL(string: url)

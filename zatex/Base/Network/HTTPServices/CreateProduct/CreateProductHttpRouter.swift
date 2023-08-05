@@ -21,6 +21,7 @@ extension CreateProductHttpRouter: HttpRouter {
         switch self {
         case .getCategories:
             return "/wp-json/wp/v2/product_cat"
+            
         case .createProduct:
             return "/wp-json/dokan/v1/products"
         }
@@ -30,6 +31,7 @@ extension CreateProductHttpRouter: HttpRouter {
         switch self {
         case .getCategories:
             return .get
+            
         case .createProduct:
             return .post
         }
@@ -41,6 +43,7 @@ extension CreateProductHttpRouter: HttpRouter {
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
+            
         case .createProduct:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
@@ -52,7 +55,10 @@ extension CreateProductHttpRouter: HttpRouter {
     var parameters: Alamofire.Parameters? {
         switch self {
         case .getCategories:
-            return nil
+            return [
+                "per_page": 20
+            ]
+            
         case .createProduct:
             return nil
         }
@@ -62,6 +68,7 @@ extension CreateProductHttpRouter: HttpRouter {
         switch self {
         case .getCategories:
             return nil
+            
         case let .createProduct(product):
             return try JSONEncoder().encode(product)
         }

@@ -22,10 +22,10 @@ extension StubService: ProductAPI {
     }
     
     func fetchCategories(completion: @escaping CategoriesClosure) {
-        let category = [CategoryResult(id: 1, count: nil, name: "assasa", selected: true),
-                        CategoryResult(id: 2, count: nil, name: "gsehgf", selected: false),
-                        CategoryResult(id: 3, count: nil, name: "hdrth", selected: false),
-                        CategoryResult(id: 4, count: nil, name: "vbnhjdrft", selected: false)]
+        let category = [CategoryResult(id: 1, count: nil, name: "assasa", description: "", selected: true),
+                        CategoryResult(id: 2, count: nil, name: "gsehgf", description: "", selected: false),
+                        CategoryResult(id: 3, count: nil, name: "hdrth", description: "", selected: false),
+                        CategoryResult(id: 4, count: nil, name: "vbnhjdrft", description: "", selected: false)]
         
         completion(.success(category))
     }
