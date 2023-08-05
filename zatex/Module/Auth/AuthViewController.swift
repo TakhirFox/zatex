@@ -73,14 +73,46 @@ class AuthViewController: BaseViewController {
         return view
     }()
     
+    let contentLoginView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let blurEffect = UIBlurEffect(style: .dark)
+    let blurredEffectView = UIVisualEffectView()
+    let backAuthView = BackAuthView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupThirdParty()
         setupSubviews()
         setupConstraints()
+        registerKeyboardNotifications()
     }
     
-    func setupSubviews() {
-        view.addSubview(stackView)
+    private func setupThirdParty() {
+        let text = [
+            "Интернет магазин",
+            "Покупка товаров",
+            "Продажа товаров",
+            "Ищите товары",
+            "Открывайте магазин бесплатно",
+            "Никаких подписок",
+            "Продавайте эффективнее",
+            "Товары всегда найдутся",
+            "Товары дешевле"
+        ]
+        
+        backAuthView.setupCell(text: text, width: view.frame.size.width)
+        blurredEffectView.effect = blurEffect
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(backAuthView)
+        view.addSubview(contentLoginView)
+        contentLoginView.addSubview(blurredEffectView)
+        contentLoginView.addSubview(stackView)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(loginButton)
@@ -89,11 +121,24 @@ class AuthViewController: BaseViewController {
         stackViewHorizontal.addArrangedSubview(forgetAccountButton)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
+        backAuthView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        contentLoginView.snp.makeConstraints { make in
+            make.height.equalTo(250)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        blurredEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         stackView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(view).offset(16)
-            make.trailing.equalTo(view).offset(-16)
+            make.edges.equalToSuperview().inset(16)
         }
         
         loginTextField.snp.makeConstraints { make in
@@ -112,7 +157,50 @@ class AuthViewController: BaseViewController {
 
 extension AuthViewController {
     
-    @objc func checkTextFieldAction(_ sender: Any) {
+    private func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(_ notification: NSNotification) {
+        
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            contentLoginView.snp.updateConstraints { make in
+                make.height.equalTo(self.view.frame.height - keyboardHeight)
+            }
+        }
+         
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: NSNotification) {
+        
+        contentLoginView.snp.updateConstraints { make in
+            make.height.equalTo(250)
+        }
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func checkTextFieldAction(_ sender: Any) {
         view.endEditing(true)
         
         loginTextField.layer.borderColor = Palette.BorderField.primary.cgColor
@@ -124,11 +212,11 @@ extension AuthViewController {
         )
     }
     
-    @objc func goToSignUpAction() {
+    @objc private func goToSignUpAction() {
         presenter?.goToSignUp()
     }
     
-    @objc func goToResetPasswordAction() {
+    @objc private func goToResetPasswordAction() {
         presenter?.goToResetPassword()
     }
 }

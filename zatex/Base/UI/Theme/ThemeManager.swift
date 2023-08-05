@@ -14,6 +14,8 @@ public enum Color {
     
     static public let primaryTextLight = UIColor(hex: 0x363636)
     static public let secondaryTextLight = UIColor(hex: 0x98A8C2)
+    static public let tertiaryTextLight = UIColor(hex: 0xB9B2FF)
+    static public let fourTextLight = UIColor(hex: 0x7670B0)
     
     static public let primaryTextAccentLight = UIColor(hex: 0x38B3F7)
     static public let secondaryTextAccentLight = UIColor(hex: 0x4EB2E3)
@@ -37,6 +39,8 @@ public enum Color {
     
     static public let primaryTextDark = UIColor(hex: 0xE1E1E1)
     static public let secondaryTextDark = UIColor(hex: 0x98A8C2)
+    static public let tertiaryTextDark = UIColor(hex: 0xB9B2FF)
+    static public let fourTextDark = UIColor(hex: 0x7670B0)
     
     static public let primaryTextAccentDark = UIColor(hex: 0xCEF1FF)
     static public let secondaryTextAccentDark = UIColor(hex: 0xA0E0FF)
@@ -126,6 +130,24 @@ public enum Palette {
                 return Color.secondaryTextLight
             case .dark:
                 return Color.secondaryTextDark
+            }
+        }
+        
+        public static var tertiary: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.tertiaryTextLight
+            case .dark:
+                return Color.tertiaryTextDark
+            }
+        }
+        
+        public static var four: UIColor {
+            switch currentTheme {
+            case .light:
+                return Color.fourTextLight
+            case .dark:
+                return Color.fourTextDark
             }
         }
     }

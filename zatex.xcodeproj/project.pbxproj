@@ -103,6 +103,7 @@
 		AD46D79929C89F87002A6E1F /* ReviewsListResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */; };
 		AD46D79B29C8A095002A6E1F /* ReviewsHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79A29C8A095002A6E1F /* ReviewsHttpService.swift */; };
 		AD46D79D29C8A0AA002A6E1F /* ReviewsHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD46D79C29C8A0AA002A6E1F /* ReviewsHttpRouter.swift */; };
+		AD48BE3B2A7D2B7800A4C927 /* BackAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD48BE3A2A7D2B7800A4C927 /* BackAuthView.swift */; };
 		AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87628ED577200D159CA /* AppDelegate.swift */; };
 		AD49A87928ED577200D159CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87828ED577200D159CA /* SceneDelegate.swift */; };
 		AD49A88128ED577200D159CA /* zatex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD49A87F28ED577200D159CA /* zatex.xcdatamodeld */; };
@@ -130,6 +131,7 @@
 		AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631A2A6BC21000C2B60F /* NetworkError.swift */; };
 		AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */; };
 		AD51631F2A6C374C00C2B60F /* BaseToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD51631E2A6C374C00C2B60F /* BaseToastView.swift */; };
+		AD56EC802A7E149C003BD915 /* ProfileLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD56EC7F2A7E149C003BD915 /* ProfileLoginView.swift */; };
 		AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */; };
 		AD6739582A7BD3D100AB4DB1 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6739572A7BD3D100AB4DB1 /* BaseNavigationController.swift */; };
 		AD81EE5F29C2273D005D49CC /* StoreInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */; };
@@ -383,6 +385,7 @@
 		AD46D79829C89F87002A6E1F /* ReviewsListResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsListResult.swift; sourceTree = "<group>"; };
 		AD46D79A29C8A095002A6E1F /* ReviewsHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHttpService.swift; sourceTree = "<group>"; };
 		AD46D79C29C8A0AA002A6E1F /* ReviewsHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHttpRouter.swift; sourceTree = "<group>"; };
+		AD48BE3A2A7D2B7800A4C927 /* BackAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackAuthView.swift; sourceTree = "<group>"; };
 		AD49A87328ED577200D159CA /* zatex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zatex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD49A87628ED577200D159CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD49A87828ED577200D159CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +415,7 @@
 		AD51631A2A6BC21000C2B60F /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		AD51631C2A6BD85900C2B60F /* BaseErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseErrorView.swift; sourceTree = "<group>"; };
 		AD51631E2A6C374C00C2B60F /* BaseToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseToastView.swift; sourceTree = "<group>"; };
+		AD56EC7F2A7E149C003BD915 /* ProfileLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoginView.swift; sourceTree = "<group>"; };
 		AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatsCell.swift; sourceTree = "<group>"; };
 		AD6739572A7BD3D100AB4DB1 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		AD81EE5E29C2273D005D49CC /* StoreInfoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoResult.swift; sourceTree = "<group>"; };
@@ -895,6 +899,14 @@
 			path = Reviews;
 			sourceTree = "<group>";
 		};
+		AD48BE392A7D2B5E00A4C927 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD48BE3A2A7D2B7800A4C927 /* BackAuthView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		AD49A86A28ED577200D159CA = {
 			isa = PBXGroup;
 			children = (
@@ -966,6 +978,7 @@
 			children = (
 				ADC4D1EF291AAFB200B9472E /* ProfileHeaderView.swift */,
 				ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */,
+				AD56EC7F2A7E149C003BD915 /* ProfileLoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1519,6 +1532,7 @@
 		BD1AF720F08B824C0A13CE3A /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				AD48BE392A7D2B5E00A4C927 /* Views */,
 				2D7E673BE585FC86B964EC1A /* AuthViewController.swift */,
 				0FEDCDC847093BA91F819D3D /* AuthPresenter.swift */,
 				5B5C7D859512D2BA0CCF59FB /* AuthInteractor.swift */,
@@ -1931,6 +1945,7 @@
 				ADEE238E2A65A89F00569844 /* AdditionalInfoHttpRouter.swift in Sources */,
 				AD46D78F29C89A01002A6E1F /* ReviewsHeaderCell.swift in Sources */,
 				AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */,
+				AD48BE3B2A7D2B7800A4C927 /* BackAuthView.swift in Sources */,
 				E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */,
 				ADCF768E29B89B98007FF164 /* AuthHttpRouter.swift in Sources */,
 				ADBC13152A59E40F009B18EF /* SuccessUpdateProfileView.swift in Sources */,
@@ -1968,6 +1983,7 @@
 				CBCB612BAD393A8F01E1B3E4 /* MapPresenter.swift in Sources */,
 				AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */,
 				6D6A5D5CEA9626A8B431B5EE /* MapInteractor.swift in Sources */,
+				AD56EC802A7E149C003BD915 /* ProfileLoginView.swift in Sources */,
 				ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */,
 				FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */,
 				AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */,

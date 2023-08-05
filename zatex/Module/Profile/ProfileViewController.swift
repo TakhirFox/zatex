@@ -32,14 +32,7 @@ class ProfileViewController: BaseViewController {
     var collectionView: UICollectionView!
     let headerView = ProfileHeaderView()
     let authorView = ProfileAuthorView()
-    
-    let loginButton: UIButton = {
-        let view = UIButton()
-        view.setTitle("Войти", for: .normal)
-        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 15)
-        view.addTarget(nil, action: #selector(showLoginView), for: .touchUpInside)
-        return view
-    }()
+    let loginView = ProfileLoginView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -56,25 +49,26 @@ class ProfileViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         loadProfileView()
+        setupLoginView()
     }
     
-    func loadProfileView() {
+    private func loadProfileView() {
         if sessionProvider != nil,
            sessionProvider!.isAuthorized
         {
             navigationController?.isNavigationBarHidden = false
             collectionView.isHidden = false
             headerView.isHidden = false
-            loginButton.isHidden = true
+            loginView.isHidden = true
         } else {
             navigationController?.isNavigationBarHidden = true
             collectionView.isHidden = true
             headerView.isHidden = true
-            loginButton.isHidden = false
+            loginView.isHidden = false
         }
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         let collectionFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
         collectionView.delegate = self
@@ -86,19 +80,16 @@ class ProfileViewController: BaseViewController {
         collectionView.backgroundColor = .clear
     }
     
-    func setupSubviews() {
-        view.addSubview(loginButton)
+    private func setupSubviews() {
+        view.addSubview(loginView)
         view.addSubview(collectionView)
         view.addSubview(headerView)
         headerView.addSubview(authorView)
     }
     
-    func setupConstraints() {
-        loginButton.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(100)
+    private func setupConstraints() {
+        loginView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 0, right: 16)
@@ -110,7 +101,7 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    func setupNavigationItem() {
+    private func setupNavigationItem() {
         let settingsButton = UIButton()
         settingsButton.setImage(UIImage(named: "SettingsIcon"), for: .normal)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +109,7 @@ class ProfileViewController: BaseViewController {
         settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
     }
     
-    func hideNavigationView() {
+    private func hideNavigationView() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = .clear
@@ -142,6 +133,13 @@ class ProfileViewController: BaseViewController {
             loaderView.isHidden = false
         } else {
             loaderView.isHidden = true
+        }
+    }
+    
+    private func setupLoginView() {
+        loginView.setupCell()
+        loginView.actionHandler = { [weak self] in
+            self?.showLoginView()
         }
     }
 }
