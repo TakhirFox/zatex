@@ -228,7 +228,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return .init(
                 width: isEmpty ? view.frame.width : view.frame.width / 2 - 24,
-                height: 200
+                height: 230
             )
             
         case .none:

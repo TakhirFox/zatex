@@ -85,6 +85,7 @@
 		AD03800F2A26612000DB0F60 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD03800E2A26612000DB0F60 /* AuthRequest.swift */; };
 		AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380102A26614D00DB0F60 /* MessageRequest.swift */; };
 		AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380122A26617100DB0F60 /* SignUpRequest.swift */; };
+		AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
@@ -367,6 +368,7 @@
 		AD03800E2A26612000DB0F60 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		AD0380102A26614D00DB0F60 /* MessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
 		AD0380122A26617100DB0F60 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
+		AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
@@ -1253,6 +1255,7 @@
 				AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */,
 				AD60851A291D2201008A4A5D /* ProfileStatsCell.swift */,
 				ADCECFE129C7713B009DDFA4 /* ProfileSectionCell.swift */,
+				AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1959,6 +1962,7 @@
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
 				AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */,
 				AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */,
+				AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */,
 				E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */,
 				E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */,
 				AD0380082A26564400DB0F60 /* ResetPasswordAPI.swift in Sources */,
