@@ -8,19 +8,25 @@
 import UIKit
 
 class CategoryFeedCell: UICollectionViewCell {
-
+    
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
     private let titleLabel: UILabel = {
         let view = UILabel()
         view.textAlignment = .center
-        view.numberOfLines = 1
-        view.font = UIFont(name: "Montserrat-Medium", size: 14)
+        view.numberOfLines = 0
+        view.font = UIFont(name: "Montserrat-Medium", size: 12)
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.cornerRadius = 8
         
         configureSubviews()
         configureConstraints()
@@ -41,7 +47,12 @@ class CategoryFeedCell: UICollectionViewCell {
             self.backgroundColor = Palette.AccentText.primary
             titleLabel.textColor = Palette.Background.tertiary
         }
-
+        
+        if let imageUrl = category.description {
+            let url = (imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let urlString = URL(string: url)
+            imageView.kf.setImage(with: urlString)
+        }
     }
     
     private func updateAppearence() {
@@ -50,14 +61,20 @@ class CategoryFeedCell: UICollectionViewCell {
     }
     
     private func configureSubviews() {
+        addSubview(imageView)
         addSubview(titleLabel)
     }
     
     private func configureConstraints() {
-        titleLabel.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+            
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(8)
+            make.height.equalTo(35)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }

@@ -61,7 +61,12 @@ extension ProductHttpRouter: HttpRouter {
                 "consumer_secret": "cs_188789d20497ddad20fe6598be304aa2efcaeec0"
             ]
             
-        case .getCategories, .getBanners:
+        case .getCategories:
+            return [
+                "per_page": 20
+            ]
+            
+        case .getBanners:
             return nil
             
         case .getProductsByCategory(let id):

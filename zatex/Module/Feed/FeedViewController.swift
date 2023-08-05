@@ -218,7 +218,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(150), heightDimension: .absolute(32))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .absolute(130))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
