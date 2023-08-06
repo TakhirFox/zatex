@@ -186,6 +186,7 @@
 		ADC3B4202906EEDD00A7AE66 /* BannerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC3B41F2906EEDD00A7AE66 /* BannerResult.swift */; };
 		ADC4D1F0291AAFB200B9472E /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4D1EF291AAFB200B9472E /* ProfileHeaderView.swift */; };
 		ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */; };
+		ADC6428B2A7ED3C000789B24 /* SetSalesProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC6428A2A7ED3C000789B24 /* SetSalesProductRequest.swift */; };
 		ADC97C6729163F3300A7FC78 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC97C6629163F3300A7FC78 /* SettingsCell.swift */; };
 		ADCA881F2918441C00885EEF /* FieldEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCA881E2918441C00885EEF /* FieldEditCell.swift */; };
 		ADCC3F5A29BCF41000D7E022 /* SendMessageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */; };
@@ -471,6 +472,7 @@
 		ADC3B41F2906EEDD00A7AE66 /* BannerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerResult.swift; sourceTree = "<group>"; };
 		ADC4D1EF291AAFB200B9472E /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		ADC4D1F1291ABCA500B9472E /* ProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAuthorView.swift; sourceTree = "<group>"; };
+		ADC6428A2A7ED3C000789B24 /* SetSalesProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSalesProductRequest.swift; sourceTree = "<group>"; };
 		ADC97C6629163F3300A7FC78 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		ADCA881E2918441C00885EEF /* FieldEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldEditCell.swift; sourceTree = "<group>"; };
 		ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageResult.swift; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 				ADD029A029E11D5E002E5608 /* ProductResponse.swift */,
 				AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */,
 				ADEE238F2A65A91400569844 /* AdditionalInfoRequest.swift */,
+				ADC6428A2A7ED3C000789B24 /* SetSalesProductRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1796,6 +1799,7 @@
 				AD86EAD829043A7B001CB847 /* ProductService.swift in Sources */,
 				AD9B261B28FDAB0000C15139 /* CategoryFeedCell.swift in Sources */,
 				ADA28B8529C6187E006A2EA9 /* ProfileHttpRouter.swift in Sources */,
+				ADC6428B2A7ED3C000789B24 /* SetSalesProductRequest.swift in Sources */,
 				AD4A987C29198ED600709745 /* DescriptionProductCell.swift in Sources */,
 				ADF1C4C429DC851100532EDD /* MapHttpRouter.swift in Sources */,
 				AD9B260528FD477700C15139 /* BasePresenter.swift in Sources */,

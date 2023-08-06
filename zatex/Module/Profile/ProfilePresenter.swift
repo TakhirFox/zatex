@@ -9,7 +9,8 @@
 protocol ProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
     func getStoreProduct(authorId: Int, isSales: Bool)
-
+    func setSalesProfuct(productId: Int, isSales: Bool)
+    
     func goToSettings()
     func goToAuthView()
     func goToDetail(id: Int)
@@ -34,9 +35,22 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         interactor?.getStoreInfo(authorId: authorId)
     }
     
-    func getStoreProduct(authorId: Int, isSales: Bool) {
+    func getStoreProduct(
+        authorId: Int,
+        isSales: Bool
+    ) {
         interactor?.getStoreProduct(
             authorId: authorId,
+            isSales: isSales
+        )
+    }
+    
+    func setSalesProfuct(
+        productId: Int,
+        isSales: Bool
+    ) {
+        interactor?.setSalesProfuct(
+            productId: productId,
             isSales: isSales
         )
     }

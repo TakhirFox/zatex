@@ -55,4 +55,32 @@ extension ProfileService: ProfileAPI {
             completion(.failure(.secondError(name: "Ошибка: 45678886764568: Ошибка получения товаров в профиле")))
         }
     }
+    
+    func setSalesProfuct(
+        productId: Int,
+        isSales: Bool,
+        completion: @escaping ProfileSalesProductClosure
+    ) {
+        do {
+            try ProfileHttpRouter
+                .updateSalesProduct(
+                    productId: productId,
+                    isSales: isSales
+                )
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: updateSalesProduct \(description)")
+                }
+                .responseDecodable(of: ProductResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(.success(data))
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 3458388345890 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 980348589: Ошибка установка статуса товара в профиле")))
+        }
+    }
 }
