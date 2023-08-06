@@ -12,7 +12,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
 
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult])
+    func setStoreProduct(data: [ProductResult], isSales: Bool)
     func updateView()
     func showError(data: String)
 }
@@ -74,7 +74,7 @@ class ProfileViewController: BaseViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ProfileStatsCell.self, forCellWithReuseIdentifier: "statsCell")
-        collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "productCell")
+        collectionView.register(ProfileProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
         collectionView.register(ProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
         collectionView.backgroundColor = .clear
@@ -119,7 +119,7 @@ class ProfileViewController: BaseViewController {
         if let userId = sessionProvider?.getSession()?.userId,
            let id = Int(userId) {
             presenter?.getStoreInfo(authorId: id)
-            presenter?.getStoreProduct(authorId: id)
+            presenter?.getStoreProduct(authorId: id, isSales: false)
         }
         
         collectionView.isHidden = true
@@ -133,6 +133,16 @@ class ProfileViewController: BaseViewController {
             loaderView.isHidden = false
         } else {
             loaderView.isHidden = true
+        }
+    }
+    
+    private func getFilteredRequests(isSales: Bool) {
+        if let userId = sessionProvider?.getSession()?.userId,
+           let id = Int(userId) {
+            presenter?.getStoreProduct(
+                authorId: id,
+                isSales: isSales
+            )
         }
     }
     
@@ -169,15 +179,27 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let rows = RowKind(rawValue: indexPath.section)
         switch rows {
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
             cell.setupCell(stats: profileStoreInfo)
-            cell.countRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
-            cell.nameRatingLabel.addTarget(self, action: #selector(goToReviews), for: .touchUpInside)
+            cell.onSignal = { [weak self] signal in
+                switch signal {
+                case .stats:
+                    self?.goToReviews()
+                    
+                case .active:
+                    self?.getFilteredRequests(isSales: false)
+                    
+                case .sales:
+                    self?.getFilteredRequests(isSales: true)
+                }
+            }
             return cell
             
         case .productSection:
@@ -188,9 +210,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case .myProducts:
             if profileProducts != nil, !profileProducts!.isEmpty {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProfileProductCell
                 cell.setupCell(profileProducts?[indexPath.row])
+                cell.onSignal = { [weak self] signal in
+                    self?.changeStateProduct(
+                        signal: signal,
+                        index: indexPath.row)
+                }
                 return cell
+                
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyCell", for: indexPath) as! ProfileEmptyCell
                 cell.setupCell(text: "Тут пока ничего нет")
@@ -218,7 +246,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             return .init(
                 width: isEmpty ? view.frame.width : view.frame.width / 2 - 24,
-                height: 200
+                height: 230
             )
             
         case .none:
@@ -270,6 +298,32 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 extension ProfileViewController {
     
+    private func changeStateProduct(
+        signal: ProfileProductCell.Signal,
+        index: Int
+    ) {
+        guard let productId = self.profileProducts?[index].id else { return }
+        
+        DispatchQueue.main.async { [weak self] in
+            switch signal {
+            case .toActive:
+                self?.presenter?.setSalesProfuct(
+                    productId: productId,
+                    isSales: false
+                )
+                
+            case .toSales:
+                self?.presenter?.setSalesProfuct(
+                    productId: productId,
+                    isSales: true
+                )
+            }
+            
+            self?.profileProducts?.remove(at: index)
+            self?.collectionView.reloadSections(IndexSet(integer: 2))
+        }
+    }
+    
     @objc func goToSettings() {
         presenter?.goToSettings()
     }
@@ -299,9 +353,9 @@ extension ProfileViewController: ProfileViewControllerProtocol {
         }
     }
     
-    func setStoreProduct(data: [ProductResult]) {
+    func setStoreProduct(data: [ProductResult], isSales: Bool) {
         DispatchQueue.main.async { [weak self] in
-            self?.profileProducts = data
+            self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
             self?.collectionView.reloadData()
         }

@@ -9,6 +9,14 @@ import UIKit
 
 class ProfileStatsCell: UICollectionViewCell {
     
+    enum Signal {
+        case stats
+        case active
+        case sales
+    }
+    
+    var onSignal: (Signal) -> Void = { _ in }
+    
     private let staticView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
@@ -50,44 +58,48 @@ class ProfileStatsCell: UICollectionViewCell {
     public let countRatingLabel: UIButton = {
         let view = UIButton()
         view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 0
         return view
     }()
-
+    
     public let nameRatingLabel: UIButton = {
         let view = UIButton()
         view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 12)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 0
         return view
     }()
     
-    private let countActiveLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+    private let countActiveLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 1
         return view
     }()
 
-    private let nameActiveLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+    private let nameActiveLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 12)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 1
         return view
     }()
     
-    private let countSalesLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+    private let countSalesLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 2
         return view
     }()
 
-    private let nameSalesLabel: UILabel = {
-        let view = UILabel()
-        view.numberOfLines = 1
-        view.textAlignment = .center
-        view.font = UIFont(name: "Montserrat-Medium", size: 12)
+    private let nameSalesLabel: UIButton = {
+        let view = UIButton()
+        view.titleLabel?.font = UIFont(name: "Montserrat-SemiBold", size: 12)
+        view.addTarget(self, action: #selector(openView), for: .touchUpInside)
+        view.tag = 2
         return view
     }()
     
@@ -116,11 +128,11 @@ class ProfileStatsCell: UICollectionViewCell {
         countRatingLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
         nameRatingLabel.setTitle("Отзывов", for: .normal)
         
-        countActiveLabel.text = "16"
-        nameActiveLabel.text = "Активных"
+        countActiveLabel.setTitle("", for: .normal)
+        nameActiveLabel.setTitle("Активных", for: .normal)
         
-        countSalesLabel.text = "96"
-        nameSalesLabel.text = "Продано"
+        countSalesLabel.setTitle("", for: .normal)
+        nameSalesLabel.setTitle("Продано", for: .normal)
         
         sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: stats?.registered))"
     }
@@ -133,11 +145,11 @@ class ProfileStatsCell: UICollectionViewCell {
         countRatingLabel.setTitleColor(Palette.Text.primary, for: .normal)
         nameRatingLabel.setTitleColor(Palette.AccentText.primary, for: .normal)
         
-        countActiveLabel.textColor = Palette.Text.primary
-        nameActiveLabel.textColor = Palette.AccentText.primary
+        countActiveLabel.setTitleColor(Palette.Text.primary, for: .normal)
+        nameActiveLabel.setTitleColor(Palette.AccentText.primary, for: .normal)
         
-        countSalesLabel.textColor = Palette.Text.primary
-        nameSalesLabel.textColor = Palette.AccentText.primary
+        countSalesLabel.setTitleColor(Palette.Text.primary, for: .normal)
+        nameSalesLabel.setTitleColor(Palette.AccentText.primary, for: .normal)
     }
     
     private func configureSubviews() {
@@ -221,6 +233,22 @@ class ProfileStatsCell: UICollectionViewCell {
         
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: newDate)
+    }
+    
+    @objc private func openView(sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            onSignal(.stats)
+            
+        case 1:
+            onSignal(.active)
+            
+        case 2:
+            onSignal(.sales)
+            
+        default:
+            break
+        }
     }
     
     required init?(coder: NSCoder) {

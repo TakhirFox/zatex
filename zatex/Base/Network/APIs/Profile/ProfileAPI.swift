@@ -9,6 +9,7 @@ import Foundation
 
 typealias ProfileStoreInfoClosure = (Result<StoreInfoResult, NetworkError>) -> (Void)
 typealias ProfileStoreProductClosure = (Result<[ProductResult], NetworkError>) -> (Void)
+typealias ProfileSalesProductClosure = (Result<ProductResult, NetworkError>) -> (Void)
 
 protocol ProfileAPI {
     
@@ -20,5 +21,11 @@ protocol ProfileAPI {
     func fetchStoreProducts(
         authorId: Int,
         completion: @escaping ProfileStoreProductClosure
+    ) -> (Void)
+    
+    func setSalesProfuct(
+        productId: Int,
+        isSales: Bool,
+        completion: @escaping ProfileSalesProductClosure
     ) -> (Void)
 }
