@@ -128,10 +128,10 @@ class ProfileStatsCell: UICollectionViewCell {
         countRatingLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
         nameRatingLabel.setTitle("Отзывов", for: .normal)
         
-        countActiveLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
+        countActiveLabel.setTitle("", for: .normal)
         nameActiveLabel.setTitle("Активных", for: .normal)
         
-        countSalesLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
+        countSalesLabel.setTitle("", for: .normal)
         nameSalesLabel.setTitle("Продано", for: .normal)
         
         sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: stats?.registered))"
