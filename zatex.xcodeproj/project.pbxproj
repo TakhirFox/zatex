@@ -92,6 +92,12 @@
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
+		AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */; };
+		AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */; };
+		AD2F39D62A894687005D13B3 /* UserProfileEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D52A894687005D13B3 /* UserProfileEmptyCell.swift */; };
+		AD2F39D82A8946C0005D13B3 /* UserProfileStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D72A8946C0005D13B3 /* UserProfileStatsCell.swift */; };
+		AD2F39DA2A8946E0005D13B3 /* UserProfileSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D92A8946E0005D13B3 /* UserProfileSectionCell.swift */; };
+		AD2F39DC2A8946F8005D13B3 /* UserProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39DB2A8946F8005D13B3 /* UserProfileProductCell.swift */; };
 		AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */; };
 		AD3AF69729E13AC100ABDC1A /* ImagesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */; };
 		AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */; };
@@ -382,6 +388,12 @@
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
+		AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
+		AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAuthorView.swift; sourceTree = "<group>"; };
+		AD2F39D52A894687005D13B3 /* UserProfileEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileEmptyCell.swift; sourceTree = "<group>"; };
+		AD2F39D72A8946C0005D13B3 /* UserProfileStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStatsCell.swift; sourceTree = "<group>"; };
+		AD2F39D92A8946E0005D13B3 /* UserProfileSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSectionCell.swift; sourceTree = "<group>"; };
+		AD2F39DB2A8946F8005D13B3 /* UserProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessProductView.swift; sourceTree = "<group>"; };
 		AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpService.swift; sourceTree = "<group>"; };
 		AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpRouter.swift; sourceTree = "<group>"; };
@@ -639,7 +651,7 @@
 			isa = PBXGroup;
 			children = (
 				AD5163142A66D5EE00C2B60F /* Views */,
-				ADC4D1EE291AAFA100B9472E /* Cell */,
+				ADC4D1EE291AAFA100B9472E /* Cells */,
 				404257A0E36E5DF048D5603F /* ProfileViewController.swift */,
 				796BC2A611D47A581276F696 /* ProfilePresenter.swift */,
 				A04B881456910C43F8D86E63 /* ProfileInteractor.swift */,
@@ -734,6 +746,8 @@
 		9BD4F275BADE6BCA1102635D /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				AD2F39CF2A894604005D13B3 /* Views */,
+				AD2F39D02A894609005D13B3 /* Cells */,
 				2C3BEFE44A3634A83FEF85B9 /* UserProfileViewController.swift */,
 				F3ED3F9F3CABAB0711D65644 /* UserProfilePresenter.swift */,
 				EE8EF4EBAF512566E4417547 /* UserProfileInteractor.swift */,
@@ -873,6 +887,26 @@
 				AD49B0762A72E14000DFD91B /* AddressResult.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		AD2F39CF2A894604005D13B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */,
+				AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD2F39D02A894609005D13B3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				AD2F39D52A894687005D13B3 /* UserProfileEmptyCell.swift */,
+				AD2F39D72A8946C0005D13B3 /* UserProfileStatsCell.swift */,
+				AD2F39D92A8946E0005D13B3 /* UserProfileSectionCell.swift */,
+				AD2F39DB2A8946F8005D13B3 /* UserProfileProductCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		AD2FA11A29F054A500EC75D3 /* Views */ = {
@@ -1278,7 +1312,7 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		ADC4D1EE291AAFA100B9472E /* Cell */ = {
+		ADC4D1EE291AAFA100B9472E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				AD5163152A66D5FA00C2B60F /* ProfileEmptyCell.swift */,
@@ -1286,7 +1320,7 @@
 				ADCECFE129C7713B009DDFA4 /* ProfileSectionCell.swift */,
 				AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		ADC97C6529163EFB00A7FC78 /* Cells */ = {
@@ -1797,6 +1831,7 @@
 				ADCDDE0929BDFAF1001F34D9 /* ProductDetailService.swift in Sources */,
 				AD49A88128ED577200D159CA /* zatex.xcdatamodeld in Sources */,
 				ADF5400329B4C64B00BF8516 /* ChatDetailHttpService.swift in Sources */,
+				AD2F39DC2A8946F8005D13B3 /* UserProfileProductCell.swift in Sources */,
 				AD4A9872291964AA00709745 /* ShopHeaderView.swift in Sources */,
 				AD49A87928ED577200D159CA /* SceneDelegate.swift in Sources */,
 				945EDFF6AFA607CC682B2BC0 /* MainTabBarViewController.swift in Sources */,
@@ -1862,6 +1897,7 @@
 				AD03800A2A26564900DB0F60 /* ResetPasswordService.swift in Sources */,
 				AD4A9876291987EA00709745 /* InfoProductCell.swift in Sources */,
 				ADF1C4C229DC84F400532EDD /* MapHttpService.swift in Sources */,
+				AD2F39DA2A8946E0005D13B3 /* UserProfileSectionCell.swift in Sources */,
 				ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */,
 				AD037FFB2A2644D700DB0F60 /* FieldResetPasswordCell.swift in Sources */,
 				AD037FF82A23DD9D00DB0F60 /* SignUpResult.swift in Sources */,
@@ -1875,6 +1911,7 @@
 				1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */,
 				ADB817D829FC312F00CF09F9 /* ReviewDetailView.swift in Sources */,
 				947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */,
+				AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */,
 				AD46D79129C89A0A002A6E1F /* ReviewsCell.swift in Sources */,
 				ADEE237D2A65847700569844 /* FieldAddInfoCell.swift in Sources */,
 				ADAD60CF29DDDAF300309AC9 /* BaseTextView.swift in Sources */,
@@ -1934,12 +1971,14 @@
 				ADEED4562A752D9600CEF2A8 /* SearchResultView.swift in Sources */,
 				ADEE237F2A65849C00569844 /* AddInfoButtonCell.swift in Sources */,
 				AD4E86692A55C2FF00F002E6 /* ProfileEditHttpRouter.swift in Sources */,
+				AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */,
 				BDAD22F91898ABA1AE960B3C /* CreateProductRouter.swift in Sources */,
 				ADD8DE4E291684A000A3E435 /* SettingsSwitchCell.swift in Sources */,
 				ADD0299F29E083A9002E5608 /* CreateProductButtonCell.swift in Sources */,
 				AD037FE42A225C2000DB0F60 /* ApplicationCoordinator.swift in Sources */,
 				D773758C477D04823E627EA3 /* CreateProductAssembly.swift in Sources */,
 				57A0C4C75D02CB5FCB96B973 /* GeneralSettingsViewController.swift in Sources */,
+				AD2F39D62A894687005D13B3 /* UserProfileEmptyCell.swift in Sources */,
 				AD037FE82A23920D00DB0F60 /* FieldSignUpCell.swift in Sources */,
 				0FCA7DD594C65E0F9D762530 /* GeneralSettingsPresenter.swift in Sources */,
 				AD4E866B2A55C30800F002E6 /* ProfileEditAPI.swift in Sources */,
@@ -1991,6 +2030,7 @@
 				ADE7406F29DF17BB004A667C /* CreateProductHttpRouter.swift in Sources */,
 				346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */,
 				4DAF75BA36D332347469742F /* ChatDetailRouter.swift in Sources */,
+				AD2F39D82A8946C0005D13B3 /* UserProfileStatsCell.swift in Sources */,
 				AD51631B2A6BC21100C2B60F /* NetworkError.swift in Sources */,
 				AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */,
 				AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */,

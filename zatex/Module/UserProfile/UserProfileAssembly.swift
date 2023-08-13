@@ -8,21 +8,25 @@
 
 import UIKit
 
-class UserProfileAssembly: BaseAssemblyProtocol {
+class UserProfileAssembly {
     
-    static func create() -> UIViewController {
+    static func create(userId: Int) -> UIViewController {
         let viewController = UserProfileViewController()
         let presenter = UserProfilePresenter()
         let interactor = UserProfileInteractor()
         let router = UserProfileRouter()
         
+        let networkService = ProfileService.shared
+        
         viewController.presenter = presenter
+        viewController.userId = userId
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         
