@@ -1,13 +1,13 @@
 //
-//  ProfileHeaderView.swift
+//  UserProfileHeaderView.swift
 //  zatex
 //
-//  Created by Zakirov Tahir on 08.11.2022.
+//  Created by Zakirov Tahir on 14.08.2023.
 //
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class UserProfileHeaderView: UIView {
     
     private let backgroundImageView: UIImageView = {
         let view = UIImageView()

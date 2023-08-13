@@ -9,8 +9,8 @@
 import UIKit
 
 class ProfileAssembly {
+    
     static func create(updateTabBarHandler: @escaping (() -> Void)) -> UIViewController {
-        //TODO: Передавать лучше ID, или для других пользователей отдельный экран???
         let viewController = ProfileViewController()
         let presenter = ProfilePresenter()
         let interactor = ProfileInteractor()
@@ -34,5 +34,4 @@ class ProfileAssembly {
         
         return viewController
     }
-    
 }

@@ -12,6 +12,7 @@ protocol DetailRouterProtocol: AnyObject {
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: CoordinareEntity)
     func routeToDetail(id: Int)
+    func routeToProfile(id: Int)
     
     func routeToFullscreen(
         images: [String],
@@ -47,5 +48,10 @@ extension DetailRouter: DetailRouterProtocol {
         let view = FullscreenAssembly.create(images: images, selected: id)
         view.modalPresentationStyle = .fullScreen
         viewController?.present(view, animated: true)
+    }
+    
+    func routeToProfile(id: Int) {
+        let view = UserProfileAssembly.create(userId: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }
