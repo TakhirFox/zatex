@@ -46,11 +46,13 @@ extension UserSettingsService: UserSettingsAPI {
         let token = UserDefaults.standard.string(forKey: tokenValue)
         let username = UserDefaults.standard.string(forKey: usernameValue)
         
-        return SessionData(userId: userId,
-                           token: token,
-                           userEmail: email,
-                           userNicename: "",
-                           userDisplayName: username)
+        return SessionData(
+            userId: userId,
+            token: token,
+            userEmail: email,
+            userNicename: "",
+            userDisplayName: username
+        )
     }
     
     public func clearSession() {

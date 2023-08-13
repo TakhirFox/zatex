@@ -267,8 +267,8 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
 extension UserProfileViewController {
     
     @objc func goToReviews() {
-        guard let userId = sessionProvider?.getSession()?.userId else { return }
-        presenter?.goToReview(id: userId)
+        guard let userId = userId else { return }
+        presenter?.goToReview(id: String(userId))
     }
 }
 

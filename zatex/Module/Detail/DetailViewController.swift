@@ -127,8 +127,10 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return 8
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         let rows = RowKind(rawValue: section)
         switch rows {
         case .images:
@@ -170,8 +172,10 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let rows = RowKind(rawValue: indexPath.section)
         switch rows {
         case .images:
@@ -229,9 +233,11 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let rows = RowKind(rawValue: indexPath.section)
         switch rows {
         case .images:
@@ -269,29 +275,40 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 10
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         let rows = RowKind(rawValue: indexPath.section)
         switch rows {
         case .images:
             break
             
         case .productInfo,
-                .descriptions,
-                .author,
-                .contact,
+                .descriptions:
+            break
+            
+        case .author:
+            guard let userId = storeInfo?.id else { return }
+            presenter?.goToProfile(id: userId)
+            
+        case .contact,
                 .review:
             break
             
@@ -318,6 +335,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         headerView.backView.snp.updateConstraints { make in
             make.leading.equalToSuperview().inset(fromLeadingToCenterInfo)
         }
+        
+        headerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToProfile)))
     }
 }
 
@@ -356,6 +375,11 @@ extension DetailViewController {
             content: reviewContent,
             rating: reviewDetailView.selectedRating
         )
+    }
+    
+    @objc private func goToProfile() {
+        guard let userId = storeInfo?.id else { return }
+        presenter?.goToProfile(id: userId)
     }
 }
 

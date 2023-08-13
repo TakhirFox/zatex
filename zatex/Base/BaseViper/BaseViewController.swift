@@ -96,8 +96,11 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     }
     
     private func hideKeyboardWhenTapped() {
-        let tap = UITapGestureRecognizer(target: view,
-                                         action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(
+            target: view,
+            action: #selector(UIView.endEditing)
+        )
+        
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }

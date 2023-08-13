@@ -36,6 +36,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: [CoordinatesResult])
     func goToDetail(id: Int)
+    func goToProfile(id: Int)
     
     func goToFullscreen(
         images: [ProductResult.Image]?,
@@ -167,6 +168,10 @@ extension DetailPresenter: DetailPresenterProtocol {
         guard let images = images?.map ({ $0.src! }) else { return }
         
         router?.routeToFullscreen(images: images, id: selected)
+    }
+    
+    func goToProfile(id: Int) {
+        router?.routeToProfile(id: id)
     }
     
     // MARK: To View
