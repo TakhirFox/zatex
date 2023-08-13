@@ -14,6 +14,7 @@
 		0DD004B09178693BF4853792 /* AdditionalInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A5D523289EE7DA3DCFDF75 /* AdditionalInfoInteractor.swift */; };
 		0FCA7DD594C65E0F9D762530 /* GeneralSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3988B6A343C452A77B06D65B /* GeneralSettingsPresenter.swift */; };
 		11326842BA7647B02B28A0A4 /* MapSetterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8255719F1FEDEEFC33F66B07 /* MapSetterPresenter.swift */; };
+		1297CF511431CA49AC4D413A /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3BEFE44A3634A83FEF85B9 /* UserProfileViewController.swift */; };
 		15308D3FA9F3DD384B8A9475 /* ChatListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9C40D55EA8266F52A79BD9 /* ChatListPresenter.swift */; };
 		1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1EB836D5BD8A38DB52C9AA /* ProfileRouter.swift */; };
 		17BB80572696066FE0C34244 /* FeedAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B7C4678A8612CED92F7A4B /* FeedAssembly.swift */; };
@@ -25,6 +26,7 @@
 		2AE2EECA8D14BB79E3D6DB47 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F408209F845D51605514B35 /* SearchViewController.swift */; };
 		2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */; };
 		346BB55359676CE1704403D0 /* ChatDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACFB8A6565B9B313516A0E9 /* ChatDetailInteractor.swift */; };
+		36E30386C34975CABC2407B9 /* UserProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2E8C1839B41B341F0C963 /* UserProfileRouter.swift */; };
 		4149DFE8F205CB1F51E8D8F0 /* MainTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7BEA59CB62571178F0A48 /* MainTabBarPresenter.swift */; };
 		466D50C96200B7E5284A3D1B /* DetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4443D6D6E295938F34939B /* DetailAssembly.swift */; };
 		477D309F6770F4F673E01BBD /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */; };
@@ -62,6 +64,7 @@
 		9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6C2C536DA7AD93A16B4D31 /* ProfileEditRouter.swift */; };
 		9F9C030A49A5383669FDF256 /* ResetPasswordAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAF314A5BF6E971ED7C827B /* ResetPasswordAssembly.swift */; };
 		A255B3A14F895C9642DDF5AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EB64AD11EDF21F6F569BE /* MapViewController.swift */; };
+		AAAFA67694594A32D612D077 /* UserProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22A8DA52743FA12C6D64C56 /* UserProfileAssembly.swift */; };
 		AD01FB5529E5B7A9008609A6 /* ChatInfoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD01FB5429E5B7A9008609A6 /* ChatInfoResult.swift */; };
 		AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FDC2A1BB14600DB0F60 /* FullscreenNavigationView.swift */; };
 		AD037FE02A1E8C8000DB0F60 /* SessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD037FDF2A1E8C8000DB0F60 /* SessionProvider.swift */; };
@@ -267,6 +270,7 @@
 		DA2DB56D8A489813AD1F7EC2 /* ReviewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FB4AD5A3BA2508DF00A51 /* ReviewsRouter.swift */; };
 		DD7199AC98F3113E52E8BE27 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F493626B0AB2EF1401BAEC1E /* SignUpViewController.swift */; };
 		E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */; };
+		E2065694DCB1AE909FB3D036 /* UserProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ED3F9F3CABAB0711D65644 /* UserProfilePresenter.swift */; };
 		E39A182C5FCEFEF8536906DA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E673BE585FC86B964EC1A /* AuthViewController.swift */; };
 		E410A74D6246F92EA3AF1B39 /* ChatListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AFD7A8B6FFAC541D1CF33D /* ChatListRouter.swift */; };
 		E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267E68B2D6250BFD95971D19 /* FullscreenViewController.swift */; };
@@ -274,6 +278,7 @@
 		E5A97D8D9FEC38A11A59382C /* ChatDetailAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF8469AF5B3A39727784EC /* ChatDetailAssembly.swift */; };
 		E5D79D234070D764FDAB11B1 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98100CDB928013572D0417D9 /* DetailPresenter.swift */; };
 		E609E37E24EA71221DE8625D /* AdditionalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8495CE87A0A6D3F8B4340AE7 /* AdditionalInfoViewController.swift */; };
+		EB446047A5DFFB60C1E7AA49 /* UserProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EF4EBAF512566E4417547 /* UserProfileInteractor.swift */; };
 		EE27D557D1AF5782B1FBA92E /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7D29F6F999EB8EB3DCBFBA /* ResetPasswordViewController.swift */; };
 		F202222FECB72391990B0E22 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BE0E284DFB4207C01AD4A /* FeedViewController.swift */; };
 		F39A26959E958DB62B8443A0 /* MapSetterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34815999BF19F7525FF59000 /* MapSetterInteractor.swift */; };
@@ -300,6 +305,7 @@
 		28AD8453C8AE5F42BBF0C81E /* ChatListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		2B0ECACBC2C617FB432B6EC8 /* GeneralSettingsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralSettingsInteractor.swift; sourceTree = "<group>"; };
 		2B4D4C598E1C2F61269E444D /* AdditionalInfoPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdditionalInfoPresenter.swift; sourceTree = "<group>"; };
+		2C3BEFE44A3634A83FEF85B9 /* UserProfileViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		2D7E673BE585FC86B964EC1A /* AuthViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		2DDB83C8946E35C54D706D3F /* FullscreenPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FullscreenPresenter.swift; sourceTree = "<group>"; };
 		33318D84E2AE927877A13A41 /* MapSetterRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapSetterRouter.swift; sourceTree = "<group>"; };
@@ -328,6 +334,7 @@
 		75038A40CB1710234016F4DE /* ProfileEditInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditInteractor.swift; sourceTree = "<group>"; };
 		75775A25CAD6C10BA73E3594 /* ChatListAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListAssembly.swift; sourceTree = "<group>"; };
 		796BC2A611D47A581276F696 /* ProfilePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		7BF2E8C1839B41B341F0C963 /* UserProfileRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserProfileRouter.swift; sourceTree = "<group>"; };
 		8250DC0AE56793344BE26B80 /* ProfileAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		8255719F1FEDEEFC33F66B07 /* MapSetterPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapSetterPresenter.swift; sourceTree = "<group>"; };
 		8495CE87A0A6D3F8B4340AE7 /* AdditionalInfoViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdditionalInfoViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +350,7 @@
 		9B08F583DAB6FB88AC119226 /* AdditionalInfoRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdditionalInfoRouter.swift; sourceTree = "<group>"; };
 		9EF89B21ED4462AC5C183854 /* FeedPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		A04B881456910C43F8D86E63 /* ProfileInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		A22A8DA52743FA12C6D64C56 /* UserProfileAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserProfileAssembly.swift; sourceTree = "<group>"; };
 		A5F06D470A888EA1EFDD00C0 /* ReviewsInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReviewsInteractor.swift; sourceTree = "<group>"; };
 		A7B0DE61386A6798A3563828 /* Pods_zatex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zatex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABE4E97AADD1C7DED3CD4E66 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
@@ -564,9 +572,11 @@
 		EA4443D6D6E295938F34939B /* DetailAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DetailAssembly.swift; sourceTree = "<group>"; };
 		EC08851A2BCC78B2850496E9 /* SearchInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		ECE7BD5CDE5CB4E15CD815CC /* MapPresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		EE8EF4EBAF512566E4417547 /* UserProfileInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserProfileInteractor.swift; sourceTree = "<group>"; };
 		F0A5D523289EE7DA3DCFDF75 /* AdditionalInfoInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdditionalInfoInteractor.swift; sourceTree = "<group>"; };
 		F13BDB76D9D05622CD5BFC62 /* ChatDetailRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailRouter.swift; sourceTree = "<group>"; };
 		F3AFD7A8B6FFAC541D1CF33D /* ChatListRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListRouter.swift; sourceTree = "<group>"; };
+		F3ED3F9F3CABAB0711D65644 /* UserProfilePresenter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserProfilePresenter.swift; sourceTree = "<group>"; };
 		F493626B0AB2EF1401BAEC1E /* SignUpViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F628A3D2F67B73F902C1E2FD /* MapSetterAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapSetterAssembly.swift; sourceTree = "<group>"; };
 		FACF8469AF5B3A39727784EC /* ChatDetailAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatDetailAssembly.swift; sourceTree = "<group>"; };
@@ -719,6 +729,18 @@
 				708FE6EB72523E404301C9BB /* ProfileEditAssembly.swift */,
 			);
 			path = ProfileEdit;
+			sourceTree = "<group>";
+		};
+		9BD4F275BADE6BCA1102635D /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2C3BEFE44A3634A83FEF85B9 /* UserProfileViewController.swift */,
+				F3ED3F9F3CABAB0711D65644 /* UserProfilePresenter.swift */,
+				EE8EF4EBAF512566E4417547 /* UserProfileInteractor.swift */,
+				7BF2E8C1839B41B341F0C963 /* UserProfileRouter.swift */,
+				A22A8DA52743FA12C6D64C56 /* UserProfileAssembly.swift */,
+			);
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		AB165390F8C898527A97D966 /* GeneralSettings */ = {
@@ -1094,6 +1116,7 @@
 				EF24441614FE46792B8A8968 /* MainTabBar */,
 				F3426EEFF50757FDC6E8F923 /* Map */,
 				04EF9DC396FC107A02CAB8FC /* MapSetter */,
+				9BD4F275BADE6BCA1102635D /* UserProfile */,
 				2107F3DC83F5E355101B65C5 /* Profile */,
 				993BFF05F4E16DA98AAECC97 /* ProfileEdit */,
 				6BA4F8B2CAAB98BBDF9451DF /* Reviews */,
@@ -2027,6 +2050,11 @@
 				F39A26959E958DB62B8443A0 /* MapSetterInteractor.swift in Sources */,
 				04B2960D130B95587880DAC3 /* MapSetterRouter.swift in Sources */,
 				7BD79F8985EC75B59FFDBD21 /* MapSetterAssembly.swift in Sources */,
+				1297CF511431CA49AC4D413A /* UserProfileViewController.swift in Sources */,
+				E2065694DCB1AE909FB3D036 /* UserProfilePresenter.swift in Sources */,
+				EB446047A5DFFB60C1E7AA49 /* UserProfileInteractor.swift in Sources */,
+				36E30386C34975CABC2407B9 /* UserProfileRouter.swift in Sources */,
+				AAAFA67694594A32D612D077 /* UserProfileAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
