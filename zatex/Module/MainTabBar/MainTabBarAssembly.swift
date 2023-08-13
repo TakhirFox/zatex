@@ -8,26 +8,26 @@
 
 import UIKit
 
-class MainTabBarAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class MainTabBarAssembly {
+    static func create(with router: MainTabBarRouter) -> UIViewController {
         let presenter = MainTabBarPresenter()
         let interactor = MainTabBarInteractor()
-        let router = MainTabBarRouter()
         
         let sessionProvider = AppSessionProvider()
         
-        let viewController = MainTabBarViewController(presenter: presenter, sessionProvider: sessionProvider)
+        let viewController = MainTabBarViewController(
+            presenter: presenter,
+            sessionProvider: sessionProvider
+        )
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
         
         interactor.presenter = presenter
-//        interactor.networkService = networkService
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

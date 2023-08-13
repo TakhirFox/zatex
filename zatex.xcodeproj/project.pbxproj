@@ -247,6 +247,7 @@
 		ADF5400829B4CBD400BF8516 /* ChatDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400729B4CBD400BF8516 /* ChatDetailAPI.swift */; };
 		ADF5400A29B4CBDA00BF8516 /* ChatDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400929B4CBDA00BF8516 /* ChatDetailService.swift */; };
 		ADF5400C29B4CCB100BF8516 /* ChatMessageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */; };
+		ADFB42A52A84086F004D9794 /* DeepLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFB42A42A84086F004D9794 /* DeepLinkType.swift */; };
 		ADFB4C6829FADEAA00C885EE /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFB4C6729FADEAA00C885EE /* ButtonStyle.swift */; };
 		ADFB4C6A29FAE9D800C885EE /* ReviewProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFB4C6929FAE9D800C885EE /* ReviewProductCell.swift */; };
 		AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34DFAE3CC15707BA8F90C24 /* ChatListInteractor.swift */; };
@@ -533,6 +534,7 @@
 		ADF5400729B4CBD400BF8516 /* ChatDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailAPI.swift; sourceTree = "<group>"; };
 		ADF5400929B4CBDA00BF8516 /* ChatDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailService.swift; sourceTree = "<group>"; };
 		ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageResult.swift; sourceTree = "<group>"; };
+		ADFB42A42A84086F004D9794 /* DeepLinkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkType.swift; sourceTree = "<group>"; };
 		ADFB4C6729FADEAA00C885EE /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		ADFB4C6929FAE9D800C885EE /* ReviewProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProductCell.swift; sourceTree = "<group>"; };
 		AE7D29F6F999EB8EB3DCBFBA /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -1062,6 +1064,7 @@
 				AD49A87628ED577200D159CA /* AppDelegate.swift */,
 				AD49A87828ED577200D159CA /* SceneDelegate.swift */,
 				AD037FE32A225C2000DB0F60 /* ApplicationCoordinator.swift */,
+				ADFB42A42A84086F004D9794 /* DeepLinkType.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1823,6 +1826,7 @@
 				AD86EACE29043061001CB847 /* ProductAPI.swift in Sources */,
 				AD9B261728FDA90600C15139 /* ProductCell.swift in Sources */,
 				AD4A986F2919034200709745 /* BackImageCell.swift in Sources */,
+				ADFB42A52A84086F004D9794 /* DeepLinkType.swift in Sources */,
 				AD9B261F28FDB3BE00C15139 /* BannerFeedCell.swift in Sources */,
 				AD4A986D2918F41900709745 /* BaseRatioButton.swift in Sources */,
 				ADCDDE1129BE3293001F34D9 /* CheckChatResult.swift in Sources */,
