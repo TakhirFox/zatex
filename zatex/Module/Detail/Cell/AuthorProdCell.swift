@@ -82,7 +82,7 @@ class AuthorProdCell: UICollectionViewCell {
     
     private func configureConstraints() {
         backView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(32)
+            make.top.equalToSuperview().offset(6)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(16)
             make.height.equalTo(100)

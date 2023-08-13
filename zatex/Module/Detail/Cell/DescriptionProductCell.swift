@@ -46,7 +46,7 @@ class DescriptionProductCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().offset(6)
+            make.bottom.equalToSuperview().inset(10)
         }
         
     }
