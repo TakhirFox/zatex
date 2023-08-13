@@ -17,6 +17,4 @@ class MainTabBarPresenter: BasePresenter {
     
 }
 
-extension MainTabBarPresenter: MainTabBarPresenterProtocol {
-    
-}
+extension MainTabBarPresenter: MainTabBarPresenterProtocol {}
