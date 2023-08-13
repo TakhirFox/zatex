@@ -93,7 +93,7 @@ class DetailViewController: BaseViewController {
     }
     
     private func setupConstraints() {
-        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 16, right: 16)
+        
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -159,7 +159,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return 1
             
         case .author:
-            return 1
+            guard let isShop = storeInfo?.isShop else { return 0 }
+            return isShop ? 0 : 1
             
         case .similarProduct:
             return similarProducts.count
@@ -389,10 +390,19 @@ extension DetailViewController: DetailViewControllerProtocol {
     
     func setStoreInfo(data: StoreInfoResult) {
         DispatchQueue.main.async { [weak self] in
+            let isPersonShop = !(data.isShop ?? true)
+            
+            self?.collectionView.contentInset = UIEdgeInsets(
+                top: isPersonShop ? 0 : 280,
+                left: 16,
+                bottom: 16,
+                right: 16
+            )
+            
             self?.headerView.setupCell(author: data)
             self?.storeInfo = data
             self?.collectionView.isHidden = false
-            self?.headerView.isHidden = false
+            self?.headerView.isHidden = isPersonShop
             self?.loaderView.isHidden = true
             self?.loaderView.stop()
             self?.collectionView.reloadData()
