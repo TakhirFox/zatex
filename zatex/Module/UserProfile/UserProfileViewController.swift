@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol UserProfileViewControllerProtocol: AnyObject {
     var presenter: UserProfilePresenterProtocol? { get set }
@@ -45,6 +46,7 @@ class UserProfileViewController: BaseViewController {
         setupCollectionView()
         setupSubviews()
         setupConstraints()
+        setupNavigationItem()
         loadProfileView()
     }
     
@@ -92,6 +94,14 @@ class UserProfileViewController: BaseViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = .clear
+    }
+    
+    private func setupNavigationItem() {
+        let settingsButton = UIButton()
+        settingsButton.setImage(UIImage(named: "share-icon-dark"), for: .normal)
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        settingsButton.addTarget(self, action: #selector(sharePageAction), for: .touchUpInside)
     }
     
     private func getRequests() {
@@ -265,6 +275,38 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension UserProfileViewController {
+    
+    @objc func sharePageAction() {
+        guard let userId = profileStoreInfo?.id,
+              let name = profileStoreInfo?.storeName else { return }
+        
+        let text = "Посмотри товары продавца \(name)"
+        let url = URL(string: "zatexmobile://profile?userID=\(userId)")!
+        
+        var shareAll: [Any] = [text, url]
+                               
+        if let imageUrl = profileStoreInfo?.gravatar as? String {
+            let processedImage = (imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let urlString = URL(string: processedImage)!
+            
+            KingfisherManager.shared.retrieveImage(with: urlString) { result in
+                switch result {
+                case .success(let image):
+                    shareAll.append(image.image)
+                    
+                case .failure:
+                    break
+                }
+            }
+        }
+        
+        let activityView = UIActivityViewController(
+            activityItems: shareAll,
+            applicationActivities: nil
+        )
+        
+        present(activityView, animated: true)
+    }
     
     @objc func goToReviews() {
         guard let userId = userId else { return }

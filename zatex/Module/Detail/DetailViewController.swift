@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol DetailViewControllerProtocol: AnyObject {
     var presenter: DetailPresenterProtocol? { get set }
@@ -63,6 +64,14 @@ class DetailViewController: BaseViewController {
         navigationController?.navigationBar.backgroundColor = .clear
     }
     
+    private func setupNavigationItem() {
+        let settingsButton = UIButton()
+        settingsButton.setImage(UIImage(named: "share-icon-dark"), for: .normal)
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        settingsButton.addTarget(self, action: #selector(sharePageAction), for: .touchUpInside)
+    }
+    
     private func setupReviewDetailView() {
         reviewDetailView.isHidden = true
         reviewDetailView.textView.delegate = self
@@ -93,7 +102,6 @@ class DetailViewController: BaseViewController {
     }
     
     private func setupConstraints() {
-        
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -341,15 +349,46 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension DetailViewController: UITextViewDelegate, UITextFieldDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         if textView.text != nil {
             reviewContent = textView.text
         }
     }
-    
 }
 
 extension DetailViewController {
+    
+    @objc private func sharePageAction() {
+        guard let productId = product?.id,
+              let name = product?.name else { return }
+        
+        let text = "Посмотри товар \(name)"
+        let url = URL(string: "zatexmobile://product?productID=\(productId)")!
+        var shareAll: [Any] = [text, url]
+        
+        if let imageUrl = product?.images?.first?.src {
+            let processedImage = (imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let urlString = URL(string: processedImage)!
+            
+            KingfisherManager.shared.retrieveImage(with: urlString) { result in
+                switch result {
+                case .success(let image):
+                    shareAll.append(image.image)
+                    
+                case .failure:
+                    break
+                }
+            }
+        }
+                
+        let activityView = UIActivityViewController(
+            activityItems: shareAll,
+            applicationActivities: nil
+        )
+        
+        present(activityView, animated: true)
+    }
     
     @objc private func goToChat() {
         if let productId = product?.id,
@@ -401,6 +440,7 @@ extension DetailViewController: DetailViewControllerProtocol {
                 )
             }
             
+            self?.setupNavigationItem()
             self?.collectionView.reloadData()
         }
     }
