@@ -25,7 +25,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         self.navigationController?.isNavigationBarHidden = false
         
         setNavigationItems()
-        setLoader()
+        
         setErrorView()
         hideKeyboardWhenTapped()
         
@@ -35,7 +35,10 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             self?.view.backgroundColor = Palette.Background.primary
             self?.navigationController?.navigationBar.barTintColor = Palette.Background.primary
             self?.navigationController?.navigationBar.backgroundColor = Palette.Background.primary
-            self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
+            self?.navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                NSAttributedString.Key.foregroundColor : Palette.Text.primary
+            ]
             
             self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
             self?.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
@@ -45,6 +48,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        setLoader()
         setToastAlertView()
     }
     
@@ -65,7 +69,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         loaderView.loopMode = .loop
         loaderView.animationSpeed = 2
         loaderView.isHidden = true
-        loaderView.play()
+        loaderView.stop()
         
         view.addSubview(loaderView)
         

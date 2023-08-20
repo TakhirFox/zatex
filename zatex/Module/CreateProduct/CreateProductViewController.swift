@@ -286,6 +286,7 @@ extension CreateProductViewController {
             }
         }
         
+        showLoader(enable: true)
         presenter?.checkTextFieldEmpty(data: productPost)
     }
     
@@ -321,6 +322,18 @@ extension CreateProductViewController {
         
         presenter?.goToDetail(id: productId)
     }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
+    }
 }
 
 extension CreateProductViewController: CreateProductViewControllerProtocol {
@@ -344,6 +357,7 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     func showSuccess(product: ProductResult) {
         loadedProduct = product
         successView.isHidden = false
+        showLoader(enable: false)
     }
     
     func showToastCategoryError(text: String) {
@@ -355,30 +369,39 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     func showToastPublishError(text: String) {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.publishProduct(data: self!.productPost)
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
+        
+        showLoader(enable: false)
     }
     
     func showEmptyProductName() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? CreateProductFieldCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        showLoader(enable: false)
     }
     
     func showEmptyDescription() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
         cell.textView.layer.borderColor = Palette.BorderField.wrong.cgColor
+        showLoader(enable: false)
     }
     
     func showEmptyCost() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? CreateProductFieldCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        showLoader(enable: false)
     }
     
     func showEmptyCategory() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateProductFieldCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        showLoader(enable: false)
     }
 }
