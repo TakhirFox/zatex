@@ -74,7 +74,7 @@ class FullscreenNavigationView: UIView {
         
         topVerticalStackView.addArrangedSubview(UIView())
         topVerticalStackView.addArrangedSubview(topHorizontalStackView)
-
+        
         topHorizontalStackView.addArrangedSubview(UIView())
         topHorizontalStackView.addArrangedSubview(countPhotoLabel)
         topHorizontalStackView.addArrangedSubview(closeButton)
