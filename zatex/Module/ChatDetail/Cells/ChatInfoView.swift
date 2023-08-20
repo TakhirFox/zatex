@@ -9,6 +9,13 @@ import UIKit
 
 class ChatInfoView: UIView {
     
+    enum Signal {
+        case onOpenAuthor(id: String)
+        case onOpenProduct(id: String)
+    }
+    
+    var onSignal: (Signal) -> Void = { _ in }
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
@@ -27,6 +34,7 @@ class ChatInfoView: UIView {
         view.layer.cornerRadius = 8
         view.layer.masksToBounds = true
         view.contentMode = .scaleAspectFill
+        view.backgroundColor = .gray
         return view
     }()
     
@@ -42,6 +50,8 @@ class ChatInfoView: UIView {
         return view
     }()
     
+    private var author: ChatInfoResult?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
                 
@@ -55,6 +65,8 @@ class ChatInfoView: UIView {
     }
     
     func setupCell(author: ChatInfoResult?) {
+        self.author = author
+        
         if author?.imageURL != nil {
             let image = (author!.imageURL?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
             let imageUrl = URL(string: image)
@@ -64,6 +76,14 @@ class ChatInfoView: UIView {
         
         authorNameLabel.text = author?.authorUsername ?? ""
         productNameLabel.text = author?.authorProduct ?? ""
+        
+        authorNameLabel.isUserInteractionEnabled = true
+        productNameLabel.isUserInteractionEnabled = true
+        imageProductView.isUserInteractionEnabled = true
+        
+        authorNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openAccountAction)))
+        productNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openAccountAction)))
+        imageProductView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openProductAction)))
     }
     
     private func configureSubviews() {
@@ -92,5 +112,20 @@ class ChatInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ChatInfoView {
+    
+    @objc private func openAccountAction() {
+        if let authorID = author?.authorID {
+            onSignal(.onOpenAuthor(id: authorID))
+        }
+    }
+    
+    @objc private func openProductAction() {
+        if let productID = author?.productID {
+            onSignal(.onOpenProduct(id: productID))
+        }
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ReviewsRouterProtocol: AnyObject {
-    
+    func routeToProfile(id: Int)
 }
 
 class ReviewsRouter: BaseRouter {
@@ -19,4 +19,8 @@ class ReviewsRouter: BaseRouter {
 
 extension ReviewsRouter: ReviewsRouterProtocol {
     
+    func routeToProfile(id: Int) {
+        let view = UserProfileAssembly.create(userId: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }

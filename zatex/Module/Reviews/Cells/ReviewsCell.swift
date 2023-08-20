@@ -10,6 +10,8 @@ import SnapKit
 
 class ReviewsCell: UITableViewCell {
     
+    var actionHandler: ((Int) -> Void)?
+    
     private let containerView: UIView = {
         let view = UIView()
         view.layer.masksToBounds = true
@@ -100,6 +102,10 @@ class ReviewsCell: UITableViewCell {
             let ratingStar = "rat\(roundRating)"
             ratingStarView.image = UIImage(named: ratingStar)
         }
+        
+        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(authorAction)))
+        avatarImageView.tag = reviews?.author?.id ?? 0
     }
     
     private func configureSubviews() {
@@ -194,5 +200,12 @@ class ReviewsCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ReviewsCell {
+    
+    @objc private func authorAction(sender: UIButton) {
+        actionHandler?(sender.tag)
     }
 }
