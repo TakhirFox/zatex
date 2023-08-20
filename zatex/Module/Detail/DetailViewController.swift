@@ -102,7 +102,6 @@ class DetailViewController: BaseViewController {
     }
     
     private func setupConstraints() {
-        
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
@@ -273,7 +272,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             )
             
         case .author:
-            return .init(width: view.frame.width, height: 150)
+            return .init(width: view.frame.width, height: 100)
             
         case .similarProduct:
             return .init(width: view.frame.width / 2 - 24, height: 200)

@@ -15,9 +15,24 @@ class AuthorProdCell: UICollectionViewCell {
         return view
     }()
     
+    private let horizontalStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 10
+        return view
+    }()
+    
+    private let verticalStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fillEqually
+        view.alignment = .leading
+        return view
+    }()
+    
     private let avatarView: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 40
+        view.layer.cornerRadius = 30
         view.layer.masksToBounds = true
         return view
     }()
@@ -25,12 +40,20 @@ class AuthorProdCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 24)
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 17)
+        return view
+    }()
+    
+    private let shopModeLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 13)
         return view
     }()
     
     private let ratingView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
@@ -52,7 +75,7 @@ class AuthorProdCell: UICollectionViewCell {
         avatarView.image = UIImage(named: "no-avatar")
         titleLabel.text = author?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
-        
+        shopModeLabel.text = "Частный магазин"
         let avatar = author?.gravatar as? String
         
         if avatar != nil, !(avatar!.isEmpty) {
@@ -71,13 +94,19 @@ class AuthorProdCell: UICollectionViewCell {
     private func updateAppearence() {
         backView.backgroundColor = Palette.Background.secondary
         titleLabel.textColor = Palette.Text.primary
+        shopModeLabel.textColor = Palette.AccentText.secondary
     }
     
     private func configureSubviews() {
         addSubview(backView)
-        backView.addSubview(avatarView)
-        backView.addSubview(titleLabel)
-        backView.addSubview(ratingView)
+        backView.addSubview(horizontalStackView)
+        
+        horizontalStackView.addArrangedSubview(avatarView)
+        horizontalStackView.addArrangedSubview(verticalStackView)
+        
+        verticalStackView.addArrangedSubview(titleLabel)
+        verticalStackView.addArrangedSubview(shopModeLabel)
+        verticalStackView.addArrangedSubview(ratingView)
     }
     
     private func configureConstraints() {
@@ -85,26 +114,16 @@ class AuthorProdCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(6)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(16)
-            make.height.equalTo(100)
+        }
+        
+        horizontalStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
         }
         
         avatarView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(8)
-            make.height.equalTo(80)
-            make.width.equalTo(80)
+            make.height.equalTo(60)
+            make.width.equalTo(60)
         }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
-        }
-        
-        ratingView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().inset(18)
-            make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
-        }
-        
     }
     
     required init?(coder: NSCoder) {
