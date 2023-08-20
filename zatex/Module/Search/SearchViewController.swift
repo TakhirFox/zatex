@@ -83,6 +83,7 @@ class SearchViewController: BaseViewController {
         collectionView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 

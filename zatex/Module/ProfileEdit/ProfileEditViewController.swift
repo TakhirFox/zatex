@@ -321,6 +321,8 @@ extension ProfileEditViewController {
     
     @objc func updateInformation() {
         presenter?.updateProfileInfo(data: updateInfo)
+        
+        showLoader(enable: true)
     }
     
     @objc func firstNameDidChange(_ textField: UITextField) {
@@ -416,6 +418,20 @@ extension ProfileEditViewController {
         
         self.present(alertController, animated: true)
     }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        buttonView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
+        buttonView.isUserInteractionEnabled = !enable
+    }
 }
 
 extension ProfileEditViewController: ProfileEditViewControllerProtocol {
@@ -434,6 +450,8 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
     
     func successUpdateInfo() {
         successView.isHidden = false
+        
+        showLoader(enable: false)
     }
     
     func showToastGetProfileError(text: String) {
@@ -442,16 +460,24 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
                 let id = Int(userId) {
                 self?.presenter?.getProfileInfo(id: id)
             }
+            
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showToastUpdateProfileError(text: String) {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.updateProfileInfo(data: self?.updateInfo ?? UpdateInfoEntity())
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
+        showLoader(enable: false)
     }
 }
