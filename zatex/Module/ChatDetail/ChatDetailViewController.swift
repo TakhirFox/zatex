@@ -153,25 +153,40 @@ class ChatDetailViewController: BaseViewController {
 
 extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return messages.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         if messages[indexPath.row].senderID == nil {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell",
-                                                     for: indexPath) as! SentChatCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "sentChatCell",
+                for: indexPath
+            ) as! SentChatCell
             cell.setupCell(messages[indexPath.row])
+            
             return cell
         } else if messages[indexPath.row].senderID != userId {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "receivedChatCell",
-                                                     for: indexPath) as! ReceivedChatCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "receivedChatCell",
+                for: indexPath
+            ) as! ReceivedChatCell
             cell.setupCell(messages[indexPath.row])
+            
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "sentChatCell",
-                                                     for: indexPath) as! SentChatCell
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "sentChatCell",
+                for: indexPath
+            ) as! SentChatCell
             cell.setupCell(messages[indexPath.row])
+            
             return cell
         }
     }
@@ -250,7 +265,16 @@ extension ChatDetailViewController {
     }
     
     @objc func sendMessageAction() {
-        messages.append(ChatMessageResult(messageID: nil, senderID: nil, receiverID: nil, content: messageContent, sentAt: nil, isRead: nil))
+        messages.append(
+            ChatMessageResult(
+                messageID: nil,
+                senderID: nil,
+                receiverID: nil,
+                content: messageContent,
+                sentAt: nil,
+                isRead: nil
+            )
+        )
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -282,6 +306,15 @@ extension ChatDetailViewController: ChatDetailViewControllerProtocol {
     func setChatInfo(data: ChatInfoResult) {
         DispatchQueue.main.async { [weak self] in
             self?.chatInfoView.setupCell(author: data)
+            self?.chatInfoView.onSignal = { [weak self] signal in
+                switch signal {
+                case .onOpenAuthor(let id):
+                    self?.presenter?.goToProfile(id: id)
+                    
+                case .onOpenProduct(let id):
+                    self?.presenter?.goToProduct(id: id)
+                }
+            }
         }
     }
     

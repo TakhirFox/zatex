@@ -11,6 +11,9 @@ protocol ChatDetailPresenterProtocol: AnyObject {
     func getChatInfo()
     func sendChatMessage(message: String)
     
+    func goToProfile(id: String)
+    func goToProduct(id: String)
+    
     func setChatMesssages(data: [ChatMessageResult])
     func setChatInfo(data: ChatInfoResult)
     func setError(data: String)
@@ -40,6 +43,13 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
     }
     
     // MARK: To Router
+    func goToProfile(id: String) {
+        router?.routeToProfile(id: id)
+    }
+    
+    func goToProduct(id: String) {
+        router?.routeToProduct(id: id)
+    }
     
     // MARK: To View
     func setChatMesssages(data: [ChatMessageResult]) {

@@ -10,6 +10,8 @@ import UIKit
 
 protocol ChatDetailRouterProtocol: AnyObject {
     
+    func routeToProfile(id: String)
+    func routeToProduct(id: String)
 }
 
 class ChatDetailRouter: BaseRouter {
@@ -19,4 +21,13 @@ class ChatDetailRouter: BaseRouter {
 
 extension ChatDetailRouter: ChatDetailRouterProtocol {
     
+    func routeToProfile(id: String) {
+        let view = UserProfileAssembly.create(userId: Int(id)!)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToProduct(id: String) {
+        let view = DetailAssembly.create(id: Int(id)!)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }
