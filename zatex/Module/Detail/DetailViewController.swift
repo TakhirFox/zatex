@@ -126,6 +126,7 @@ class DetailViewController: BaseViewController {
         headerView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 

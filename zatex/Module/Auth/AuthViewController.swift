@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 protocol AuthViewControllerProtocol: AnyObject {
     var presenter: AuthPresenterProtocol? { get set }
@@ -81,6 +82,7 @@ class AuthViewController: BaseViewController {
     let blurEffect = UIBlurEffect(style: .dark)
     let blurredEffectView = UIVisualEffectView()
     let backAuthView = BackAuthView()
+    private let spinnerView = LottieAnimationView(name: "loader")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +91,7 @@ class AuthViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         registerKeyboardNotifications()
+        settingSpinner()
     }
     
     private func setupThirdParty() {
@@ -108,11 +111,20 @@ class AuthViewController: BaseViewController {
         blurredEffectView.effect = blurEffect
     }
     
+    private func settingSpinner() {
+        spinnerView.contentMode = .scaleAspectFill
+        spinnerView.loopMode = .loop
+        spinnerView.animationSpeed = 2
+        
+        showLoader(enable: false)
+    }
+    
     private func setupSubviews() {
         view.addSubview(backAuthView)
         view.addSubview(contentLoginView)
         contentLoginView.addSubview(blurredEffectView)
         contentLoginView.addSubview(stackView)
+        contentLoginView.addSubview(spinnerView)
         stackView.addArrangedSubview(loginTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(loginButton)
@@ -131,6 +143,12 @@ class AuthViewController: BaseViewController {
             make.height.equalTo(250)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        spinnerView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(50)
         }
         
         blurredEffectView.snp.makeConstraints { make in
@@ -173,6 +191,20 @@ extension AuthViewController {
         )
     }
     
+    private func showLoader(enable: Bool) {
+        if enable {
+            spinnerView.play()
+        } else {
+            spinnerView.stop()
+        }
+        
+        stackView.alpha = enable ? 0.5 : 1
+        spinnerView.isHidden = !enable
+        loginTextField.isEnabled = !enable
+        passwordTextField.isEnabled = !enable
+        loginButton.isEnabled = !enable
+    }
+    
     @objc private func keyboardWillShow(_ notification: NSNotification) {
         
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -202,6 +234,8 @@ extension AuthViewController {
     
     @objc private func checkTextFieldAction(_ sender: Any) {
         view.endEditing(true)
+        
+        showLoader(enable: true)
         
         loginTextField.layer.borderColor = Palette.BorderField.primary.cgColor
         passwordTextField.layer.borderColor = Palette.BorderField.primary.cgColor
@@ -236,13 +270,19 @@ extension AuthViewController: AuthViewControllerProtocol {
                 pass: self?.passwordTextField.text
             )
         }
+        
+        showLoader(enable: false)
     }
     
     func showEmptyLogin() {
         loginTextField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
     
     func showEmptyPassword() {
         passwordTextField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
 }

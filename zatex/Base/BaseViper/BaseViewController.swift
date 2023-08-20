@@ -25,7 +25,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         self.navigationController?.isNavigationBarHidden = false
         
         setNavigationItems()
-        setLoader()
+        
         setErrorView()
         hideKeyboardWhenTapped()
         
@@ -35,17 +35,14 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
             self?.view.backgroundColor = Palette.Background.primary
             self?.navigationController?.navigationBar.barTintColor = Palette.Background.primary
             self?.navigationController?.navigationBar.backgroundColor = Palette.Background.primary
-            self?.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
+            self?.navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+                NSAttributedString.Key.foregroundColor : Palette.Text.primary
+            ]
             
             self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
             self?.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        setToastAlertView()
     }
     
     private func setNavigationItems() {
@@ -65,7 +62,7 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         loaderView.loopMode = .loop
         loaderView.animationSpeed = 2
         loaderView.isHidden = true
-        loaderView.play()
+        loaderView.stop()
         
         view.addSubview(loaderView)
         
@@ -107,6 +104,9 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setLoader()
+        setToastAlertView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,6 +123,10 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     func toastAnimation(text: String, actionHandler: @escaping () -> Void) {

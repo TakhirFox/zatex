@@ -265,6 +265,8 @@ extension AdditionalInfoViewController {
     }
     
     @objc func finishSignUpAction() {
+        showLoader(enable: true)
+        
         presenter?.saveAdditionalInfo(entity: additionalInfo)
     }
     
@@ -331,6 +333,20 @@ extension AdditionalInfoViewController {
         
         self.present(alertController, animated: true)
     }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        buttonView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
+        buttonView.isUserInteractionEnabled = !enable
+    }
 }
 
 extension AdditionalInfoViewController: AdditionalInfoViewControllerProtocol {
@@ -338,10 +354,15 @@ extension AdditionalInfoViewController: AdditionalInfoViewControllerProtocol {
     func showToastError(text: String) {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.saveAdditionalInfo(entity: self!.additionalInfo)
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
+        
+        showLoader(enable: false)
     }
 }

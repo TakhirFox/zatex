@@ -110,6 +110,7 @@ class FeedViewController: BaseViewController {
         searchView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 

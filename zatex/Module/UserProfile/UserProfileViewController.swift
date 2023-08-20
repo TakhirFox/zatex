@@ -115,6 +115,7 @@ class UserProfileViewController: BaseViewController {
         authorView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
     
     private func getFilteredRequests(isSales: Bool) {

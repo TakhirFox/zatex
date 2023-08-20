@@ -82,6 +82,7 @@ class ChatListViewController: BaseViewController {
         emptyView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 
