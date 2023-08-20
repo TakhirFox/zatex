@@ -47,7 +47,7 @@ class AuthViewController: BaseViewController {
         let view = UIButton()
         view.setTitle("Зарегистрироваться", for: .normal)
         view.titleLabel?.font = UIFont(name: "Montserrat", size: 13)
-        view.addTarget(AuthViewController.self, action: #selector(goToSignUpAction), for: .touchUpInside)
+        view.addTarget(self, action: #selector(goToSignUpAction), for: .touchUpInside)
         return view
     }()
     
@@ -55,7 +55,7 @@ class AuthViewController: BaseViewController {
         let view = UIButton()
         view.setTitle("Зыбыл пароль", for: .normal)
         view.titleLabel?.font = UIFont(name: "Montserrat", size: 13)
-        view.addTarget(AuthViewController.self, action: #selector(goToResetPasswordAction), for: .touchUpInside)
+        view.addTarget(self, action: #selector(goToResetPasswordAction), for: .touchUpInside)
         return view
     }()
     

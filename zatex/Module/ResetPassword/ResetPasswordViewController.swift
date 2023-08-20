@@ -110,6 +110,8 @@ extension ResetPasswordViewController {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.primary.cgColor
         
+        showLoader(enable: true)
+        
         presenter?.checkTextFieldEmpty(
             username: username
         )
@@ -118,12 +120,26 @@ extension ResetPasswordViewController {
     @objc func closeView() {
         navigationController?.popViewController(animated: true)
     }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
+    }
 }
 
 extension ResetPasswordViewController: ResetPasswordViewControllerProtocol {
     
     func showSuccess() {
         successView.isHidden = false
+        
+        showLoader(enable: false)
     }
     
     func showToastError(text: String) {
@@ -131,11 +147,17 @@ extension ResetPasswordViewController: ResetPasswordViewControllerProtocol {
             self?.presenter?.checkTextFieldEmpty(
                 username: self?.username
             )
+            
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showEmptyUsername() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
 }
