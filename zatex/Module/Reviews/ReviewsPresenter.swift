@@ -10,6 +10,8 @@ protocol ReviewsPresenterProtocol: AnyObject {
     func getReviews()
     func getStoreInfo()
     
+    func goToProfile(id: Int)
+    
     func setReviews(data: [ReviewsListResult])
     func setStoreInfo(data: StoreInfoResult)
     func setError(data: String)
@@ -31,6 +33,11 @@ extension ReviewsPresenter: ReviewsPresenterProtocol {
     
     func getStoreInfo() {
         interactor?.getStoreInfo()
+    }
+    
+    // MARK: To Router
+    func goToProfile(id: Int) {
+        router?.routeToProfile(id: id)
     }
     
     // MARK: To View

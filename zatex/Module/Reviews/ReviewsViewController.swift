@@ -83,8 +83,10 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
         return 2
     }
     
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         let sections = SectionType(rawValue: section)
         
         switch sections {
@@ -97,8 +99,10 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let sections = SectionType(rawValue: indexPath.section)
         
         switch sections {
@@ -106,10 +110,15 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell", for: indexPath) as! ReviewsHeaderCell
             cell.setupCell(store: reviewStoreInfo)
             return cell
+            
         case .main:
             let cell = tableView.dequeueReusableCell(withIdentifier: "reviewsCell", for: indexPath) as! ReviewsCell
             cell.setupCell(reviews: reviewList?[indexPath.row])
+            cell.actionHandler = { [weak self] authorId in
+                self?.presenter?.goToProfile(id: authorId)
+            }
             return cell
+            
         case .none:
             return UITableViewCell()
         }
@@ -118,7 +127,7 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ReviewsViewController: ReviewsViewControllerProtocol {
    
-    func setReviews(data: [ReviewsListResult]) {        
+    func setReviews(data: [ReviewsListResult]) {
         DispatchQueue.main.async { [weak self] in
             self?.reviewList = data
             self?.tableView.reloadData()
