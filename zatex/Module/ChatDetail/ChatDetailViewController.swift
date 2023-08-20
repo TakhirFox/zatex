@@ -148,6 +148,7 @@ class ChatDetailViewController: BaseViewController {
         chatView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 

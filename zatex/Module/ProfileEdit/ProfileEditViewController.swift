@@ -72,6 +72,7 @@ class ProfileEditViewController: BaseViewController {
         tableView.isHidden = true
         buttonView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
     
     private func setupSubviews() {

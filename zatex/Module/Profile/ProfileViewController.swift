@@ -128,11 +128,12 @@ class ProfileViewController: BaseViewController {
         errorView.isHidden = true
         
         if sessionProvider != nil,
-           sessionProvider!.isAuthorized
-        {
+           sessionProvider!.isAuthorized {
             loaderView.isHidden = false
+            loaderView.play()
         } else {
             loaderView.isHidden = true
+            loaderView.stop()
         }
     }
     

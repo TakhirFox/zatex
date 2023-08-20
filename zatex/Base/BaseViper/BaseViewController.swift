@@ -45,13 +45,6 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        setLoader()
-        setToastAlertView()
-    }
-    
     private func setNavigationItems() {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
@@ -111,6 +104,9 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setLoader()
+        setToastAlertView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -127,6 +123,10 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     func toastAnimation(text: String, actionHandler: @escaping () -> Void) {

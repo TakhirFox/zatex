@@ -41,9 +41,6 @@ class ReviewsViewController: BaseViewController {
         setupTableView()
         setupSubviews()
         setupConstraints()
-        
-        tableView.isHidden = true
-        loaderView.isHidden = false
     }
     
     private func setupTableView() {
@@ -75,6 +72,7 @@ class ReviewsViewController: BaseViewController {
         tableView.isHidden = true
         errorView.isHidden = true
         loaderView.isHidden = false
+        loaderView.play()
     }
 }
 
