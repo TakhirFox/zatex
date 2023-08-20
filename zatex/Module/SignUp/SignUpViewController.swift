@@ -64,11 +64,17 @@ class SignUpViewController: BaseViewController {
 
 extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return 4
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         
         let row = RowKind(rawValue: indexPath.row)
         switch row {
@@ -128,6 +134,8 @@ extension SignUpViewController {
             setStandartColorToTextField(index: index)
         }
         
+        showLoader(enable: true)
+        
         presenter?.checkTextFieldEmpty(
             username: signUpData.username,
             email: signUpData.email,
@@ -138,6 +146,18 @@ extension SignUpViewController {
     private func setStandartColorToTextField(index: Int) {
         guard let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.primary.cgColor
+    }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
     }
 }
 
@@ -150,21 +170,31 @@ extension SignUpViewController: SignUpViewControllerProtocol {
                 email: self?.signUpData.email,
                 pass: self?.signUpData.pass
             )
+            
+            self?.showLoader(enable: true)
         }
+        
+        showLoader(enable: false)
     }
     
     func showEmptyUsername() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
     
     func showEmptyEmail() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
     
     func showEmptyPassword() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? FieldSignUpCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        
+        showLoader(enable: false)
     }
 }
