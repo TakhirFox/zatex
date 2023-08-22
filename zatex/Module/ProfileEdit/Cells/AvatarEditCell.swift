@@ -73,7 +73,7 @@ class AvatarEditCell: UITableViewCell {
     }
     
     private func updateAppearence() {
-        
+        avatarImage.backgroundColor = Palette.Background.tertiary
     }
     
     private func configureSubviews() {
