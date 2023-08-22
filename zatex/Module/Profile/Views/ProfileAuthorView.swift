@@ -19,6 +19,7 @@ class ProfileAuthorView: UIView {
         let view = UIImageView()
         view.layer.cornerRadius = 40
         view.layer.masksToBounds = true
+        view.backgroundColor = .gray
         return view
     }()
     
@@ -52,12 +53,16 @@ class ProfileAuthorView: UIView {
         titleLabel.text = store?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
         avatarView.image = UIImage(named: "no-avatar")
-        
-        let avatar = store?.gravatar as? String
-        
-        if avatar != nil, !(avatar!.isEmpty) {
-            let avatarUrl = URL(string: avatar ?? "")
-            avatarView.kf.setImage(with: avatarUrl)
+                
+        switch store?.gravatar {
+        case .avatar(let avatar):
+            if !(avatar.isEmpty) {
+                let avatarUrl = URL(string: avatar)
+                avatarView.kf.setImage(with: avatarUrl)
+            }
+            
+        case .empty, nil:
+            return
         }
         
         if let rating = store?.rating?.rating {
@@ -79,9 +84,8 @@ class ProfileAuthorView: UIView {
             make.leading.trailing.equalToSuperview().inset(fromLeadingToCenterInfo)
         }
         
-        
-        let sizeForAvatar = -scrollView.contentOffset.y / 2
-        let avatarSize = max(40, min(sizeForAvatar, 80))
+        let sizeForAvatar = -scrollView.contentOffset.y / 3
+        let avatarSize = max(34, min(sizeForAvatar, 80))
         let halfScreen = frame.width / 2
         let halfTitleView = titleLabel.frame.width / 2
         let halfAvatarView = avatarView.frame.width / 2
@@ -89,7 +93,7 @@ class ProfileAuthorView: UIView {
         let leadingAvatar = max(8, min(-zeroPoint, halfScreen - halfTitleView - halfAvatarView - paddingBetweenAvatarAndTitle))
         let bottomAvatar = max(8, min(-zeroPoint / 10, 10))
         
-        avatarView.layer.cornerRadius = max(20, min(sizeForAvatar / 2, 40))
+        avatarView.layer.cornerRadius = max(17, min(sizeForAvatar / 2, 40))
         
         avatarView.snp.updateConstraints { make in
             make.leading.equalToSuperview().offset(leadingAvatar)
@@ -98,13 +102,11 @@ class ProfileAuthorView: UIView {
             make.bottom.equalToSuperview().inset(bottomAvatar)
         }
         
-        
-        let titleSize = max(26, min(-zeroPoint / 5, 54))
+        let titleSize = max(26, min(-zeroPoint / 3, 63))
         
         titleLabel.snp.updateConstraints { make in
             make.top.equalToSuperview().inset(titleSize)
         }
-        
         
         let ratingOpacity = max(0.0, min(zeroPoint * 0.01 + 1, 1.0))
         

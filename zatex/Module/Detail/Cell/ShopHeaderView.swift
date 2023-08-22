@@ -61,11 +61,15 @@ class ShopHeaderView: UIView {
         titleLabel.text = author?.storeName ?? ""
         ratingView.image = UIImage(named: "rat0")
         
-        let avatar = author?.gravatar as? String
-        
-        if avatar != nil, !(avatar!.isEmpty) {
-            let avatarUrl = URL(string: avatar ?? "")
-            avatarView.kf.setImage(with: avatarUrl)
+        switch author?.gravatar {
+        case .avatar(let avatar):
+            if !(avatar.isEmpty) {
+                let avatarUrl = URL(string: avatar)
+                avatarView.kf.setImage(with: avatarUrl)
+            }
+            
+        case .empty, nil:
+            return
         }
         
         if author?.banner != nil, !(author?.banner!.isEmpty)! {

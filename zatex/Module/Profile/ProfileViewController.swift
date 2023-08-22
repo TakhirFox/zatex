@@ -92,7 +92,7 @@ class ProfileViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         
-        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 16, right: 16)
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
