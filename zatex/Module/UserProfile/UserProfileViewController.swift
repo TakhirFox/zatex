@@ -28,6 +28,7 @@ class UserProfileViewController: BaseViewController {
     var userId: Int?
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
+    var isLoadedProducts = false
     
     var collectionView: UICollectionView!
     let headerView = UserProfileHeaderView()
@@ -71,6 +72,8 @@ class UserProfileViewController: BaseViewController {
         collectionView.register(UserProfileProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(UserProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
         collectionView.register(UserProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
+        collectionView.register(UserProfileLoaderCell.self, forCellWithReuseIdentifier: "loaderCell")
+
         collectionView.backgroundColor = .clear
     }
     
@@ -120,6 +123,10 @@ class UserProfileViewController: BaseViewController {
     
     private func getFilteredRequests(isSales: Bool) {
         if let userId = userId {
+            self.profileProducts = []
+            self.isLoadedProducts = false
+            self.collectionView.reloadData()
+            
             presenter?.getStoreProduct(
                 authorId: userId,
                 isSales: isSales
@@ -185,7 +192,12 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
             return cell
             
         case .profileProducts:
-            if profileProducts != nil, !profileProducts!.isEmpty {
+            if !isLoadedProducts {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loaderCell", for: indexPath) as! UserProfileLoaderCell
+                cell.setupCell()
+                return cell
+                
+            } else if profileProducts != nil, !profileProducts!.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! UserProfileProductCell
                 cell.setupCell(profileProducts?[indexPath.row])
                 return cell
@@ -334,6 +346,7 @@ extension UserProfileViewController: UserProfileViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
+            self?.isLoadedProducts = true
             self?.collectionView.reloadData()
         }
     }
