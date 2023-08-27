@@ -75,7 +75,7 @@ class FeedViewController: BaseViewController {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchView.snp.bottom)
+            make.top.equalTo(searchView.snp.bottom).offset(6)
             make.leading.bottom.trailing.equalToSuperview()
         }
     }

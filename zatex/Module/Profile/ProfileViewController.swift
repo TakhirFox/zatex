@@ -10,7 +10,7 @@ import UIKit
 
 protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
-
+    
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
     func updateView()
@@ -28,6 +28,7 @@ class ProfileViewController: BaseViewController {
     var sessionProvider: SessionProvider?
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
+    var isLoadedProducts = false
     
     var collectionView: UICollectionView!
     let headerView = ProfileHeaderView()
@@ -77,6 +78,7 @@ class ProfileViewController: BaseViewController {
         collectionView.register(ProfileProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
         collectionView.register(ProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
+        collectionView.register(ProfileLoaderCell.self, forCellWithReuseIdentifier: "loaderCell")
         collectionView.backgroundColor = .clear
     }
     
@@ -140,6 +142,10 @@ class ProfileViewController: BaseViewController {
     private func getFilteredRequests(isSales: Bool) {
         if let userId = sessionProvider?.getSession()?.userId,
            let id = Int(userId) {
+            self.profileProducts = []
+            self.isLoadedProducts = false
+            self.collectionView.reloadData()
+            
             presenter?.getStoreProduct(
                 authorId: id,
                 isSales: isSales
@@ -212,7 +218,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .myProducts:
-            if profileProducts != nil, !profileProducts!.isEmpty {
+            if !isLoadedProducts {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loaderCell", for: indexPath) as! ProfileLoaderCell
+                cell.setupCell()
+                return cell
+                
+            } else if profileProducts != nil, !profileProducts!.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProfileProductCell
                 cell.setupCell(profileProducts?[indexPath.row])
                 cell.onSignal = { [weak self] signal in
@@ -368,6 +379,7 @@ extension ProfileViewController: ProfileViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
+            self?.isLoadedProducts = true
             self?.collectionView.reloadData()
         }
     }
