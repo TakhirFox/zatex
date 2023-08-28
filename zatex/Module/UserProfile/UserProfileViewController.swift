@@ -14,6 +14,7 @@ protocol UserProfileViewControllerProtocol: AnyObject {
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStats(activeCount: String, salesCount: String)
     func showError(data: String)
 }
 
@@ -29,6 +30,7 @@ class UserProfileViewController: BaseViewController {
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
     var isLoadedProducts = false
+    var productStats = (active: "0", sales: "0")
     
     var collectionView: UICollectionView!
     let headerView = UserProfileHeaderView()
@@ -111,6 +113,7 @@ class UserProfileViewController: BaseViewController {
         if let userId = userId {
             presenter?.getStoreInfo(authorId: userId)
             presenter?.getStoreProduct(authorId: userId, isSales: false)
+            presenter?.getProductStats(authorId: userId)
         }
         
         collectionView.isHidden = true
@@ -170,7 +173,7 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
         switch rows {
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! UserProfileStatsCell
-            cell.setupCell(stats: profileStoreInfo)
+            cell.setupCell(rating: profileStoreInfo, stats: productStats)
             cell.onSignal = { [weak self] signal in
                 switch signal {
                 case .stats:
@@ -347,6 +350,14 @@ extension UserProfileViewController: UserProfileViewControllerProtocol {
             self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
             self?.isLoadedProducts = true
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setStats(activeCount: String, salesCount: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.productStats.active = activeCount
+            self?.productStats.sales = salesCount
             self?.collectionView.reloadData()
         }
     }

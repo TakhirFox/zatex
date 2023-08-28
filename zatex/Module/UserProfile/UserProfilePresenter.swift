@@ -9,12 +9,14 @@
 protocol UserProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
     func getStoreProduct(authorId: Int, isSales: Bool)
-    
+    func getProductStats(authorId: Int)
+
     func goToDetail(id: Int)
     func goToReview(id: String)
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setProductStats(data: [ProductResult])
     func setError(data: String)
 }
 
@@ -41,6 +43,13 @@ extension UserProfilePresenter: UserProfilePresenterProtocol {
         )
     }
     
+    func getProductStats(authorId: Int) {
+        interactor?.getStoreProduct(
+            authorId: authorId,
+            isSales: false
+        )
+    }
+    
     // MARK: To Router
     
     func goToDetail(id: Int) {
@@ -61,6 +70,13 @@ extension UserProfilePresenter: UserProfilePresenterProtocol {
             data: data,
             isSales: isSales
         )
+    }
+    
+    func setProductStats(data: [ProductResult]) {
+        let active = String(data.filter({ $0.isSales == false }).count)
+        let sales = String(data.filter({ $0.isSales == true }).count)
+        
+        view?.setStats(activeCount: active, salesCount: sales)
     }
     
     func setError(data: String) {

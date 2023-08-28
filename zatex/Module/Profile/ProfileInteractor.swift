@@ -10,7 +10,7 @@
 protocol ProfileInteractorProtocol {
     func getStoreInfo(authorId: Int)
     func getStoreProduct(authorId: Int, isSales: Bool)
-    func setSalesProfuct(productId: Int, isSales: Bool)
+    func setSalesProfuct(productId: Int, isSales: Bool, authorId: Int)
 }
 
 class ProfileInteractor: BaseInteractor {
@@ -47,6 +47,8 @@ extension ProfileInteractor: ProfileInteractorProtocol {
                     isSales: isSales
                 )
                 
+                self.presenter?.setProductStats(data: data)
+                
             case let .failure(error):
                 switch error {
                 case let .error(name):
@@ -61,7 +63,8 @@ extension ProfileInteractor: ProfileInteractorProtocol {
     
     func setSalesProfuct(
         productId: Int,
-        isSales: Bool
+        isSales: Bool,
+        authorId: Int
     ) {
         self.service.setSalesProfuct(
             productId: productId,
@@ -69,7 +72,7 @@ extension ProfileInteractor: ProfileInteractorProtocol {
         ) { result in
             switch result {
             case .success:
-                break
+                self.getStoreProduct(authorId: authorId, isSales: false)
                 
             case let .failure(error):
                 switch error {

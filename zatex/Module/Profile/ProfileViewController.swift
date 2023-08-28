@@ -13,6 +13,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStats(activeCount: String, salesCount: String)
     func updateView()
     func showError(data: String)
 }
@@ -29,6 +30,8 @@ class ProfileViewController: BaseViewController {
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
     var isLoadedProducts = false
+    var productStats = (active: "0", sales: "0")
+    var userId: Int?
     
     var collectionView: UICollectionView!
     let headerView = ProfileHeaderView()
@@ -113,10 +116,12 @@ class ProfileViewController: BaseViewController {
     }
     
     private func getRequests() {
-        if let userId = sessionProvider?.getSession()?.userId,
-           let id = Int(userId) {
+        userId = Int(sessionProvider?.getSession()?.userId ?? "")
+        
+        if let id = userId {
             presenter?.getStoreInfo(authorId: id)
             presenter?.getStoreProduct(authorId: id, isSales: false)
+            presenter?.getProductStats(authorId: id)
         }
         
         collectionView.isHidden = true
@@ -135,8 +140,7 @@ class ProfileViewController: BaseViewController {
     }
     
     private func getFilteredRequests(isSales: Bool) {
-        if let userId = sessionProvider?.getSession()?.userId,
-           let id = Int(userId) {
+        if let id = userId {
             self.profileProducts = []
             self.isLoadedProducts = false
             self.collectionView.reloadData()
@@ -191,7 +195,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch rows {
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(stats: profileStoreInfo)
+            cell.setupCell(rating: profileStoreInfo, stats: productStats)
             cell.onSignal = { [weak self] signal in
                 switch signal {
                 case .stats:
@@ -322,22 +326,26 @@ extension ProfileViewController {
         guard let productId = self.profileProducts?[index].id else { return }
         
         DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
             switch signal {
             case .toActive:
-                self?.presenter?.setSalesProfuct(
+                strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: false
+                    isSales: false,
+                    authorId: strongSelf.userId ?? 0
                 )
                 
             case .toSales:
-                self?.presenter?.setSalesProfuct(
+                strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: true
+                    isSales: true,
+                    authorId: strongSelf.userId ?? 0
                 )
             }
             
-            self?.profileProducts?.remove(at: index)
-            self?.collectionView.reloadSections(IndexSet(integer: 2))
+            strongSelf.profileProducts?.remove(at: index)
+            strongSelf.collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
     
@@ -350,8 +358,8 @@ extension ProfileViewController {
     }
     
     @objc func goToReviews() {
-        guard let userId = sessionProvider?.getSession()?.userId else { return }
-        presenter?.goToReview(id: userId)
+        guard let userId = userId else { return }
+        presenter?.goToReview(id: String(userId))
     }
 }
 
@@ -375,6 +383,14 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
             self?.isLoadedProducts = true
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setStats(activeCount: String, salesCount: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.productStats.active = activeCount
+            self?.productStats.sales = salesCount
             self?.collectionView.reloadData()
         }
     }

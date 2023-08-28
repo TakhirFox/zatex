@@ -9,7 +9,8 @@
 protocol ProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
     func getStoreProduct(authorId: Int, isSales: Bool)
-    func setSalesProfuct(productId: Int, isSales: Bool)
+    func setSalesProfuct(productId: Int, isSales: Bool, authorId: Int)
+    func getProductStats(authorId: Int)
     
     func goToSettings()
     func goToAuthView()
@@ -18,6 +19,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setProductStats(data: [ProductResult])
     func setError(data: String)
 }
 
@@ -47,11 +49,20 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func setSalesProfuct(
         productId: Int,
-        isSales: Bool
+        isSales: Bool,
+        authorId: Int
     ) {
         interactor?.setSalesProfuct(
             productId: productId,
-            isSales: isSales
+            isSales: isSales,
+            authorId: authorId
+        )
+    }
+    
+    func getProductStats(authorId: Int) {
+        interactor?.getStoreProduct(
+            authorId: authorId,
+            isSales: false
         )
     }
     
@@ -88,6 +99,13 @@ extension ProfilePresenter: ProfilePresenterProtocol {
             data: data,
             isSales: isSales
         )
+    }
+    
+    func setProductStats(data: [ProductResult]) {
+        let active = String(data.filter({ $0.isSales == false }).count)
+        let sales = String(data.filter({ $0.isSales == true }).count)
+        
+        view?.setStats(activeCount: active, salesCount: sales)
     }
     
     func setError(data: String) {

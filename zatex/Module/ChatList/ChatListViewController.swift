@@ -55,6 +55,8 @@ class ChatListViewController: BaseViewController {
     }
     
     private func setupConstraints() {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
+        
         tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalToSuperview()
