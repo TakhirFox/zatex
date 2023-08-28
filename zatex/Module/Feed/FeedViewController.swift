@@ -48,19 +48,15 @@ class FeedViewController: BaseViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupCollectionView()
         setupSearchView()
-        
         setupSubviews()
         setupConstraints()
+        
+        getRequests()
     }
     
     func setupSubviews() {

@@ -35,13 +35,6 @@ class ProfileViewController: BaseViewController {
     let authorView = ProfileAuthorView()
     let loginView = ProfileLoginView()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-        hideNavigationView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +44,8 @@ class ProfileViewController: BaseViewController {
         setupConstraints()
         loadProfileView()
         setupLoginView()
+        getRequests()
+        hideNavigationView()
     }
     
     private func loadProfileView() {

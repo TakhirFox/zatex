@@ -25,9 +25,9 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         self.navigationController?.isNavigationBarHidden = false
         
         setNavigationItems()
-        
         setErrorView()
         hideKeyboardWhenTapped()
+        setLoader()
         
         toastAlertView.isHidden = true
         
@@ -105,7 +105,6 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setLoader()
         setToastAlertView()
     }
     

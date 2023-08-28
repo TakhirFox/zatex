@@ -25,12 +25,6 @@ class ChatListViewController: BaseViewController {
     let tableView = UITableView()
     let emptyView = ChatEmptyView()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +32,7 @@ class ChatListViewController: BaseViewController {
         setupSubviews()
         setupEmptyView()
         setupConstraints()
+        getRequests()
     }
     
     private func setupTableView() {
