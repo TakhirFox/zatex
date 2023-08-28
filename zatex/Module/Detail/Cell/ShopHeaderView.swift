@@ -26,7 +26,8 @@ class ShopHeaderView: UIView {
     private let titleLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 1
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 20)
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        view.textColor = Palette.ChatStyle.time
         return view
     }()
     
@@ -87,9 +88,7 @@ class ShopHeaderView: UIView {
         }
     }
     
-    private func updateAppearence() {
-        titleLabel.textColor = Palette.Text.primary
-    }
+    private func updateAppearence() {}
     
     private func configureSubviews() {
         addSubview(backgroundImageView)
@@ -122,7 +121,7 @@ class ShopHeaderView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(4)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
-            make.height.equalTo(14)
+            make.height.equalTo(18)
             make.trailing.equalToSuperview()
         }
         
