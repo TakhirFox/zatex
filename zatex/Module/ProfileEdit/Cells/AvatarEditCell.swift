@@ -52,7 +52,7 @@ class AvatarEditCell: UITableViewCell {
         }
     }
     
-    func setupCell(image: String?, local: UIImage?) {
+    func setupCell(image: StoreInfoResult?, local: UIImage?) {
         titleLabel.text = "Изменить"
         
         if local != nil {
@@ -61,13 +61,19 @@ class AvatarEditCell: UITableViewCell {
         }
         
         if image != nil {
-            let avatarUrl = URL(string: image!)
-            avatarImage.kf.setImage(with: avatarUrl)
+            switch image?.gravatar {
+            case .avatar(let avatar):
+                let avatarUrl = URL(string: avatar)
+                avatarImage.kf.setImage(with: avatarUrl)
+                
+            case .empty, nil:
+                return
+            }
         }
     }
     
     private func updateAppearence() {
-        
+        avatarImage.backgroundColor = Palette.Background.tertiary
     }
     
     private func configureSubviews() {

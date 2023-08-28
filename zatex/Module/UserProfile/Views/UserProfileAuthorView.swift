@@ -53,11 +53,15 @@ class UserProfileAuthorView: UIView {
         ratingView.image = UIImage(named: "rat0")
         avatarView.image = UIImage(named: "no-avatar")
         
-        let avatar = store?.gravatar as? String
-        
-        if avatar != nil, !(avatar!.isEmpty) {
-            let avatarUrl = URL(string: avatar ?? "")
-            avatarView.kf.setImage(with: avatarUrl)
+        switch store?.gravatar {
+        case .avatar(let avatar):
+            if !(avatar.isEmpty) {
+                let avatarUrl = URL(string: avatar)
+                avatarView.kf.setImage(with: avatarUrl)
+            }
+            
+        case .empty, nil:
+            return
         }
         
         if let rating = store?.rating?.rating {

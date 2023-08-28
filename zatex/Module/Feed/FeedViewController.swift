@@ -48,19 +48,15 @@ class FeedViewController: BaseViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupCollectionView()
         setupSearchView()
-        
         setupSubviews()
         setupConstraints()
+        
+        getRequests()
     }
     
     func setupSubviews() {
@@ -75,7 +71,7 @@ class FeedViewController: BaseViewController {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchView.snp.bottom)
+            make.top.equalTo(searchView.snp.bottom).offset(6)
             make.leading.bottom.trailing.equalToSuperview()
         }
     }

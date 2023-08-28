@@ -124,17 +124,17 @@ class UserProfileStatsCell: UICollectionViewCell {
         }
     }
     
-    func setupCell(stats: StoreInfoResult?) {
-        countRatingLabel.setTitle(String(stats?.rating?.count ?? 0), for: .normal)
+    func setupCell(rating: StoreInfoResult?, stats: (String, String)) {
+        countRatingLabel.setTitle(String(rating?.rating?.count ?? 0), for: .normal)
         nameRatingLabel.setTitle("Отзывов", for: .normal)
         
-        countActiveLabel.setTitle("", for: .normal)
+        countActiveLabel.setTitle(stats.0, for: .normal)
         nameActiveLabel.setTitle("Активных", for: .normal)
         
-        countSalesLabel.setTitle("", for: .normal)
+        countSalesLabel.setTitle(stats.1, for: .normal)
         nameSalesLabel.setTitle("Продано", for: .normal)
         
-        sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: stats?.registered))"
+        sinceStoreLabel.text = "На Затекс с \(dateFormatter(date: rating?.registered))"
     }
     
     private func updateAppearence() {

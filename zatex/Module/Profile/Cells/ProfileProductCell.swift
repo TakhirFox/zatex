@@ -46,11 +46,25 @@ class ProfileProductCell: UICollectionViewCell {
         return view
     }()
     
-    private let productStateButton: BaseButton = {
+    private let activeProductButton: BaseButton = {
         let view = BaseButton()
         view.set(style: .sedondary)
+        view.setTitle("Активировать", for: .normal)
+        view.set(style: .primary)
+        view.addTarget(self, action: #selector(setActiveState), for: .touchUpInside)
         return view
     }()
+    
+    private let salesProductButton: BaseButton = {
+        let view = BaseButton()
+        view.set(style: .sedondary)
+        view.setTitle("Снять с продажи", for: .normal)
+        view.set(style: .sedondary)
+        view.addTarget(self, action: #selector(setSalesState), for: .touchUpInside)
+        return view
+    }()
+    
+    private var post: ProductResult?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -79,15 +93,7 @@ class ProfileProductCell: UICollectionViewCell {
         imageView.image = UIImage(named: "no_image")
         dateLabel.text = dateFormatter(date: post.dateModified)
         
-        if post.isSales ?? false {
-            productStateButton.setTitle("Активировать", for: .normal)
-            productStateButton.set(style: .primary)
-            productStateButton.addTarget(self, action: #selector(setActiveState), for: .touchUpInside)
-        } else {
-            productStateButton.setTitle("Снять с продажи", for: .normal)
-            productStateButton.set(style: .sedondary)
-            productStateButton.addTarget(self, action: #selector(setSalesState), for: .touchUpInside)
-        }
+        self.post = post
         
         if let cost = post.price {
             costLabel.text = "\(cost)"
@@ -97,6 +103,30 @@ class ProfileProductCell: UICollectionViewCell {
             let url = (src.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
             let urlString = URL(string: url)
             imageView.kf.setImage(with: urlString)
+        }
+        
+        setupButtons(isSales: post.isSales ?? false)
+    }
+    
+    private func setupButtons(isSales: Bool) {
+        if isSales {
+            addSubview(activeProductButton)
+            
+            activeProductButton.snp.makeConstraints { make in
+                make.top.equalTo(dateLabel.snp.bottom).offset(4)
+                make.leading.trailing.equalToSuperview().inset(4)
+                make.height.equalTo(30)
+                make.bottom.equalToSuperview().inset(4)
+            }
+        } else {
+            addSubview(salesProductButton)
+            
+            salesProductButton.snp.makeConstraints { make in
+                make.top.equalTo(dateLabel.snp.bottom).offset(4)
+                make.leading.trailing.equalToSuperview().inset(4)
+                make.height.equalTo(30)
+                make.bottom.equalToSuperview().inset(4)
+            }
         }
     }
     
@@ -131,7 +161,6 @@ class ProfileProductCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(costLabel)
         addSubview(dateLabel)
-        addSubview(productStateButton)
     }
     
     private func configureConstraints() {
@@ -161,13 +190,6 @@ class ProfileProductCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(4)
             make.height.equalTo(14)
         }
-        
-        productStateButton.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalToSuperview().inset(4)
-            make.height.equalTo(30)
-            make.bottom.equalToSuperview().inset(4)
-        }
     }
     
     @objc private func setSalesState() {
@@ -186,5 +208,4 @@ class ProfileProductCell: UICollectionViewCell {
         layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
         return layoutAttributes
     }
-    
 }

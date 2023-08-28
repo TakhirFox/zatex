@@ -139,7 +139,10 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         return isShop ? 2 : 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         if section == 0 {
             return 7
         } else {
@@ -147,14 +150,17 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         
         if indexPath.section == 0 {
             let row = RowKind(rawValue: indexPath.row)
             switch row {
             case .avatar:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "avatarCell", for: indexPath) as! AvatarEditCell
-                cell.setupCell(image: "profileInfo?.gravatar", local: updateInfo.localAvatar)
+                cell.setupCell(image: profileInfo, local: updateInfo.localAvatar)
                 cell.avatarImage.addGestureRecognizer(changeAvatarGesture)
                 changeAvatarGesture.addTarget(self, action: #selector(showAvatarDialog))
                 return cell
@@ -259,7 +265,10 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         let headerView = HeaderCell()
         
         if section == 0 {
@@ -271,11 +280,17 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
         return 50
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         guard indexPath.section == 0 && indexPath.row == 3 else { return }
         
         presenter?.goToMap(saveAddressHandler: { [weak self] address in

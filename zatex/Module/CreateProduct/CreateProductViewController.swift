@@ -40,12 +40,6 @@ class CreateProductViewController: BaseViewController {
     let pickerView = UIPickerView()
     let imagePicker = UIImagePickerController()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        presenter?.getCategories()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +49,7 @@ class CreateProductViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         setSuccessView()
+        presenter?.getCategories()
     }
     
     private func setupSubviews() {

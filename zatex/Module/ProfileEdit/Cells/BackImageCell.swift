@@ -57,6 +57,7 @@ class BackImageCell: UITableViewCell {
     
     private func updateAppearence() {
         titleLabel.textColor = Palette.Text.primary
+        avatarImage.backgroundColor = Palette.Background.tertiary
     }
     
     private func configureSubviews() {

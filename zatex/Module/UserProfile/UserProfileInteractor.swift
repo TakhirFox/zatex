@@ -46,6 +46,8 @@ extension UserProfileInteractor: UserProfileInteractorProtocol {
                     isSales: isSales
                 )
                 
+                self.presenter?.setProductStats(data: data)
+                
             case let .failure(error):
                 switch error {
                 case let .error(name):

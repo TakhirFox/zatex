@@ -10,9 +10,10 @@ import UIKit
 
 protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
-
+    
     func setStoreInfo(data: StoreInfoResult)
     func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStats(activeCount: String, salesCount: String)
     func updateView()
     func showError(data: String)
 }
@@ -28,18 +29,14 @@ class ProfileViewController: BaseViewController {
     var sessionProvider: SessionProvider?
     var profileStoreInfo: StoreInfoResult?
     var profileProducts: [ProductResult]?
+    var isLoadedProducts = false
+    var productStats = (active: "0", sales: "0")
+    var userId: Int?
     
     var collectionView: UICollectionView!
     let headerView = ProfileHeaderView()
     let authorView = ProfileAuthorView()
     let loginView = ProfileLoginView()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-        hideNavigationView()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +47,8 @@ class ProfileViewController: BaseViewController {
         setupConstraints()
         loadProfileView()
         setupLoginView()
+        getRequests()
+        hideNavigationView()
     }
     
     private func loadProfileView() {
@@ -77,6 +76,7 @@ class ProfileViewController: BaseViewController {
         collectionView.register(ProfileProductCell.self, forCellWithReuseIdentifier: "productCell")
         collectionView.register(ProfileSectionCell.self, forCellWithReuseIdentifier: "sectionCell")
         collectionView.register(ProfileEmptyCell.self, forCellWithReuseIdentifier: "emptyCell")
+        collectionView.register(ProfileLoaderCell.self, forCellWithReuseIdentifier: "loaderCell")
         collectionView.backgroundColor = .clear
     }
     
@@ -92,7 +92,7 @@ class ProfileViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         
-        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = UIEdgeInsets(top: 280, left: 16, bottom: 16, right: 16)
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
@@ -116,10 +116,12 @@ class ProfileViewController: BaseViewController {
     }
     
     private func getRequests() {
-        if let userId = sessionProvider?.getSession()?.userId,
-           let id = Int(userId) {
+        userId = Int(sessionProvider?.getSession()?.userId ?? "")
+        
+        if let id = userId {
             presenter?.getStoreInfo(authorId: id)
             presenter?.getStoreProduct(authorId: id, isSales: false)
+            presenter?.getProductStats(authorId: id)
         }
         
         collectionView.isHidden = true
@@ -138,8 +140,11 @@ class ProfileViewController: BaseViewController {
     }
     
     private func getFilteredRequests(isSales: Bool) {
-        if let userId = sessionProvider?.getSession()?.userId,
-           let id = Int(userId) {
+        if let id = userId {
+            self.profileProducts = []
+            self.isLoadedProducts = false
+            self.collectionView.reloadData()
+            
             presenter?.getStoreProduct(
                 authorId: id,
                 isSales: isSales
@@ -190,7 +195,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch rows {
         case .stats:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "statsCell", for: indexPath) as! ProfileStatsCell
-            cell.setupCell(stats: profileStoreInfo)
+            cell.setupCell(rating: profileStoreInfo, stats: productStats)
             cell.onSignal = { [weak self] signal in
                 switch signal {
                 case .stats:
@@ -212,7 +217,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
             
         case .myProducts:
-            if profileProducts != nil, !profileProducts!.isEmpty {
+            if !isLoadedProducts {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loaderCell", for: indexPath) as! ProfileLoaderCell
+                cell.setupCell()
+                return cell
+                
+            } else if profileProducts != nil, !profileProducts!.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProfileProductCell
                 cell.setupCell(profileProducts?[indexPath.row])
                 cell.onSignal = { [weak self] signal in
@@ -316,22 +326,26 @@ extension ProfileViewController {
         guard let productId = self.profileProducts?[index].id else { return }
         
         DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
             switch signal {
             case .toActive:
-                self?.presenter?.setSalesProfuct(
+                strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: false
+                    isSales: false,
+                    authorId: strongSelf.userId ?? 0
                 )
                 
             case .toSales:
-                self?.presenter?.setSalesProfuct(
+                strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: true
+                    isSales: true,
+                    authorId: strongSelf.userId ?? 0
                 )
             }
             
-            self?.profileProducts?.remove(at: index)
-            self?.collectionView.reloadSections(IndexSet(integer: 2))
+            strongSelf.profileProducts?.remove(at: index)
+            strongSelf.collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
     
@@ -344,8 +358,8 @@ extension ProfileViewController {
     }
     
     @objc func goToReviews() {
-        guard let userId = sessionProvider?.getSession()?.userId else { return }
-        presenter?.goToReview(id: userId)
+        guard let userId = userId else { return }
+        presenter?.goToReview(id: String(userId))
     }
 }
 
@@ -368,6 +382,15 @@ extension ProfileViewController: ProfileViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             self?.profileProducts = data.filter { $0.isSales == isSales }
             self?.collectionView.isHidden = false
+            self?.isLoadedProducts = true
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setStats(activeCount: String, salesCount: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.productStats.active = activeCount
+            self?.productStats.sales = salesCount
             self?.collectionView.reloadData()
         }
     }

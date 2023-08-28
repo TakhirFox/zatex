@@ -25,12 +25,6 @@ class ChatListViewController: BaseViewController {
     let tableView = UITableView()
     let emptyView = ChatEmptyView()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getRequests()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +32,7 @@ class ChatListViewController: BaseViewController {
         setupSubviews()
         setupEmptyView()
         setupConstraints()
+        getRequests()
     }
     
     private func setupTableView() {
@@ -60,6 +55,8 @@ class ChatListViewController: BaseViewController {
     }
     
     private func setupConstraints() {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
+        
         tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalToSuperview()
