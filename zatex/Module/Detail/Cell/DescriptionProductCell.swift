@@ -44,11 +44,10 @@ class DescriptionProductCell: UICollectionViewCell {
     
     private func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(10)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview()
         }
-        
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
