@@ -56,7 +56,7 @@ class AdditionalInfoViewController: BaseViewController {
     
     func setupConstraints() {
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
         

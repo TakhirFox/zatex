@@ -54,8 +54,8 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
         appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
         
         navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
+        navigationItem.backButtonTitle = ""
         title = " "
     }
     

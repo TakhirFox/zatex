@@ -64,7 +64,6 @@ class DetailViewController: BaseViewController {
         appearance.backgroundColor = .clear
         appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
         navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setupNavigationItem() {

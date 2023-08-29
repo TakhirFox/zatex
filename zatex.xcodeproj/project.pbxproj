@@ -1144,6 +1144,7 @@
 		AD9B25FD28FD457800C15139 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				6BD0AE5592AE042E6F5E956C /* AdditionalInfo */,
 				BD1AF720F08B824C0A13CE3A /* Auth */,
 				FE630FE8003E38B9A0D6997F /* ChatDetail */,
 				840411B614E7666442AB6359 /* ChatList */,
@@ -1162,7 +1163,6 @@
 				01A97103F41A51C9D317FF5D /* Search */,
 				B54CF41BE7FB369770C8717A /* SignUp */,
 				D02C7E1FCA636EEB757DED61 /* ResetPassword */,
-				6BD0AE5592AE042E6F5E956C /* AdditionalInfo */,
 			);
 			path = Module;
 			sourceTree = "<group>";

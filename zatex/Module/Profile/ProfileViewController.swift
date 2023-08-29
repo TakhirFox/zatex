@@ -114,7 +114,6 @@ class ProfileViewController: BaseViewController {
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
         navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func getRequests() {

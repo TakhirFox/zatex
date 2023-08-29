@@ -40,7 +40,6 @@ class UserProfileViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         getRequests()
-        hideNavigationView()
     }
     
     override func viewDidLoad() {
@@ -93,12 +92,6 @@ class UserProfileViewController: BaseViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-    }
-    
-    private func hideNavigationView() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
     }
     
     private func setupNavigationItem() {
