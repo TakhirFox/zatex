@@ -58,10 +58,12 @@ class DetailViewController: BaseViewController {
     }
     
     private func setupNavigationView() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backgroundColor = .clear
+        let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .clear
+        appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        navigationController?.navigationBar.standardAppearance = appearance
     }
     
     private func setupNavigationItem() {

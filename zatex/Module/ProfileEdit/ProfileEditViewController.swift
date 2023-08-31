@@ -45,12 +45,6 @@ class ProfileEditViewController: BaseViewController {
     private let changeAvatarGesture = UITapGestureRecognizer()
     private let changeBannerGesture = UITapGestureRecognizer()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.tabBarController?.tabBar.frame.origin.y += 100
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +81,7 @@ class ProfileEditViewController: BaseViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview()
         }
         
