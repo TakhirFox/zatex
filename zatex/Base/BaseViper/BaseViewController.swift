@@ -21,42 +21,45 @@ class BaseViewController: UIViewController, BaseViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Palette.Background.primary
-        self.navigationController?.isNavigationBarHidden = false
         
-        setNavigationItems()
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.backButtonTitle = ""
+        title = " "
+        
         setErrorView()
         hideKeyboardWhenTapped()
         setLoader()
+        updateAppearence()
         
         toastAlertView.isHidden = true
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
-            self?.view.backgroundColor = Palette.Background.primary
-            self?.navigationController?.navigationBar.barTintColor = Palette.Background.primary
-            self?.navigationController?.navigationBar.backgroundColor = Palette.Background.primary
-            self?.navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!,
-                NSAttributedString.Key.foregroundColor : Palette.Text.primary
-            ]
-            
-            self?.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
-            self?.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal)
+            self?.updateAppearence()
         }
     }
     
-    private func setNavigationItems() {
-        let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+    private func updateAppearence() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = Palette.Background.primary
-        appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
-        appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!, NSAttributedString.Key.foregroundColor : Palette.Text.primary]
+        
+        appearance.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 17)!,
+            NSAttributedString.Key.foregroundColor : Palette.Text.primary
+        ]
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            let backImage = UIImage(named: "DarkBackIcon")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
+            appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+            
+        case .light:
+            let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal) ?? UIImage()
+            appearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        }
         
         navigationController?.navigationBar.standardAppearance = appearance
-        
-        navigationItem.backButtonTitle = ""
-        title = " "
+        view.backgroundColor = Palette.Background.primary
     }
     
     private func setLoader() {

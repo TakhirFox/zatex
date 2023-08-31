@@ -103,10 +103,16 @@ class ProfileViewController: BaseViewController {
     
     private func setupNavigationItem() {
         let settingsButton = UIButton()
-        settingsButton.setImage(UIImage(named: "SettingsIcon"), for: .normal)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         settingsButton.addTarget(self, action: #selector(goToSettings), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            settingsButton.setImage(UIImage(named: "DarkSettingsIcon"), for: .normal)
+        case .light:
+            settingsButton.setImage(UIImage(named: "SettingsIcon"), for: .normal)
+        }
     }
     
     func hideNavigationView() {
