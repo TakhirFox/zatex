@@ -129,7 +129,6 @@ class CheckboxEditCell: UITableViewCell {
             make.leading.equalTo(self.secondRatioButton.snp.trailing).offset(10)
             make.trailing.equalToSuperview()
         }
-        
     }
     
     required init?(coder: NSCoder) {

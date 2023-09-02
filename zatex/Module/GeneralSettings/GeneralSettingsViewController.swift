@@ -35,22 +35,30 @@ class GeneralSettingsViewController: BaseViewController {
     
     func setData() {
         settingsModel = [
-            SettingsModel(title: "Редактировать профиль",
-                          subTitle: "Измените свои данные аккаунта",
-                          icon: "ProfileIcon",
-                          rightIcon: "NextIcon"),
-            SettingsModel(title: "Изменить тему",
-                          subTitle: "Выбирайте светлую, либо темную тему",
-                          icon: "ThemeIcon",
-                          rightIcon: ""),
-            SettingsModel(title: "Включить уведомление",
-                          subTitle: "Включить, чтобы получать ништяки",
-                          icon: "PushIcon",
-                          rightIcon: ""),
-            SettingsModel(title: "Выйти из аккаунта",
-                          subTitle: "Выйти из аккаунта",
-                          icon: "LogoutIcon",
-                          rightIcon: "NextIcon")
+            SettingsModel(
+                title: "Редактировать профиль",
+                subTitle: "Измените свои данные аккаунта",
+                icon: "ProfileIcon",
+                rightIcon: "NextIcon"
+            ),
+            SettingsModel(
+                title: "Изменить тему",
+                subTitle: "Выбирайте светлую, либо темную тему",
+                icon: "ThemeIcon",
+                rightIcon: ""
+            ),
+            SettingsModel(
+                title: "Включить уведомление",
+                subTitle: "Включить, чтобы получать ништяки",
+                icon: "PushIcon",
+                rightIcon: ""
+            ),
+            SettingsModel(
+                title: "Выйти из аккаунта",
+                subTitle: "Выйти из аккаунта",
+                icon: "LogoutIcon",
+                rightIcon: "NextIcon"
+            )
         ]
     }
     
@@ -71,6 +79,7 @@ class GeneralSettingsViewController: BaseViewController {
         tableView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
         tableView.register(SettingsCell.self, forCellReuseIdentifier: "cell")
         tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: "switchCell")
+        tableView.register(SettingsThemeCell.self, forCellReuseIdentifier: "themeCell")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -91,21 +100,30 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsCell
             cell.setupCell(settingsModel[indexPath.row])
             return cell
+            
         case .changeTheme:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SettingsSwitchCell
-            cell.setupCell(settingsModel[indexPath.row])
-            cell.switchView.addTarget(self, action: #selector(changeTheme), for: .valueChanged)
-            cell.switchView.isOn = Appearance.shared.theme.value == .dark
+            let cell = tableView.dequeueReusableCell(withIdentifier: "themeCell", for: indexPath) as! SettingsThemeCell
+            cell.setupCell(
+                settingsModel[indexPath.row],
+                currentTheme: UserDefaults.standard.integer(forKey: "selectedStyle")
+            )
+            
+            cell.setThemeAction = { [weak self] themeIndex in
+                self?.setTheme(index: themeIndex)
+            }
             return cell
+            
         case .changePush:
             let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SettingsSwitchCell
             cell.setupCell(settingsModel[indexPath.row])
             cell.switchView.addTarget(self, action: #selector(changeNotifications), for: .valueChanged)
             return cell
+            
         case .logout:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsCell
             cell.setupCell(settingsModel[indexPath.row])
             return cell
+            
         case .none:
             return UITableViewCell()
         }
@@ -137,13 +155,23 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
 }
 
 extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
-    @objc func changeTheme() {
-        if Appearance.shared.theme.value == .dark {
+    @objc func setTheme(index: Int) {
+        switch index {
+        case 0:
             UserDefaults.standard.set(0, forKey: "selectedStyle")
-            Appearance.shared.theme.value = .light
-        } else {
+            if traitCollection.userInterfaceStyle == .dark {
+                Appearance.shared.theme.value = .dark
+            } else {
+                Appearance.shared.theme.value = .light
+            }
+        case 1:
             UserDefaults.standard.set(1, forKey: "selectedStyle")
+            Appearance.shared.theme.value = .light
+        case 2:
+            UserDefaults.standard.set(2, forKey: "selectedStyle")
             Appearance.shared.theme.value = .dark
+        default:
+            break
         }
     }
     

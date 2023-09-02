@@ -19,8 +19,14 @@ final class Appearance {
     
     static func apply() {
         let selectedStyle = UserDefaults.standard.integer(forKey: "selectedStyle")
-
+        
         if selectedStyle == 0 {
+            if UITraitCollection.current.userInterfaceStyle == .dark {
+                Appearance.shared.theme.value = .dark
+            } else {
+                Appearance.shared.theme.value = .light
+            }
+        } else if selectedStyle == 1 {
             Appearance.shared.theme.value = .light
         } else {
             Appearance.shared.theme.value = .dark
