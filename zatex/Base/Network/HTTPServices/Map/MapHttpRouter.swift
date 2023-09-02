@@ -13,9 +13,6 @@ enum MapHttpRouter {
 }
 
 extension MapHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://nominatim.openstreetmap.org"
-    }
     
     var path: String {
         switch self {

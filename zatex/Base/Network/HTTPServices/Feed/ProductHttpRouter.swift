@@ -15,9 +15,6 @@ enum ProductHttpRouter {
 }
 
 extension ProductHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

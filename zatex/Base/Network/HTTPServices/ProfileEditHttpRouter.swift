@@ -13,9 +13,6 @@ enum ProfileEditHttpRouter {
 }
 
 extension ProfileEditHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

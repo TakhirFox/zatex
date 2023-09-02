@@ -16,10 +16,6 @@ enum ChatDetailHttpRouter {
 
 extension ChatDetailHttpRouter: HttpRouter {
     
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
-    
     var path: String {
         switch self {
         case let .getChatMessage(chatId):

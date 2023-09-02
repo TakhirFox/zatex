@@ -19,7 +19,6 @@ class ChatListCell: UITableViewCell {
     private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.layer.masksToBounds = true
-        view.image = UIImage(named: "asd")
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 10
         return view
@@ -27,28 +26,28 @@ class ChatListCell: UITableViewCell {
     
     private let usernameLabel: UILabel = {
         let view = UILabel()
-        view.font = .boldSystemFont(ofSize: 16)
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 15)
         view.numberOfLines = 1
         return view
     }()
     
     private let productNameLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 16)
+        view.font = UIFont(name: "Montserrat-Regular", size: 15)
         view.numberOfLines = 1
         return view
     }()
     
     private let messageLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 15)
+        view.font = UIFont(name: "Montserrat-Medium", size: 14)
         view.numberOfLines = 4
         return view
     }()
     
     private let dateLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 12)
+        view.font = UIFont(name: "Montserrat-Regular", size: 12)
         view.textAlignment = .right
         view.numberOfLines = 1
         return view
@@ -67,6 +66,8 @@ class ChatListCell: UITableViewCell {
     }
     
     func setupCell(_ data: ChatListResult?) {
+//        avatarImageView.image = data. // TODO: Добавить реальный аватар
+        
         usernameLabel.text = data?.displayName
         productNameLabel.text = data?.postTitle
         messageLabel.text = data?.content
@@ -132,6 +133,7 @@ class ChatListCell: UITableViewCell {
     
     private func updateAppearence() {
         backgroundColor = .clear
+        avatarImageView.backgroundColor = Palette.Background.tertiary
         usernameLabel.textColor = Palette.Text.primary
         productNameLabel.textColor = Palette.Text.primary
         messageLabel.textColor = Palette.AccentText.secondary

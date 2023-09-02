@@ -8,15 +8,14 @@
 import Alamofire
 
 enum SignUpHttpRouter {
-    case signUp(username: String,
-                email: String,
-                password: String)
+    case signUp(
+        username: String,
+        email: String,
+        password: String
+    )
 }
 
 extension SignUpHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

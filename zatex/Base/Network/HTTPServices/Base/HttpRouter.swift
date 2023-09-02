@@ -21,6 +21,10 @@ protocol HttpRouter: URLRequestConvertible {
 }
 
 extension HttpRouter {
+    var baseUrlString: String {
+        return "https://zakirovweb.online"
+    }
+    
     var token: String {
         return UserSettingsService.shared.token
     }
