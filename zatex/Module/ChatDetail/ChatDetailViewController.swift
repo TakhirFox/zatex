@@ -40,6 +40,7 @@ class ChatDetailViewController: BaseViewController {
     let textView: UITextView = {
         let view = UITextView()
         view.backgroundColor = .clear
+        view.font = UIFont(name: "Montserrat-Regular", size: 14)
         return view
     }()
     
@@ -77,6 +78,7 @@ class ChatDetailViewController: BaseViewController {
         chatTextFieldView.layer.borderColor = Palette.BorderField.primary.cgColor
         chatTextFieldView.backgroundColor = Palette.Background.secondary
         sendButton.backgroundColor = Palette.Button.primary
+        textView.textColor = Palette.Text.primary
     }
     
     func setupTableView() {

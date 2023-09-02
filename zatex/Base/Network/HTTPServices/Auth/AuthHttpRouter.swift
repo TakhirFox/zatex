@@ -8,14 +8,13 @@
 import Alamofire
 
 enum AuthHttpRouter {
-    case authorization(login: String,
-                       pass: String)
+    case authorization(
+        login: String,
+        pass: String
+    )
 }
 
 extension AuthHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

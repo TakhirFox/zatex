@@ -13,9 +13,6 @@ enum ResetPasswordHttpRouter {
 }
 
 extension ResetPasswordHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

@@ -13,9 +13,6 @@ enum ReviewsHttpRouter {
 }
 
 extension ReviewsHttpRouter: HttpRouter {
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
     
     var path: String {
         switch self {

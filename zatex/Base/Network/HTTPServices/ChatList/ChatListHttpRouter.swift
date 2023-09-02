@@ -13,10 +13,6 @@ enum ChatListHttpRouter {
 
 extension ChatListHttpRouter: HttpRouter {
     
-    var baseUrlString: String {
-        return "https://zakirovweb.online"
-    }
-    
     var path: String {
         switch self {
         case .getChatList:
