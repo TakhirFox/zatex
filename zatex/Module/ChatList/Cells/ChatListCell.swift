@@ -66,7 +66,12 @@ class ChatListCell: UITableViewCell {
     }
     
     func setupCell(_ data: ChatListResult?) {
-//        avatarImageView.image = data. // TODO: Добавить реальный аватар
+        
+        if let imageUrl = data?.avatar {
+            let url = (imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
+            let urlString = URL(string: url)
+            avatarImageView.kf.setImage(with: urlString)
+        }
         
         usernameLabel.text = data?.displayName
         productNameLabel.text = data?.postTitle

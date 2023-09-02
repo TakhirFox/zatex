@@ -11,7 +11,8 @@ struct ChatListResult: Decodable {
     let chatID, user1ID, user2ID, productID: String?
     let content, sentAt, postTitle, displayName: String?
     let isRead: Bool?
-
+    let avatar: String?
+    
     enum CodingKeys: String, CodingKey {
         case chatID = "chat_id"
         case user1ID = "user1_id"
@@ -22,5 +23,6 @@ struct ChatListResult: Decodable {
         case postTitle = "post_title"
         case displayName = "display_name"
         case isRead = "is_read"
+        case avatar
     }
 }
