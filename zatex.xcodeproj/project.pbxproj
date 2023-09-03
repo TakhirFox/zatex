@@ -2250,6 +2250,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = zatex/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -2280,6 +2282,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = zatex/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
