@@ -263,9 +263,8 @@ extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
         let alertController = UIAlertController(title: "Отправлено", message: "Запрос на удаление обрабатывается в течении 48 часов.", preferredStyle: .alert)
         
         let cancelButton = UIAlertAction(title: "Хорошо", style: .default) { [weak self] _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self?.presenter?.logout()
-            }
+            self?.presenter?.logout()
+            navigationController?.popViewController(animated: true)
         }
         
         alertController.addAction(cancelButton)
