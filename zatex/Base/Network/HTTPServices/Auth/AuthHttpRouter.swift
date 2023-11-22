@@ -49,8 +49,12 @@ extension AuthHttpRouter: HttpRouter {
     func body() throws -> Data? {
         switch self {
         case let .authorization(login, pass):
-            let data = AuthRequest(username: login,
-                                   password: pass)
+            
+            let data = AuthRequest(
+                username: login,
+                password: pass
+            )
+            
             return try JSONEncoder().encode(data)
         }
     }

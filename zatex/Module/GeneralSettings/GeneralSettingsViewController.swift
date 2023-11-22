@@ -7,23 +7,28 @@
 //
 
 import UIKit
+import Lottie
 
 protocol GeneralSettingsViewControllerProtocol: AnyObject {
     var presenter: GeneralSettingsPresenterProtocol? { get set }
+    
+    func showSuccess()
+    func showToastError(text: String)
 }
 
 class GeneralSettingsViewController: BaseViewController {
     
     enum RowKind: Int {
-        case editProfile, changeTheme, changePush, logout
+        case editProfile, changeTheme, changePush, logout, delete
     }
     
     var presenter: GeneralSettingsPresenterProtocol?
     
-    let tableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let spinnerView = LottieAnimationView(name: "loader")
     
     var settingsModel: [SettingsModel] = []
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
@@ -31,6 +36,15 @@ class GeneralSettingsViewController: BaseViewController {
         
         setupSubviews()
         setupConstraints()
+        settingSpinner()
+    }
+    
+    private func settingSpinner() {
+        spinnerView.contentMode = .scaleAspectFill
+        spinnerView.loopMode = .loop
+        spinnerView.animationSpeed = 2
+        
+        showLoader(enable: false)
     }
     
     func setData() {
@@ -45,31 +59,45 @@ class GeneralSettingsViewController: BaseViewController {
                 title: "Изменить тему",
                 subTitle: "Выбирайте светлую, либо темную тему",
                 icon: "ThemeIcon",
-                rightIcon: ""
+                rightIcon: nil
             ),
             SettingsModel(
                 title: "Включить уведомление",
                 subTitle: "Включить, чтобы получать ништяки",
                 icon: "PushIcon",
-                rightIcon: ""
+                rightIcon: nil
             ),
             SettingsModel(
                 title: "Выйти из аккаунта",
                 subTitle: "Выйти из аккаунта",
                 icon: "LogoutIcon",
                 rightIcon: "NextIcon"
+            ),
+            SettingsModel(
+                title: "Удалить аккаунт",
+                subTitle: "Выйти можете безвозвратно удалить аккаунт",
+                icon: "removeIcon",
+                rightIcon: nil,
+                isDestructive: true
             )
         ]
     }
     
     func setupSubviews() {
         view.addSubview(tableView)
+        view.addSubview(spinnerView)
     }
     
     func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.bottom.trailing.equalToSuperview()
+        }
+        
+        spinnerView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(50)
         }
     }
     
@@ -124,6 +152,11 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             cell.setupCell(settingsModel[indexPath.row])
             return cell
             
+        case .delete:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsCell
+            cell.setupCell(settingsModel[indexPath.row])
+            return cell
+            
         case .none:
             return UITableViewCell()
         }
@@ -134,13 +167,20 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
         switch row {
         case .editProfile:
             presenter?.goToProfileEdit()
+            
         case .changeTheme:
             print("N0thing bro")
+            
         case .changePush:
             print("N0thing bro")
+            
         case .logout:
             presenter?.logout()
             navigationController?.popViewController(animated: true)
+            
+        case .delete:
+            showDeleteAccountAlert()
+            
         case .none:
             print("N0thing bro")
         }
@@ -151,10 +191,10 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
         headerView.setupCell("Основные настройки")
         return headerView
     }
-    
 }
 
-extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
+extension GeneralSettingsViewController {
+    
     @objc func setTheme(index: Int) {
         switch index {
         case 0:
@@ -164,12 +204,15 @@ extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
             } else {
                 Appearance.shared.theme.value = .light
             }
+            
         case 1:
             UserDefaults.standard.set(1, forKey: "selectedStyle")
             Appearance.shared.theme.value = .light
+            
         case 2:
             UserDefaults.standard.set(2, forKey: "selectedStyle")
             Appearance.shared.theme.value = .dark
+            
         default:
             break
         }
@@ -179,4 +222,64 @@ extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
         print("assa")
     }
     
+    private func showLoader(enable: Bool) {
+        if enable {
+            spinnerView.play()
+        } else {
+            spinnerView.stop()
+        }
+        
+        spinnerView.isHidden = !enable
+        tableView.alpha = enable ? 0.5 : 1
+        tableView.isUserInteractionEnabled = !enable
+    }
+}
+
+extension GeneralSettingsViewController {
+    
+    private func showDeleteAccountAlert() {
+        let alertController = UIAlertController(title: "Вы действительно хотите удалить аккаунт?", message: "Это приведет к полному удалению аккаунта, со всей историей переписки, продажами, личной информацией? Запрос на удаление обрабатывается в течении 48 часов.", preferredStyle: .alert)
+        
+        let removeButton = UIAlertAction(
+            title: "Удалить",
+            style: .destructive
+        ) { _ in
+            self.showLoader(enable: true)
+            self.presenter?.deleteAccount()
+        }
+        
+        let cancelButton = UIAlertAction(title: "Отмена", style: .default)
+        
+        alertController.addAction(removeButton)
+        alertController.addAction(cancelButton)
+        
+        self.present(alertController, animated: true)
+    }
+}
+
+extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
+    
+    func showSuccess() {
+        let alertController = UIAlertController(title: "Отправлено", message: "Запрос на удаление обрабатывается в течении 48 часов.", preferredStyle: .alert)
+        
+        let cancelButton = UIAlertAction(title: "Хорошо", style: .default) { [weak self] _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self?.presenter?.logout()
+            }
+        }
+        
+        alertController.addAction(cancelButton)
+        
+        self.present(alertController, animated: true)
+        
+        showLoader(enable: false)
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.showLoader(enable: true)
+        }
+        
+        showLoader(enable: false)
+    }
 }

@@ -9,12 +9,16 @@
 import UIKit
 
 class GeneralSettingsAssembly {
-    static func create(logoutHandler: @escaping (() -> Void)) -> UIViewController {
+    
+    static func create(
+        logoutHandler: @escaping (() -> Void)
+    ) -> UIViewController {
         let viewController = GeneralSettingsViewController()
         let presenter = GeneralSettingsPresenter()
         let interactor = GeneralSettingsInteractor()
         let router = GeneralSettingsRouter()
         
+        let networkService = GeneralSettingsService.shared
         let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
@@ -23,13 +27,13 @@ class GeneralSettingsAssembly {
         presenter.interactor = interactor
         presenter.router = router
         presenter.logoutHandler = logoutHandler
+        presenter.sessionProvider = sessionProvider
         
         interactor.presenter = presenter
-        interactor.sessionProvider = sessionProvider
+        interactor.service = networkService
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

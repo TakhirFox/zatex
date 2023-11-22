@@ -226,6 +226,11 @@
 		ADE7407329DF17D7004A667C /* CreateProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE7407229DF17D7004A667C /* CreateProductService.swift */; };
 		ADE8175329093A76004895DD /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175229093A76004895DD /* BaseButton.swift */; };
 		ADE8175529093E3D004895DD /* BaseTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8175429093E3D004895DD /* BaseTabBar.swift */; };
+		ADEB0AFE2B0E16D000FCCAEF /* GeneralSettingsHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEB0AFD2B0E16D000FCCAEF /* GeneralSettingsHttpService.swift */; };
+		ADEB0B002B0E16E400FCCAEF /* GeneralSettingsHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEB0AFF2B0E16E400FCCAEF /* GeneralSettingsHttpRouter.swift */; };
+		ADEB0B022B0E176700FCCAEF /* GeneralSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEB0B012B0E176700FCCAEF /* GeneralSettingsService.swift */; };
+		ADEB0B042B0E177F00FCCAEF /* GeneralSettingsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEB0B032B0E177F00FCCAEF /* GeneralSettingsAPI.swift */; };
+		ADEB0B062B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEB0B052B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift */; };
 		ADEE23772A642C1800569844 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = ADEE23762A642C1800569844 /* loader.json */; };
 		ADEE237A2A6582F200569844 /* AdditionalInfoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE23792A6582F200569844 /* AdditionalInfoEntity.swift */; };
 		ADEE237D2A65847700569844 /* FieldAddInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE237C2A65847700569844 /* FieldAddInfoCell.swift */; };
@@ -527,6 +532,11 @@
 		ADE7407229DF17D7004A667C /* CreateProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductService.swift; sourceTree = "<group>"; };
 		ADE8175229093A76004895DD /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		ADE8175429093E3D004895DD /* BaseTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBar.swift; sourceTree = "<group>"; };
+		ADEB0AFD2B0E16D000FCCAEF /* GeneralSettingsHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsHttpService.swift; sourceTree = "<group>"; };
+		ADEB0AFF2B0E16E400FCCAEF /* GeneralSettingsHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsHttpRouter.swift; sourceTree = "<group>"; };
+		ADEB0B012B0E176700FCCAEF /* GeneralSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsService.swift; sourceTree = "<group>"; };
+		ADEB0B032B0E177F00FCCAEF /* GeneralSettingsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsAPI.swift; sourceTree = "<group>"; };
+		ADEB0B052B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountEmailRequest.swift; sourceTree = "<group>"; };
 		ADEE23762A642C1800569844 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		ADEE23792A6582F200569844 /* AdditionalInfoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInfoEntity.swift; sourceTree = "<group>"; };
 		ADEE237C2A65847700569844 /* FieldAddInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldAddInfoCell.swift; sourceTree = "<group>"; };
@@ -867,6 +877,7 @@
 				AD4E866E2A55CBF600F002E6 /* ProfileEditRequest.swift */,
 				ADEE238F2A65A91400569844 /* AdditionalInfoRequest.swift */,
 				ADC6428A2A7ED3C000789B24 /* SetSalesProductRequest.swift */,
+				ADEB0B052B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1064,6 +1075,7 @@
 		AD86EAC42903F506001CB847 /* HTTPServices */ = {
 			isa = PBXGroup;
 			children = (
+				ADEB0AFB2B0E169400FCCAEF /* GeneralSettings */,
 				ADEE23892A65A87100569844 /* AdditionalInfo */,
 				ADCF768A29B89B4A007FF164 /* Auth */,
 				ADC3B41B2906E04500A7AE66 /* Base */,
@@ -1101,6 +1113,7 @@
 		AD86EAD629043A5A001CB847 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				ADEB0AFC2B0E169B00FCCAEF /* GeneralSettings */,
 				ADEE238A2A65A87900569844 /* AdditionalInfo */,
 				ADCF768F29B89F40007FF164 /* Auth */,
 				ADF5400629B4CBC800BF8516 /* ChatDetail */,
@@ -1430,6 +1443,24 @@
 				AD6739572A7BD3D100AB4DB1 /* BaseNavigationController.swift */,
 			);
 			name = BaseComponents;
+			sourceTree = "<group>";
+		};
+		ADEB0AFB2B0E169400FCCAEF /* GeneralSettings */ = {
+			isa = PBXGroup;
+			children = (
+				ADEB0AFD2B0E16D000FCCAEF /* GeneralSettingsHttpService.swift */,
+				ADEB0AFF2B0E16E400FCCAEF /* GeneralSettingsHttpRouter.swift */,
+			);
+			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
+		ADEB0AFC2B0E169B00FCCAEF /* GeneralSettings */ = {
+			isa = PBXGroup;
+			children = (
+				ADEB0B012B0E176700FCCAEF /* GeneralSettingsService.swift */,
+				ADEB0B032B0E177F00FCCAEF /* GeneralSettingsAPI.swift */,
+			);
+			path = GeneralSettings;
 			sourceTree = "<group>";
 		};
 		ADEE23752A642BF000569844 /* Resources */ = {
@@ -1900,6 +1931,7 @@
 				AD9B261028FD55FC00C15139 /* ThemeManager.swift in Sources */,
 				ADF5400829B4CBD400BF8516 /* ChatDetailAPI.swift in Sources */,
 				AD46D79929C89F87002A6E1F /* ReviewsListResult.swift in Sources */,
+				ADEB0AFE2B0E16D000FCCAEF /* GeneralSettingsHttpService.swift in Sources */,
 				AD3AF6A429E30B1700ABDC1A /* UploadProductImageCell.swift in Sources */,
 				AD86EAD5290439B3001CB847 /* StubService.swift in Sources */,
 				AD3AF69729E13AC100ABDC1A /* ImagesHttpService.swift in Sources */,
@@ -1918,6 +1950,7 @@
 				AD0380002A26485D00DB0F60 /* SuccessResetPasswordView.swift in Sources */,
 				ADEE237A2A6582F200569844 /* AdditionalInfoEntity.swift in Sources */,
 				1727A8D41F2F7DB81B73880E /* ProfileRouter.swift in Sources */,
+				ADEB0B022B0E176700FCCAEF /* GeneralSettingsService.swift in Sources */,
 				ADB817D829FC312F00CF09F9 /* ReviewDetailView.swift in Sources */,
 				947DA44845380414AE94488C /* ProfileAssembly.swift in Sources */,
 				AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */,
@@ -1990,6 +2023,7 @@
 				AD2F39D62A894687005D13B3 /* UserProfileEmptyCell.swift in Sources */,
 				AD037FE82A23920D00DB0F60 /* FieldSignUpCell.swift in Sources */,
 				0FCA7DD594C65E0F9D762530 /* GeneralSettingsPresenter.swift in Sources */,
+				ADEB0B002B0E16E400FCCAEF /* GeneralSettingsHttpRouter.swift in Sources */,
 				AD4E866B2A55C30800F002E6 /* ProfileEditAPI.swift in Sources */,
 				681507BCE22319967454F570 /* GeneralSettingsInteractor.swift in Sources */,
 				ADEE23812A659DE900569844 /* AvatarAddInfoCell.swift in Sources */,
@@ -2018,6 +2052,7 @@
 				AD3AF6A229E308BD00ABDC1A /* CreateProductImagesCell.swift in Sources */,
 				9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */,
 				AD5665072AA3B237004E68AE /* SettingsThemeCell.swift in Sources */,
+				ADEB0B062B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift in Sources */,
 				ADEED4532A7521CA00CEF2A8 /* Debouncer.swift in Sources */,
 				ADEE23902A65A91400569844 /* AdditionalInfoRequest.swift in Sources */,
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
@@ -2106,6 +2141,7 @@
 				E2065694DCB1AE909FB3D036 /* UserProfilePresenter.swift in Sources */,
 				EB446047A5DFFB60C1E7AA49 /* UserProfileInteractor.swift in Sources */,
 				36E30386C34975CABC2407B9 /* UserProfileRouter.swift in Sources */,
+				ADEB0B042B0E177F00FCCAEF /* GeneralSettingsAPI.swift in Sources */,
 				AAAFA67694594A32D612D077 /* UserProfileAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2245,17 +2281,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J4B53B6TAD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = zatex/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2264,9 +2303,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = winzerofox.zatex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2277,17 +2318,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J4B53B6TAD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = zatex/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2296,9 +2340,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = winzerofox.zatex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -39,6 +39,8 @@ class SettingsCell: UITableViewCell {
         view.contentMode = .scaleAspectFit
         return view
     }()
+    
+    private var isDestructive = false
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,7 +51,7 @@ class SettingsCell: UITableViewCell {
         
         configureSubviews()
         configureConstraints()
-        updateAppearence()
+        
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
@@ -57,16 +59,25 @@ class SettingsCell: UITableViewCell {
     }
     
     func setupCell(_ settings: SettingsModel) {
-        iconView.image = UIImage(named: settings.icon)?.withTintColor(Palette.AccentText.secondary, renderingMode: .alwaysOriginal)
+        iconView.image = UIImage(named: settings.icon)?
+            .withTintColor(
+                settings.isDestructive ? Palette.BorderField.wrong : Palette.AccentText.secondary,
+                renderingMode: .alwaysOriginal
+            )
+        
         titleLabel.text = settings.title
         subTitleLabel.text = settings.subTitle
         rightIconView.image = UIImage(named: settings.rightIcon ?? "")
+        
+        isDestructive = settings.isDestructive
+        
+        updateAppearence()
     }
     
     private func updateAppearence() {
         backView.backgroundColor = Palette.Background.secondary
-        titleLabel.textColor = Palette.Text.primary
-        subTitleLabel.textColor = Palette.AccentText.secondary
+        titleLabel.textColor = isDestructive ? Palette.BorderField.wrong : Palette.Text.primary
+        subTitleLabel.textColor = isDestructive ? Palette.BorderField.wrong : Palette.AccentText.secondary
     }
     
     private func configureSubviews() {

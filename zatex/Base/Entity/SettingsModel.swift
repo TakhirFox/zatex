@@ -12,4 +12,5 @@ struct SettingsModel {
     let subTitle: String
     let icon: String
     let rightIcon: String?
+    var isDestructive: Bool = false
 }
