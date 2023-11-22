@@ -264,7 +264,7 @@ extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
         
         let cancelButton = UIAlertAction(title: "Хорошо", style: .default) { [weak self] _ in
             self?.presenter?.logout()
-            navigationController?.popViewController(animated: true)
+            self?.navigationController?.popViewController(animated: true)
         }
         
         alertController.addAction(cancelButton)
