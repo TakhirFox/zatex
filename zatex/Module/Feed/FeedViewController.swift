@@ -20,16 +20,21 @@ protocol FeedViewControllerProtocol: AnyObject {
 
 class FeedViewController: BaseViewController {
     enum SectionKind: Int, CaseIterable {
-        case banner, category, products
+        case banner, category, products, emptyCategory
         
         var columnCount: Int {
             switch self {
             case .banner:
                 return 1
+                
             case .category:
                 return 2
+                
             case .products:
                 return 3
+                
+            case .emptyCategory:
+                return 4
             }
         }
     }
@@ -42,6 +47,7 @@ class FeedViewController: BaseViewController {
     var banners: [BannerResult] = []
     var categories: [CategoryResult] = []
     var products: [ProductResult] = []
+    var emptyProducts: [String] = []
     
     let refreshControl = UIRefreshControl()
     let searchView = BaseTextField()
@@ -81,6 +87,7 @@ class FeedViewController: BaseViewController {
         collectionView.register(CategoryFeedCell.self, forCellWithReuseIdentifier: "categoryCell")
         collectionView.register(BannerFeedCell.self, forCellWithReuseIdentifier: "bannerCell")
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.register(EmptyProductCell.self, forCellWithReuseIdentifier: "emptyProductCell")
         collectionView.register(HeaderCell.self, forSupplementaryViewOfKind: "headerCell", withReuseIdentifier: "headerCell")
         collectionView.refreshControl = refreshControl
         collectionView.delegate = self
@@ -112,30 +119,38 @@ class FeedViewController: BaseViewController {
 
 // MARK: CollectionView flow layout, data source
 extension FeedViewController: UICollectionViewDelegateFlowLayout {
+    
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>(collectionView: collectionView, cellProvider: { [self] (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-            let section = SectionKind(rawValue: indexPath.section)
-            switch section {
-            case .banner:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannerCell", for: indexPath) as! BannerFeedCell
-                cell.setupCell(banners[indexPath.item])
-                return cell
-                
-            case .category:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryFeedCell
-                cell.setupCell(categories[indexPath.item])
-                return cell
-                
-            case .products:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
-                cell.setupCell(products[indexPath.item])
-                return cell
-                
-            case .none:
-                return nil
-                
+        dataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>(
+            collectionView: collectionView,
+            cellProvider: { [self] (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
+                let section = SectionKind(rawValue: indexPath.section)
+                switch section {
+                case .banner:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannerCell", for: indexPath) as! BannerFeedCell
+                    cell.setupCell(banners[indexPath.item])
+                    return cell
+                    
+                case .category:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryFeedCell
+                    cell.setupCell(categories[indexPath.item])
+                    return cell
+                    
+                case .products:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
+                    cell.setupCell(products[indexPath.item])
+                    return cell
+                    
+                case .emptyCategory:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyProductCell", for: indexPath) as! EmptyProductCell
+                    cell.setupCell(text: "Категория все еще пустая")
+                    return cell
+                    
+                case .none:
+                    return nil
+                }
             }
-        })
+        )
         
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? HeaderCell else { return HeaderCell()}
@@ -164,7 +179,10 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         snapshot.appendSections([.products])
         snapshot.appendItems(products, toSection: .products)
         
-        dataSource.apply(snapshot, animatingDifferences: false)
+        snapshot.appendSections([.emptyCategory])
+        snapshot.appendItems(emptyProducts, toSection: .emptyCategory)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -179,6 +197,9 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
                 
             case .products:
                 return self.createProductsSection()
+                
+            case .emptyCategory:
+                return self.createEmptyCategorySection()
                 
             case .none:
                 return nil
@@ -252,6 +273,22 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         return section
     }
     
+    private func createEmptyCategorySection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 10, trailing: 6)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(250))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        
+        return section
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = SectionKind(rawValue: indexPath.section)
         switch section {
@@ -273,8 +310,11 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             guard let productId = self.products[indexPath.row].id else { return }
             presenter?.goToDetail(id: productId)
             
+        case .emptyCategory:
+            break
+            
         case .none:
-            print("none")
+            break
         }
     }
 
@@ -282,6 +322,7 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: Textfiled delegate
 extension FeedViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         presenter?.goToSearchResult(text: text)
@@ -292,6 +333,7 @@ extension FeedViewController: UITextFieldDelegate {
 
 // MARK: UIScrollViewDelegate
 extension FeedViewController: UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         let collectionSize = collectionView.contentSize.height
@@ -310,6 +352,7 @@ extension FeedViewController: UIScrollViewDelegate {
 
 // MARK: Implemented FeedViewControllerProtocol
 extension FeedViewController: FeedViewControllerProtocol {
+    
     @objc private func refreshData(_ sender: Any) {
         presenter?.getProducts(page: pageCount)
     }
@@ -352,9 +395,11 @@ extension FeedViewController: FeedViewControllerProtocol {
     func setProductFromCategory(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.emptyProducts = data.isEmpty ? ["emptyProducts"] : []
             self.products = data
             self.reloadData()
             self.collectionView.reloadData()
+            self.collectionView.scrollToBottom(animated: true)
         }
     }
     
