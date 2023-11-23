@@ -55,11 +55,17 @@ class ProfileViewController: BaseViewController {
         if sessionProvider != nil,
            sessionProvider!.isAuthorized
         {
+            getRequests()
+            
             navigationController?.isNavigationBarHidden = false
             collectionView.isHidden = false
             headerView.isHidden = false
             loginView.isHidden = true
         } else {
+            profileStoreInfo = nil
+            profileProducts = nil
+            collectionView.reloadData()
+            
             navigationController?.isNavigationBarHidden = true
             collectionView.isHidden = true
             headerView.isHidden = true
@@ -110,6 +116,7 @@ class ProfileViewController: BaseViewController {
         switch Appearance.shared.theme.value {
         case .dark:
             settingsButton.setImage(UIImage(named: "DarkSettingsIcon"), for: .normal)
+            
         case .light:
             settingsButton.setImage(UIImage(named: "SettingsIcon"), for: .normal)
         }
