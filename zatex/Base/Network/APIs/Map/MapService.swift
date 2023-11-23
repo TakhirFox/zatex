@@ -25,9 +25,15 @@ extension MapService: MapAPI {
                 )
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [CoordinatesResult].self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: TEXT 1: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
+                        
                     case .failure(let error):
                         completion(.failure(.error(name: "Ошибка: 03463468767 - \(error)")))
                     }
@@ -48,9 +54,15 @@ extension MapService: MapAPI {
                 )
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: AddressResult.self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: TEXT 2: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
+                        
                     case .failure(let error):
                         completion(.failure(.error(name: "Ошибка: 7834673467 - \(error)")))
                     }

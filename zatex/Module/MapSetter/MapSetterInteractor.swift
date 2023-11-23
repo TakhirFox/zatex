@@ -30,10 +30,10 @@ extension MapSetterInteractor: MapSetterInteractorProtocol {
                 switch error {
                 case let .error(name):
                     self.presenter?.setToastMapError(text: name)
-                    break
+                    
                 case let .secondError(name):
                     self.presenter?.setToastMapError(text: name)
-                    break
+                    
                 }
             }
         }
@@ -49,10 +49,10 @@ extension MapSetterInteractor: MapSetterInteractorProtocol {
                 switch error {
                 case let .error(name):
                     self.presenter?.setToastMapError(text: name)
-                    break
+                    
                 case let .secondError(name):
                     self.presenter?.setToastMapError(text: name)
-                    break
+                    
                 }
             }
         }
