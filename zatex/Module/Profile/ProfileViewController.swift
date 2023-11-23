@@ -403,7 +403,9 @@ extension ProfileViewController: ProfileViewControllerProtocol {
     }
     
     func updateView() {
-        loadProfileView()
+        DispatchQueue.main.async { [weak self] in
+            self?.loadProfileView()
+        }
     }
     
     func showError(data: String) {
