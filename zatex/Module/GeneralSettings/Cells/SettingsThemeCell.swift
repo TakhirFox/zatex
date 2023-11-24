@@ -94,17 +94,20 @@ class SettingsThemeCell: UITableViewCell {
         titleLabel.text = settings.title
         subTitleLabel.text = settings.subTitle
         
-        systemThemeLabel.text = "Как в система"
+        systemThemeLabel.text = "Как в системе"
         lightThemeLabel.text = "Светлая тема"
         darkThemeLabel.text = "Темная тема"
         
         switch currentTheme {
         case 0:
             systemThemeRatioButton.isSelected = true
+            
         case 1:
             lightThemeRatioButton.isSelected = true
+            
         case 2:
             darkThemeRatioButton.isSelected = true
+            
         default:
             break
         }

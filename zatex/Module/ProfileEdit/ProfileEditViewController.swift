@@ -25,7 +25,7 @@ class ProfileEditViewController: BaseViewController {
     }
     
     enum RowTwoKind: Int {
-        case shopName, colorName, shopImage
+        case shopName, shopImage
     }
     
     var presenter: ProfileEditPresenterProtocol?
@@ -232,17 +232,6 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 cell.setupCell(name: "Название магазина", field: profileInfo?.storeName ?? "")
                 cell.textField.addTarget(self, action: #selector(storeNameDidChange(_:)), for: .editingChanged)
                 cell.textField.delegate = self
-                return cell
-                
-            case .colorName:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "shopThemeBoxCell", for: indexPath) as! CheckboxEditCell
-                cell.setupCell(
-                    name: "Цвет названия",
-                    firstName: "Светлый",
-                    secondName: "Темный",
-                    isShop: nil
-                )
-                
                 return cell
                 
             case .shopImage:
