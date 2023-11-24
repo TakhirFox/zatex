@@ -62,7 +62,7 @@ class GeneralSettingsViewController: BaseViewController {
                 rightIcon: nil
             ),
             SettingsModel(
-                title: "Включить уведомление",
+                title: "Включить уведомления",
                 subTitle: "Включить, чтобы получать ништяки",
                 icon: "PushIcon",
                 rightIcon: nil
@@ -75,7 +75,7 @@ class GeneralSettingsViewController: BaseViewController {
             ),
             SettingsModel(
                 title: "Удалить аккаунт",
-                subTitle: "Выйти можете безвозвратно удалить аккаунт",
+                subTitle: "Вы можете безвозвратно удалить аккаунт",
                 icon: "removeIcon",
                 rightIcon: nil,
                 isDestructive: true
