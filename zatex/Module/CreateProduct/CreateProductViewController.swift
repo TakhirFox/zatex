@@ -293,14 +293,17 @@ extension CreateProductViewController {
     
     @objc func showImagePicker() { // TODO: Refactoring
         let alert = UIAlertController(title: "Загрузить изображение", message: nil, preferredStyle: .actionSheet)
+        
         let cameraAction = UIAlertAction(title: "Камера", style: .default) { _ in
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true, completion: nil)
         }
+        
         let libraryAction = UIAlertAction(title: "Галерея", style: .default) { _ in
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         alert.addAction(cameraAction)
         alert.addAction(libraryAction)
@@ -309,7 +312,7 @@ extension CreateProductViewController {
     }
     
     @objc func createNewProduct() {
-        let createProductController = CreateProductViewController()
+        let createProductController = CreateProductAssembly.create()
         navigationController?.setViewControllers([createProductController], animated: false)
     }
     
