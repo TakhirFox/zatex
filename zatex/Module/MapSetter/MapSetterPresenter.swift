@@ -7,13 +7,13 @@
 //
 
 protocol MapSetterPresenterProtocol: AnyObject {
-    func showMapPlace()
+    func showMapPlace(coordinates: CoordinareEntity)
     func getAddress(from coordinates: CoordinareEntity)
     func findAdress(from addess: String)
     
     func goToBackWith(address: String)
     
-    func setMapPlace()
+    func setMapPlace(coordinates: CoordinareEntity)
     func setAddress(data: AddressResult)
     func setAddressList(data: [CoordinatesResult])
     func setToastMapError(text: String)
@@ -31,8 +31,8 @@ class MapSetterPresenter: BasePresenter {
 extension MapSetterPresenter: MapSetterPresenterProtocol {
     
     // MARK: To Interactor
-    func showMapPlace() {
-        setMapPlace()
+    func showMapPlace(coordinates: CoordinareEntity) {
+        setMapPlace(coordinates: coordinates)
     }
     
     func getAddress(from coordinates: CoordinareEntity) {
@@ -49,12 +49,9 @@ extension MapSetterPresenter: MapSetterPresenterProtocol {
     }
     
     // MARK: To View
-    func setMapPlace() {
+    func setMapPlace(coordinates: CoordinareEntity) {
         view?.setMapPlace(
-            coordinates: CoordinareEntity(
-                latitude: 56.47949,
-                longitude: 84.96594
-            )
+            coordinates: coordinates
         )
     }
     
