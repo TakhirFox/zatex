@@ -82,7 +82,7 @@ class SentChatCell: UITableViewCell {
     private func configureSubviews() {
         addSubview(curveView)
         addSubview(bubbleView)
-        bubbleView.addSubview(dateLabel)
+        addSubview(dateLabel)
         bubbleView.addSubview(spinner)
         bubbleView.addSubview(messageLabel)
         curveView.layer.addSublayer(shape)
@@ -102,25 +102,24 @@ class SentChatCell: UITableViewCell {
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.equalTo(bubbleView).inset(10)
             make.top.equalTo(bubbleView).inset(10)
+            make.leading.equalTo(bubbleView).inset(10)
             make.bottom.equalTo(bubbleView).inset(10)
+            make.trailing.equalTo(bubbleView).inset(10)
         }
         
         if dateLabel.text != nil, dateLabel.text!.isEmpty {
             spinner.snp.makeConstraints { make in
-                make.leading.equalTo(messageLabel.snp.trailing).inset(0)
-                make.trailing.equalTo(bubbleView).inset(10)
-                make.top.equalTo(bubbleView).offset(5)
+                make.trailing.equalTo(bubbleView.snp.leading).inset(-10)
                 make.width.equalTo(25)
                 make.height.equalTo(25)
+                make.centerY.equalToSuperview()
             }
         } else {
             dateLabel.snp.makeConstraints { make in
-                make.leading.equalTo(messageLabel.snp.trailing).inset(0)
-                make.trailing.equalTo(bubbleView).inset(10)
-                make.top.equalTo(bubbleView).offset(10)
-                make.width.equalTo(35)
+                make.centerY.equalToSuperview()
+                make.trailing.equalTo(bubbleView.snp.leading).inset(-10)
+                make.width.equalTo(100)
             }
         }
     }

@@ -24,6 +24,11 @@ extension ChatDetailService: ChatDetailAPI {
                 .getChatMessage(chatId: chatId)
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [ChatMessageResult].self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: getChatMessage: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
@@ -46,6 +51,11 @@ extension ChatDetailService: ChatDetailAPI {
                 .getChatInfo(chatId: chatId)
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: ChatInfoResult.self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: getChatInfo: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))

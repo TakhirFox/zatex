@@ -28,7 +28,7 @@ class ReceivedChatCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let view = UILabel()
         view.font = UIFont(name: "Montserrat-Medium", size: 11)
-        view.textAlignment = .right
+        view.textAlignment = .left
         view.numberOfLines = 1
         return view
     }()
@@ -70,7 +70,7 @@ class ReceivedChatCell: UITableViewCell {
     private func configureSubviews() {
         addSubview(curveView)
         addSubview(bubbleView)
-        bubbleView.addSubview(dateLabel)
+        addSubview(dateLabel)
         bubbleView.addSubview(messageLabel)
         curveView.layer.addSublayer(shape)
         shape.path = path.cgPath
@@ -89,16 +89,16 @@ class ReceivedChatCell: UITableViewCell {
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.equalTo(bubbleView).inset(10)
             make.top.equalTo(bubbleView).inset(10)
+            make.leading.equalTo(bubbleView).inset(10)
             make.bottom.equalTo(bubbleView).inset(10)
+            make.trailing.equalTo(bubbleView).inset(10)
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(messageLabel.snp.trailing).inset(0)
-            make.trailing.equalTo(bubbleView).inset(10)
-            make.top.equalTo(bubbleView).offset(10)
-            make.width.equalTo(35)
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(bubbleView.snp.trailing).inset(-10)
+            make.width.equalTo(100)
         }
     }
         
