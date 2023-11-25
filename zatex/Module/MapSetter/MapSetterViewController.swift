@@ -125,7 +125,7 @@ class MapSetterViewController: BaseViewController {
 extension MapSetterViewController {
     
     @objc private func saveAndDismiss() {
-        presenter?.goToBackWith(address: searchValue)
+        presenter?.goToBackWith(address: searchTextField.text ?? "")
     }
     
     private func debouncerGetAddress() {
