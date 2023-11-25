@@ -57,6 +57,7 @@ class MapSetterViewController: BaseViewController {
     private func setupFirstParty() {
         mapView.mapWindow.map.addInputListener(with: self)
         searchTextField.delegate = self
+        searchTextField.placeholder = "Найти свой адрес"
         searchResultView.isHidden = true
         debouncer = Debouncer.init(delay: 3, callback: debouncerGetAddress)
         saveButton.setTitle("Сохранить", for: .normal)
@@ -138,6 +139,9 @@ extension MapSetterViewController: UITextFieldDelegate {
         if textField.text != nil { 
             searchResultView.isHidden = false
             searchValue = textField.text!
+            
+            searchResultView.setupCell(address: [])
+            searchResultView.loader(isShow: true)
         }
     }
 }
@@ -200,6 +204,8 @@ extension MapSetterViewController: MapSetterViewControllerProtocol {
             
             self?.setMapPlace(coordinates: coordinate)
         }
+        
+        searchResultView.loader(isShow: false)
     }
     
     func showToastMapError(text: String) {
