@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class SearchResultView: UIView {
     
@@ -23,6 +24,8 @@ class SearchResultView: UIView {
         return view
     }()
     
+    private var loaderView = LottieAnimationView(name: "loader")
+    
     private var addressResult: [CoordinatesResult] = []
     
     override init(frame: CGRect) {
@@ -32,6 +35,7 @@ class SearchResultView: UIView {
         configureConstraints()
         updateAppearence()
         setupTableView()
+        setLoader()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
@@ -42,6 +46,16 @@ class SearchResultView: UIView {
         DispatchQueue.main.async { [weak self] in
             self?.addressResult = address
             self?.tableView.reloadData()
+        }
+    }
+    
+    func loader(isShow: Bool) {
+        if isShow {
+            loaderView.play()
+            loaderView.isHidden = false
+        } else {
+            loaderView.stop()
+            loaderView.isHidden = true
         }
     }
     
@@ -65,8 +79,21 @@ class SearchResultView: UIView {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func setLoader() {
+        loaderView.contentMode = .scaleAspectFill
+        loaderView.loopMode = .loop
+        loaderView.animationSpeed = 2
+        loaderView.isHidden = true
+        loaderView.stop()
+        
+        addSubview(loaderView)
+        
+        loaderView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
     }
     
     func setupTableView() {
@@ -74,6 +101,10 @@ class SearchResultView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

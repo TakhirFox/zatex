@@ -8,12 +8,11 @@
 
 import UIKit
 import YandexMapsMobile
+import CoreLocation
 
 protocol MapSetterViewControllerProtocol: AnyObject {
     var presenter: MapSetterPresenterProtocol? { get set }
-    
-    func showMapPlace()
-    
+        
     func setMapPlace(coordinates: CoordinareEntity)
     func setMapAddress(text: String)
     func showAddressList(data: [CoordinatesResult])
@@ -32,6 +31,8 @@ class MapSetterViewController: BaseViewController {
         }
     }
     
+    private let locationManager = CLLocationManager()
+    
     private var debouncer: Debouncer!
     private let mapView = YMKMapView()
     private var searchTextField = BaseTextField()
@@ -41,7 +42,8 @@ class MapSetterViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        presenter?.showMapPlace()
+        locationManager.delegate = self
+        locationManager.requestLocation()
     }
     
     override func viewDidLoad() {
@@ -55,6 +57,7 @@ class MapSetterViewController: BaseViewController {
     private func setupFirstParty() {
         mapView.mapWindow.map.addInputListener(with: self)
         searchTextField.delegate = self
+        searchTextField.placeholder = "Найти свой адрес"
         searchResultView.isHidden = true
         debouncer = Debouncer.init(delay: 3, callback: debouncerGetAddress)
         saveButton.setTitle("Сохранить", for: .normal)
@@ -122,7 +125,7 @@ class MapSetterViewController: BaseViewController {
 extension MapSetterViewController {
     
     @objc private func saveAndDismiss() {
-        presenter?.goToBackWith(address: searchValue)
+        presenter?.goToBackWith(address: searchTextField.text ?? "")
     }
     
     private func debouncerGetAddress() {
@@ -136,6 +139,9 @@ extension MapSetterViewController: UITextFieldDelegate {
         if textField.text != nil { 
             searchResultView.isHidden = false
             searchValue = textField.text!
+            
+            searchResultView.setupCell(address: [])
+            searchResultView.loader(isShow: true)
         }
     }
 }
@@ -168,11 +174,7 @@ extension MapSetterViewController: YMKMapInputListener {
 }
 
 extension MapSetterViewController: MapSetterViewControllerProtocol {
-    
-    func showMapPlace() {
-        presenter?.showMapPlace()
-    }
-    
+
     func setMapPlace(coordinates: CoordinareEntity) {
         self.selecterCoordinates = coordinates
         self.setPointOnMap()
@@ -202,9 +204,30 @@ extension MapSetterViewController: MapSetterViewControllerProtocol {
             
             self?.setMapPlace(coordinates: coordinate)
         }
+        
+        searchResultView.loader(isShow: false)
     }
     
     func showToastMapError(text: String) {
         toastAnimation(text: text) { }
+    }
+}
+
+extension MapSetterViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.first?.coordinate
+        
+        let coordinates = CoordinareEntity(
+            latitude: location?.latitude ?? 0,
+            longitude: location?.longitude ?? 0
+        )
+        
+        presenter?.showMapPlace(coordinates: coordinates)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        toastAnimation(text: "Не удалось распознать ваше местоположение") {  [weak self] in
+            self?.locationManager.requestLocation()
+        }
     }
 }

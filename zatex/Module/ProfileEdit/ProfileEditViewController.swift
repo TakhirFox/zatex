@@ -175,15 +175,17 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .address:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "addressFieldCell", for: indexPath) as! FieldEditCell
+                var street = ""
                 
                 switch profileInfo?.address {
                 case .address(let address):
-                    let street = address.street1 ?? ""
-                    cell.setupCell(name: "Адрес", field: street)
+                    street = address.street1 ?? ""
                     
                 case .empty, nil:
                     break
                 }
+                
+                cell.setupCell(name: "Адрес", field: street)
                 
                 cell.textField.isEnabled = false
                 cell.textField.delegate = self
