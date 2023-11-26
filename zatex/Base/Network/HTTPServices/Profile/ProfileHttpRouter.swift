@@ -11,6 +11,7 @@ enum ProfileHttpRouter {
     case getStoreInfo(authorId: Int)
     case getStoreProducts(authorId: Int)
     case updateSalesProduct(productId: Int, isSales: Bool)
+    case updateDeviceTokek(authorId: Int, deviceToken: String)
 }
 
 extension ProfileHttpRouter: HttpRouter {
@@ -25,6 +26,9 @@ extension ProfileHttpRouter: HttpRouter {
             
         case let .updateSalesProduct(productId, _):
             return "/wp-json/wc/v3/products/\(productId)"
+            
+        case let .updateDeviceTokek(authorId, _):
+            return "/wp-json/wp/v2/users/\(authorId)"
         }
     }
     
@@ -36,6 +40,9 @@ extension ProfileHttpRouter: HttpRouter {
             
         case .updateSalesProduct:
             return .put
+            
+        case .updateDeviceTokek:
+            return .post
         }
     }
     
@@ -47,7 +54,8 @@ extension ProfileHttpRouter: HttpRouter {
                 "Content-Type": "application/json; charset=UTF-8"
             ]
             
-        case .updateSalesProduct:
+        case .updateSalesProduct,
+                .updateDeviceTokek:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
                 "Authorization": "Bearer \(token)"
@@ -59,7 +67,8 @@ extension ProfileHttpRouter: HttpRouter {
         switch self {
         case .getStoreInfo,
                 .getStoreProducts,
-                .updateSalesProduct:
+                .updateSalesProduct,
+                .updateDeviceTokek:
             return nil
         }
     }
@@ -72,6 +81,10 @@ extension ProfileHttpRouter: HttpRouter {
             
         case let.updateSalesProduct(_, isSales):
             let data = SetSalesProductRequest(isSales: isSales)
+            return try JSONEncoder().encode(data)
+            
+        case let .updateDeviceTokek(_, deviceToken):
+            let data = SetDeviceToken(deviceToken: deviceToken)
             return try JSONEncoder().encode(data)
         }
     }

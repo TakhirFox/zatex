@@ -88,6 +88,7 @@
 		AD03800F2A26612000DB0F60 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD03800E2A26612000DB0F60 /* AuthRequest.swift */; };
 		AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380102A26614D00DB0F60 /* MessageRequest.swift */; };
 		AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380122A26617100DB0F60 /* SignUpRequest.swift */; };
+		AD05A2432B136A2000753305 /* SetDeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05A2422B136A2000753305 /* SetDeviceToken.swift */; };
 		AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
@@ -156,6 +157,7 @@
 		AD86EAD829043A7B001CB847 /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD86EAD729043A7B001CB847 /* ProductService.swift */; };
 		AD91707A2A9BC73600E3F599 /* UserProfileLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9170792A9BC73600E3F599 /* UserProfileLoaderCell.swift */; };
 		AD9306A829D948D80004E3AC /* CoordinareEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9306A729D948D80004E3AC /* CoordinareEntity.swift */; };
+		AD94D8012B122BD4007E1973 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD94D8002B122BD4007E1973 /* GoogleService-Info.plist */; };
 		AD9B260128FD476700C15139 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260028FD476700C15139 /* BaseViewController.swift */; };
 		AD9B260328FD476F00C15139 /* BaseInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260228FD476F00C15139 /* BaseInteractor.swift */; };
 		AD9B260528FD477700C15139 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9B260428FD477700C15139 /* BasePresenter.swift */; };
@@ -394,6 +396,7 @@
 		AD03800E2A26612000DB0F60 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		AD0380102A26614D00DB0F60 /* MessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
 		AD0380122A26617100DB0F60 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
+		AD05A2422B136A2000753305 /* SetDeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeviceToken.swift; sourceTree = "<group>"; };
 		AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 		AD86EAD729043A7B001CB847 /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
 		AD9170792A9BC73600E3F599 /* UserProfileLoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileLoaderCell.swift; sourceTree = "<group>"; };
 		AD9306A729D948D80004E3AC /* CoordinareEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinareEntity.swift; sourceTree = "<group>"; };
+		AD94D8002B122BD4007E1973 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AD94D8022B122E05007E1973 /* zatex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = zatex.entitlements; sourceTree = "<group>"; };
 		AD9B260028FD476700C15139 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		AD9B260228FD476F00C15139 /* BaseInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInteractor.swift; sourceTree = "<group>"; };
 		AD9B260428FD477700C15139 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
@@ -882,6 +887,7 @@
 				ADEE238F2A65A91400569844 /* AdditionalInfoRequest.swift */,
 				ADC6428A2A7ED3C000789B24 /* SetSalesProductRequest.swift */,
 				ADEB0B052B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift */,
+				AD05A2422B136A2000753305 /* SetDeviceToken.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1013,12 +1019,14 @@
 		AD49A87528ED577200D159CA /* zatex */ = {
 			isa = PBXGroup;
 			children = (
+				AD94D8022B122E05007E1973 /* zatex.entitlements */,
 				AD9B25FB28FD3FB600C15139 /* Application */,
 				AD9B25FE28FD471E00C15139 /* Base */,
 				AD9B25FD28FD457800C15139 /* Module */,
 				AD9B25FC28FD3FCC00C15139 /* Supporting files */,
 				ADEE23752A642BF000569844 /* Resources */,
 				AD49A88728ED577300D159CA /* Info.plist */,
+				AD94D8002B122BD4007E1973 /* GoogleService-Info.plist */,
 			);
 			path = zatex;
 			sourceTree = "<group>";
@@ -1789,6 +1797,7 @@
 				ADAC8452290A79B400F15330 /* Montserrat-SemiBold.ttf in Resources */,
 				ADAC8453290A79B400F15330 /* Montserrat-Regular.ttf in Resources */,
 				AD49A88328ED577300D159CA /* Assets.xcassets in Resources */,
+				AD94D8012B122BD4007E1973 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2062,6 +2071,7 @@
 				AD5665072AA3B237004E68AE /* SettingsThemeCell.swift in Sources */,
 				ADEB0B062B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift in Sources */,
 				ADEED4532A7521CA00CEF2A8 /* Debouncer.swift in Sources */,
+				AD05A2432B136A2000753305 /* SetDeviceToken.swift in Sources */,
 				ADEE23902A65A91400569844 /* AdditionalInfoRequest.swift in Sources */,
 				F6BD1C48E4080DFBC00D73B3 /* ProfileEditAssembly.swift in Sources */,
 				E0B04654AEFBDA969759AF28 /* ChatListViewController.swift in Sources */,
@@ -2288,6 +2298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = zatex/zatex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = J4B53B6TAD;
@@ -2325,6 +2336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = zatex/zatex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = J4B53B6TAD;

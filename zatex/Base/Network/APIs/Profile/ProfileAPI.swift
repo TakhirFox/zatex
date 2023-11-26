@@ -10,6 +10,7 @@ import Foundation
 typealias ProfileStoreInfoClosure = (Result<StoreInfoResult, NetworkError>) -> (Void)
 typealias ProfileStoreProductClosure = (Result<[ProductResult], NetworkError>) -> (Void)
 typealias ProfileSalesProductClosure = (Result<ProductResult, NetworkError>) -> (Void)
+typealias ProfileUpdateDeviceTokenProductClosure = (Result<(), NetworkError>) -> (Void)
 
 protocol ProfileAPI {
     
@@ -27,5 +28,11 @@ protocol ProfileAPI {
         productId: Int,
         isSales: Bool,
         completion: @escaping ProfileSalesProductClosure
+    ) -> (Void)
+    
+    func saveDeviceToken(
+        authorId: Int,
+        deviceToken: String,
+        completion: @escaping ProfileUpdateDeviceTokenProductClosure
     ) -> (Void)
 }

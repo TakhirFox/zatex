@@ -12,7 +12,10 @@ target 'zatex' do
   pod 'Kingfisher'
   pod 'YandexMapsMobile', '4.3.1-full'
   pod 'lottie-ios'
-  
+  pod 'FirebaseMessaging'
+  pod 'FirebaseCrashlytics'
+  pod 'FirebaseAnalytics'
+
 end
 
 post_install do |installer|

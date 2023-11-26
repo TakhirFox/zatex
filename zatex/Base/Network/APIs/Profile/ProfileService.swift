@@ -83,4 +83,32 @@ extension ProfileService: ProfileAPI {
             completion(.failure(.secondError(name: "Ошибка: 980348589: Ошибка установка статуса товара в профиле")))
         }
     }
+    
+    func saveDeviceToken(
+        authorId: Int,
+        deviceToken: String,
+        completion: @escaping ProfileUpdateDeviceTokenProductClosure
+    ) {
+        do {
+            try ProfileHttpRouter
+                .updateDeviceTokek(
+                    authorId: authorId,
+                    deviceToken: deviceToken
+                )
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: updateDeviceTokek \(description)")
+                }
+                .responseDecodable(of: ProductResult.self) { response in
+                    switch response.result {
+                    case .success:
+                        completion(.success(()))
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 568745646854568 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 345345345: Ошибка установки девайс токена в профиле")))
+        }
+    }
 }
