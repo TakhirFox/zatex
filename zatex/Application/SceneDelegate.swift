@@ -50,6 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     deeplinkType: .profile(id: parameters.first?.value ?? 0)
                 )
                 
+            case "chats":
+                application?.showDeeplink(
+                    deeplinkType: .chat(id: String(parameters.first?.value ?? 0))
+                )
+                
             default:
                 return
             }

@@ -30,6 +30,10 @@ extension MainTabBarRouter: MainTabBarRouterProtocol {
         case .profile(let id):
             let view = ProfileAssembly.create {}
             selectedViewController.pushViewController(view, animated: true)
+            
+        case .chat(let id):
+            let view = ChatDetailAssembly.create(chatId: id)
+            selectedViewController.pushViewController(view, animated: true)
         }
     }
 }

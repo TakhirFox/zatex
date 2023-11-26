@@ -136,6 +136,7 @@ class ProfileViewController: BaseViewController {
             presenter?.getStoreInfo(authorId: id)
             presenter?.getStoreProduct(authorId: id, isSales: false)
             presenter?.getProductStats(authorId: id)
+            presenter?.saveDeviceToken(authorId: id)
         }
         
         collectionView.isHidden = true

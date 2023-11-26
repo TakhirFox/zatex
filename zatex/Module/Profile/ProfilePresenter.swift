@@ -6,11 +6,14 @@
 //  Copyright © 2022 zakirovweb. All rights reserved.
 //
 
+import Foundation
+
 protocol ProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
     func getStoreProduct(authorId: Int, isSales: Bool)
     func setSalesProfuct(productId: Int, isSales: Bool, authorId: Int)
     func getProductStats(authorId: Int)
+    func saveDeviceToken(authorId: Int)
     
     func goToSettings()
     func goToAuthView()
@@ -64,6 +67,21 @@ extension ProfilePresenter: ProfilePresenterProtocol {
             authorId: authorId,
             isSales: false
         )
+    }
+    
+    func saveDeviceToken(authorId: Int) {
+        let isSavedDeviceToken = UserDefaults.standard.bool(forKey: "isSavedDeviceToken")
+        
+        if !isSavedDeviceToken {
+            let deviceToken = UserDefaults.standard.string(forKey: "deviceToken") ?? "CAN'T SAVE TOKEN"
+            
+            UserDefaults.standard.set(true, forKey: "isSavedDeviceToken")
+            
+            interactor?.saveDeviceToken(
+                authorId: authorId,
+                deviceToken: deviceToken
+            )
+        }
     }
     
     // MARK: To Router

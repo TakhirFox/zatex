@@ -80,6 +80,9 @@ extension ChatDetailService: ChatDetailAPI {
                     message: message
                 )
                 .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: sendChatMessage \(description)")
+                }
                 .responseDecodable(of: SendMessageResult.self) { response in
                     switch response.result {
                     case .success(let data):
