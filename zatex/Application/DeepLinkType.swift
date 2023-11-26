@@ -10,4 +10,5 @@ import Foundation
 enum DeepLinkType {
     case product(id: Int)
     case profile(id: Int)
+    case chat(id: String)
 }
