@@ -75,6 +75,8 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         if !isSavedDeviceToken {
             let deviceToken = UserDefaults.standard.string(forKey: "deviceToken") ?? "CAN'T SAVE TOKEN"
             
+            UserDefaults.standard.set(true, forKey: "isSavedDeviceToken")
+            
             interactor?.saveDeviceToken(
                 authorId: authorId,
                 deviceToken: deviceToken

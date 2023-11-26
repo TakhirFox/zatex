@@ -72,7 +72,6 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
         if !isSavedDeviceToken {
             guard fcmToken != nil else { return }
             
-            UserDefaults.standard.set(true, forKey: "isSavedDeviceToken")
             UserDefaults.standard.set(fcmToken!, forKey: "deviceToken")
             
             debugPrint("LOG: TOKEN SAVED")
