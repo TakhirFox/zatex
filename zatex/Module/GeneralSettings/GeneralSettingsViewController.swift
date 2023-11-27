@@ -143,8 +143,11 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             
         case .changePush:
             let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as! SettingsSwitchCell
+            let isNotificationsEnabled = UserDefaults.standard.bool(forKey: "notificationsEnabled")
+            
             cell.setupCell(settingsModel[indexPath.row])
             cell.switchView.addTarget(self, action: #selector(changeNotifications), for: .valueChanged)
+            cell.switchView.isOn = isNotificationsEnabled
             return cell
             
         case .logout:
@@ -218,8 +221,14 @@ extension GeneralSettingsViewController {
         }
     }
     
-    @objc func changeNotifications() {
-        print("assa")
+    @objc func changeNotifications(sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: "notificationsEnabled")
+        
+        if sender.isOn {
+            UIApplication.shared.registerForRemoteNotifications()
+        } else {
+            UIApplication.shared.unregisterForRemoteNotifications()
+        }
     }
     
     private func showLoader(enable: Bool) {
