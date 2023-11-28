@@ -18,6 +18,7 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
     var presenter: MainTabBarPresenterProtocol?
     var sessionProvider: SessionProvider
     
+    var favoritesController: UIViewController?
     var chatController: UIViewController?
     var createProductController: UIViewController?
     
@@ -61,6 +62,12 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
     
     private func addChatView() {
         if sessionProvider.isAuthorized {
+            favoritesController = createNavController(
+                viewController: FavoritesAssembly.create(),
+                title: "Favorites",
+                image: UIImage(named: "FavoritesIcon")!
+            )
+            
             createProductController = createNavController(
                 viewController: CreateProductAssembly.create(),
                 title: "Create",
@@ -73,16 +80,21 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
                 image: UIImage(named: "ChatIcon")!
             )
             
-            viewControllers?.insert(createProductController!, at: 1)
-            viewControllers?.insert(chatController!, at: 2)
+            viewControllers?.insert(favoritesController!, at: 1)
+            viewControllers?.insert(createProductController!, at: 2)
+            viewControllers?.insert(chatController!, at: 3)
         } else {
             guard createProductController != nil,
-                  chatController != nil else { return }
+                  chatController != nil,
+                  favoritesController != nil
+            else { return }
             
             if let viewControllers = viewControllers,
                viewControllers.contains(createProductController!),
-               viewControllers.contains(chatController!) {
+               viewControllers.contains(chatController!),
+               viewControllers.contains(favoritesController!){
                 
+                self.viewControllers?.remove(at: 3)
                 self.viewControllers?.remove(at: 2)
                 self.viewControllers?.remove(at: 1)
             }

@@ -221,6 +221,11 @@
 		ADD0C1C62A95361C00B42EF6 /* ProfileLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD0C1C52A95361C00B42EF6 /* ProfileLoaderCell.swift */; };
 		ADD8DE4E291684A000A3E435 /* SettingsSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD8DE4D291684A000A3E435 /* SettingsSwitchCell.swift */; };
 		ADD8DE502918119A00A3E435 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */; };
+		ADD943062B14FDE3000A81E2 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD943012B14FDE3000A81E2 /* FavoritesViewController.swift */; };
+		ADD943072B14FDE3000A81E2 /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD943022B14FDE3000A81E2 /* FavoritesInteractor.swift */; };
+		ADD943082B14FDE3000A81E2 /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD943032B14FDE3000A81E2 /* FavoritesRouter.swift */; };
+		ADD943092B14FDE3000A81E2 /* FavoritesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD943042B14FDE3000A81E2 /* FavoritesAssembly.swift */; };
+		ADD9430A2B14FDE3000A81E2 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD943052B14FDE3000A81E2 /* FavoritesPresenter.swift */; };
 		ADE7406729DF1507004A667C /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE7406629DF1507004A667C /* ProductEntity.swift */; };
 		ADE7406D29DF17A9004A667C /* CreateProductHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE7406C29DF17A9004A667C /* CreateProductHttpService.swift */; };
 		ADE7406F29DF17BB004A667C /* CreateProductHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE7406E29DF17BB004A667C /* CreateProductHttpRouter.swift */; };
@@ -532,6 +537,11 @@
 		ADD0C1C52A95361C00B42EF6 /* ProfileLoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoaderCell.swift; sourceTree = "<group>"; };
 		ADD8DE4D291684A000A3E435 /* SettingsSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchCell.swift; sourceTree = "<group>"; };
 		ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		ADD943012B14FDE3000A81E2 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		ADD943022B14FDE3000A81E2 /* FavoritesInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
+		ADD943032B14FDE3000A81E2 /* FavoritesRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
+		ADD943042B14FDE3000A81E2 /* FavoritesAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesAssembly.swift; sourceTree = "<group>"; };
+		ADD943052B14FDE3000A81E2 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		ADE7406629DF1507004A667C /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		ADE7406C29DF17A9004A667C /* CreateProductHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductHttpService.swift; sourceTree = "<group>"; };
 		ADE7406E29DF17BB004A667C /* CreateProductHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProductHttpRouter.swift; sourceTree = "<group>"; };
@@ -1171,6 +1181,7 @@
 		AD9B25FD28FD457800C15139 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				ADD943002B14FDE3000A81E2 /* Favorites */,
 				6BD0AE5592AE042E6F5E956C /* AdditionalInfo */,
 				BD1AF720F08B824C0A13CE3A /* Auth */,
 				FE630FE8003E38B9A0D6997F /* ChatDetail */,
@@ -1413,6 +1424,18 @@
 				ADCF769229B89F69007FF164 /* AuthService.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		ADD943002B14FDE3000A81E2 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				ADD943012B14FDE3000A81E2 /* FavoritesViewController.swift */,
+				ADD943022B14FDE3000A81E2 /* FavoritesInteractor.swift */,
+				ADD943032B14FDE3000A81E2 /* FavoritesRouter.swift */,
+				ADD943042B14FDE3000A81E2 /* FavoritesAssembly.swift */,
+				ADD943052B14FDE3000A81E2 /* FavoritesPresenter.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		ADE7406829DF1762004A667C /* CreateProduct */ = {
@@ -1975,6 +1998,7 @@
 				ADEE237D2A65847700569844 /* FieldAddInfoCell.swift in Sources */,
 				ADAD60CF29DDDAF300309AC9 /* BaseTextView.swift in Sources */,
 				AD3AF69E29E13BC200ABDC1A /* ImagesService.swift in Sources */,
+				ADD943082B14FDE3000A81E2 /* FavoritesRouter.swift in Sources */,
 				AD46D79529C89F48002A6E1F /* ReviewsService.swift in Sources */,
 				ADCC3F5A29BCF41000D7E022 /* SendMessageResult.swift in Sources */,
 				AD86EAC62903F52B001CB847 /* HttpService.swift in Sources */,
@@ -2011,6 +2035,7 @@
 				AD0380042A26558A00DB0F60 /* ResetPasswordHttpService.swift in Sources */,
 				E5D79D234070D764FDAB11B1 /* DetailPresenter.swift in Sources */,
 				AD46D79B29C8A095002A6E1F /* ReviewsHttpService.swift in Sources */,
+				ADD9430A2B14FDE3000A81E2 /* FavoritesPresenter.swift in Sources */,
 				AD037FF02A2397A100DB0F60 /* SignUpHttpRouter.swift in Sources */,
 				70FADA8F65E60DE73206333E /* DetailInteractor.swift in Sources */,
 				AD6739582A7BD3D100AB4DB1 /* BaseNavigationController.swift in Sources */,
@@ -2061,6 +2086,7 @@
 				65546E979E410FEBA551D1B2 /* ProfileEditInteractor.swift in Sources */,
 				ADF53FF329B472BF00BF8516 /* ChatListAPI.swift in Sources */,
 				ADF5400029B4C46F00BF8516 /* ReceivedChatCell.swift in Sources */,
+				ADD943072B14FDE3000A81E2 /* FavoritesInteractor.swift in Sources */,
 				ADAD60CD29DDDA0F00309AC9 /* CreateProductDesctiptionCell.swift in Sources */,
 				AD91707A2A9BC73600E3F599 /* UserProfileLoaderCell.swift in Sources */,
 				ADBC13172A5AA5D0009B18EF /* UpdateInfoEntity.swift in Sources */,
@@ -2126,10 +2152,12 @@
 				AD56EC802A7E149C003BD915 /* ProfileLoginView.swift in Sources */,
 				ADB817DA29FD546600CF09F9 /* ReviewEntity.swift in Sources */,
 				FA4907398A55B5B82402C070 /* MapRouter.swift in Sources */,
+				ADD943092B14FDE3000A81E2 /* FavoritesAssembly.swift in Sources */,
 				AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */,
 				91DE834C4063C8E2C67C7D0A /* MapAssembly.swift in Sources */,
 				E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */,
 				2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */,
+				ADD943062B14FDE3000A81E2 /* FavoritesViewController.swift in Sources */,
 				5AA0089D5CAC3AE2C49267BC /* FullscreenInteractor.swift in Sources */,
 				6CBBCC238B4DA197EB988292 /* FullscreenRouter.swift in Sources */,
 				AD037FEE2A23979A00DB0F60 /* SignUpHttpService.swift in Sources */,
