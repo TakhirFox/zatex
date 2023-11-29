@@ -7,7 +7,7 @@
 
 import Alamofire
 
-enum fetchBanners {
+enum ProductHttpRouter {
     case getAllProducts(Int)
     case getCategories
     case getProductsByCategory(String)
