@@ -14,6 +14,7 @@ protocol FeedPresenterProtocol: AnyObject {
     
     func goToSearchResult(text: String)
     func goToDetail(id: Int)
+    func goToNews(id: Int)
     
     func setProducts(data: [ProductResult])
     func setCategories(data: [CategoryResult])
@@ -56,6 +57,10 @@ extension FeedPresenter: FeedPresenterProtocol {
     
     func goToDetail(id: Int) {
         router?.routeToDetail(id: id)
+    }
+    
+    func goToNews(id: Int) {
+        router?.routeToNews(id: id)
     }
     
     
