@@ -88,6 +88,7 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         presenter?.getSearchData(text: text)
@@ -100,6 +101,7 @@ extension SearchViewController: UITextFieldDelegate {
 
 // MARK: CollectionView data source, delegate
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -133,6 +135,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 // MARK: Implemented SearchViewControllerProtocol
 extension SearchViewController: SearchViewControllerProtocol {
+    
     func setResultProducts(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

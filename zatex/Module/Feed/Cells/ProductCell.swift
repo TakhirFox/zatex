@@ -21,6 +21,7 @@ class ProductCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let view = UILabel()
         view.text = "title"
+        view.numberOfLines = 2
         view.font = UIFont(name: "Montserrat-SemiBold", size: 13)
         return view
     }()
@@ -36,6 +37,13 @@ class ProductCell: UICollectionViewCell {
         let view = UILabel()
         view.text = "date"
         view.font = UIFont(name: "Montserrat-Regular", size: 11)
+        return view
+    }()
+    
+    let favoriteView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -101,6 +109,14 @@ class ProductCell: UICollectionViewCell {
         titleLabel.textColor = Palette.Text.primary
         costLabel.textColor = Palette.Text.primary
         dateLabel.textColor = Palette.AccentText.secondary
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            favoriteView.image = UIImage(named: "dark-like-unfill")
+            
+        case .light:
+            favoriteView.image = UIImage(named: "light-like-unfill")
+        }
     }
     
     private func configureSubviews() {
@@ -108,6 +124,7 @@ class ProductCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(costLabel)
         addSubview(dateLabel)
+        addSubview(favoriteView)
     }
     
     private func configureConstraints() {
@@ -120,8 +137,14 @@ class ProductCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(4)
-            make.trailing.equalToSuperview().offset(4)
-            make.height.equalTo(14)
+        }
+        
+        favoriteView.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(4)
+            make.leading.equalTo(titleLabel.snp.trailing).offset(4)
+            make.trailing.equalToSuperview().inset(4)
+            make.width.equalTo(20)
+            make.height.equalTo(20)
         }
         
         costLabel.snp.makeConstraints { make in
@@ -144,9 +167,10 @@ class ProductCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+    override func preferredLayoutAttributesFitting(
+        _ layoutAttributes: UICollectionViewLayoutAttributes
+    ) -> UICollectionViewLayoutAttributes {
         layoutAttributes.bounds.size.height = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
         return layoutAttributes
     }
-    
 }

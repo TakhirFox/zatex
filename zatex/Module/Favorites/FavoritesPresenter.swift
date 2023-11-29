@@ -7,7 +7,15 @@
 //
 
 protocol FavoritesPresenterProtocol: AnyObject {
-
+    func getFavoriteList(userId: Int)
+    func addFavorite()
+    func removeFavorite()
+    
+    func goToDetail(id: Int)
+    
+    func setFavoriteList(data: [ProductResult])
+    func setError(data: String)
+    func setToastError(text: String)
 }
 
 class FavoritesPresenter: BasePresenter {
@@ -19,4 +27,34 @@ class FavoritesPresenter: BasePresenter {
 
 extension FavoritesPresenter: FavoritesPresenterProtocol {
     
+    // MARK: To Interactor
+    func getFavoriteList(userId: Int) {
+        interactor?.getFavoriteList(userId: userId)
+    }
+    
+    func addFavorite() {
+        interactor?.addFavorite()
+    }
+    
+    func removeFavorite() {
+        interactor?.removeFavorite()
+    }
+    
+    // MARK: To Router
+    func goToDetail(id: Int) {
+        router?.routeToDetail(id: id)
+    }
+    
+    // MARK: To View
+    func setFavoriteList(data: [ProductResult]) {
+        view?.setFavoriteList(data: data)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
+    }
 }

@@ -92,6 +92,10 @@
 		AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
+		AD24D2BE2B161BC900E5E260 /* FavoritesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */; };
+		AD24D2C02B161BDA00E5E260 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */; };
+		AD24D2C22B161BE700E5E260 /* FavoritesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */; };
+		AD24D2C42B161BF000E5E260 /* FavoritesHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C32B161BF000E5E260 /* FavoritesHttpRouter.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
 		AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */; };
 		AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */; };
@@ -405,6 +409,10 @@
 		AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
+		AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAPI.swift; sourceTree = "<group>"; };
+		AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
+		AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHttpService.swift; sourceTree = "<group>"; };
+		AD24D2C32B161BF000E5E260 /* FavoritesHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHttpRouter.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
 		AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAuthorView.swift; sourceTree = "<group>"; };
@@ -926,6 +934,24 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		AD24D2BB2B161B8300E5E260 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */,
+				AD24D2C32B161BF000E5E260 /* FavoritesHttpRouter.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		AD24D2BC2B161B8900E5E260 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */,
+				AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		AD2F39CF2A894604005D13B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1097,6 +1123,7 @@
 		AD86EAC42903F506001CB847 /* HTTPServices */ = {
 			isa = PBXGroup;
 			children = (
+				AD24D2BB2B161B8300E5E260 /* Favorites */,
 				ADEB0AFB2B0E169400FCCAEF /* GeneralSettings */,
 				ADEE23892A65A87100569844 /* AdditionalInfo */,
 				ADCF768A29B89B4A007FF164 /* Auth */,
@@ -1135,6 +1162,7 @@
 		AD86EAD629043A5A001CB847 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				AD24D2BC2B161B8900E5E260 /* Favorites */,
 				ADEB0AFC2B0E169B00FCCAEF /* GeneralSettings */,
 				ADEE238A2A65A87900569844 /* AdditionalInfo */,
 				ADCF768F29B89F40007FF164 /* Auth */,
@@ -2015,6 +2043,7 @@
 				ADF1C4BF29DC846D00532EDD /* CoordinatesResult.swift in Sources */,
 				ADEE23832A659EFE00569844 /* BackImageAddInfoCell.swift in Sources */,
 				2AE2EECA8D14BB79E3D6DB47 /* SearchViewController.swift in Sources */,
+				AD24D2C42B161BF000E5E260 /* FavoritesHttpRouter.swift in Sources */,
 				68CD2C08D8432F5F5CC5C8D0 /* SearchPresenter.swift in Sources */,
 				ADBE1371290DB066004BDEB3 /* SearchHttpService.swift in Sources */,
 				D2897DEADF100A13E1D0FA9C /* SearchInteractor.swift in Sources */,
@@ -2048,6 +2077,7 @@
 				AD51631D2A6BD85900C2B60F /* BaseErrorView.swift in Sources */,
 				AD4A987E2919917900709745 /* AuthorProdCell.swift in Sources */,
 				FBA3841059048F4ACBB0EF6C /* CreateProductInteractor.swift in Sources */,
+				AD24D2BE2B161BC900E5E260 /* FavoritesAPI.swift in Sources */,
 				ADA28B8729C61898006A2EA9 /* ProfileAPI.swift in Sources */,
 				ADEE23942A65A94F00569844 /* AdditionalInfoService.swift in Sources */,
 				ADF53FF929B4751300BF8516 /* ChatListHttpService.swift in Sources */,
@@ -2176,6 +2206,7 @@
 				E609E37E24EA71221DE8625D /* AdditionalInfoViewController.swift in Sources */,
 				97732DD5D153FB22563F5F58 /* AdditionalInfoPresenter.swift in Sources */,
 				0DD004B09178693BF4853792 /* AdditionalInfoInteractor.swift in Sources */,
+				AD24D2C02B161BDA00E5E260 /* FavoritesService.swift in Sources */,
 				06C7DE881EBCC42F242850B2 /* AdditionalInfoRouter.swift in Sources */,
 				8BE31235C4B501D39B903BF1 /* AdditionalInfoAssembly.swift in Sources */,
 				83240334613B441D9B79FBF9 /* MapSetterViewController.swift in Sources */,
@@ -2189,6 +2220,7 @@
 				36E30386C34975CABC2407B9 /* UserProfileRouter.swift in Sources */,
 				ADEB0B042B0E177F00FCCAEF /* GeneralSettingsAPI.swift in Sources */,
 				AAAFA67694594A32D612D077 /* UserProfileAssembly.swift in Sources */,
+				AD24D2C22B161BE700E5E260 /* FavoritesHttpService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
