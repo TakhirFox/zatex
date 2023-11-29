@@ -15,7 +15,8 @@ class FeedAssembly: BaseAssemblyProtocol {
         let interactor = FeedInteractor()
         let router = FeedRouter()
         
-        let networkService = ProductService.shared // StubService.shared 
+        let networkService = ProductService.shared
+        let newsNetworkService = NewsService.shared
         
         viewController.presenter = presenter
         
@@ -25,6 +26,7 @@ class FeedAssembly: BaseAssemblyProtocol {
         
         interactor.presenter = presenter
         interactor.service = networkService
+        interactor.newsService = newsNetworkService
         
         router.viewController = viewController
         

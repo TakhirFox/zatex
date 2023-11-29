@@ -293,7 +293,8 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         let section = SectionKind(rawValue: indexPath.section)
         switch section {
         case .banner:
-            presenter?.goToNews(id: 0)
+            let bannerId = self.banners[indexPath.row].id
+            presenter?.goToNews(id: bannerId)
             
         case .category:
             for index in 0..<self.categories.count {

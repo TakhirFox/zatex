@@ -55,12 +55,11 @@ class BannerFeedCell: UICollectionViewCell {
 
     
     func setupCell(_ item: BannerResult) {
-        titleLabel.text = item.firtsDesc
+        titleLabel.text = item.title
         subtitleLabel.text = item.secondDesc
         
-        guard let urlImage = item.imageBanner else { return }
-        let url = URL(string: urlImage)
-
+        let url = URL(string: item.imageBanner)
+        
         imageView.kf.setImage(with: url)
     }
     

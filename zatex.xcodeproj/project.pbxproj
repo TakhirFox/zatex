@@ -101,6 +101,10 @@
 		AD24D2C02B161BDA00E5E260 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */; };
 		AD24D2C22B161BE700E5E260 /* FavoritesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */; };
 		AD24D2C42B161BF000E5E260 /* FavoritesHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C32B161BF000E5E260 /* FavoritesHttpRouter.swift */; };
+		AD24D2C82B178FD100E5E260 /* NewsHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C72B178FD100E5E260 /* NewsHttpService.swift */; };
+		AD24D2CA2B178FE500E5E260 /* NewsHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C92B178FE500E5E260 /* NewsHttpRouter.swift */; };
+		AD24D2CC2B17906600E5E260 /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2CB2B17906600E5E260 /* NewsAPI.swift */; };
+		AD24D2CE2B17907400E5E260 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2CD2B17907400E5E260 /* NewsService.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
 		AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */; };
 		AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */; };
@@ -419,6 +423,10 @@
 		AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 		AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHttpService.swift; sourceTree = "<group>"; };
 		AD24D2C32B161BF000E5E260 /* FavoritesHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHttpRouter.swift; sourceTree = "<group>"; };
+		AD24D2C72B178FD100E5E260 /* NewsHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHttpService.swift; sourceTree = "<group>"; };
+		AD24D2C92B178FE500E5E260 /* NewsHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHttpRouter.swift; sourceTree = "<group>"; };
+		AD24D2CB2B17906600E5E260 /* NewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
+		AD24D2CD2B17907400E5E260 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
 		AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAuthorView.swift; sourceTree = "<group>"; };
@@ -791,7 +799,6 @@
 				BFF20ED1DB932A8DFCF3E489 /* NewsRouter.swift */,
 				ADF8B3C06E9D2F5049A2305C /* NewsAssembly.swift */,
 			);
-			name = News;
 			path = News;
 			sourceTree = "<group>";
 		};
@@ -975,6 +982,24 @@
 			path = Favorites;
 			sourceTree = "<group>";
 		};
+		AD24D2C52B178F9200E5E260 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				AD24D2CB2B17906600E5E260 /* NewsAPI.swift */,
+				AD24D2CD2B17907400E5E260 /* NewsService.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		AD24D2C62B178F9900E5E260 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				AD24D2C72B178FD100E5E260 /* NewsHttpService.swift */,
+				AD24D2C92B178FE500E5E260 /* NewsHttpRouter.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
 		AD2F39CF2A894604005D13B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1146,6 +1171,7 @@
 		AD86EAC42903F506001CB847 /* HTTPServices */ = {
 			isa = PBXGroup;
 			children = (
+				AD24D2C62B178F9900E5E260 /* News */,
 				AD24D2BB2B161B8300E5E260 /* Favorites */,
 				ADEB0AFB2B0E169400FCCAEF /* GeneralSettings */,
 				ADEE23892A65A87100569844 /* AdditionalInfo */,
@@ -1185,6 +1211,7 @@
 		AD86EAD629043A5A001CB847 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				AD24D2C52B178F9200E5E260 /* News */,
 				AD24D2BC2B161B8900E5E260 /* Favorites */,
 				ADEB0AFC2B0E169B00FCCAEF /* GeneralSettings */,
 				ADEE238A2A65A87900569844 /* AdditionalInfo */,
@@ -2006,6 +2033,7 @@
 				ADAD60C929DDD7E100309AC9 /* CreateProductHeaderCell.swift in Sources */,
 				AD86EACC290423A5001CB847 /* ProductHttpRouter.swift in Sources */,
 				AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */,
+				AD24D2C82B178FD100E5E260 /* NewsHttpService.swift in Sources */,
 				AD9B260C28FD4D6000C15139 /* UIColor+hex.swift in Sources */,
 				ADA28B8329C6185C006A2EA9 /* ProfileHttpService.swift in Sources */,
 				1FA402342D3AD78CE62A330E /* FeedRouter.swift in Sources */,
@@ -2201,6 +2229,7 @@
 				5900094180C3DD0F7CBEDA5F /* ReviewsAssembly.swift in Sources */,
 				A255B3A14F895C9642DDF5AD /* MapViewController.swift in Sources */,
 				CBCB612BAD393A8F01E1B3E4 /* MapPresenter.swift in Sources */,
+				AD24D2CC2B17906600E5E260 /* NewsAPI.swift in Sources */,
 				AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */,
 				6D6A5D5CEA9626A8B431B5EE /* MapInteractor.swift in Sources */,
 				AD56EC802A7E149C003BD915 /* ProfileLoginView.swift in Sources */,
@@ -2210,6 +2239,7 @@
 				AD037FDD2A1BB14600DB0F60 /* FullscreenNavigationView.swift in Sources */,
 				91DE834C4063C8E2C67C7D0A /* MapAssembly.swift in Sources */,
 				E45DDFCECEF4134A7028E6B1 /* FullscreenViewController.swift in Sources */,
+				AD24D2CA2B178FE500E5E260 /* NewsHttpRouter.swift in Sources */,
 				2FA9682EB9533757FD6CADA8 /* FullscreenPresenter.swift in Sources */,
 				ADD943062B14FDE3000A81E2 /* FavoritesViewController.swift in Sources */,
 				5AA0089D5CAC3AE2C49267BC /* FullscreenInteractor.swift in Sources */,
@@ -2245,6 +2275,7 @@
 				ADEB0B042B0E177F00FCCAEF /* GeneralSettingsAPI.swift in Sources */,
 				AAAFA67694594A32D612D077 /* UserProfileAssembly.swift in Sources */,
 				AD24D2C22B161BE700E5E260 /* FavoritesHttpService.swift in Sources */,
+				AD24D2CE2B17907400E5E260 /* NewsService.swift in Sources */,
 				0AC79F10EE17E980633B5639 /* NewsViewController.swift in Sources */,
 				3F986A0CA5F3DC6F5954E6DF /* NewsPresenter.swift in Sources */,
 				2049386C1615719FF3CB8D55 /* NewsInteractor.swift in Sources */,

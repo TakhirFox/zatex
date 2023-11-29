@@ -8,6 +8,7 @@
 
 
 protocol FeedInteractorProtocol {
+    
     func getProducts(page: Int)
     func getCategories()
     func getBanners()
@@ -15,12 +16,14 @@ protocol FeedInteractorProtocol {
 }
 
 class FeedInteractor: BaseInteractor {
+    
     weak var presenter: FeedPresenterProtocol?
     var service: ProductAPI!
-
+    var newsService: NewsAPI!
 }
 
 extension FeedInteractor: FeedInteractorProtocol {
+    
     func getProducts(page: Int) {
         self.service.fetchProducts(page: page) { result in
             switch result {
@@ -58,7 +61,7 @@ extension FeedInteractor: FeedInteractorProtocol {
     }
     
     func getBanners() {
-        self.service.fetchBanners { result in
+        self.newsService.fetchNewsList { result in
             switch result {
             case let .success(data):
                 self.presenter?.setBanners(data: data)

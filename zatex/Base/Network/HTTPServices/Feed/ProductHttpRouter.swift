@@ -7,10 +7,9 @@
 
 import Alamofire
 
-enum ProductHttpRouter {
+enum fetchBanners {
     case getAllProducts(Int)
     case getCategories
-    case getBanners
     case getProductsByCategory(String)
 }
 
@@ -24,9 +23,6 @@ extension ProductHttpRouter: HttpRouter {
         case .getCategories:
             return "/wp-json/wp/v2/product_cat"
             
-        case .getBanners:
-            return "/banner.json"
-            
         case .getProductsByCategory:
             return "/wp-json/wc/v3/products"
         }
@@ -34,14 +30,14 @@ extension ProductHttpRouter: HttpRouter {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .getAllProducts, .getCategories, .getBanners, .getProductsByCategory:
+        case .getAllProducts, .getCategories, .getProductsByCategory:
             return .get
         }
     }
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .getAllProducts, .getCategories, .getBanners, .getProductsByCategory:
+        case .getAllProducts, .getCategories, .getProductsByCategory:
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
@@ -63,9 +59,6 @@ extension ProductHttpRouter: HttpRouter {
                 "per_page": 20
             ]
             
-        case .getBanners:
-            return nil
-            
         case .getProductsByCategory(let id):
             return [
                 "category":"\(id)",
@@ -77,7 +70,7 @@ extension ProductHttpRouter: HttpRouter {
     
     func body() throws -> Data? {
         switch self {
-        case .getCategories, .getAllProducts, .getBanners, .getProductsByCategory:
+        case .getCategories, .getAllProducts, .getProductsByCategory:
             return nil
         }
     }
