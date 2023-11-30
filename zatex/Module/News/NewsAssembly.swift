@@ -8,8 +8,8 @@
 
 import UIKit
 
-class NewsAssembly: BaseAssemblyProtocol {
-    static func create() -> UIViewController {
+class NewsAssembly {
+    static func create(newsEntity: BannerResult) -> UIViewController {
         let viewController = NewsViewController()
         let presenter = NewsPresenter()
         let interactor = NewsInteractor()
@@ -20,6 +20,7 @@ class NewsAssembly: BaseAssemblyProtocol {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.newsEntity = newsEntity
         
         interactor.presenter = presenter
         

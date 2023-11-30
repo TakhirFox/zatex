@@ -12,7 +12,7 @@ protocol FeedRouterProtocol: AnyObject {
     
     func routeToSearchResult(text: String)
     func routeToDetail(id: Int)
-    func routeToNews(id: Int)
+    func routeToNews(entity: BannerResult)
 }
 
 class FeedRouter: BaseRouter {
@@ -32,9 +32,8 @@ extension FeedRouter: FeedRouterProtocol {
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     
-    func routeToNews(id: Int) {
-        let view = NewsAssembly.create()
-        view.modalPresentationStyle = .overFullScreen
-        viewController?.navigationController?.present(view, animated: true)
+    func routeToNews(entity: BannerResult) {
+        let view = NewsAssembly.create(newsEntity: entity)
+        viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }
