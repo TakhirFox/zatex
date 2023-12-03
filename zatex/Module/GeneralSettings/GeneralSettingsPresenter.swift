@@ -6,6 +6,8 @@
 //  Copyright © 2022 zakirovweb. All rights reserved.
 //
 
+import UIKit
+
 protocol GeneralSettingsPresenterProtocol: AnyObject {
     
     func goToProfileEdit()
@@ -35,6 +37,7 @@ extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
     // MARK: To Interactor
     func logout() {
         self.sessionProvider.logout()
+        UIApplication.shared.unregisterForRemoteNotifications()
         logoutHandler()
     }
     
