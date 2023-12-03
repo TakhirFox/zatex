@@ -72,10 +72,10 @@ extension SearchInteractor {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }
@@ -90,10 +90,10 @@ extension SearchInteractor {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name)
                 }
             }
         }

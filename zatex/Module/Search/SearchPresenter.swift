@@ -17,6 +17,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func setFavoriteList(data: [FavoriteResponse])
     
     func setError(data: String)
+    func setToastError(text: String)
 }
 
 class SearchPresenter: BasePresenter {
@@ -54,10 +55,6 @@ extension SearchPresenter: SearchPresenterProtocol {
         interactor?.getFavoriteList()
     }
     
-    func setError(data: String) {
-        view?.showError(data: data)
-    }
-    
     func setFavoriteList(data: [FavoriteResponse]) {
         let favoriteEntity = data.convertToEntities()
         
@@ -68,5 +65,13 @@ extension SearchPresenter: SearchPresenterProtocol {
         }
         
         view?.setResultProducts(data: productEntity)
+    }
+    
+    func setError(data: String) {
+        view?.showError(data: data)
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
     }
 }

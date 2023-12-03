@@ -217,10 +217,10 @@ extension DetailInteractor {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name, type: .addFavorite)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name, type: .addFavorite)
                 }
             }
         }
@@ -235,10 +235,10 @@ extension DetailInteractor {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name, type: .removeFvorite)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastError(text: name, type: .removeFvorite)
                 }
             }
         }

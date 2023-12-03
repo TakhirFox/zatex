@@ -31,15 +31,18 @@ class DetailViewController: BaseViewController {
     var presenter: DetailPresenterProtocol?
     
     var sessionProvider: SessionProvider?
-    var product: ProductResult?
-    var similarProducts: [ProductResult] = []
-    var storeInfo: StoreInfoResult?
-    var reviewContent: String?
-    var isShowReviewButton: Bool = false
     
-    var collectionView: UICollectionView!
-    let headerView = ShopHeaderView()
-    let reviewDetailView = ReviewDetailView()
+    private var product: ProductResult?
+    private var similarProducts: [ProductResult] = []
+    private var storeInfo: StoreInfoResult?
+    private var reviewContent: String?
+    private var isShowReviewButton: Bool = false
+    
+    private var collectionView: UICollectionView!
+    private var settingsButton = UIButton()
+    private var favoriteButton = UIButton()
+    private let headerView = ShopHeaderView()
+    private let reviewDetailView = ReviewDetailView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -50,15 +53,28 @@ class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationView()
         setupCollectionView()
         setupReviewDetailView()
         setupSubviews()
         setupConstraints()
+        
+        Appearance.shared.theme.bind(self) { [weak self] newTheme in
+            self?.setupNavigationItem()
+            self?.setupNavigationView()
+        }
     }
     
     private func setupNavigationView() {
-        let backImage = UIImage(named: "BackIcon")?.withRenderingMode(.alwaysOriginal)
+        var backImage = UIImage(named: "BackIcon")
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            backImage = UIImage(named: "DarkBackIcon")
+            
+        case .light:
+            backImage = UIImage(named: "BackIcon")
+        }
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .clear
@@ -67,11 +83,28 @@ class DetailViewController: BaseViewController {
     }
     
     private func setupNavigationItem() {
-        let settingsButton = UIButton()
+        let isFavorite = product?.isFavorite ?? false
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            let image = isFavorite ? UIImage(named: "dark-like-fill") : UIImage(named: "dark-like-unfill")
+            favoriteButton.setImage(image, for: .normal)
+            
+        case .light:
+            let image = isFavorite ? UIImage(named: "light-like-fill") : UIImage(named: "light-like-unfill")
+            favoriteButton.setImage(image, for: .normal)
+        }
+        
         settingsButton.setImage(UIImage(named: "share-icon-dark"), for: .normal)
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         settingsButton.addTarget(self, action: #selector(sharePageAction), for: .touchUpInside)
+        let settingsItem = UIBarButtonItem(customView: settingsButton)
+        
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.addTarget(self, action: #selector(changeFavoriteAction), for: .touchUpInside)
+        let favoriteItem = UIBarButtonItem(customView: favoriteButton)
+        
+        navigationItem.rightBarButtonItems = [settingsItem, favoriteItem]
     }
     
     private func setupReviewDetailView() {
@@ -407,6 +440,21 @@ extension DetailViewController {
         present(activityView, animated: true)
     }
     
+    @objc private func changeFavoriteAction() {
+        guard let isFavorite = product?.isFavorite,
+        let productId = product?.id else { return }
+        
+        if isFavorite {
+            presenter?.removeFavorite(productId: productId)
+            product?.isFavorite = false
+        } else {
+            presenter?.addFavorite(productId: productId)
+            product?.isFavorite = true
+        }
+        
+        setupNavigationItem()
+    }
+    
     @objc private func goToChat() {
         if let productId = product?.id,
            let authorId = product?.store?.id {
@@ -541,6 +589,12 @@ extension DetailViewController: DetailViewControllerProtocol {
                     content: self?.reviewContent,
                     rating: self?.reviewDetailView.selectedRating
                 )
+                
+            case .addFavorite:
+                break
+                
+            case .removeFvorite:
+                break
             }
         }
     }

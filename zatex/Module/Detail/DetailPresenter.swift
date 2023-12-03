@@ -62,6 +62,8 @@ enum ToastErrorKind {
     case checkChatExists
     case checkStartChat
     case sendReview
+    case addFavorite
+    case removeFvorite
 }
 
 class DetailPresenter: BasePresenter {
@@ -69,7 +71,8 @@ class DetailPresenter: BasePresenter {
     weak var view: DetailViewControllerProtocol?
     var interactor: DetailInteractorProtocol?
     var router: DetailRouterProtocol?
-    var productEntity: [ProductResult] = []
+    private var productEntities: [ProductResult] = []
+    private var productEntity: ProductResult?
 }
 
 extension DetailPresenter: DetailPresenterProtocol {
@@ -189,7 +192,7 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     // MARK: To View
     func setProductInfo(data: ProductResult) {
-        view?.setProductInfo(data: data)
+        productEntity = data
         
         data.relatedIDS?.forEach({ id in
             interactor?.getSimilarProducts(productId: id)
@@ -197,7 +200,7 @@ extension DetailPresenter: DetailPresenterProtocol {
     }
     
     func setSimilarProducts(data: ProductResult) {
-        productEntity.append(data)
+        productEntities.append(data)
         
         interactor?.getFavoriteList()
     }
@@ -209,13 +212,21 @@ extension DetailPresenter: DetailPresenterProtocol {
     func setFavoriteList(data: [FavoriteResponse]) {
         let favoriteEntity = data.convertToEntities()
         
-        productEntity.enumerated().forEach { index, product in
+        productEntities.enumerated().forEach { index, product in
             if let favoriteEntity = favoriteEntity.first(where: { $0.id == product.id }) {
-                productEntity[index].isFavorite = true
+                productEntities[index].isFavorite = true
             }
         }
         
-        view?.setSimilarProducts(data: productEntity)
+        if let favoriteEntity = favoriteEntity.first(where: { $0.id == productEntity?.id }) {
+            productEntity?.isFavorite = true
+        } else {
+            productEntity?.isFavorite = false
+        }
+        
+        view?.setSimilarProducts(data: productEntities)
+        
+        view?.setProductInfo(data: productEntity!)
     }
     
     func showSuccessReview() {

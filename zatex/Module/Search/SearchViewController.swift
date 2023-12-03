@@ -13,6 +13,7 @@ protocol SearchViewControllerProtocol: AnyObject {
     
     func setResultProducts(data: [ProductResult])
     func showError(data: String)
+    func showToastError(text: String)
 }
 
 class SearchViewController: BaseViewController {
@@ -174,5 +175,9 @@ extension SearchViewController: SearchViewControllerProtocol {
             self?.setVisibilityViews()
             self?.presenter?.getSearchData(text: "")
         }
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) {}
     }
 }
