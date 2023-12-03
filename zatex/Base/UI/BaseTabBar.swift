@@ -23,6 +23,14 @@ class BaseTabBar: UITabBar {
         configure()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for item in items ?? [] {
+            item.title = nil
+        }
+    }
+    
     func configure() {
         setupUI()
         updateAppearence()
