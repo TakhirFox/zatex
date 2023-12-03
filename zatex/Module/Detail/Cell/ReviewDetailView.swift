@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class ReviewDetailView: UIView {
     
@@ -32,6 +33,7 @@ class ReviewDetailView: UIView {
     }()
     
     private var ratingStarButtons: [UIButton] = []
+    private var loaderView = LottieAnimationView(name: "loader")
     
     let textView: BaseTextView = {
         let view = BaseTextView()
@@ -56,6 +58,7 @@ class ReviewDetailView: UIView {
         configureSubviews()
         configureConstraints()
         updateAppearence()
+        setLoader()
         
         Appearance.shared.theme.bind(self) { [weak self] newTheme in
             self?.updateAppearence()
@@ -85,6 +88,27 @@ class ReviewDetailView: UIView {
         ratingStarButtons.forEach { stackView.addArrangedSubview($0) }
     }
     
+    func startLoad(enable: Bool) {
+        if enable {
+            sendReviewButton.isUserInteractionEnabled = true
+            loaderView.isHidden = false
+            titleLabel.alpha = 0.5
+            stackView.alpha = 0.5
+            textView.alpha = 0.5
+            sendReviewButton.alpha = 0.5
+            loaderView.play()
+            
+        } else {
+            sendReviewButton.isUserInteractionEnabled = false
+            loaderView.isHidden = true
+            titleLabel.alpha = 1
+            stackView.alpha = 1
+            textView.alpha = 1
+            sendReviewButton.alpha = 1
+            loaderView.stop()
+        }
+    }
+        
     @objc func tappedStar(_ sender: UIButton) {
         setupStars(sender.tag)
         selectedRating = sender.tag
@@ -101,6 +125,7 @@ class ReviewDetailView: UIView {
         contentView.addSubview(stackView)
         contentView.addSubview(textView)
         contentView.addSubview(sendReviewButton)
+        contentView.addSubview(loaderView)
     }
     
     private func configureConstraints() {
@@ -108,6 +133,13 @@ class ReviewDetailView: UIView {
             make.leading.trailing.equalToSuperview().inset(40)
             make.centerY.equalToSuperview()
             make.height.equalTo(300)
+        }
+        
+        loaderView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(50)
+            make.height.equalTo(50)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -131,6 +163,14 @@ class ReviewDetailView: UIView {
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(20)
         }
+    }
+    
+    private func setLoader() {
+        loaderView.contentMode = .scaleAspectFill
+        loaderView.loopMode = .loop
+        loaderView.animationSpeed = 2
+        loaderView.isHidden = true
+        loaderView.stop()
     }
     
     required init?(coder: NSCoder) {

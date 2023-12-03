@@ -43,6 +43,7 @@ class DetailViewController: BaseViewController {
     private var favoriteButton = UIButton()
     private let headerView = ShopHeaderView()
     private let reviewDetailView = ReviewDetailView()
+    private let successReviewDetailView = SuccessReviewDetailView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,6 +56,7 @@ class DetailViewController: BaseViewController {
         
         setupCollectionView()
         setupReviewDetailView()
+        setupSuccessReviewDetailView()
         setupSubviews()
         setupConstraints()
         
@@ -114,6 +116,12 @@ class DetailViewController: BaseViewController {
         reviewDetailView.setupCell()
     }
     
+    private func setupSuccessReviewDetailView() {
+        successReviewDetailView.isHidden = true
+        successReviewDetailView.okButton.addTarget(self, action: #selector(closeSuccessView), for: .touchUpInside)
+        reviewDetailView.setupCell()
+    }
+    
     private func setupCollectionView() {
         let collectionFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionFlowLayout)
@@ -134,6 +142,7 @@ class DetailViewController: BaseViewController {
         view.addSubview(collectionView)
         view.addSubview(headerView)
         view.addSubview(reviewDetailView)
+        view.addSubview(successReviewDetailView)
     }
     
     private func setupConstraints() {
@@ -144,6 +153,12 @@ class DetailViewController: BaseViewController {
         }
         
         reviewDetailView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        successReviewDetailView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -468,6 +483,10 @@ extension DetailViewController {
         presenter?.callPhone(number: storeInfo?.phone)
     }
     
+    @objc private func closeSuccessView() {
+        successReviewDetailView.isHidden = true
+    }
+    
     @objc private func showReviewDialog() {
         reviewDetailView.isHidden = false
     }
@@ -479,11 +498,20 @@ extension DetailViewController {
             content: reviewContent,
             rating: reviewDetailView.selectedRating
         )
+        
+        showLoader(enable: true)
     }
     
     @objc private func goToProfile() {
         guard let userId = storeInfo?.id else { return }
         presenter?.goToProfile(id: userId)
+    }
+    
+    private func showLoader(enable: Bool) {
+        reviewDetailView.startLoad(enable: enable)
+        
+        collectionView.alpha = enable ? 0.5 : 1
+        collectionView.isUserInteractionEnabled = !enable
     }
 }
 
@@ -541,7 +569,10 @@ extension DetailViewController: DetailViewControllerProtocol {
     func showSuccessReview() {
         DispatchQueue.main.async { [weak self] in
             self?.reviewDetailView.isHidden = true
+            self?.successReviewDetailView.isHidden = false
         }
+        
+        showLoader(enable: false)
     }
     
     func showReviewButton(data: CheckChatReviewResult) {
