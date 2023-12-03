@@ -49,6 +49,7 @@ class CreateProductViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         setSuccessView()
+        
         presenter?.getCategories()
     }
     
