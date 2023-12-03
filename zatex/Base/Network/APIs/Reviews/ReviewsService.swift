@@ -21,13 +21,20 @@ extension ReviewsService: ReviewsAPI {
             try ReviewsHttpRouter
                 .getReviewsList(authorId: authorId)
                 .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: getReviewsList \(description)")
+                }
                 .responseDecodable(of: [ReviewsListResult].self) { response in
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
                         guard !data.isEmpty else { return }
                     case .failure(let error):
-                        completion(.failure(.error(name: "Ошибка: 23543698238 - \(error)")))
+                        if response.response?.statusCode == 404 {
+                            completion(.failure(.error(name: "Пустой")))
+                        } else {
+                            completion(.failure(.error(name: "Ошибка: 23543698238 - \(error)")))
+                        }
                     }
                 }
         } catch {

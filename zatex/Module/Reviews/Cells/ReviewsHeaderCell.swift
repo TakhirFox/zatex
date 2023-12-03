@@ -55,7 +55,15 @@ class ReviewsHeaderCell: UITableViewCell {
     
     func setupCell(store: StoreInfoResult?) {
         storeNameLabel.text = store?.storeName ?? ""
-        ratingNumberLabel.text = store?.rating?.rating ?? ""
+        
+        if let rating = store?.rating?.rating {
+            if rating == "No Ratings found yet" {
+                ratingNumberLabel.text = "Отзывов нет"
+            } else {
+                ratingNumberLabel.text = rating
+            }
+        }
+        
         ratingCountLabel.text = "\(store?.rating?.count ?? 0) отзывов"
         ratingImageView.image = UIImage(named: "star0")
         

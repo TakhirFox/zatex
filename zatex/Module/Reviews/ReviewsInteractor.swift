@@ -29,8 +29,11 @@ extension ReviewsInteractor: ReviewsInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
-                    
+                    if name == "Пустой" {
+                        self.presenter?.setReviews(data: [])
+                    } else {
+                        self.presenter?.setError(data: name)
+                    }
                 case let .secondError(name):
                     self.presenter?.setError(data: name)
                 }
