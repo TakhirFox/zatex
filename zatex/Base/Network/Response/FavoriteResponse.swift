@@ -48,7 +48,7 @@ extension Array where Element == FavoriteResponse {
                 store: nil,
                 relatedIDS: nil,
                 isSales: nil,
-                isFavorite: false
+                isFavorite: true
             )
         }
     }
