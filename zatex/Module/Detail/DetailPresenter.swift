@@ -32,6 +32,9 @@ protocol DetailPresenterProtocol: AnyObject {
         rating: Int?
     )
     
+    func addFavorite(productId: Int)
+    func removeFavorite(productId: Int)
+    
     // Router
     func routeToMessage(chatId: String)
     func routeToMap(coordinates: [CoordinatesResult])
@@ -47,6 +50,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func setProductInfo(data: ProductResult)
     func setSimilarProducts(data: ProductResult)
     func setStoreInfo(data: StoreInfoResult)
+    func setFavoriteList(data: [FavoriteResponse])
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
     func setError(data: String)
@@ -58,6 +62,8 @@ enum ToastErrorKind {
     case checkChatExists
     case checkStartChat
     case sendReview
+    case addFavorite
+    case removeFvorite
 }
 
 class DetailPresenter: BasePresenter {
@@ -65,6 +71,8 @@ class DetailPresenter: BasePresenter {
     weak var view: DetailViewControllerProtocol?
     var interactor: DetailInteractorProtocol?
     var router: DetailRouterProtocol?
+    private var productEntities: [ProductResult] = []
+    private var productEntity: ProductResult?
 }
 
 extension DetailPresenter: DetailPresenterProtocol {
@@ -140,6 +148,14 @@ extension DetailPresenter: DetailPresenterProtocol {
         interactor?.sendReview(id: userId, review: review)
     }
     
+    func addFavorite(productId: Int) {
+        interactor?.addFavorite(productId: productId)
+    }
+    
+    func removeFavorite(productId: Int) {
+        interactor?.removeFavorite(productId: productId)
+    }
+    
     // MARK: To Router
     func routeToMessage(chatId: String) {
         router?.routeToMessage(chatId: chatId)
@@ -176,7 +192,7 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     // MARK: To View
     func setProductInfo(data: ProductResult) {
-        view?.setProductInfo(data: data)
+        productEntity = data
         
         data.relatedIDS?.forEach({ id in
             interactor?.getSimilarProducts(productId: id)
@@ -184,11 +200,33 @@ extension DetailPresenter: DetailPresenterProtocol {
     }
     
     func setSimilarProducts(data: ProductResult) {
-        view?.setSimilarProducts(data: data)
+        productEntities.append(data)
+        
+        interactor?.getFavoriteList()
     }
     
     func setStoreInfo(data: StoreInfoResult) {
         view?.setStoreInfo(data: data)
+    }
+    
+    func setFavoriteList(data: [FavoriteResponse]) {
+        let favoriteEntity = data.convertToEntities()
+        
+        productEntities.enumerated().forEach { index, product in
+            if let favoriteEntity = favoriteEntity.first(where: { $0.id == product.id }) {
+                productEntities[index].isFavorite = true
+            }
+        }
+        
+        if let favoriteEntity = favoriteEntity.first(where: { $0.id == productEntity?.id }) {
+            productEntity?.isFavorite = true
+        } else {
+            productEntity?.isFavorite = false
+        }
+        
+        view?.setSimilarProducts(data: productEntities)
+        
+        view?.setProductInfo(data: productEntity!)
     }
     
     func showSuccessReview() {

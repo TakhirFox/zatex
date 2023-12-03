@@ -17,10 +17,6 @@ extension StubService: ProductAPI {
         fatalError("Нет имплементации")
     }
     
-    func fetchBanners(completion: @escaping BannersClosure) {
-        fatalError("Нет имплементации")
-    }
-    
     func fetchCategories(completion: @escaping CategoriesClosure) {
         let category = [CategoryResult(id: 1, count: nil, name: "assasa", description: "", selected: true),
                         CategoryResult(id: 2, count: nil, name: "gsehgf", description: "", selected: false),

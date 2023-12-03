@@ -57,26 +57,6 @@ extension ProductService: ProductAPI {
         }
     }
     
-    func fetchBanners(completion: @escaping BannersClosure) {
-        do {
-            try ProductHttpRouter
-                .getBanners
-                .request(usingHttpService: httpService)
-                .responseDecodable(of: [BannerResult].self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        completion(.success(data))
-                        guard !data.isEmpty else { return }
-                    case .failure(let error):
-                        completion(.failure(.error(name: "Ошибка: 7802347 - \(error)")))
-                    }
-                }
-            
-        } catch {
-            completion(.failure(.secondError(name: "Ошибка: 78902345678 Ошибка баннера")))
-        }
-    }
-    
     func fetchProductByCategory(
         id: String,
         completion: @escaping ProdByCategoryClosure

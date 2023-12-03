@@ -175,6 +175,7 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setupCell(messages[indexPath.row])
             
             return cell
+            
         } else if messages[indexPath.row].senderID != userId {
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: "receivedChatCell",
@@ -183,6 +184,7 @@ extension ChatDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setupCell(messages[indexPath.row])
             
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: "sentChatCell",

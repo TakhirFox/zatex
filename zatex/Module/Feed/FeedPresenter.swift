@@ -7,26 +7,34 @@
 //
 
 protocol FeedPresenterProtocol: AnyObject {
+    
     func getProducts(page: Int)
     func getCategories()
     func getBanners()
     func getProductByCategory(id: String)
+    func addFavorite(productId: Int)
+    func removeFavorite(productId: Int)
     
     func goToSearchResult(text: String)
     func goToDetail(id: Int)
+    func goToNews(entity: BannerResult)
     
     func setProducts(data: [ProductResult])
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
+    func setFavoriteList(data: [FavoriteResponse])
+    
     func setProductFromCategory(data: [ProductResult])
     func setError(data: String)
+    func setToastError(text: String)
 }
 
 class FeedPresenter: BasePresenter {
+    
     weak var view: FeedViewControllerProtocol?
     var interactor: FeedInteractorProtocol?
     var router: FeedRouterProtocol?
-    
+    var productEntity: [ProductResult] = []
 }
 
 extension FeedPresenter: FeedPresenterProtocol {
@@ -48,6 +56,14 @@ extension FeedPresenter: FeedPresenterProtocol {
         interactor?.getProductByCategory(id: id)
     }
     
+    func addFavorite(productId: Int) {
+        interactor?.addFavorite(productId: productId)
+    }
+    
+    func removeFavorite(productId: Int) {
+        interactor?.removeFavorite(productId: productId)
+    }
+    
     
     // MARK: To Router
     func goToSearchResult(text: String) {
@@ -58,10 +74,16 @@ extension FeedPresenter: FeedPresenterProtocol {
         router?.routeToDetail(id: id)
     }
     
+    func goToNews(entity: BannerResult) {
+        router?.routeToNews(entity: entity)
+    }
+    
     
     // MARK: To View
     func setProducts(data: [ProductResult]) {
-        view?.setProducts(data: data)
+        productEntity = data
+        
+        interactor?.getFavoriteList()
     }
     
     func setCategories(data: [CategoryResult]) {
@@ -72,11 +94,27 @@ extension FeedPresenter: FeedPresenterProtocol {
         view?.setBanners(data: data)
     }
     
+    func setFavoriteList(data: [FavoriteResponse]) {
+        let favoriteEntity = data.convertToEntities()
+        
+        productEntity.enumerated().forEach { index, product in
+            if let favoriteEntity = favoriteEntity.first(where: { $0.id == product.id }) {
+                productEntity[index].isFavorite = true
+            }
+        }
+        
+        view?.setProducts(data: productEntity)
+    }
+    
     func setProductFromCategory(data: [ProductResult]) {
         view?.setProductFromCategory(data: data)
     }
     
     func setError(data: String) {
         view?.showError(data: data)
+    }
+    
+    func setToastError(text: String) {
+        view?.showToastError(text: text)
     }
 }

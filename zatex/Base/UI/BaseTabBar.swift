@@ -23,6 +23,14 @@ class BaseTabBar: UITabBar {
         configure()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for item in items ?? [] {
+            item.title = nil
+        }
+    }
+    
     func configure() {
         setupUI()
         updateAppearence()
@@ -48,7 +56,7 @@ class BaseTabBar: UITabBar {
         roundLayer.path = bezierPath.cgPath
         
         layer.insertSublayer(roundLayer, at: 0)
-        itemWidth = width / 6
+        itemWidth = width / 10
         itemPositioning = .centered
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Montserrat-SemiBold", size: 10)!], for: .normal)

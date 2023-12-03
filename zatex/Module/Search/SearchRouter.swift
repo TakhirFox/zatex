@@ -9,19 +9,19 @@
 import UIKit
 
 protocol SearchRouterProtocol: AnyObject {
-    func routeToDetail(id: Int)
     
+    func routeToDetail(id: Int)
 }
 
 class SearchRouter: BaseRouter {
-    weak var viewController: UIViewController?
     
+    weak var viewController: UIViewController?
 }
 
 extension SearchRouter: SearchRouterProtocol {
+    
     func routeToDetail(id: Int) {
         let view = DetailAssembly.create(id: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
-    
 }

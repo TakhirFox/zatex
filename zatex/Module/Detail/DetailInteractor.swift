@@ -8,6 +8,7 @@
 
 
 protocol DetailInteractorProtocol {
+    
     func getProductInfo()
     func getSimilarProducts(productId: Int)
     func getStoreInfo(authorId: Int)
@@ -28,12 +29,18 @@ protocol DetailInteractorProtocol {
         id: Int,
         review: ReviewEntity
     )
+    
+    func getFavoriteList()
+    func addFavorite(productId: Int)
+    func removeFavorite(productId: Int)
 }
 
 class DetailInteractor: BaseInteractor {
+    
     weak var presenter: DetailPresenterProtocol?
     var service: ProductDetailAPI!
     var mapService: MapAPI!
+    var favoriteService: FavoritesAPI!
     var productId = 0
 }
 
@@ -175,6 +182,63 @@ extension DetailInteractor: DetailInteractorProtocol {
                     
                 case let .secondError(name):
                     self.presenter?.setToastError(text: name, type: .sendReview)
+                }
+            }
+        }
+    }
+}
+
+extension DetailInteractor {
+    
+    func getFavoriteList() {
+        self.favoriteService.fetchFavoriteList { result in
+            switch result {
+            case let .success(data):
+                self.presenter?.setFavoriteList(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
+        }
+    }
+    
+    func addFavorite(productId: Int) {
+        self.favoriteService.addFavorite(productId: productId) { result in
+            switch result {
+            case .success:
+                break
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name, type: .addFavorite)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name, type: .addFavorite)
+                }
+            }
+        }
+    }
+    
+    func removeFavorite(productId: Int) {
+        self.favoriteService.removeFavorite(productId: productId) { result in
+            switch result {
+            case .success:
+                break
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastError(text: name, type: .removeFvorite)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastError(text: name, type: .removeFvorite)
                 }
             }
         }

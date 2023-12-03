@@ -9,13 +9,16 @@
 import UIKit
 
 class FeedAssembly: BaseAssemblyProtocol {
+    
     static func create() -> UIViewController {
         let viewController = FeedViewController()
         let presenter = FeedPresenter()
         let interactor = FeedInteractor()
         let router = FeedRouter()
         
-        let networkService = ProductService.shared // StubService.shared 
+        let networkService = ProductService.shared
+        let newsNetworkService = NewsService.shared
+        let favoriteNetworkService = FavoritesService.shared
         
         viewController.presenter = presenter
         
@@ -25,10 +28,11 @@ class FeedAssembly: BaseAssemblyProtocol {
         
         interactor.presenter = presenter
         interactor.service = networkService
+        interactor.newsService = newsNetworkService
+        interactor.favoriteService = favoriteNetworkService
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

@@ -13,6 +13,7 @@ protocol SearchViewControllerProtocol: AnyObject {
     
     func setResultProducts(data: [ProductResult])
     func showError(data: String)
+    func showToastError(text: String)
 }
 
 class SearchViewController: BaseViewController {
@@ -88,6 +89,7 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         presenter?.getSearchData(text: text)
@@ -100,6 +102,7 @@ extension SearchViewController: UITextFieldDelegate {
 
 // MARK: CollectionView data source, delegate
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -111,6 +114,21 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
         cell.setupCell(resultProducts[indexPath.row])
+        
+        cell.onSignal = { [weak self] signal in
+            guard let productId = self?.resultProducts[indexPath.row].id else { return }
+            
+            switch signal {
+            case .addFavorite:
+                self?.presenter?.addFavorite(productId: productId)
+                cell.changeFavorite(true)
+                
+            case .removeFavorite:
+                self?.presenter?.removeFavorite(productId: productId)
+                cell.changeFavorite(false)
+            }
+        }
+        
         return cell
     }
     
@@ -133,6 +151,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 // MARK: Implemented SearchViewControllerProtocol
 extension SearchViewController: SearchViewControllerProtocol {
+    
     func setResultProducts(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -156,5 +175,9 @@ extension SearchViewController: SearchViewControllerProtocol {
             self?.setVisibilityViews()
             self?.presenter?.getSearchData(text: "")
         }
+    }
+    
+    func showToastError(text: String) {
+        toastAnimation(text: text) {}
     }
 }

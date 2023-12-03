@@ -20,6 +20,9 @@ extension ChatListService: ChatListAPI {
             try ChatListHttpRouter
                 .getChatList
                 .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: getChatList \(description)")
+                }
                 .responseDecodable(of: [ChatListResult].self) { response in
                     switch response.result {
                     case .success(let data):
