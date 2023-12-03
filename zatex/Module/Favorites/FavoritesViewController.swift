@@ -13,16 +13,24 @@ protocol FavoritesViewControllerProtocol: AnyObject {
     
     func setFavoriteList(data: [ProductResult])
     func showError(data: String)
-    func showToastError(text: String)
+    func showToastAddError(text: String)
+    func showToastRemoveError(text: String)
 }
 
 class FavoritesViewController: BaseViewController {
     
     var presenter: FavoritesPresenterProtocol?
     
-    var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
+    private let refreshControl = UIRefreshControl()
     
-    var productEntity: [ProductResult] = []
+    private var productEntity: [ProductResult] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getRequests()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +40,11 @@ class FavoritesViewController: BaseViewController {
         setupConstraints()
     }
     
-    func setupSubviews() {
+    private func setupSubviews() {
         view.addSubview(collectionView)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
@@ -44,7 +52,7 @@ class FavoritesViewController: BaseViewController {
         }
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         title = "Избранное"
         
         let layout = UICollectionViewFlowLayout()
@@ -59,12 +67,14 @@ class FavoritesViewController: BaseViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
+        collectionView.refreshControl = refreshControl
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        collectionView.keyboardDismissMode = .onDrag
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
 }
 
 extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -76,16 +86,55 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
         cell.setupCell(productEntity[indexPath.row])
+        
+        cell.onSignal = { [weak self] signal in
+            guard let productId = self?.productEntity[indexPath.row].id else { return }
+            
+            switch signal {
+            case .addFavorite:
+                self?.presenter?.addFavorite(productId: productId)
+                cell.changeFavorite(true)
+                
+            case .removeFavorite:
+                self?.presenter?.removeFavorite(productId: productId)
+                cell.changeFavorite(false)
+            }
+        }
+        
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let productId = self.productEntity[indexPath.row].id else { return }
         presenter?.goToDetail(id: productId)
+    }
+}
+
+extension FavoritesViewController {
+    
+    @objc private func refreshData(_ sender: Any) {
+        presenter?.getFavoriteList()
+    }
+    
+    private func getRequests() {
+        presenter?.getFavoriteList()
+        
+        collectionView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+        loaderView.play()
+    }
+    
+    private func showLoader(enable: Bool) {
+        if enable {
+            loaderView.play()
+        } else {
+            loaderView.stop()
+        }
+        
+        loaderView.isHidden = !enable
+        collectionView.alpha = enable ? 0.5 : 1
+        collectionView.isUserInteractionEnabled = !enable
     }
 }
 
@@ -95,19 +144,40 @@ extension FavoritesViewController: FavoritesViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.productEntity = data
-//            collectionView.isHidden = false
-//            searchView.isHidden = false
-//            errorView.isHidden = true
-//            loaderView.isHidden = true
+            collectionView.isHidden = false
+            errorView.isHidden = true
+            loaderView.isHidden = true
             self.collectionView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     
     func showError(data: String) {
+        collectionView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
         
+        errorView.setupCell(errorName: data)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
     }
     
-    func showToastError(text: String) {
+    func showToastAddError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.addFavorite(productId: 0)
+            self?.showLoader(enable: true)
+        }
         
+        showLoader(enable: false)
+    }
+    
+    func showToastRemoveError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.removeFavorite(productId: 0)
+            self?.showLoader(enable: true)
+        }
+        
+        showLoader(enable: false)
     }
 }

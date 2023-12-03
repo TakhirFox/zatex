@@ -9,6 +9,7 @@
 import UIKit
 
 class SearchAssembly {
+    
     static func create(searchText: String) -> UIViewController {
         let viewController = SearchViewController()
         let presenter = SearchPresenter()
@@ -16,6 +17,7 @@ class SearchAssembly {
         let router = SearchRouter()
         
         let networkService = SearchService.shared
+        let favoriteNetworkService = FavoritesService.shared
         
         viewController.presenter = presenter
         
@@ -26,10 +28,10 @@ class SearchAssembly {
         interactor.presenter = presenter
         interactor.service = networkService
         interactor.getSearchResult(searchText: searchText)
+        interactor.favoriteService = favoriteNetworkService
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

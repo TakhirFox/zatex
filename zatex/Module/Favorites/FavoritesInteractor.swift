@@ -9,9 +9,9 @@
 
 protocol FavoritesInteractorProtocol {
     
-    func getFavoriteList(userId: Int)
-    func addFavorite()
-    func removeFavorite()
+    func getFavoriteList()
+    func addFavorite(productId: Int)
+    func removeFavorite(productId: Int)
 }
 
 class FavoritesInteractor: BaseInteractor {
@@ -22,8 +22,8 @@ class FavoritesInteractor: BaseInteractor {
 
 extension FavoritesInteractor: FavoritesInteractorProtocol {
     
-    func getFavoriteList(userId: Int) {
-        self.service.fetchFavoriteList(userId: userId) { result in
+    func getFavoriteList() {
+        self.service.fetchFavoriteList { result in
             switch result {
             case let .success(data):
                 self.presenter?.setFavoriteList(data: data)
@@ -40,39 +40,37 @@ extension FavoritesInteractor: FavoritesInteractorProtocol {
         }
     }
     
-    func addFavorite() {
-        self.service.addFavorite() { result in
+    func addFavorite(productId: Int) {
+        self.service.addFavorite(productId: productId) { result in
             switch result {
-            case let .success(data):
-//                self.presenter?.setFavoriteList(data: data)
+            case .success:
                 break
                 
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastAddError(text: name)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastAddError(text: name)
                 }
             }
         }
     }
     
-    func removeFavorite() {
-        self.service.removeFavorite() { result in
+    func removeFavorite(productId: Int) {
+        self.service.removeFavorite(productId: productId) { result in
             switch result {
-            case let .success(data):
-//                self.presenter?.setFavoriteList(data: data)
+            case .success:
                 break
                 
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastRemoveError(text: name)
                     
                 case let .secondError(name):
-                    self.presenter?.setError(data: name)
+                    self.presenter?.setToastRemoveError(text: name)
                 }
             }
         }

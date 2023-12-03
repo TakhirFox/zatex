@@ -15,14 +15,16 @@ class FavoritesService {
 extension FavoritesService: FavoritesAPI {
 
     func fetchFavoriteList(
-        userId: Int,
         completion: @escaping FavoriteListClosure
     ) {
         do {
             try FavoritesHttpRouter
-                .getFavoriteList(userId: userId)
+                .getFavoriteList
                 .request(usingHttpService: httpService)
-                .responseDecodable(of: [ProductResult].self) { response in
+                .cURLDescription { description in
+                    print("LOG: getFavoriteList \(description)")
+                }
+                .responseDecodable(of: [FavoriteResponse].self) { response in
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
@@ -36,11 +38,12 @@ extension FavoritesService: FavoritesAPI {
     }
     
     func addFavorite(
+        productId: Int,
         completion: @escaping SetFavoriteClosure
     ) {
         do {
             try FavoritesHttpRouter
-                .addFavorite
+                .addFavorite(productId: productId)
                 .request(usingHttpService: httpService)
                 .response { response in
                     switch response.result {
@@ -56,11 +59,12 @@ extension FavoritesService: FavoritesAPI {
     }
     
     func removeFavorite(
+        productId: Int,
         completion: @escaping SetFavoriteClosure
     ) {
         do {
             try FavoritesHttpRouter
-                .removeFavorite
+                .removeFavorite(productId: productId)
                 .request(usingHttpService: httpService)
                 .response { response in
                     switch response.result {

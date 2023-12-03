@@ -139,6 +139,21 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
                 case .products:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
                     cell.setupCell(products[indexPath.item])
+                    
+                    cell.onSignal = { [weak self] signal in
+                        guard let productId = self?.products[indexPath.row].id else { return }
+                        
+                        switch signal {
+                        case .addFavorite:
+                            self?.presenter?.addFavorite(productId: productId)
+                            cell.changeFavorite(true)
+                            
+                        case .removeFavorite:
+                            self?.presenter?.removeFavorite(productId: productId)
+                            cell.changeFavorite(false)
+                        }
+                    }
+                    
                     return cell
                     
                 case .emptyCategory:

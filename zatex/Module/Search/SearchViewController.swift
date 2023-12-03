@@ -113,6 +113,21 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ProductCell
         cell.setupCell(resultProducts[indexPath.row])
+        
+        cell.onSignal = { [weak self] signal in
+            guard let productId = self?.resultProducts[indexPath.row].id else { return }
+            
+            switch signal {
+            case .addFavorite:
+                self?.presenter?.addFavorite(productId: productId)
+                cell.changeFavorite(true)
+                
+            case .removeFavorite:
+                self?.presenter?.removeFavorite(productId: productId)
+                cell.changeFavorite(false)
+            }
+        }
+        
         return cell
     }
     

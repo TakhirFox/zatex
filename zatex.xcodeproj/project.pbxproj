@@ -105,6 +105,7 @@
 		AD24D2CA2B178FE500E5E260 /* NewsHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C92B178FE500E5E260 /* NewsHttpRouter.swift */; };
 		AD24D2CC2B17906600E5E260 /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2CB2B17906600E5E260 /* NewsAPI.swift */; };
 		AD24D2CE2B17907400E5E260 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2CD2B17907400E5E260 /* NewsService.swift */; };
+		AD24D2D02B1B947A00E5E260 /* FavoriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2CF2B1B947A00E5E260 /* FavoriteResponse.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
 		AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */; };
 		AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */; };
@@ -427,6 +428,7 @@
 		AD24D2C92B178FE500E5E260 /* NewsHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHttpRouter.swift; sourceTree = "<group>"; };
 		AD24D2CB2B17906600E5E260 /* NewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
 		AD24D2CD2B17907400E5E260 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		AD24D2CF2B1B947A00E5E260 /* FavoriteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponse.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
 		AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAuthorView.swift; sourceTree = "<group>"; };
@@ -960,6 +962,7 @@
 				ADF1C4BE29DC846D00532EDD /* CoordinatesResult.swift */,
 				AD51631A2A6BC21000C2B60F /* NetworkError.swift */,
 				AD49B0762A72E14000DFD91B /* AddressResult.swift */,
+				AD24D2CF2B1B947A00E5E260 /* FavoriteResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2104,6 +2107,7 @@
 				AD5163162A66D5FA00C2B60F /* ProfileEmptyCell.swift in Sources */,
 				AD4A98692918D38800709745 /* AvatarEditCell.swift in Sources */,
 				AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */,
+				AD24D2D02B1B947A00E5E260 /* FavoriteResponse.swift in Sources */,
 				ADE8175329093A76004895DD /* BaseButton.swift in Sources */,
 				ADF1C4C929DC861200532EDD /* MapService.swift in Sources */,
 				F7792221005745ADBCB9D937 /* SearchRouter.swift in Sources */,

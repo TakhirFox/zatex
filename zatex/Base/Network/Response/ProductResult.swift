@@ -23,6 +23,7 @@ struct ProductResult: Decodable, Hashable {
     let store: ProductResult.Store?
     let relatedIDS: [Int]?
     let isSales: Bool?
+    var isFavorite: Bool? = false
     
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -39,6 +40,7 @@ struct ProductResult: Decodable, Hashable {
         case store
         case relatedIDS = "related_ids"
         case isSales = "sold_individually"
+        case isFavorite
     }
     
     struct Category: Decodable, Hashable {

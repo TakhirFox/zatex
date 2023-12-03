@@ -8,23 +8,23 @@
 import Alamofire
 
 enum FavoritesHttpRouter {
-    case getFavoriteList(userId: Int)
-    case addFavorite
-    case removeFavorite
+    case getFavoriteList
+    case addFavorite(productId: Int)
+    case removeFavorite(productId: Int)
 }
 
 extension FavoritesHttpRouter: HttpRouter {
     
     var path: String {
         switch self {
-        case let .getFavoriteList(userId):
-            return ""
+        case .getFavoriteList:
+            return "/wp-json/favorite/v1/favorite"
             
-        case .addFavorite:
-            return ""
+        case let .addFavorite(userId):
+            return "/wp-json/favorite/v1/add/\(userId)"
             
-        case .removeFavorite:
-            return ""
+        case let .removeFavorite(userId):
+            return "/wp-json/favorite/v1/remove/\(userId)"
         }
     }
     
@@ -33,9 +33,11 @@ extension FavoritesHttpRouter: HttpRouter {
         case .getFavoriteList:
             return .get
             
-        case .addFavorite,
-                .removeFavorite:
+        case .addFavorite:
             return .post
+            
+        case .removeFavorite:
+            return .delete
         }
     }
     

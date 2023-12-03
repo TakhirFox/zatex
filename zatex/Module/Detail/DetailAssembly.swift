@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailAssembly {
+    
     static func create(id: Int) -> UIViewController {
         let viewController = DetailViewController()
         let presenter = DetailPresenter()
@@ -17,6 +18,7 @@ class DetailAssembly {
         
         let networkService = ProductDetailService.shared
         let mapNetworkService = MapService.shared
+        let favoriteNetworkService = FavoritesService.shared
         let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
@@ -29,11 +31,11 @@ class DetailAssembly {
         interactor.presenter = presenter
         interactor.service = networkService
         interactor.mapService = mapNetworkService
+        interactor.favoriteService = favoriteNetworkService
         interactor.productId = id
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

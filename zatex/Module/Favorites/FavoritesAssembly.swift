@@ -9,11 +9,13 @@
 import UIKit
 
 class FavoritesAssembly: BaseAssemblyProtocol {
+    
     static func create() -> UIViewController {
         let viewController = FavoritesViewController()
         let presenter = FavoritesPresenter()
         let interactor = FavoritesInteractor()
         let router = FavoritesRouter()
+        let networkService = FavoritesService.shared
         
         viewController.presenter = presenter
         
@@ -22,10 +24,10 @@ class FavoritesAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         
         return viewController
     }
-    
 }

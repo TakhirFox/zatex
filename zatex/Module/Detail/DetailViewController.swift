@@ -13,7 +13,7 @@ protocol DetailViewControllerProtocol: AnyObject {
     var presenter: DetailPresenterProtocol? { get set }
     
     func setProductInfo(data: ProductResult)
-    func setSimilarProducts(data: ProductResult)
+    func setSimilarProducts(data: [ProductResult])
     func setStoreInfo(data: StoreInfoResult)
     func showSuccessReview()
     func showReviewButton(data: CheckChatReviewResult)
@@ -236,6 +236,21 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .similarProduct:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "similarCell", for: indexPath) as! ProductCell
             cell.setupCell(similarProducts[indexPath.row])
+            
+            cell.onSignal = { [weak self] signal in
+                guard let productId = self?.similarProducts[indexPath.row].id else { return }
+                
+                switch signal {
+                case .addFavorite:
+                    self?.presenter?.addFavorite(productId: productId)
+                    cell.changeFavorite(true)
+                    
+                case .removeFavorite:
+                    self?.presenter?.removeFavorite(productId: productId)
+                    cell.changeFavorite(false)
+                }
+            }
+            
             return cell
             
         case .none:
@@ -447,9 +462,9 @@ extension DetailViewController: DetailViewControllerProtocol {
         }
     }
     
-    func setSimilarProducts(data: ProductResult) {
+    func setSimilarProducts(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
-            self?.similarProducts.append(data)
+            self?.similarProducts = data
             self?.collectionView.reloadData()
         }
     }

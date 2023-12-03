@@ -10,6 +10,11 @@ import Kingfisher
 
 class ProductCell: UICollectionViewCell {
     
+    enum Signals {
+        case addFavorite
+        case removeFavorite
+    }
+    
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 8
@@ -46,6 +51,10 @@ class ProductCell: UICollectionViewCell {
         view.layer.masksToBounds = true
         return view
     }()
+        
+    public var onSignal: (Signals) -> ()  = { _ in }
+    
+    var isFavorite = false
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -60,15 +69,12 @@ class ProductCell: UICollectionViewCell {
         
         configureSubviews()
         configureConstraints()
-        updateAppearence()
-        
-        Appearance.shared.theme.bind(self) { [weak self] newTheme in
-            self?.updateAppearence()
-        }
     }
     
     func setupCell(_ post: ProductResult?) {
         guard let post = post else { return }
+        
+        self.isFavorite = post.isFavorite ?? false
         
         titleLabel.text = post.name
         imageView.image = UIImage(named: "no_image")
@@ -82,6 +88,32 @@ class ProductCell: UICollectionViewCell {
             let url = (src.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))!
             let urlString = URL(string: url)
             imageView.kf.setImage(with: urlString)
+        }
+        
+        favoriteView.isUserInteractionEnabled = true
+        
+        changeFavorite(isFavorite)
+        
+        updateAppearence()
+        
+        Appearance.shared.theme.bind(self) { [weak self] newTheme in
+            self?.updateAppearence()
+        }
+    }
+    
+    func changeFavorite(_ isFavorite: Bool) {
+        if isFavorite {
+            favoriteView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onRemoveFavoriteTapper)))
+        } else {
+            favoriteView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onAddFavoriteTapper)))
+        }
+        
+        switch Appearance.shared.theme.value {
+        case .dark:
+            favoriteView.image = isFavorite ? UIImage(named: "dark-like-fill") : UIImage(named: "dark-like-unfill")
+            
+        case .light:
+            favoriteView.image = isFavorite ? UIImage(named: "light-like-fill") : UIImage(named: "light-like-unfill")
         }
     }
     
@@ -112,10 +144,10 @@ class ProductCell: UICollectionViewCell {
         
         switch Appearance.shared.theme.value {
         case .dark:
-            favoriteView.image = UIImage(named: "dark-like-unfill")
+            favoriteView.image = isFavorite ? UIImage(named: "dark-like-fill") : UIImage(named: "dark-like-unfill")
             
         case .light:
-            favoriteView.image = UIImage(named: "light-like-unfill")
+            favoriteView.image = isFavorite ? UIImage(named: "light-like-fill") : UIImage(named: "light-like-unfill")
         }
     }
     
@@ -161,6 +193,17 @@ class ProductCell: UICollectionViewCell {
             make.bottom.equalToSuperview().inset(4)
             make.height.equalTo(14)
         }
+    }
+    
+    
+    @objc private func onAddFavoriteTapper() {
+        isFavorite = false
+        onSignal(.addFavorite)
+    }
+    
+    @objc private func onRemoveFavoriteTapper() {
+        isFavorite = true
+        onSignal(.removeFavorite)
     }
     
     required init?(coder: NSCoder) {

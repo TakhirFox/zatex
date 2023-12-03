@@ -7,37 +7,39 @@
 //
 
 protocol FavoritesPresenterProtocol: AnyObject {
-    func getFavoriteList(userId: Int)
-    func addFavorite()
-    func removeFavorite()
+    
+    func getFavoriteList()
+    func addFavorite(productId: Int)
+    func removeFavorite(productId: Int)
     
     func goToDetail(id: Int)
     
-    func setFavoriteList(data: [ProductResult])
+    func setFavoriteList(data: [FavoriteResponse])
     func setError(data: String)
-    func setToastError(text: String)
+    func setToastAddError(text: String)
+    func setToastRemoveError(text: String)
 }
 
 class FavoritesPresenter: BasePresenter {
+    
     weak var view: FavoritesViewControllerProtocol?
     var interactor: FavoritesInteractorProtocol?
     var router: FavoritesRouterProtocol?
-    
 }
 
 extension FavoritesPresenter: FavoritesPresenterProtocol {
     
     // MARK: To Interactor
-    func getFavoriteList(userId: Int) {
-        interactor?.getFavoriteList(userId: userId)
+    func getFavoriteList() {
+        interactor?.getFavoriteList()
     }
     
-    func addFavorite() {
-        interactor?.addFavorite()
+    func addFavorite(productId: Int) {
+        interactor?.addFavorite(productId: productId)
     }
     
-    func removeFavorite() {
-        interactor?.removeFavorite()
+    func removeFavorite(productId: Int) {
+        interactor?.removeFavorite(productId: productId)
     }
     
     // MARK: To Router
@@ -46,15 +48,21 @@ extension FavoritesPresenter: FavoritesPresenterProtocol {
     }
     
     // MARK: To View
-    func setFavoriteList(data: [ProductResult]) {
-        view?.setFavoriteList(data: data)
+    func setFavoriteList(data: [FavoriteResponse]) {
+        let entity = data.convertToEntities()
+        
+        view?.setFavoriteList(data: entity)
     }
     
     func setError(data: String) {
         view?.showError(data: data)
     }
     
-    func setToastError(text: String) {
-        view?.showToastError(text: text)
+    func setToastAddError(text: String) {
+        view?.showToastAddError(text: text)
+    }
+    
+    func setToastRemoveError(text: String) {
+        view?.showToastRemoveError(text: text)
     }
 }
