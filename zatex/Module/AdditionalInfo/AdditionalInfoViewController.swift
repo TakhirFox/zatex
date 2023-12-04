@@ -201,8 +201,20 @@ extension AdditionalInfoViewController: UITableViewDelegate, UITableViewDataSour
         
         presenter?.goToMap(saveAddressHandler: { [weak self] address in
             DispatchQueue.main.async { [weak self] in
-                guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? FieldAddInfoCell else { return }
-                cell.textField.text = address
+                guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as? FieldAddInfoCell else { return }
+                
+                let country = address.address.country ?? ""
+                let city = address.address.city ?? ""
+                let road = address.address.road ?? ""
+                let houseNumber = address.address.houseNumber ?? ""
+                
+                cell.textField.text = "\(country), \(city), \(road) \(houseNumber)"
+                
+                let address = AdditionalInfoEntity.Address(
+                    street: "\(road) \(houseNumber)",
+                    city: city,
+                    country: country
+                )
                 
                 self?.additionalInfo.address = address
             }

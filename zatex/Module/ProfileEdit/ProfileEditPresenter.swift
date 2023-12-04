@@ -13,7 +13,7 @@ protocol ProfileEditPresenterProtocol: AnyObject {
     func getProfileInfo(id: Int)
     func updateProfileInfo(data: UpdateInfoEntity)
     
-    func goToMap(saveAddressHandler: @escaping (String) -> Void)
+    func goToMap(saveAddressHandler: @escaping (AddressResult) -> Void)
     
     func setProfileInfo(data: StoreInfoResult)
     func setImage(image: MediaResult, isBanner: Bool)
@@ -62,7 +62,9 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             let address = ProfileEditRequest.Address(
-                street1: data.address
+                street1: data.address?.street,
+                city: data.address?.city,
+                country: data.address?.country
             )
             
             let updatedInfo = ProfileEditRequest(
@@ -83,7 +85,7 @@ extension ProfileEditPresenter: ProfileEditPresenterProtocol {
     }
     
     // MARK: To Router
-    func goToMap(saveAddressHandler: @escaping (String) -> Void) {
+    func goToMap(saveAddressHandler: @escaping (AddressResult) -> Void) {
         router?.routeToMap(saveAddressHandler: saveAddressHandler)
     }
     

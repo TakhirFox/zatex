@@ -11,7 +11,7 @@ import UIKit
 protocol AdditionalInfoRouterProtocol: AnyObject {
     
     func routeToMap(
-        saveAddressHandler: @escaping (String) -> Void
+        saveAddressHandler: @escaping (AddressResult) -> Void
     )
 }
 
@@ -23,7 +23,7 @@ class AdditionalInfoRouter: BaseRouter {
 extension AdditionalInfoRouter: AdditionalInfoRouterProtocol {
     
     func routeToMap(
-        saveAddressHandler: @escaping (String) -> Void
+        saveAddressHandler: @escaping (AddressResult) -> Void
     ) {
         let view = MapSetterAssembly.create { [weak self] address in
             saveAddressHandler(address)
