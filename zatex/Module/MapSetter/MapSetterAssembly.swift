@@ -11,7 +11,7 @@ import UIKit
 class MapSetterAssembly {
     
     static func create(
-        closeViewHandler: @escaping ((String) -> Void)
+        closeViewHandler: @escaping ((AddressResult) -> Void)
     ) -> UIViewController {
         let viewController = MapSetterViewController()
         let presenter = MapSetterPresenter()

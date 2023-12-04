@@ -72,10 +72,11 @@ struct StoreInfoResult: Decodable {
     }
     
     struct Address: Decodable {
-        let street1, country: String?
+        let street1, city, country: String?
         
         enum CodingKeys: String, CodingKey {
             case street1 = "street_1"
+            case city
             case country
         }
     }

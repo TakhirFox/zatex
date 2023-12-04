@@ -9,11 +9,17 @@ import UIKit
 
 struct UpdateInfoEntity {
     
+    struct Address {
+        var street: String?
+        var city: String?
+        var country: String?
+    }
+    
     var storeName: String?
     var firstName: String?
     var lastName: String?
     var phone: String?
-    var address: String?
+    var address: Address?
     var email: String?
     var localAvatar: UIImage?
     var localBanner: UIImage?

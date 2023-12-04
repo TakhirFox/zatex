@@ -42,9 +42,11 @@ class MapProductCell: UICollectionViewCell {
     func setupCell(map: ProductResult.AddressUnion?) {
         switch map {
         case .address(let address):
-            if let street = address.street1 {
-                titleLabel.text = street
-            }
+            let street = address.street1 ?? ""
+            let city = address.city ?? ""
+            let country = address.country ?? ""
+            
+            titleLabel.text = "\(country), \(city), \(street)"
             
         case .empty,
                 .none:

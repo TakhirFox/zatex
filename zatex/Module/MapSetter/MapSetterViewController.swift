@@ -14,7 +14,7 @@ protocol MapSetterViewControllerProtocol: AnyObject {
     var presenter: MapSetterPresenterProtocol? { get set }
         
     func setMapPlace(coordinates: CoordinareEntity)
-    func setMapAddress(text: String)
+    func setMapAddress(address: AddressResult)
     func showAddressList(data: [CoordinatesResult])
     func showToastMapError(text: String)
 }
@@ -38,6 +38,7 @@ class MapSetterViewController: BaseViewController {
     private var searchTextField = BaseTextField()
     private let searchResultView = SearchResultView()
     private let saveButton = BaseButton()
+    private var selectedAddress: AddressResult?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -125,7 +126,9 @@ class MapSetterViewController: BaseViewController {
 extension MapSetterViewController {
     
     @objc private func saveAndDismiss() {
-        presenter?.goToBackWith(address: searchTextField.text ?? "")
+        if selectedAddress != nil {
+            presenter?.goToBackWith(address: selectedAddress!)
+        }
     }
     
     private func debouncerGetAddress() {
@@ -180,20 +183,36 @@ extension MapSetterViewController: MapSetterViewControllerProtocol {
         self.setPointOnMap()
     }
     
-    func setMapAddress(text: String) {
-        searchValue = text
-        searchTextField.text = text
+    func setMapAddress(address: AddressResult) {
+        let country = address.address.country ?? ""
+        let city = address.address.city ?? ""
+        let road = address.address.road ?? ""
+        let houseNumber = address.address.houseNumber ?? ""
+        
+        searchValue = "\(country), \(city), \(road) \(houseNumber)"
+        searchTextField.text = "\(country), \(city), \(road) \(houseNumber)"
+        selectedAddress = address
     }
     
     func showAddressList(data: [CoordinatesResult]) {
         searchResultView.setupCell(address: data)
         
         searchResultView.tappedHandler = { [weak self] address in
+            let country = address.address?.country ?? ""
             let city = address.address?.city ?? ""
             let road = address.address?.road ?? ""
             let houseNumber = address.address?.houseNumber ?? ""
             
-            self?.searchTextField.text = "\(city), \(road) \(houseNumber)"
+            self?.searchTextField.text = "\(country), \(city), \(road) \(houseNumber)"
+            
+            self?.selectedAddress = AddressResult(
+                address: AddressResult.Address(
+                    houseNumber: houseNumber,
+                    road: road,
+                    city: city,
+                    country: country
+                )
+            )
             
             let coordinate = CoordinareEntity(
                 latitude: Double(address.lat ?? "") ?? 0,

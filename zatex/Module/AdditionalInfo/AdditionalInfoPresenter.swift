@@ -12,7 +12,7 @@ protocol AdditionalInfoPresenterProtocol: AnyObject {
 
     func saveAdditionalInfo(entity: AdditionalInfoEntity)
     
-    func goToMap(saveAddressHandler: @escaping (String) -> Void)
+    func goToMap(saveAddressHandler: @escaping (AddressResult) -> Void)
     
     func setImage(image: MediaResult, isBanner: Bool)
     func signUpSuccess()
@@ -57,7 +57,9 @@ extension AdditionalInfoPresenter: AdditionalInfoPresenterProtocol {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             let address = AdditionalInfoRequest.Address(
-                street1: entity.address
+                street1: entity.address?.street,
+                city: entity.address?.city,
+                country: entity.address?.country
             )
             
             let info = AdditionalInfoRequest(
@@ -78,7 +80,7 @@ extension AdditionalInfoPresenter: AdditionalInfoPresenterProtocol {
     }
     
     // MARK: To Router
-    func goToMap(saveAddressHandler: @escaping (String) -> Void) {
+    func goToMap(saveAddressHandler: @escaping (AddressResult) -> Void) {
         router?.routeToMap(saveAddressHandler: saveAddressHandler)
     }
     

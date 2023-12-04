@@ -10,11 +10,13 @@ import Foundation
 struct CoordinatesResult: Decodable {
     
     struct Address: Decodable {
+        let country: String?
         let road: String?
         let city: String?
         let houseNumber: String?
         
         enum CodingKeys: String, CodingKey {
+            case country
             case road
             case city
             case houseNumber = "house_number"

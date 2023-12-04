@@ -11,7 +11,7 @@ protocol MapSetterPresenterProtocol: AnyObject {
     func getAddress(from coordinates: CoordinareEntity)
     func findAdress(from addess: String)
     
-    func goToBackWith(address: String)
+    func goToBackWith(address: AddressResult)
     
     func setMapPlace(coordinates: CoordinareEntity)
     func setAddress(data: AddressResult)
@@ -25,7 +25,7 @@ class MapSetterPresenter: BasePresenter {
     var interactor: MapSetterInteractorProtocol?
     var router: MapSetterRouterProtocol?
     var coordinates: CoordinareEntity?
-    var closeViewHandler: ((String) -> Void) = { _ in }
+    var closeViewHandler: ((AddressResult) -> Void) = { _ in }
 }
 
 extension MapSetterPresenter: MapSetterPresenterProtocol {
@@ -44,7 +44,7 @@ extension MapSetterPresenter: MapSetterPresenterProtocol {
     }
     
     // MARK: To Router
-    func goToBackWith(address: String) {
+    func goToBackWith(address: AddressResult) {
         closeViewHandler(address)
     }
     
@@ -60,7 +60,7 @@ extension MapSetterPresenter: MapSetterPresenterProtocol {
         let road = data.address.road ?? ""
         let houseNumber = data.address.houseNumber ?? ""
         
-        view?.setMapAddress(text: "\(city), \(road) \(houseNumber)")
+        view?.setMapAddress(address: data)
     }
     
     func setAddressList(data: [CoordinatesResult]) {

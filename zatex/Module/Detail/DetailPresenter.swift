@@ -118,9 +118,11 @@ extension DetailPresenter: DetailPresenterProtocol {
     func getCoordinatesAndGoToMap(address: ProductResult.AddressUnion?) {
         switch address {
         case .address(let address):
-            guard let street = address.street1 else { return }
+            let street = address.street1 ?? ""
+            let city = address.city ?? ""
+            let country = address.country ?? ""
             
-            interactor?.getCoordinates(address: street)
+            interactor?.getCoordinates(address: "\(country), \(city), \(street)")
             
         case .empty, nil:
             return

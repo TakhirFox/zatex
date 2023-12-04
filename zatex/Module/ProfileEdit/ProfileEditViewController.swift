@@ -175,17 +175,21 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 
             case .address:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "addressFieldCell", for: indexPath) as! FieldEditCell
-                var street = ""
+                var addressString = ""
                 
                 switch profileInfo?.address {
                 case .address(let address):
-                    street = address.street1 ?? ""
+                    let street = address.street1 ?? ""
+                    let city = address.city ?? ""
+                    let country = address.country ?? ""
+                    
+                    addressString = "\(country), \(city), \(street)"
                     
                 case .empty, nil:
                     break
                 }
                 
-                cell.setupCell(name: "Адрес", field: street)
+                cell.setupCell(name: "Адрес", field: addressString)
                 
                 cell.textField.isEnabled = false
                 cell.textField.delegate = self
@@ -281,7 +285,19 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
         presenter?.goToMap(saveAddressHandler: { [weak self] address in
             DispatchQueue.main.async { [weak self] in
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? FieldEditCell else { return }
-                cell.textField.text = address
+                
+                let country = address.address.country ?? ""
+                let city = address.address.city ?? ""
+                let road = address.address.road ?? ""
+                let houseNumber = address.address.houseNumber ?? ""
+                
+                cell.textField.text = "\(country), \(city), \(road) \(houseNumber)"
+                
+                let address = UpdateInfoEntity.Address(
+                    street: "\(road) \(houseNumber)",
+                    city: city,
+                    country: country
+                )
                 
                 self?.updateInfo.address = address
             }
