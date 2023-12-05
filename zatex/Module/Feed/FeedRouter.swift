@@ -13,6 +13,7 @@ protocol FeedRouterProtocol: AnyObject {
     func routeToSearchResult(text: String)
     func routeToDetail(id: Int)
     func routeToNews(entity: BannerResult)
+    func goToChangeCity()
 }
 
 class FeedRouter: BaseRouter {
@@ -34,6 +35,11 @@ extension FeedRouter: FeedRouterProtocol {
     
     func routeToNews(entity: BannerResult) {
         let view = NewsAssembly.create(newsEntity: entity)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func goToChangeCity() {
+        let view = SelectCityAssembly.create()
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

@@ -21,21 +21,24 @@ protocol FeedViewControllerProtocol: AnyObject {
 
 class FeedViewController: BaseViewController {
     enum SectionKind: Int, CaseIterable {
-        case banner, category, products, emptyCategory
+        case myCity, banner, category, products, emptyCategory
         
         var columnCount: Int {
             switch self {
-            case .banner:
+            case .myCity:
                 return 1
                 
-            case .category:
+            case .banner:
                 return 2
                 
-            case .products:
+            case .category:
                 return 3
                 
-            case .emptyCategory:
+            case .products:
                 return 4
+                
+            case .emptyCategory:
+                return 5
             }
         }
     }
@@ -83,8 +86,9 @@ class FeedViewController: BaseViewController {
         }
     }
     
-    func setupCollectionView() {        
+    func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.register(CityCell.self, forCellWithReuseIdentifier: "cityCell")
         collectionView.register(CategoryFeedCell.self, forCellWithReuseIdentifier: "categoryCell")
         collectionView.register(BannerFeedCell.self, forCellWithReuseIdentifier: "bannerCell")
         collectionView.register(ProductCell.self, forCellWithReuseIdentifier: "cellId")
@@ -127,6 +131,12 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             cellProvider: { [self] (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
                 let section = SectionKind(rawValue: indexPath.section)
                 switch section {
+                case .myCity:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cityCell", for: indexPath) as! CityCell
+                    let city = UserDefaults.standard.string(forKey: "MyCity") ?? "Весь мир" // TODO: Вынести
+                    cell.setupCell(title: "Ваш город:", city: city)
+                    return cell
+                    
                 case .banner:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bannerCell", for: indexPath) as! BannerFeedCell
                     cell.setupCell(banners[indexPath.item])
@@ -172,8 +182,10 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? HeaderCell else { return HeaderCell()}
             
             if indexPath.section == 0 {
-                cell.setupCell("Горячее")
+                cell.setupCell("")
             } else if indexPath.section == 1 {
+                cell.setupCell("Горячее")
+            } else if indexPath.section == 2 {
                 cell.setupCell("Категории")
             } else {
                 cell.setupCell("Товары")
@@ -185,6 +197,9 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
     
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        
+        snapshot.appendSections([.myCity])
+        snapshot.appendItems([""], toSection: .myCity)
         
         snapshot.appendSections([.banner])
         snapshot.appendItems(banners, toSection: .banner)
@@ -205,6 +220,9 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let section = SectionKind(rawValue: sectionIndex)
             switch section {
+            case .myCity:
+                return self.createCitySection()
+                
             case .banner:
                 return self.createBannerSection()
                 
@@ -305,9 +323,28 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
         return section
     }
     
+    private func createCitySection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1.0))
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 10, trailing: 6)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(30))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        
+        return section
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = SectionKind(rawValue: indexPath.section)
         switch section {
+        case .myCity:
+            presenter?.goToChangeCity()
+            
         case .banner:
             let newsEntity = self.banners[indexPath.row]
             presenter?.goToNews(entity: newsEntity)
@@ -345,7 +382,6 @@ extension FeedViewController: UITextFieldDelegate {
         presenter?.goToSearchResult(text: text)
         return true
     }
-    
 }
 
 // MARK: UIScrollViewDelegate
@@ -364,7 +400,6 @@ extension FeedViewController: UIScrollViewDelegate {
             }
         }
     }
-    
 }
 
 // MARK: Implemented FeedViewControllerProtocol
