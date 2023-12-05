@@ -7,8 +7,7 @@
 
 import Foundation
 
-typealias CountriesClosure = (Result<[CoordinatesResult], NetworkError>) -> (Void)
-typealias CitiesClosure = (Result<AddressResult, NetworkError>) -> (Void)
+typealias CountriesClosure = (Result<[CountriesResponse], NetworkError>) -> (Void)
 
 protocol SelectCityAPI {
     
@@ -18,6 +17,6 @@ protocol SelectCityAPI {
     
     func fetchCities(
         country: String,
-        completion: @escaping CitiesClosure
+        completion: @escaping CountriesClosure
     ) -> (Void)
 }

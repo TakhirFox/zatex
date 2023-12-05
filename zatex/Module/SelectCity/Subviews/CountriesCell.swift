@@ -1,23 +1,18 @@
 //
-//  FieldAddInfoCell.swift
+//  CountriesCell.swift
 //  zatex
 //
-//  Created by Zakirov Tahir on 17.07.2023.
+//  Created by Zakirov Tahir on 05.12.2023.
 //
 
 import UIKit
 
-class FieldAddInfoCell: UITableViewCell {
+class CountriesCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let view = UILabel()
-        view.numberOfLines = 1
-        view.font = UIFont(name: "Montserrat-SemiBold", size: 13)
-        return view
-    }()
-    
-    let textField: BaseTextField = {
-        let view = BaseTextField()
+        view.numberOfLines = 0
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 14)
         return view
     }()
     
@@ -47,20 +42,13 @@ class FieldAddInfoCell: UITableViewCell {
     
     private func configureSubviews() {
         addSubview(titleLabel)
-        addSubview(textField)
     }
     
     private func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(22)
-        }
-        
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().offset(16)
+            make.height.equalTo(40)
         }
     }
     

@@ -21,7 +21,7 @@ extension SelectCityService: SelectCityAPI {
             try SelectCityHttpRouter
                 .getCountry
                 .request(usingHttpService: httpService)
-                .responseDecodable(of: [CoordinatesResult].self) { response in
+                .responseDecodable(of: [CountriesResponse].self) { response in
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
@@ -37,7 +37,7 @@ extension SelectCityService: SelectCityAPI {
     
     func fetchCities(
         country: String,
-        completion: @escaping CitiesClosure
+        completion: @escaping CountriesClosure
     ) {
         do {
             try SelectCityHttpRouter
@@ -45,7 +45,7 @@ extension SelectCityService: SelectCityAPI {
                     country: country
                 )
                 .request(usingHttpService: httpService)
-                .responseDecodable(of: AddressResult.self) { response in
+                .responseDecodable(of: [CountriesResponse].self) { response in
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))

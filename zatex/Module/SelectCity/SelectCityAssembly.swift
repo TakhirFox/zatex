@@ -14,6 +14,7 @@ class SelectCityAssembly: BaseAssemblyProtocol {
         let presenter = SelectCityPresenter()
         let interactor = SelectCityInteractor()
         let router = SelectCityRouter()
+        let networkService = SelectCityService.shared
         
         viewController.presenter = presenter
         
@@ -22,6 +23,7 @@ class SelectCityAssembly: BaseAssemblyProtocol {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

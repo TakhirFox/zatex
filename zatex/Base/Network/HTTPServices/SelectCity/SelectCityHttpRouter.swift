@@ -15,7 +15,7 @@ enum SelectCityHttpRouter {
 extension SelectCityHttpRouter: HttpRouter {
     
     var baseUrlString: String {
-        return "https://nominatim.openstreetmap.org"
+        return "https://api.countrystatecity.in"
     }
     
     var path: String {
@@ -42,6 +42,7 @@ extension SelectCityHttpRouter: HttpRouter {
                 .getCity:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
+                "X-CSCAPI-KEY": "TXl4UVVERFFzem1Vd2FSaEtVdDFPSDJDUjQ4OUhUY25Od0MyZkl1Rg==",
             ]
         }
     }

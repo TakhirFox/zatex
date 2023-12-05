@@ -118,6 +118,9 @@
 		AD24D2DC2B1E45AF00E5E260 /* SelectCityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2DB2B1E45AF00E5E260 /* SelectCityAPI.swift */; };
 		AD24D2DF2B1E45CE00E5E260 /* SelectCityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2DE2B1E45CE00E5E260 /* SelectCityService.swift */; };
 		AD24D2E22B1E4A7200E5E260 /* SaveCityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2E12B1E4A7200E5E260 /* SaveCityButtonView.swift */; };
+		AD24D2E42B1F5CA000E5E260 /* CountriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2E32B1F5CA000E5E260 /* CountriesResponse.swift */; };
+		AD24D2E62B1F5D2200E5E260 /* CitiesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2E52B1F5D2200E5E260 /* CitiesResponse.swift */; };
+		AD24D2E82B1F5DE400E5E260 /* CountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2E72B1F5DE400E5E260 /* CountriesCell.swift */; };
 		AD28D0C72A00381700E89C01 /* CheckChatReviewResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */; };
 		AD2F39D22A894620005D13B3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */; };
 		AD2F39D42A894657005D13B3 /* UserProfileAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */; };
@@ -451,6 +454,9 @@
 		AD24D2DB2B1E45AF00E5E260 /* SelectCityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityAPI.swift; sourceTree = "<group>"; };
 		AD24D2DE2B1E45CE00E5E260 /* SelectCityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityService.swift; sourceTree = "<group>"; };
 		AD24D2E12B1E4A7200E5E260 /* SaveCityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCityButtonView.swift; sourceTree = "<group>"; };
+		AD24D2E32B1F5CA000E5E260 /* CountriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesResponse.swift; sourceTree = "<group>"; };
+		AD24D2E52B1F5D2200E5E260 /* CitiesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesResponse.swift; sourceTree = "<group>"; };
+		AD24D2E72B1F5DE400E5E260 /* CountriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesCell.swift; sourceTree = "<group>"; };
 		AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckChatReviewResult.swift; sourceTree = "<group>"; };
 		AD2F39D12A894620005D13B3 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		AD2F39D32A894657005D13B3 /* UserProfileAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileAuthorView.swift; sourceTree = "<group>"; };
@@ -1000,6 +1006,8 @@
 				AD51631A2A6BC21000C2B60F /* NetworkError.swift */,
 				AD49B0762A72E14000DFD91B /* AddressResult.swift */,
 				AD24D2CF2B1B947A00E5E260 /* FavoriteResponse.swift */,
+				AD24D2E32B1F5CA000E5E260 /* CountriesResponse.swift */,
+				AD24D2E52B1F5D2200E5E260 /* CitiesResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1062,6 +1070,7 @@
 			isa = PBXGroup;
 			children = (
 				AD24D2E12B1E4A7200E5E260 /* SaveCityButtonView.swift */,
+				AD24D2E72B1F5DE400E5E260 /* CountriesCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -2070,6 +2079,7 @@
 				AD86EAC82904203C001CB847 /* HttpRouter.swift in Sources */,
 				AD9B261228FD5BF400C15139 /* Appearance.swift in Sources */,
 				AD037FF22A2397AB00DB0F60 /* SignUpAPI.swift in Sources */,
+				AD24D2E62B1F5D2200E5E260 /* CitiesResponse.swift in Sources */,
 				AD9B260128FD476700C15139 /* BaseViewController.swift in Sources */,
 				ADD8DE502918119A00A3E435 /* SettingsModel.swift in Sources */,
 				BDB5589D543E04E55F1F0D7F /* MainTabBarInteractor.swift in Sources */,
@@ -2169,6 +2179,7 @@
 				ADEE23832A659EFE00569844 /* BackImageAddInfoCell.swift in Sources */,
 				2AE2EECA8D14BB79E3D6DB47 /* SearchViewController.swift in Sources */,
 				AD24D2D72B1E421B00E5E260 /* SelectCityHttpRouter.swift in Sources */,
+				AD24D2E82B1F5DE400E5E260 /* CountriesCell.swift in Sources */,
 				AD24D2C42B161BF000E5E260 /* FavoritesHttpRouter.swift in Sources */,
 				68CD2C08D8432F5F5CC5C8D0 /* SearchPresenter.swift in Sources */,
 				ADBE1371290DB066004BDEB3 /* SearchHttpService.swift in Sources */,
@@ -2253,6 +2264,7 @@
 				AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */,
 				AD3AF6A229E308BD00ABDC1A /* CreateProductImagesCell.swift in Sources */,
 				9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */,
+				AD24D2E42B1F5CA000E5E260 /* CountriesResponse.swift in Sources */,
 				AD5665072AA3B237004E68AE /* SettingsThemeCell.swift in Sources */,
 				ADEB0B062B0E232E00FCCAEF /* DeleteAccountEmailRequest.swift in Sources */,
 				ADEED4532A7521CA00CEF2A8 /* Debouncer.swift in Sources */,
