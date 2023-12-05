@@ -8,7 +8,7 @@
 import Alamofire
 
 enum ProductHttpRouter {
-    case getAllProducts(Int)
+    case getAllProducts(Int, String)
     case getCategories
     case getProductsByCategory(String)
 }
@@ -46,12 +46,13 @@ extension ProductHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .getAllProducts(let page):
+        case let .getAllProducts(page, city):
             return [
                 "page": "\(page)",
                 "status": "publish",
                 "consumer_key": "ck_354cbc09f836cf6ab10941f5437016b7252f13cb",
-                "consumer_secret": "cs_188789d20497ddad20fe6598be304aa2efcaeec0"
+                "consumer_secret": "cs_188789d20497ddad20fe6598be304aa2efcaeec0",
+                "city": city
             ]
             
         case .getCategories:

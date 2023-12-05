@@ -16,11 +16,12 @@ extension ProductService: ProductAPI {
     
     func fetchProducts(
         page: Int,
+        city: String,
         completion: @escaping ProductsClosure
     ) {
         do {
             try ProductHttpRouter
-                .getAllProducts(page)
+                .getAllProducts(page, city)
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {

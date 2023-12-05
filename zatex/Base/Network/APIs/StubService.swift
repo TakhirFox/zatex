@@ -13,7 +13,7 @@ class StubService {
 }
 
 extension StubService: ProductAPI {
-    func fetchProducts(page: Int, completion: @escaping ProductsClosure) {
+    func fetchProducts(page: Int, city: String, completion: @escaping ProductsClosure) {
         fatalError("Нет имплементации")
     }
     

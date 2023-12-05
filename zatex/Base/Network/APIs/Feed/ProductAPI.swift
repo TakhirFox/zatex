@@ -15,6 +15,7 @@ protocol ProductAPI {
     
     func fetchProducts(
         page: Int,
+        city: String,
         completion: @escaping ProductsClosure
     ) -> (Void)
     

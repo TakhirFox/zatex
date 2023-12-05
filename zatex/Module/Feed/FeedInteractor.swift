@@ -9,7 +9,11 @@
 
 protocol FeedInteractorProtocol {
     
-    func getProducts(page: Int)
+    func getProducts(
+        page: Int,
+        city: String
+    )
+    
     func getCategories()
     func getProductByCategory(id: String)
     
@@ -30,8 +34,11 @@ class FeedInteractor: BaseInteractor {
 
 extension FeedInteractor: FeedInteractorProtocol {
     
-    func getProducts(page: Int) {
-        self.service.fetchProducts(page: page) { result in
+    func getProducts(page: Int, city: String) {
+        self.service.fetchProducts(
+            page: page,
+            city: city
+        ) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setProducts(data: data)

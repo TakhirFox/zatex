@@ -6,6 +6,8 @@
 //  Copyright © 2022 zakirovweb. All rights reserved.
 //
 
+import Foundation
+
 protocol FeedPresenterProtocol: AnyObject {
     
     func getProducts(page: Int)
@@ -42,7 +44,9 @@ extension FeedPresenter: FeedPresenterProtocol {
     
     // MARK: To Interactor
     func getProducts(page: Int) {
-        interactor?.getProducts(page: page)
+        let city = UserDefaults.standard.string(forKey: "MyCity") ?? ""
+        
+        interactor?.getProducts(page: page, city: city)
     }
     
     func getCategories() {
