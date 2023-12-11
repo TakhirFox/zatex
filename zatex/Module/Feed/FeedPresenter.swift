@@ -38,6 +38,7 @@ class FeedPresenter: BasePresenter {
     var interactor: FeedInteractorProtocol?
     var router: FeedRouterProtocol?
     var productEntity: [ProductResult] = []
+    var sessionProvider: SessionProvider!
 }
 
 extension FeedPresenter: FeedPresenterProtocol {
@@ -92,7 +93,8 @@ extension FeedPresenter: FeedPresenterProtocol {
     func setProducts(data: [ProductResult]) {
         productEntity = data
         
-        interactor?.getFavoriteList()
+        let isAuthorized = sessionProvider.isAuthorized
+        interactor?.getFavoriteList(isAuthorized: isAuthorized)
     }
     
     func setCategories(data: [CategoryResult]) {

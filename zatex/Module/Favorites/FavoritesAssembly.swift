@@ -16,12 +16,14 @@ class FavoritesAssembly: BaseAssemblyProtocol {
         let interactor = FavoritesInteractor()
         let router = FavoritesRouter()
         let networkService = FavoritesService.shared
+        let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
         
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.sessionProvider = sessionProvider
         
         interactor.presenter = presenter
         interactor.service = networkService

@@ -15,6 +15,7 @@ class SearchAssembly {
         let presenter = SearchPresenter()
         let interactor = SearchInteractor()
         let router = SearchRouter()
+        let sessionProvider = AppSessionProvider()
         
         let networkService = SearchService.shared
         let favoriteNetworkService = FavoritesService.shared
@@ -24,6 +25,7 @@ class SearchAssembly {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.sessionProvider = sessionProvider
         
         interactor.presenter = presenter
         interactor.service = networkService

@@ -22,6 +22,7 @@ class FavoritesViewController: BaseViewController {
     var presenter: FavoritesPresenterProtocol?
     
     private var collectionView: UICollectionView!
+    private let emptyView = EmptyFavoriteView()
     private let refreshControl = UIRefreshControl()
     
     private var productEntity: [ProductResult] = []
@@ -36,12 +37,14 @@ class FavoritesViewController: BaseViewController {
         super.viewDidLoad()
         
         setupCollectionView()
+        setupEmptyView()
         setupSubviews()
         setupConstraints()
     }
     
     private func setupSubviews() {
         view.addSubview(collectionView)
+        collectionView.addSubview(emptyView)
     }
     
     private func setupConstraints() {
@@ -49,6 +52,11 @@ class FavoritesViewController: BaseViewController {
             make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
+        }
+        
+        emptyView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY)
         }
     }
     
@@ -70,6 +78,10 @@ class FavoritesViewController: BaseViewController {
         collectionView.refreshControl = refreshControl
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+    }
+    
+    private func setupEmptyView() {
+        emptyView.setupCell(text: "У вас нет избранных товаров!")
     }
 }
 
@@ -121,6 +133,7 @@ extension FavoritesViewController {
         
         collectionView.isHidden = true
         errorView.isHidden = true
+        emptyView.isHidden = true
         loaderView.isHidden = false
         loaderView.play()
     }
@@ -144,9 +157,10 @@ extension FavoritesViewController: FavoritesViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.productEntity = data
-            collectionView.isHidden = false
-            errorView.isHidden = true
-            loaderView.isHidden = true
+            self.emptyView.isHidden = !data.isEmpty
+            self.collectionView.isHidden = false
+            self.errorView.isHidden = true
+            self.loaderView.isHidden = true
             self.collectionView.reloadData()
             self.refreshControl.endRefreshing()
         }
@@ -156,6 +170,7 @@ extension FavoritesViewController: FavoritesViewControllerProtocol {
         collectionView.isHidden = true
         errorView.isHidden = false
         loaderView.isHidden = true
+        emptyView.isHidden = false
         
         errorView.setupCell(errorName: data)
         errorView.actionHandler = { [weak self] in

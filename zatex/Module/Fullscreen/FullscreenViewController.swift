@@ -71,7 +71,8 @@ class FullscreenViewController: BaseViewController {
         }
         
         imageNavigationView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.leading.top.trailing.equalToSuperview()
+            make.height.equalTo(100)
         }
     }
     

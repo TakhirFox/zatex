@@ -13,6 +13,7 @@ typealias SetFavoriteClosure = (Result<(), NetworkError>) -> (Void)
 protocol FavoritesAPI {
     
     func fetchFavoriteList(
+        isAuthorized: Bool,
         completion: @escaping FavoriteListClosure
     ) -> (Void)
     

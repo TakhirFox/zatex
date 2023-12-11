@@ -9,13 +9,6 @@ import UIKit
 
 class FullscreenNavigationView: UIView {
     
-//    private let navigationStackView: UIStackView = {
-//        let view = UIStackView()
-//        view.axis = .vertical
-//        view.distribution = .equalSpacing
-//        return view
-//    }()
-    
     private let topVerticalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -35,6 +28,7 @@ class FullscreenNavigationView: UIView {
         let view = UIButton()
         view.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
         view.tintColor = .white
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -45,22 +39,17 @@ class FullscreenNavigationView: UIView {
         return view
     }()
     
-    private let bottomView = UIView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-//        isUserInteractionEnabled = false
+        isUserInteractionEnabled = true
         
         setupViews()
-        
         setupSubviews()
         setupConstraints()
     }
     
     private func setupViews() {
         topVerticalStackView.backgroundColor = .white.withAlphaComponent(0.1)
-        bottomView.backgroundColor = .white.withAlphaComponent(0.1)
         countPhotoLabel.textColor = .white
     }
     
@@ -70,7 +59,6 @@ class FullscreenNavigationView: UIView {
     
     private func setupSubviews() {
         addSubview(topVerticalStackView)
-        addSubview(bottomView)
         
         topVerticalStackView.addArrangedSubview(UIView())
         topVerticalStackView.addArrangedSubview(topHorizontalStackView)
@@ -86,11 +74,6 @@ class FullscreenNavigationView: UIView {
             make.height.equalTo(100)
         }
         
-        bottomView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview()
-            make.height.equalTo(80)
-        }
-        
         closeButton.snp.makeConstraints { make in
             make.width.equalTo(40)
         }
@@ -99,5 +82,4 @@ class FullscreenNavigationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

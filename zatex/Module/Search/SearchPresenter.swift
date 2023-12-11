@@ -26,6 +26,7 @@ class SearchPresenter: BasePresenter {
     var interactor: SearchInteractorProtocol?
     var router: SearchRouterProtocol?
     var productEntity: [ProductResult] = []
+    var sessionProvider: SessionProvider!
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
@@ -52,7 +53,8 @@ extension SearchPresenter: SearchPresenterProtocol {
     func setResultProducts(data: [ProductResult]) {
         productEntity = data
         
-        interactor?.getFavoriteList()
+        let isAuthorized = sessionProvider.isAuthorized
+        interactor?.getFavoriteList(isAuthorized: isAuthorized)
     }
     
     func setFavoriteList(data: [FavoriteResponse]) {
