@@ -11,7 +11,7 @@ protocol SearchInteractorProtocol {
     
     func getSearchResult(searchText: String)
     
-    func getFavoriteList()
+    func getFavoriteList(isAuthorized: Bool)
     func addFavorite(productId: Int)
     func removeFavorite(productId: Int)
 }
@@ -45,8 +45,8 @@ extension SearchInteractor: SearchInteractorProtocol {
 }
 
 extension SearchInteractor {
-    func getFavoriteList() {
-        self.favoriteService.fetchFavoriteList { result in
+    func getFavoriteList(isAuthorized: Bool) {
+        self.favoriteService.fetchFavoriteList(isAuthorized: isAuthorized) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setFavoriteList(data: data)

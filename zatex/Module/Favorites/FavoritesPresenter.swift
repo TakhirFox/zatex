@@ -25,13 +25,15 @@ class FavoritesPresenter: BasePresenter {
     weak var view: FavoritesViewControllerProtocol?
     var interactor: FavoritesInteractorProtocol?
     var router: FavoritesRouterProtocol?
+    var sessionProvider: SessionProvider!
 }
 
 extension FavoritesPresenter: FavoritesPresenterProtocol {
     
     // MARK: To Interactor
     func getFavoriteList() {
-        interactor?.getFavoriteList()
+        let isAuthorized = sessionProvider.isAuthorized
+        interactor?.getFavoriteList(isAuthorized: isAuthorized)
     }
     
     func addFavorite(productId: Int) {

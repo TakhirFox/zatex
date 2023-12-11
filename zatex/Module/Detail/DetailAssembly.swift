@@ -27,6 +27,7 @@ class DetailAssembly {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
+        presenter.sessionProvider = sessionProvider
         
         interactor.presenter = presenter
         interactor.service = networkService

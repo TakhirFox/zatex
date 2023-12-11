@@ -71,6 +71,7 @@ class DetailPresenter: BasePresenter {
     weak var view: DetailViewControllerProtocol?
     var interactor: DetailInteractorProtocol?
     var router: DetailRouterProtocol?
+    var sessionProvider: SessionProvider!
     private var productEntities: [ProductResult] = []
     private var productEntity: ProductResult?
 }
@@ -204,7 +205,8 @@ extension DetailPresenter: DetailPresenterProtocol {
     func setSimilarProducts(data: ProductResult) {
         productEntities.append(data)
         
-        interactor?.getFavoriteList()
+        let isAuthorized = sessionProvider.isAuthorized
+        interactor?.getFavoriteList(isAuthorized: isAuthorized)
     }
     
     func setStoreInfo(data: StoreInfoResult) {

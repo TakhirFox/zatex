@@ -15,16 +15,22 @@ class FavoritesService {
 extension FavoritesService: FavoritesAPI {
 
     func fetchFavoriteList(
+        isAuthorized: Bool,
         completion: @escaping FavoriteListClosure
     ) {
         do {
             try FavoritesHttpRouter
-                .getFavoriteList
+                .getFavoriteList(isAuthorized: isAuthorized)
                 .request(usingHttpService: httpService)
                 .cURLDescription { description in
                     print("LOG: getFavoriteList \(description)")
                 }
                 .responseDecodable(of: [FavoriteResponse].self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: getChatMessage: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))

@@ -15,7 +15,7 @@ protocol FeedInteractorProtocol {
     
     func getBanners()
     
-    func getFavoriteList()
+    func getFavoriteList(isAuthorized: Bool)
     func addFavorite(productId: Int)
     func removeFavorite(productId: Int)
 }
@@ -108,8 +108,8 @@ extension FeedInteractor {
 
 extension FeedInteractor {
     
-    func getFavoriteList() {
-        self.favoriteService.fetchFavoriteList { result in
+    func getFavoriteList(isAuthorized: Bool) {
+        self.favoriteService.fetchFavoriteList(isAuthorized: isAuthorized) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setFavoriteList(data: data)
