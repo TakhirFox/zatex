@@ -85,7 +85,7 @@ extension ResetPasswordViewController: UITableViewDelegate, UITableViewDataSourc
         case .username:
             let cell = tableView.dequeueReusableCell(withIdentifier: "usernameFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
-            cell.setupCell(name: "Имя пользователя", field: "")
+            cell.setupCell(name: "Логин", field: "")
             return cell
             
         case .send:

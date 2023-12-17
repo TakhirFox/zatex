@@ -199,13 +199,15 @@ extension ProfileEditViewController: UITableViewDelegate, UITableViewDataSource 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "phoneFieldCell", for: indexPath) as! FieldEditCell
                 cell.setupCell(name: "Номер телефона", field: profileInfo?.phone ?? "")
                 cell.textField.addTarget(self, action: #selector(numberPhoneDidChange(_:)), for: .editingChanged)
+                cell.textField.keyboardType = .phonePad
                 cell.textField.delegate = self
                 return cell
                 
             case .email:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "emailFieldCell", for: indexPath) as! FieldEditCell
-                cell.setupCell(name: "Email", field: profileInfo?.email ?? "")
+                cell.setupCell(name: "Почта", field: profileInfo?.email ?? "")
                 cell.textField.addTarget(self, action: #selector(emailDidChange(_:)), for: .editingChanged)
+                cell.textField.keyboardType = .emailAddress
                 cell.textField.delegate = self
                 return cell
                 

@@ -82,20 +82,21 @@ extension SignUpViewController: UITableViewDelegate, UITableViewDataSource {
         case .username:
             let cell = tableView.dequeueReusableCell(withIdentifier: "usernameFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(usernameDidChange(_:)), for: .editingChanged)
-            cell.setupCell(name: "Имя пользователя", field: "")
+            cell.setupCell(name: "Логин", field: "")
             return cell
             
         case .email:
             let cell = tableView.dequeueReusableCell(withIdentifier: "emailFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(emailDidChange(_:)), for: .editingChanged)
-            cell.setupCell(name: "Email", field: "")
+            cell.setupCell(name: "Почта", field: "")
+            cell.textField.keyboardType = .emailAddress
             return cell
             
         case .password:
             let cell = tableView.dequeueReusableCell(withIdentifier: "passwordFieldCell", for: indexPath) as! FieldSignUpCell
             cell.textField.addTarget(self, action: #selector(passwordDidChange(_:)), for: .editingChanged)
             cell.textField.isSecureTextEntry = true
-            cell.setupCell(name: "Password", field: "")
+            cell.setupCell(name: "Пароль", field: "")
             return cell
             
         case .send:
