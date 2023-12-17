@@ -142,6 +142,7 @@ extension AdditionalInfoViewController: UITableViewDelegate, UITableViewDataSour
                 let cell = tableView.dequeueReusableCell(withIdentifier: "phoneFieldCell", for: indexPath) as! FieldAddInfoCell
                 cell.textField.addTarget(self, action: #selector(phoneDidChange(_:)), for: .editingChanged)
                 cell.setupCell(name: "Телефон")
+                cell.textField.keyboardType = .phonePad
                 cell.textField.delegate = self
                 return cell
                 

@@ -24,13 +24,13 @@ class AuthViewController: BaseViewController {
     
     let loginTextField: BaseTextField = {
         let view = BaseTextField()
-        view.placeholder = "Login"
+        view.placeholder = "Логин"
         return view
     }()
     
     let passwordTextField: BaseTextField = {
         let view = BaseTextField()
-        view.placeholder = "Password"
+        view.placeholder = "Пароль"
         view.isSecureTextEntry = true
         return view
     }()
