@@ -168,6 +168,7 @@ class ProductCell: UICollectionViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(4)
+            make.height.equalTo(20)
             make.leading.equalToSuperview().offset(4)
         }
         
