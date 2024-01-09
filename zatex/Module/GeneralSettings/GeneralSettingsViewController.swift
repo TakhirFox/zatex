@@ -247,7 +247,7 @@ extension GeneralSettingsViewController {
 extension GeneralSettingsViewController {
     
     private func showDeleteAccountAlert() {
-        let alertController = UIAlertController(title: "Вы действительно хотите удалить аккаунт?", message: "Это приведет к полному удалению аккаунта, со всей историей переписки, продажами, личной информацией? Запрос на удаление обрабатывается в течении 48 часов.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Вы действительно хотите удалить аккаунт?", message: "Это приведет к полному удалению аккаунта, со всей историей переписки, продажами, личной информацией? Запрос на удаление обрабатывается в течение 48 часов.", preferredStyle: .alert)
         
         let removeButton = UIAlertAction(
             title: "Удалить",
@@ -269,7 +269,7 @@ extension GeneralSettingsViewController {
 extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
     
     func showSuccess() {
-        let alertController = UIAlertController(title: "Отправлено", message: "Запрос на удаление обрабатывается в течении 48 часов.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Отправлено", message: "Запрос на удаление обрабатывается в течение 48 часов.", preferredStyle: .alert)
         
         let cancelButton = UIAlertAction(title: "Хорошо", style: .default) { [weak self] _ in
             self?.presenter?.logout()
