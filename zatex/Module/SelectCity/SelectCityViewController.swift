@@ -26,6 +26,7 @@ class SelectCityViewController: BaseViewController {
     private let tableView = UITableView()
     private let buttonView = SaveCityButtonView()
     private let searchFieldView = BaseTextView()
+    private let titleLabel = UILabel()
     
     private var countries: [CountriesResponse] = []
     
@@ -43,6 +44,7 @@ class SelectCityViewController: BaseViewController {
         setupConstraints()
         setupTableView()
         setupButtonView()
+        setupTitleLabel()
         textFieldView()
         
         presenter?.getCountries()
@@ -56,11 +58,18 @@ class SelectCityViewController: BaseViewController {
         view.addSubview(searchFieldView)
         view.addSubview(tableView)
         view.addSubview(buttonView)
+        view.addSubview(titleLabel)
     }
     
     private func setupConstraints() {
-        searchFieldView.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(45)
+        }
+        
+        searchFieldView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(45)
         }
@@ -78,7 +87,7 @@ class SelectCityViewController: BaseViewController {
     }
     
     private func setupTableView() {
-        title = "Найти город"
+        title = "Где вы находитест?"
         
         tableView.register(CountriesCell.self, forCellReuseIdentifier: "countriesCell")
         tableView.delegate = self
@@ -93,6 +102,16 @@ class SelectCityViewController: BaseViewController {
         buttonView.sendButton.addTarget(self, action: #selector(saveAndDismiss), for: .touchUpInside)
         buttonView.sendButton.isEnabled = false
         buttonView.sendButton.alpha = 0.5
+    }
+    
+    private func setupTitleLabel() {
+        titleLabel.text = "Выберите свою страну"
+        titleLabel.font = UIFont(name: "Montserrat-SemiBold", size: 17)
+        titleLabel.textColor = Palette.Text.primary
+        
+        Appearance.shared.theme.bind(self) { [weak self] newTheme in
+            self?.titleLabel.textColor = Palette.Text.primary
+        }
     }
     
     private func textFieldView() {
@@ -158,10 +177,12 @@ extension SelectCityViewController: UITableViewDelegate, UITableViewDataSource {
             selectedCountry = country.name
             buttonView.setupTitle(title: country.name)
             
-            let iso = searchActive ? filteredCountries[indexPath.row].iso2 : countries[indexPath.row].iso2
-            presenter?.getCities(country: iso ?? "")
+            let name = searchActive ? filteredCountries[indexPath.row].name : countries[indexPath.row].name
+            presenter?.getCities(country: name)
             
             countries = []
+            searchFieldView.text = nil
+            titleLabel.text = "Выберите свой город"
             
             tableView.isHidden = true
             errorView.isHidden = true

@@ -8,7 +8,5 @@
 import Foundation
 
 struct CountriesResponse: Codable {
-    let id: Int
     let name: String
-    let iso2: String?
 }

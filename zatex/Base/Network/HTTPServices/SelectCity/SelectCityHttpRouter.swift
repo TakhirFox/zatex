@@ -14,17 +14,13 @@ enum SelectCityHttpRouter {
 
 extension SelectCityHttpRouter: HttpRouter {
     
-    var baseUrlString: String {
-        return "https://api.countrystatecity.in"
-    }
-    
     var path: String {
         switch self {
         case .getCountry:
-            return "/v1/countries"
+            return "/wp-json/country/v1/countries"
             
-        case let .getCity(country):
-            return "/v1/countries/\(country)/cities"
+        case .getCity:
+            return "/wp-json/country/v1/cities"
         }
     }
     
@@ -41,17 +37,20 @@ extension SelectCityHttpRouter: HttpRouter {
         case .getCountry,
                 .getCity:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "X-CSCAPI-KEY": "TXl4UVVERFFzem1Vd2FSaEtVdDFPSDJDUjQ4OUhUY25Od0MyZkl1Rg==",
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .getCountry,
-                .getCity:
+        case .getCountry:
             return nil
+            
+        case let .getCity(country):
+            return [
+                "country": country
+            ]
         }
     }
     
