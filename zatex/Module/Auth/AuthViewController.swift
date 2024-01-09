@@ -53,7 +53,7 @@ class AuthViewController: BaseViewController {
     
     let forgetAccountButton: UIButton = {
         let view = UIButton()
-        view.setTitle("Зыбыл пароль", for: .normal)
+        view.setTitle("Забыл пароль", for: .normal)
         view.titleLabel?.font = UIFont(name: "Montserrat", size: 13)
         view.addTarget(self, action: #selector(goToResetPasswordAction), for: .touchUpInside)
         return view
