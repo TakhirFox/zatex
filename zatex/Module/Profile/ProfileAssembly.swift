@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileAssembly {
     
-    static func create(updateTabBarHandler: @escaping (() -> Void)) -> UIViewController {
+    static func create(onSignal: @escaping (ProfilePresenter.Signal) -> Void) -> UIViewController {
         let viewController = ProfileViewController()
         let presenter = ProfilePresenter()
         let interactor = ProfileInteractor()
@@ -25,7 +25,7 @@ class ProfileAssembly {
         presenter.view = viewController
         presenter.interactor = interactor
         presenter.router = router
-        presenter.updateTabBarHandler = updateTabBarHandler
+        presenter.onSignal = onSignal
         
         interactor.presenter = presenter
         interactor.service = networkService

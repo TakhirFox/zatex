@@ -11,6 +11,7 @@ import UIKit
 protocol MainTabBarRouterProtocol: AnyObject {
     
     func routeWithDeeplink(type: DeepLinkType)
+    func routeToAdditionalInfo(closeViewHandler: @escaping () -> Void)
 }
 
 class MainTabBarRouter: BaseRouter {
@@ -28,12 +29,23 @@ extension MainTabBarRouter: MainTabBarRouterProtocol {
             selectedViewController.pushViewController(view, animated: true)
             
         case .profile(let id):
-            let view = ProfileAssembly.create {}
+            let view = ProfileAssembly.create { _ in }
             selectedViewController.pushViewController(view, animated: true)
             
         case .chat(let id):
             let view = ChatDetailAssembly.create(chatId: id)
             selectedViewController.pushViewController(view, animated: true)
         }
+    }
+    
+    func routeToAdditionalInfo(closeViewHandler: @escaping () -> Void) {
+        guard let selectedViewController = viewController?.selectedViewController as? UINavigationController else { return }
+        
+        let view = AdditionalInfoAssembly.create {
+            selectedViewController.dismiss(animated: true)
+        }
+        
+        view.modalPresentationStyle = .fullScreen
+        selectedViewController.present(view, animated: true)
     }
 }

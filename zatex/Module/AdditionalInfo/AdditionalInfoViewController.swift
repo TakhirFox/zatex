@@ -87,9 +87,8 @@ class AdditionalInfoViewController: BaseViewController {
     }
     
     private func setupButtonView() {
-        buttonView.setupView(sendName: "Завершить", skipName: "Пропустить")
+        buttonView.setupView(sendName: "Завершить")
         buttonView.sendButton.addTarget(self, action: #selector(finishSignUpAction), for: .touchUpInside)
-        buttonView.skipButton.addTarget(self, action: #selector(skipSignUpAction), for: .touchUpInside)
     }
     
     private func setupImagePicker() {
@@ -281,10 +280,6 @@ extension AdditionalInfoViewController {
         showLoader(enable: true)
         
         presenter?.saveAdditionalInfo(entity: additionalInfo)
-    }
-    
-    @objc func skipSignUpAction() {
-        presenter?.signUpSuccess()
     }
     
     @objc func showAvatarDialog() { // TODO: Пока так, потом будем объединять эти методы

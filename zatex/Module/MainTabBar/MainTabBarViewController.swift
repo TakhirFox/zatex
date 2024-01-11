@@ -16,15 +16,20 @@ protocol MainTabBarViewControllerProtocol: AnyObject {
 class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProtocol {
     
     var presenter: MainTabBarPresenterProtocol?
-    var sessionProvider: SessionProvider
+    private var sessionProvider: SessionProvider
     
-    var favoritesController: UIViewController?
-    var chatController: UIViewController?
-    var createProductController: UIViewController?
+    private var favoritesController: UIViewController?
+    private var chatController: UIViewController?
+    private var createProductController: UIViewController?
     
     override func viewDidLoad() {
         setTabbarAppereance()
         setupTabItems()
+        
+        DispatchQueue.main.async {
+            guard let id = Int(self.sessionProvider.getSession()?.userId ?? "") else { return }
+            self.presenter?.getStoreInfo(authorId: id)
+        }
     }
     
     init(
@@ -33,6 +38,7 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
     ) {
         self.presenter = presenter
         self.sessionProvider = sessionProvider
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,9 +54,12 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
                 image: UIImage(named: "FeedIcon")!
             ),
             createNavController(
-                viewController: ProfileAssembly.create(updateTabBarHandler: { [weak self] in
-                    self?.addChatView()
-                }),
+                viewController: ProfileAssembly.create { [weak self] signal in
+                    switch signal {
+                    case .updateTabBarHandler:
+                        self?.addChatView()
+                    }
+                },
                 title: "Profile",
                 image: UIImage(named: "ProfileIcon")!
             )

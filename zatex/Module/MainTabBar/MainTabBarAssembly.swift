@@ -9,11 +9,16 @@
 import UIKit
 
 class MainTabBarAssembly {
-    static func create(with router: MainTabBarRouter) -> UIViewController {
+    
+    static func create(
+        with router: MainTabBarRouter
+    ) -> UIViewController {
+        
         let presenter = MainTabBarPresenter()
         let interactor = MainTabBarInteractor()
         
         let sessionProvider = AppSessionProvider()
+        let networkService = ProfileService.shared
         
         let viewController = MainTabBarViewController(
             presenter: presenter,
@@ -25,6 +30,7 @@ class MainTabBarAssembly {
         presenter.router = router
         
         interactor.presenter = presenter
+        interactor.service = networkService
         
         router.viewController = viewController
         

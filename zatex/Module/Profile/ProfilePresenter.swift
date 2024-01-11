@@ -28,10 +28,14 @@ protocol ProfilePresenterProtocol: AnyObject {
 
 class ProfilePresenter: BasePresenter {
     
+    enum Signal {
+        case updateTabBarHandler
+    }
+    
     weak var view: ProfileViewControllerProtocol?
     var interactor: ProfileInteractorProtocol?
     var router: ProfileRouterProtocol?
-    var updateTabBarHandler: (() -> Void) = {}
+    var onSignal: (Signal) -> Void = { _ in }
 }
 
 extension ProfilePresenter: ProfilePresenterProtocol {
@@ -88,14 +92,14 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func goToSettings() {
         router?.routeToSettings(logoutHandler: { [weak self] in
             self?.view?.updateView()
-            self?.updateTabBarHandler()
+            self?.onSignal(.updateTabBarHandler)
         })
     }
     
     func goToAuthView() {
         router?.routeToAuthView(signInHandler: { [weak self] in
             self?.view?.updateView()
-            self?.updateTabBarHandler()
+            self?.onSignal(.updateTabBarHandler)
         })
     }
     
