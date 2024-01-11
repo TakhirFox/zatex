@@ -30,7 +30,6 @@ class ProfilePresenter: BasePresenter {
     
     enum Signal {
         case updateTabBarHandler
-        case showAdditionalView
     }
     
     weak var view: ProfileViewControllerProtocol?
@@ -115,12 +114,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     // MARK: To View
     func setStoreInfo(data: StoreInfoResult) {
         view?.setStoreInfo(data: data)
-        
-        if let firstName = data.firstName,
-           let lastName = data.lastName,
-           firstName.isEmpty || lastName.isEmpty {
-            onSignal(.showAdditionalView)
-        }
     }
     
     func setStoreProduct(data: [ProductResult], isSales: Bool) {

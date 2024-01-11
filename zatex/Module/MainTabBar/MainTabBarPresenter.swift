@@ -8,7 +8,8 @@
 
 protocol MainTabBarPresenterProtocol: AnyObject {
 
-    func showAdditionalView()
+    func getStoreInfo(authorId: Int)
+    func setStoreInfo(data: StoreInfoResult)
 }
 
 class MainTabBarPresenter: BasePresenter {
@@ -21,9 +22,21 @@ class MainTabBarPresenter: BasePresenter {
 
 extension MainTabBarPresenter: MainTabBarPresenterProtocol {
     
-    func showAdditionalView() {
-        router?.routeToAdditionalInfo { [weak self] in
-            self?.closeViewHandler()
+    // MARK: To Interactor
+    func getStoreInfo(authorId: Int) {
+        interactor?.getStoreInfo(authorId: authorId)
+    }
+    
+    // MARK: To View
+    func setStoreInfo(data: StoreInfoResult) {
+        guard let firstName = data.firstName,
+              let lastName = data.lastName
+        else { return }
+        
+        if firstName.isEmpty || lastName.isEmpty {
+            router?.routeToAdditionalInfo { [weak self] in
+                self?.closeViewHandler()
+            }
         }
     }
 }

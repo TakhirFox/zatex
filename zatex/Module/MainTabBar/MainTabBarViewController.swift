@@ -25,6 +25,11 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
     override func viewDidLoad() {
         setTabbarAppereance()
         setupTabItems()
+        
+        DispatchQueue.main.async {
+            guard let id = Int(self.sessionProvider.getSession()?.userId ?? "") else { return }
+            self.presenter?.getStoreInfo(authorId: id)
+        }
     }
     
     init(
@@ -50,15 +55,10 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
             ),
             createNavController(
                 viewController: ProfileAssembly.create { [weak self] signal in
-                    
                     switch signal {
                     case .updateTabBarHandler:
                         self?.addChatView()
-                        
-                    case .showAdditionalView:
-                        self?.presenter?.showAdditionalView()
                     }
-                    
                 },
                 title: "Profile",
                 image: UIImage(named: "ProfileIcon")!
