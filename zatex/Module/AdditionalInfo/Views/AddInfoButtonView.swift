@@ -15,12 +15,6 @@ class AddInfoButtonView: UIView {
         return view
     }()
     
-    let skipButton: BaseButton = {
-        let view = BaseButton()
-        view.set(style: .sedondary)
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,26 +30,19 @@ class AddInfoButtonView: UIView {
         }
     }
     
-    func setupView(sendName: String, skipName: String) {
+    func setupView(sendName: String) {
         sendButton.setTitle(sendName, for: .normal)
-        skipButton.setTitle(skipName, for: .normal)
     }
     
     private func updateAppearence() {}
     
     private func configureSubviews() {
-        addSubview(skipButton)
         addSubview(sendButton)
     }
     
     private func configureConstraints() {
-        skipButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(9)
-            make.leading.trailing.equalToSuperview().inset(16)
-        }
-        
         sendButton.snp.makeConstraints { make in
-            make.top.equalTo(skipButton.snp.bottom).offset(4)
+            make.top.equalToSuperview().offset(9)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(9)
         }

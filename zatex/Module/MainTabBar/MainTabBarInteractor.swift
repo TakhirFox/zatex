@@ -11,7 +11,9 @@ protocol MainTabBarInteractorProtocol {
     
 }
 
-class MainTabBarInteractor: BaseInteractor, MainTabBarInteractorProtocol {
+class MainTabBarInteractor: BaseInteractor {
+    
     weak var presenter: MainTabBarPresenterProtocol?
-
 }
+
+extension MainTabBarInteractor: MainTabBarInteractorProtocol {}

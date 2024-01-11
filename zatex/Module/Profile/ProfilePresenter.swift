@@ -28,10 +28,15 @@ protocol ProfilePresenterProtocol: AnyObject {
 
 class ProfilePresenter: BasePresenter {
     
+    enum Signal {
+        case updateTabBarHandler
+        case showAdditionalView
+    }
+    
     weak var view: ProfileViewControllerProtocol?
     var interactor: ProfileInteractorProtocol?
     var router: ProfileRouterProtocol?
-    var updateTabBarHandler: (() -> Void) = {}
+    var onSignal: (Signal) -> Void = { _ in }
 }
 
 extension ProfilePresenter: ProfilePresenterProtocol {
@@ -88,14 +93,14 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func goToSettings() {
         router?.routeToSettings(logoutHandler: { [weak self] in
             self?.view?.updateView()
-            self?.updateTabBarHandler()
+            self?.onSignal(.updateTabBarHandler)
         })
     }
     
     func goToAuthView() {
         router?.routeToAuthView(signInHandler: { [weak self] in
             self?.view?.updateView()
-            self?.updateTabBarHandler()
+            self?.onSignal(.updateTabBarHandler)
         })
     }
     
@@ -110,6 +115,12 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     // MARK: To View
     func setStoreInfo(data: StoreInfoResult) {
         view?.setStoreInfo(data: data)
+        
+        if let firstName = data.firstName,
+           let lastName = data.lastName,
+           firstName.isEmpty || lastName.isEmpty {
+            onSignal(.showAdditionalView)
+        }
     }
     
     func setStoreProduct(data: [ProductResult], isSales: Bool) {

@@ -8,13 +8,22 @@
 
 protocol MainTabBarPresenterProtocol: AnyObject {
 
+    func showAdditionalView()
 }
 
 class MainTabBarPresenter: BasePresenter {
+    
     weak var view: MainTabBarViewControllerProtocol?
     var interactor: MainTabBarInteractorProtocol?
     var router: MainTabBarRouterProtocol?
-    
+    var closeViewHandler: (() -> Void) = {}
 }
 
-extension MainTabBarPresenter: MainTabBarPresenterProtocol {}
+extension MainTabBarPresenter: MainTabBarPresenterProtocol {
+    
+    func showAdditionalView() {
+        router?.routeToAdditionalInfo { [weak self] in
+            self?.closeViewHandler()
+        }
+    }
+}

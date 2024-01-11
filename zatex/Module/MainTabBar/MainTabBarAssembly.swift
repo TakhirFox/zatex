@@ -9,7 +9,11 @@
 import UIKit
 
 class MainTabBarAssembly {
-    static func create(with router: MainTabBarRouter) -> UIViewController {
+    
+    static func create(
+        with router: MainTabBarRouter
+    ) -> UIViewController {
+        
         let presenter = MainTabBarPresenter()
         let interactor = MainTabBarInteractor()
         
