@@ -2532,7 +2532,6 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
-				INFOPLIST_KEY_NSLocationUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -2570,7 +2569,6 @@
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Разрешите нам показать вам галерею для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите нам показать вам камеру для загрузки фотографии товаров и аватарки";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
-				INFOPLIST_KEY_NSLocationUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешите, если хотите чтобы ваши покупатели/продавцы не заблудились по пути к вам";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -44,6 +44,8 @@ class MapSetterViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
     }
     
@@ -233,6 +235,7 @@ extension MapSetterViewController: MapSetterViewControllerProtocol {
 }
 
 extension MapSetterViewController: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first?.coordinate
         
@@ -244,9 +247,5 @@ extension MapSetterViewController: CLLocationManagerDelegate {
         presenter?.showMapPlace(coordinates: coordinates)
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        toastAnimation(text: "Не удалось распознать ваше местоположение") {  [weak self] in
-            self?.locationManager.requestLocation()
-        }
-    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {}
 }
