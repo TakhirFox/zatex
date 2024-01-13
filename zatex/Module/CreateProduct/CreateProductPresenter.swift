@@ -10,6 +10,7 @@ import UIKit
 
 protocol CreateProductPresenterProtocol: AnyObject {
     func getCategories()
+    func getCurrencies()
     func uploadImage(image: UIImage)
     func checkTextFieldEmpty(data: ProductEntity)
     func publishProduct(data: ProductEntity)
@@ -18,9 +19,11 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func goToDetail(id: Int)
     
     func setCategories(data: [CategoryResult])
+    func setCurrencies(data: [CurrencyResult])
     func setImage(image: MediaResult)
     func showSuccess(product: ProductResult)
     func setToastCategoryError(text: String)
+    func setToastCurrencyError(text: String)
     func setToastPublishError(text: String)
     func setToastImageError(text: String)
 }
@@ -38,6 +41,10 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     // MARK: To Interactor
     func getCategories() {
         interactor?.getCategories()
+    }
+    
+    func getCurrencies() {
+        interactor?.getCurrencies()
     }
     
     func uploadImage(image: UIImage) {
@@ -61,10 +68,15 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
             view?.showEmptyCategory()
         }
         
+        if data.currencySymbol == nil  {
+            view?.showEmptyCurrency()
+        }
+        
         if data.productName != nil,
            data.description != nil,
            data.cost != nil,
-           data.category != nil {
+           data.category != nil,
+           data.currencySymbol != nil {
             publishProduct(data: data)
         }
     }
@@ -72,12 +84,20 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     func publishProduct(data: ProductEntity) {
         let category = ProductResponse.Category(id: data.category)
         
+        let currency = ProductResponse.ProductOptions(
+            name: "Currency",
+            options: [data.currencySymbol ?? ""],
+            visible: true,
+            variation: true
+        )
+        
         let product = ProductResponse(
             name: data.productName,
             description: data.description,
             regularPrice: data.cost,
             categories: [category],
-            images: uploadedImages
+            images: uploadedImages,
+            attributes: [currency]
         )
         
         interactor?.publishProduct(data: product)
@@ -98,6 +118,10 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         view?.setCategories(data: data)
     }
     
+    func setCurrencies(data: [CurrencyResult]) {
+        view?.setCurrencies(data: data)
+    }
+    
     func setImage(image: MediaResult) {
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
         let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
@@ -112,6 +136,10 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     
     func setToastCategoryError(text: String) {
         view?.showToastCategoryError(text: text)
+    }
+    
+    func setToastCurrencyError(text: String) {
+        view?.showToastCurrencyError(text: text)
     }
     
     func setToastPublishError(text: String) {

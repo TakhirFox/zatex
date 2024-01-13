@@ -34,6 +34,29 @@ extension CreateProductService: CreateProductAPI {
         }
     }
     
+    func fetchCurrencies(
+        completion: @escaping CreateProductCurrenciesClosure
+    ) {
+        do {
+            try CreateProductHttpRouter
+                .getCurrencies
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: getCurrencies \(description)")
+                }
+                .responseDecodable(of: [CurrencyResult].self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(.success(data))
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 456856485648 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 785694352 Ошибка получения валюты на экране создания товара")))
+        }
+    }
+    
     func createProduct(
         product: ProductResponse,
         completion: @escaping CreateProductPostClosure
@@ -43,6 +66,11 @@ extension CreateProductService: CreateProductAPI {
                 .createProduct(product: product)
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: ProductResult.self) { response in
+                    if let responseData = response.data {
+                        let text = String(data: responseData, encoding: .utf8)
+                        print("LOG: createProduct: \(text ?? "---")")
+                    }
+                    
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))

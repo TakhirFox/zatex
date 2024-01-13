@@ -18,5 +18,6 @@ struct ProductEntity {
     var category: Int?
     var description: String?
     var cost: String?
+    var currencySymbol: String?
     var images: [ProductEntity.Image] = []
 }

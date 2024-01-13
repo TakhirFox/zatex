@@ -22,6 +22,8 @@ struct ProductResult: Decodable, Hashable {
     let images: [ProductResult.Image]?
     let store: ProductResult.Store?
     let relatedIDS: [Int]?
+    let attributes: [OptionsProduct]
+    
     let isSales: Bool?
     var isFavorite: Bool? = false
     
@@ -39,6 +41,7 @@ struct ProductResult: Decodable, Hashable {
         case categories, images
         case store
         case relatedIDS = "related_ids"
+        case attributes
         case isSales = "sold_individually"
         case isFavorite
     }
@@ -100,5 +103,12 @@ struct ProductResult: Decodable, Hashable {
             case city
             case country
         }
+    }
+    
+    struct OptionsProduct: Decodable, Hashable {
+        let id: Int
+        let name: String
+        let visible, variation: Bool
+        let options: [String]
     }
 }

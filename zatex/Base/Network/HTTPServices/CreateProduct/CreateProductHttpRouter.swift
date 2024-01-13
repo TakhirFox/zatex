@@ -9,6 +9,7 @@ import Alamofire
 
 enum CreateProductHttpRouter {
     case getCategories
+    case getCurrencies
     case createProduct(product: ProductResponse)
 }
 
@@ -19,6 +20,9 @@ extension CreateProductHttpRouter: HttpRouter {
         case .getCategories:
             return "/wp-json/wp/v2/product_cat"
             
+        case .getCurrencies:
+            return "/wp-json/currency/v1/list"
+            
         case .createProduct:
             return "/wp-json/dokan/v1/products"
         }
@@ -26,7 +30,8 @@ extension CreateProductHttpRouter: HttpRouter {
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .getCategories:
+        case .getCategories,
+                .getCurrencies:
             return .get
             
         case .createProduct:
@@ -36,7 +41,8 @@ extension CreateProductHttpRouter: HttpRouter {
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .getCategories:
+        case .getCategories,
+                .getCurrencies:
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
@@ -56,14 +62,16 @@ extension CreateProductHttpRouter: HttpRouter {
                 "per_page": 20
             ]
             
-        case .createProduct:
+        case .getCurrencies,
+                .createProduct:
             return nil
         }
     }
     
     func body() throws -> Data? {
         switch self {
-        case .getCategories:
+        case .getCategories,
+                .getCurrencies:
             return nil
             
         case let .createProduct(product):

@@ -47,6 +47,7 @@ extension Array where Element == FavoriteResponse {
                 images: [image],
                 store: nil,
                 relatedIDS: nil,
+                attributes: [],
                 isSales: nil,
                 isFavorite: true
             )

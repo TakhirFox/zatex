@@ -249,8 +249,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
         case .productInfo:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "infoCell", for: indexPath) as! InfoProductCell
-            cell.setupCell(name: product?.name,
-                           cost: product?.price)
+            
+            let currencyName = product?.attributes.first(where: {$0.name == "Currency"})?.options.first ?? ""
+            
+            cell.setupCell(
+                name: product?.name,
+                cost: product?.price,
+                currency: currencyName
+            )
             return cell
             
         case .mapShop:
