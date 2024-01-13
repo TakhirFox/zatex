@@ -12,28 +12,37 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     var presenter: CreateProductPresenterProtocol? { get set }
     
     func setCategories(data: [CategoryResult])
+    func setCurrencies(data: [CurrencyResult])
     func stopImageSpinner()
     func showSuccess(product: ProductResult)
+    
     func showToastCategoryError(text: String)
+    func showToastCurrencyError(text: String)
     func showToastPublishError(text: String)
     func showToastImageError(text: String)
+    
     func showEmptyProductName()
     func showEmptyDescription()
     func showEmptyCost()
     func showEmptyCategory()
+    func showEmptyCurrency()
 }
 
 class CreateProductViewController: BaseViewController {
     
     enum RowKind: Int {
-        case productName, category, description, cost, images, send
+        case productName, category, description, cost, currency, images, send
     }
     
     var presenter: CreateProductPresenterProtocol?
     
     var productPost = ProductEntity()
     var categories: [CategoryResult] = []
+    var currencies: [CurrencyResult] = []
     var loadedProduct: ProductResult?
+    var pickerTextFieldTag: Int?
+    var selectedCurrency: Int?
+    var selectedCategory: Int?
     
     let successView = SuccessProductView()
     let tableView = UITableView(frame: .zero, style: .grouped)
@@ -51,6 +60,7 @@ class CreateProductViewController: BaseViewController {
         setSuccessView()
         
         presenter?.getCategories()
+        presenter?.getCurrencies()
     }
     
     private func setupSubviews() {
@@ -75,6 +85,7 @@ class CreateProductViewController: BaseViewController {
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "nameFieldCell")
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "categoryFieldCell")
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "costFieldCell")
+        tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "currencyFieldCell")
         tableView.register(CreateProductDesctiptionCell.self, forCellReuseIdentifier: "descriptionCell")
         tableView.register(CreateProductImagesCell.self, forCellReuseIdentifier: "imagesCell")
         tableView.register(CreateProductButtonCell.self, forCellReuseIdentifier: "buttonCell")
@@ -109,7 +120,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 6
+        return 7
     }
     
     func tableView(
@@ -130,10 +141,13 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryFieldCell", for: indexPath) as! CreateProductFieldCell
             cell.setupCell(name: "Категория")
             
-            if productPost.category != nil, let categoryName = categories[productPost.category ?? 0].name {
+            if selectedCategory != nil {
+                let categoryName = categories[selectedCategory!].name
+                
                 cell.textField.text = categoryName
             }
             
+            cell.textField.tag = 5
             cell.textField.inputView = pickerView
             cell.textField.delegate = self
             return cell
@@ -150,6 +164,22 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             cell.textField.addTarget(self, action: #selector(costDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
             cell.textField.keyboardType = .numberPad
+            return cell
+            
+        case .currency:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "currencyFieldCell", for: indexPath) as! CreateProductFieldCell
+            cell.setupCell(name: "Валюта")
+            
+            if selectedCurrency != nil {
+                let name = currencies[selectedCurrency!].name
+                let symbol = currencies[selectedCurrency!].symbol
+                
+                cell.textField.text = "\(name) (\(symbol))"
+            }
+            
+            cell.textField.tag = 6
+            cell.textField.inputView = pickerView
+            cell.textField.delegate = self
             return cell
             
         case .images:
@@ -202,6 +232,10 @@ extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
             productPost.description = textView.text
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        pickerTextFieldTag = textField.tag
+    }
 }
 
 extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -214,7 +248,15 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
         _ pickerView: UIPickerView,
         numberOfRowsInComponent component: Int
     ) -> Int {
-        return categories.count
+        switch pickerTextFieldTag {
+        case 5:
+            return categories.count
+            
+        case 6:
+            return currencies.count
+            
+        default: return 0
+        }
     }
     
     func pickerView(
@@ -222,7 +264,23 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
         titleForRow row: Int,
         forComponent component: Int
     ) -> String? {
-        return categories[row].name
+        switch pickerTextFieldTag {
+        case 5:
+            let id = categories[row].id
+            productPost.category = id
+            
+            return categories[row].name
+            
+        case 6:
+            let name = currencies[row].name
+            let symbol = currencies[row].symbol
+            
+            productPost.currencySymbol = symbol
+            
+            return "\(name) (\(symbol))"
+            
+        default: return ""
+        }
     }
     
     func pickerView(
@@ -230,8 +288,17 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
         didSelectRow row: Int,
         inComponent component: Int
     ) {
-        productPost.category = row
-        tableView.reloadRows(at: [IndexPath(item: 1, section: 0)], with: .automatic)
+        switch pickerTextFieldTag {
+        case 5:
+            selectedCategory = row
+            tableView.reloadRows(at: [IndexPath(item: 1, section: 0)], with: .automatic)
+            
+        case 6:
+            selectedCurrency = row
+            tableView.reloadRows(at: [IndexPath(item: 4, section: 0)], with: .automatic)
+            
+        default: break
+        }
     }
 }
 
@@ -346,6 +413,14 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
+    func setCurrencies(data: [CurrencyResult]) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.currencies = data
+            self.tableView.reloadData()
+        }
+    }
+    
     func stopImageSpinner() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -363,6 +438,12 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     func showToastCategoryError(text: String) {
         toastAnimation(text: text) { [weak self] in
             self?.presenter?.getCategories()
+        }
+    }
+    
+    func showToastCurrencyError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            self?.presenter?.getCurrencies()
         }
     }
     
@@ -401,6 +482,12 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
     
     func showEmptyCategory() {
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? CreateProductFieldCell else { return }
+        cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
+        showLoader(enable: false)
+    }
+    
+    func showEmptyCurrency() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 4, section: 0)) as? CreateProductFieldCell else { return }
         cell.textField.layer.borderColor = Palette.BorderField.wrong.cgColor
         showLoader(enable: false)
     }

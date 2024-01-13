@@ -39,6 +39,13 @@ class ProfileProductCell: UICollectionViewCell {
         return view
     }()
     
+    private let currencyLabel: UILabel = {
+        let view = UILabel()
+        view.text = ""
+        view.font = UIFont(name: "Montserrat-Medium", size: 13)
+        return view
+    }() 
+    
     private let dateLabel: UILabel = {
         let view = UILabel()
         view.text = "date"
@@ -92,11 +99,16 @@ class ProfileProductCell: UICollectionViewCell {
         titleLabel.text = post.name
         imageView.image = UIImage(named: "no_image")
         dateLabel.text = dateFormatter(date: post.dateModified)
+        currencyLabel.text = ""
         
         self.post = post
         
         if let cost = post.price {
             costLabel.text = "\(cost)"
+        }
+        
+        if let currency = post.attributes.first(where: {$0.name == "Currency"}) {
+            currencyLabel.text = currency.options.first
         }
         
         if let imageUrl = post.images, let firstUrl = imageUrl.first, let src = firstUrl.src {
@@ -154,12 +166,14 @@ class ProfileProductCell: UICollectionViewCell {
         titleLabel.textColor = Palette.Text.primary
         costLabel.textColor = Palette.Text.primary
         dateLabel.textColor = Palette.AccentText.secondary
+        currencyLabel.textColor = Palette.Text.primary
     }
     
     private func configureSubviews() {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(costLabel)
+        addSubview(currencyLabel)
         addSubview(dateLabel)
     }
     
@@ -180,6 +194,12 @@ class ProfileProductCell: UICollectionViewCell {
         costLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(4)
+            make.height.equalTo(14)
+        }
+        
+        currencyLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(costLabel.snp.centerY)
+            make.leading.equalTo(costLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().offset(4)
             make.height.equalTo(14)
         }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol CreateProductInteractorProtocol {
     func getCategories()
+    func getCurrencies()
     func publishProduct(data: ProductResponse)
     func uploadImage(image: UIImage)
 }
@@ -36,6 +37,24 @@ extension CreateProductInteractor: CreateProductInteractorProtocol {
                     
                 case let .secondError(name):
                     self.presenter?.setToastCategoryError(text: name)
+                }
+            }
+        }
+    }
+    
+    func getCurrencies() {
+        self.service.fetchCurrencies { result in
+            switch result {
+            case let .success(data):
+                self.presenter?.setCurrencies(data: data)
+                
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setToastCurrencyError(text: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setToastCurrencyError(text: name)
                 }
             }
         }

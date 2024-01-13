@@ -101,10 +101,12 @@ extension DetailPresenter: DetailPresenterProtocol {
         productAuthor: Int,
         productId: Int
     ) {
-        interactor?.checkStartChat(
-            productAuthor: productAuthor,
-            productId: productId
-        )
+        if sessionProvider.isAuthorized {
+            interactor?.checkStartChat(
+                productAuthor: productAuthor,
+                productId: productId
+            )
+        }
     }
     
     func callPhone(number: String?) {
@@ -200,6 +202,11 @@ extension DetailPresenter: DetailPresenterProtocol {
         data.relatedIDS?.forEach({ id in
             interactor?.getSimilarProducts(productId: id)
         })
+        
+        if data.relatedIDS != nil, data.relatedIDS!.isEmpty {
+            let isAuthorized = sessionProvider.isAuthorized
+            interactor?.getFavoriteList(isAuthorized: isAuthorized)
+        }
     }
     
     func setSimilarProducts(data: ProductResult) {

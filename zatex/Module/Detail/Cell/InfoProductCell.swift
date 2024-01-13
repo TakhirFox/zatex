@@ -23,6 +23,13 @@ class InfoProductCell: UICollectionViewCell {
         return view
     }()
     
+    private let currencyLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.font = UIFont(name: "Montserrat-Medium", size: 20)
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,22 +45,32 @@ class InfoProductCell: UICollectionViewCell {
         }
     }
     
-    func setupCell(name: String?, cost: String?) {
+    func setupCell(
+        name: String?,
+        cost: String?,
+        currency: String?
+    ) {
         titleLabel.text = name ?? ""
         
         if cost != nil {
-            costLabel.text = "\(cost!) Р"
+            costLabel.text = "\(cost!)"
+        }
+        
+        if currency != nil {
+            currencyLabel.text = "\(currency!)"
         }
     }
     
     private func updateAppearence() {
         titleLabel.textColor = Palette.Text.primary
         costLabel.textColor = Palette.Text.secondary
+        currencyLabel.textColor = Palette.Text.secondary
     }
     
     private func configureSubviews() {
         addSubview(titleLabel)
         addSubview(costLabel)
+        addSubview(currencyLabel)
     }
     
     private func configureConstraints() {
@@ -64,10 +81,14 @@ class InfoProductCell: UICollectionViewCell {
         
         costLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(6)
         }
         
+        currencyLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(self.costLabel.snp.centerY)
+            make.leading.equalTo(self.costLabel.snp.trailing).offset(4)
+        }
     }
     
     required init?(coder: NSCoder) {
