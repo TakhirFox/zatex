@@ -44,7 +44,7 @@ class ProfileProductCell: UICollectionViewCell {
         view.text = ""
         view.font = UIFont(name: "Montserrat-Medium", size: 13)
         return view
-    }()
+    }() 
     
     private let dateLabel: UILabel = {
         let view = UILabel()

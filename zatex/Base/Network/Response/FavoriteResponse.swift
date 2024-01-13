@@ -9,9 +9,17 @@ import Foundation
 
 struct FavoriteResponse: Decodable {
     
+    struct OptionsProduct: Decodable, Hashable {
+        let id: Int
+        let name: String
+        let visible, variation: Bool
+        let options: [String]
+    }
+    
     let postID, productName, productPrice: String
     let productImage: String?
     let postDate: String
+    let attributes: [OptionsProduct]?
 
     enum CodingKeys: String, CodingKey {
         case postID = "post_id"
@@ -19,6 +27,7 @@ struct FavoriteResponse: Decodable {
         case productPrice = "product_price"
         case productImage = "product_image"
         case postDate = "post_date"
+        case attributes
     }
 }
 
@@ -30,6 +39,16 @@ extension Array where Element == FavoriteResponse {
                 id: 0,
                 src: response.productImage
             )
+            
+            let attributes = response.attributes?.map({ item in
+                ProductResult.OptionsProduct(
+                    id: item.id,
+                    name: item.name,
+                    visible: item.visible,
+                    variation: item.variation,
+                    options: item.options
+                )
+            }) ?? []
             
             return ProductResult(
                 id: Int(response.postID),
@@ -47,7 +66,7 @@ extension Array where Element == FavoriteResponse {
                 images: [image],
                 store: nil,
                 relatedIDS: nil,
-                attributes: [],
+                attributes: attributes,
                 isSales: nil,
                 isFavorite: true
             )
