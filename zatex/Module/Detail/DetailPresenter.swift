@@ -210,7 +210,9 @@ extension DetailPresenter: DetailPresenterProtocol {
     }
     
     func setSimilarProducts(data: ProductResult) {
-        productEntities.append(data)
+        if let isSales = data.isSales, !isSales {
+            productEntities.append(data)
+        }
         
         let isAuthorized = sessionProvider.isAuthorized
         interactor?.getFavoriteList(isAuthorized: isAuthorized)
