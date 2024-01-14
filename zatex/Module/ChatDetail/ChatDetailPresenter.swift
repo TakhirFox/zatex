@@ -38,7 +38,7 @@ extension ChatDetailPresenter: ChatDetailPresenterProtocol {
         interactor?.getChatInfo()
     }
     
-    func sendChatMessage(message: String) {
+    func sendChatMessage(message: String) {        
         interactor?.sendChatMessage(message: message)
     }
     
