@@ -30,6 +30,13 @@ class ProfileAuthorView: UIView {
         return view
     }()
     
+    private let fullnameLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.font = UIFont(name: "Montserrat-Regular", size: 16)
+        return view
+    }()
+    
     private let ratingView: UIImageView = {
         let view = UIImageView()
         return view
@@ -50,7 +57,21 @@ class ProfileAuthorView: UIView {
     }
     
     func setupCell(store: StoreInfoResult?) {
-        titleLabel.text = store?.storeName ?? ""
+        let firstName = store?.firstName ?? ""
+        let lastName = store?.lastName ?? ""
+        let storeName = store?.storeName ?? ""
+        
+        if let isShop = store?.isShop, isShop {
+            titleLabel.text = "\(storeName)"
+            fullnameLabel.text = "\(firstName) \(lastName)"
+        } else {
+            titleLabel.text = "\(firstName) \(lastName)"
+            
+            if !storeName.isEmpty {
+                fullnameLabel.text = "\(storeName) деактивирован"
+            }
+        }
+        
         ratingView.image = UIImage(named: "rat0")
         avatarView.image = UIImage(named: "no-avatar")
                 
@@ -102,10 +123,17 @@ class ProfileAuthorView: UIView {
             make.bottom.equalToSuperview().inset(bottomAvatar)
         }
         
-        let titleSize = max(26, min(-zeroPoint / 3, 63))
+        let titleSize = max(16, min(-zeroPoint / 5, 50))
         
         titleLabel.snp.updateConstraints { make in
             make.top.equalToSuperview().inset(titleSize)
+        }
+        
+        
+        let fullnameSize = max(1, min(pointInfo, 12))
+        
+        fullnameLabel.snp.updateConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(fullnameSize)
         }
         
         let ratingOpacity = max(0.0, min(zeroPoint * 0.01 + 1, 1.0))
@@ -122,6 +150,7 @@ class ProfileAuthorView: UIView {
         addSubview(backView)
         backView.addSubview(avatarView)
         backView.addSubview(titleLabel)
+        backView.addSubview(fullnameLabel)
         backView.addSubview(ratingView)
     }
     
@@ -140,12 +169,19 @@ class ProfileAuthorView: UIView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(26)
+            make.top.equalToSuperview()
+            make.height.equalTo(24)
+            make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
+        }
+        
+        fullnameLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.height.equalTo(16)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
         }
         
         ratingView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(26)
+            make.bottom.equalToSuperview().inset(6)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
         }
     }

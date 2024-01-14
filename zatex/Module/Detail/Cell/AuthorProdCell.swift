@@ -72,8 +72,11 @@ class AuthorProdCell: UICollectionViewCell {
     }
     
     func setupCell(author: StoreInfoResult?) {
+        let firstName = author?.firstName ?? ""
+        let lastName = author?.lastName ?? ""
+        
         avatarView.image = UIImage(named: "no-avatar")
-        titleLabel.text = author?.storeName ?? ""
+        titleLabel.text = "\(firstName) \(lastName)"
         ratingView.image = UIImage(named: "rat0")
         shopModeLabel.text = "Частный магазин"
         

@@ -73,7 +73,10 @@ class ChatListCell: UITableViewCell {
             avatarImageView.kf.setImage(with: urlString)
         }
         
-        usernameLabel.text = data?.displayName
+        let firstName = data?.firstName ?? ""
+        let lastName = data?.lastName ?? ""
+        
+        usernameLabel.text = "\(firstName) \(lastName)"
         productNameLabel.text = data?.postTitle
         messageLabel.text = data?.content
         dateLabel.text = dateFormatter(data?.sentAt)
