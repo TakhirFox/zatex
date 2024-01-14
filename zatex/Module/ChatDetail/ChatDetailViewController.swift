@@ -74,6 +74,8 @@ class ChatDetailViewController: BaseViewController {
         }
     }
     
+    override func hideKeyboardWhenTapped() {}
+    
     private func updateAppearence() {
         chatTextFieldView.layer.borderColor = Palette.BorderField.primary.cgColor
         chatTextFieldView.backgroundColor = Palette.Background.secondary
@@ -90,6 +92,7 @@ class ChatDetailViewController: BaseViewController {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+        tableView.keyboardDismissMode = .onDrag
         
         textView.delegate = self
     }
@@ -245,7 +248,7 @@ extension ChatDetailViewController {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             self.view.layoutIfNeeded()
         }
-        
+                
         goToBottomCell()
     }
     
@@ -270,6 +273,10 @@ extension ChatDetailViewController {
     }
     
     @objc func sendMessageAction() {
+        guard !messageContent.isEmpty else {
+            return
+        }
+        
         messages.append(
             ChatMessageResult(
                 messageID: nil,
@@ -285,8 +292,10 @@ extension ChatDetailViewController {
             self.tableView.reloadData()
         }
         
-        textView.text = ""
         presenter?.sendChatMessage(message: messageContent)
+        
+        messageContent = ""
+        textView.text = ""
         
         DispatchQueue.main.async {
             self.goToBottomCell()
