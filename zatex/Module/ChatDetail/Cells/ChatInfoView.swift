@@ -74,7 +74,10 @@ class ChatInfoView: UIView {
             imageProductView.kf.setImage(with: imageUrl)
         }
         
-        authorNameLabel.text = author?.authorUsername ?? ""
+        let firstName = author?.firstName ?? ""
+        let lastName = author?.lastName ?? ""
+        
+        authorNameLabel.text = "\(firstName) \(lastName)"
         productNameLabel.text = author?.authorProduct ?? ""
         
         authorNameLabel.isUserInteractionEnabled = true

@@ -18,7 +18,7 @@ class ShopHeaderView: UIView {
     
     private let avatarView: UIImageView = {
         let view = UIImageView()
-        view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 25
         view.layer.masksToBounds = true
         return view
     }()
@@ -27,6 +27,14 @@ class ShopHeaderView: UIView {
         let view = UILabel()
         view.numberOfLines = 1
         view.font = UIFont(name: "Montserrat-SemiBold", size: 18)
+        view.textColor = Palette.ChatStyle.time
+        return view
+    }()
+    
+    private let fullnameLabel: UILabel = {
+        let view = UILabel()
+        view.numberOfLines = 1
+        view.font = UIFont(name: "Montserrat-SemiBold", size: 14)
         view.textColor = Palette.ChatStyle.time
         return view
     }()
@@ -57,9 +65,13 @@ class ShopHeaderView: UIView {
     }
     
     func setupCell(author: StoreInfoResult?) {
+        let firstName = author?.firstName ?? ""
+        let lastName = author?.lastName ?? ""
+        
         backgroundImageView.image = UIImage(named: "defaultBanner")
         avatarView.image = UIImage(named: "no-avatar")
         titleLabel.text = author?.storeName ?? ""
+        fullnameLabel.text = "\(firstName) \(lastName)"
         ratingView.image = UIImage(named: "rat0")
         
         switch author?.gravatar {
@@ -95,6 +107,7 @@ class ShopHeaderView: UIView {
         backgroundImageView.addSubview(backView)
         backView.addSubview(avatarView)
         backView.addSubview(titleLabel)
+        backView.addSubview(fullnameLabel)
         backView.addSubview(ratingView)
     }
     
@@ -114,19 +127,26 @@ class ShopHeaderView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.height.equalTo(40)
-            make.width.equalTo(40)
+            make.height.equalTo(50)
+            make.width.equalTo(50)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(4)
+            make.top.equalToSuperview()
+            make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
+            make.height.equalTo(18)
+            make.trailing.equalToSuperview()
+        }
+        
+        fullnameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
             make.height.equalTo(18)
             make.trailing.equalToSuperview()
         }
         
         ratingView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(self.fullnameLabel.snp.bottom)
             make.leading.equalTo(self.avatarView.snp.trailing).offset(10)
             make.bottom.equalToSuperview()
         }

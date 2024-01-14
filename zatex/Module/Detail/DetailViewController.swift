@@ -404,7 +404,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = -scrollView.contentOffset.y
-        let maxHeight = max(offsetY, 100)
+        let maxHeight = max(offsetY, 120)
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: maxHeight)
         
         let pointInfo = -(-scrollView.contentOffset.y - scrollView.contentInset.top) / 1.3
