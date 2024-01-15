@@ -13,13 +13,14 @@ protocol GeneralSettingsViewControllerProtocol: AnyObject {
     var presenter: GeneralSettingsPresenterProtocol? { get set }
     
     func showSuccess()
+    func showAdminPanel()
     func showToastError(text: String)
 }
 
 class GeneralSettingsViewController: BaseViewController {
     
     enum RowKind: Int {
-        case editProfile, changeTheme, changePush, logout, delete
+        case editProfile, changeTheme, changePush, logout, delete, adminPanel
     }
     
     var presenter: GeneralSettingsPresenterProtocol?
@@ -37,6 +38,8 @@ class GeneralSettingsViewController: BaseViewController {
         setupSubviews()
         setupConstraints()
         settingSpinner()
+        
+        presenter?.getAdminAccess()
     }
     
     private func settingSpinner() {
@@ -160,6 +163,11 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             cell.setupCell(settingsModel[indexPath.row])
             return cell
             
+        case .adminPanel:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsCell
+            cell.setupCell(settingsModel[indexPath.row])
+            return cell
+            
         case .none:
             return UITableViewCell()
         }
@@ -183,6 +191,9 @@ extension GeneralSettingsViewController: UITableViewDelegate, UITableViewDataSou
             
         case .delete:
             showDeleteAccountAlert()
+            
+        case .adminPanel:
+            presenter?.goToAdminPanel()
             
         case .none:
             print("N0thing bro")
@@ -281,6 +292,17 @@ extension GeneralSettingsViewController: GeneralSettingsViewControllerProtocol {
         self.present(alertController, animated: true)
         
         showLoader(enable: false)
+    }
+    
+    func showAdminPanel() {
+        settingsModel.append(
+            SettingsModel(
+                title: "Админ панель",
+                subTitle: "Режим бога активирован",
+                icon: "ProfileIcon",
+                rightIcon: "NextIcon"
+            )
+        )
     }
     
     func showToastError(text: String) {

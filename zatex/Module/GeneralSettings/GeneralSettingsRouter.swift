@@ -10,18 +10,25 @@ import UIKit
 
 protocol GeneralSettingsRouterProtocol: AnyObject {
     func routeToProfileEdit()
+    func routeToAdminPanel()
     
 }
 
 class GeneralSettingsRouter: BaseRouter {
+    
     weak var viewController: UIViewController?
     
 }
 
 extension GeneralSettingsRouter: GeneralSettingsRouterProtocol {
+    
     func routeToProfileEdit() {
         let view = ProfileEditAssembly.create()
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     
+    func routeToAdminPanel() {
+        let view = AdminPanelAssembly.create(type: .main)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
 }
