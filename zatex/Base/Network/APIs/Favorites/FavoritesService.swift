@@ -28,7 +28,7 @@ extension FavoritesService: FavoritesAPI {
                 .responseDecodable(of: [FavoriteResponse].self) { response in
                     if let responseData = response.data {
                         let text = String(data: responseData, encoding: .utf8)
-                        print("LOG: getChatMessage: \(text ?? "---")")
+                        print("LOG: getFavoriteList: \(text ?? "---")")
                     }
                     
                     switch response.result {

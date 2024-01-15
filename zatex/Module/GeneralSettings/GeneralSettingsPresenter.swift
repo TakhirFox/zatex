@@ -9,12 +9,15 @@
 import UIKit
 
 protocol GeneralSettingsPresenterProtocol: AnyObject {
+    func getAdminAccess()
     
     func goToProfileEdit()
+    func goToAdminPanel()
     func logout()
     func deleteAccount()
     
     func showSuccessDialog()
+    func showAdminPanel()
     func setToastError(text: String)
 }
 
@@ -29,9 +32,22 @@ class GeneralSettingsPresenter: BasePresenter {
 
 extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
     
+    func getAdminAccess() {
+        let session = sessionProvider.getSession()
+        
+        if session?.userId == "1" &&
+            session?.userEmail == "winzero.nexis@mail.ru" {
+            self.showAdminPanel()
+        }
+    }
+    
     // MARK: To Router
     func goToProfileEdit() {
         router?.routeToProfileEdit()
+    }
+    
+    func goToAdminPanel() {
+        router?.routeToAdminPanel()
     }
     
     // MARK: To Interactor
@@ -58,6 +74,10 @@ extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
     // MARK: To View
     func showSuccessDialog() {
         view?.showSuccess()
+    }
+    
+    func showAdminPanel() {
+        view?.showAdminPanel()
     }
     
     func setToastError(text: String) {
