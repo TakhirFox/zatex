@@ -15,13 +15,18 @@ class ProductService {
 extension ProductService: ProductAPI {
     
     func fetchProducts(
+        categoryId: Int?,
         page: Int,
         city: String,
         completion: @escaping ProductsClosure
     ) {
         do {
             try ProductHttpRouter
-                .getAllProducts(page, city)
+                .getAllProducts(
+                    categoryId: categoryId,
+                    page: page,
+                    city: city
+                )
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
@@ -56,29 +61,7 @@ extension ProductService: ProductAPI {
         } catch {
             completion(.failure(.secondError(name: "Ошибка: 089123679 Ошибка категории")))
         }
-    }
-    
-    func fetchProductByCategory(
-        id: String,
-        completion: @escaping ProdByCategoryClosure
-    ) {
-        do {
-            try ProductHttpRouter
-                .getProductsByCategory(id)
-                .request(usingHttpService: httpService)
-                .responseDecodable(of: [ProductResult].self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        completion(.success(data))
-                        guard !data.isEmpty else { return }
-                    case .failure(let error):
-                        completion(.failure(.error(name: "Ошибка: 7325893578392 - \(error)")))
-                    }
-                }
-        } catch {
-            completion(.failure(.secondError(name: "Ошибка: 5763830496789 Ошибка фильтра категории")))
-        }
-    }
+    } 
 }
 
 extension ProductService {

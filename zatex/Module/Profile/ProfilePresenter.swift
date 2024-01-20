@@ -10,18 +10,31 @@ import Foundation
 
 protocol ProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
-    func getStoreProduct(authorId: Int, isSales: Bool)
-    func setSalesProfuct(productId: Int, isSales: Bool, authorId: Int)
+    
+    func getStoreProduct(
+        authorId: Int,
+        currentPage: Int,
+        saleStatus: String
+    )
+    
+    func setSalesProfuct(
+        productId: Int,
+        saleStatus: String,
+        authorId: Int
+    )
+    
     func getProductStats(authorId: Int)
     func saveDeviceToken(authorId: Int)
+    
     
     func goToSettings()
     func goToAuthView()
     func goToDetail(id: Int)
     func goToReview(id: String)
     
+    
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStoreProduct(data: [ProductResult])
     func setProductStats(data: [ProductResult])
     func setError(data: String)
 }
@@ -46,30 +59,35 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     
     func getStoreProduct(
         authorId: Int,
-        isSales: Bool
+        currentPage: Int,
+        saleStatus: String
     ) {
         interactor?.getStoreProduct(
             authorId: authorId,
-            isSales: isSales
+            currentPage: currentPage,
+            saleStatus: saleStatus
         )
     }
     
     func setSalesProfuct(
         productId: Int,
-        isSales: Bool,
+        saleStatus: String,
         authorId: Int
     ) {
         interactor?.setSalesProfuct(
             productId: productId,
-            isSales: isSales,
+            saleStatus: saleStatus,
+            authorId: authorId
+        )
+        
+        interactor?.getStoreStatsProduct(
             authorId: authorId
         )
     }
     
     func getProductStats(authorId: Int) {
-        interactor?.getStoreProduct(
-            authorId: authorId,
-            isSales: false
+        interactor?.getStoreStatsProduct(
+            authorId: authorId
         )
     }
     
@@ -116,16 +134,15 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         view?.setStoreInfo(data: data)
     }
     
-    func setStoreProduct(data: [ProductResult], isSales: Bool) {
+    func setStoreProduct(data: [ProductResult]) {
         view?.setStoreProduct(
-            data: data,
-            isSales: isSales
+            data: data
         )
     }
     
     func setProductStats(data: [ProductResult]) {
-        let active = String(data.filter({ $0.isSales == false }).count)
-        let sales = String(data.filter({ $0.isSales == true }).count)
+        let active = String(data.filter({ $0.saleStatus == .publish }).count)
+        let sales = String(data.filter({ $0.saleStatus == .draft }).count)
         
         view?.setStats(activeCount: active, salesCount: sales)
     }

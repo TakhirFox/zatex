@@ -54,7 +54,8 @@ extension SignUpHttpRouter: HttpRouter {
                 username: username,
                 email: email,
                 password: pass,
-                role: "seller")
+                role: "seller"
+            )
             
             return try JSONEncoder().encode(data)
         }

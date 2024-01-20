@@ -14,7 +14,6 @@ protocol FeedViewControllerProtocol: AnyObject {
     func setProducts(data: [ProductResult])
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
-    func setProductFromCategory(data: [ProductResult])
     func showError(data: String)
     func showToastError(text: String)
 }
@@ -46,17 +45,18 @@ class FeedViewController: BaseViewController {
     var presenter: FeedPresenterProtocol?
     
     private var isPaging = false
-    private var pageCount = 1
+    private var currentPage = 1
+    private var categoryId: Int?
     
-    var banners: [BannerResult] = []
-    var categories: [CategoryResult] = []
-    var products: [ProductResult] = []
-    var emptyProducts: [String] = []
+    private var banners: [BannerResult] = []
+    private var categories: [CategoryResult] = []
+    private var products: [ProductResult] = []
+    private var emptyProducts: [String] = []
     
-    let refreshControl = UIRefreshControl()
-    let searchView = BaseTextField()
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
+    private let refreshControl = UIRefreshControl()
+    private let searchView = BaseTextField()
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,11 @@ class FeedViewController: BaseViewController {
     }
     
     private func getRequests() {
-        presenter?.getProducts(page: pageCount)
+        presenter?.getProducts(
+            categoryId: categoryId,
+            page: currentPage
+        )
+        
         presenter?.getCategories()
         presenter?.getBanners()
         
@@ -358,7 +362,16 @@ extension FeedViewController: UICollectionViewDelegateFlowLayout {
             self.collectionView.reloadData()
             
             guard let categoryId = self.categories[indexPath.row].id else { return }
-            presenter?.getProductByCategory(id: "\(categoryId)")
+            
+            presenter?.getProducts(
+                categoryId: categoryId,
+                page: 1
+            )
+            
+            self.categoryId = categoryId
+            currentPage = 1
+            products = []
+            isPaging = true
             
         case .products:
             guard let productId = self.products[indexPath.row].id else { return }
@@ -395,7 +408,11 @@ extension FeedViewController: UIScrollViewDelegate {
         
         if position > basicSize {
             if isPaging == true {
-                presenter?.getProducts(page: pageCount)
+                presenter?.getProducts(
+                    categoryId: categoryId,
+                    page: currentPage
+                )
+                
                 isPaging = false
             }
         }
@@ -405,16 +422,38 @@ extension FeedViewController: UIScrollViewDelegate {
 // MARK: Implemented FeedViewControllerProtocol
 extension FeedViewController: FeedViewControllerProtocol {
     
-    @objc private func refreshData(_ sender: Any) {
-        presenter?.getProducts(page: pageCount)
+    @objc private func refreshData(_ sender: Any) { // TODO: Решить
+//        currentPage = 1
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self else { return }
+//            self.products = []
+//            self.reloadData()
+//            self.collectionView.reloadData()
+//        }
+//        
+//        presenter?.getProducts(
+//            categoryId: categoryId,
+//            page: currentPage
+//        )
     }
     
     func setProducts(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            
+            if data.isEmpty && self.products.isEmpty {
+                self.emptyProducts = ["emptyProducts"]
+                self.reloadData()
+                self.collectionView.reloadData()
+                self.collectionView.scrollToBottom(animated: true)
+            }
+            
+            guard !data.isEmpty else { return }
             self.products += data
+            self.emptyProducts = []
             self.isPaging = true
-            self.pageCount += 1
+            self.currentPage += 1
             self.reloadData()
             self.collectionView.isHidden = false
             self.searchView.isHidden = false
@@ -441,17 +480,6 @@ extension FeedViewController: FeedViewControllerProtocol {
             self.banners = data
             self.reloadData()
             self.collectionView.reloadData()
-        }
-    }
-    
-    func setProductFromCategory(data: [ProductResult]) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.emptyProducts = data.isEmpty ? ["emptyProducts"] : []
-            self.products = data
-            self.reloadData()
-            self.collectionView.reloadData()
-            self.collectionView.scrollToBottom(animated: true)
         }
     }
     

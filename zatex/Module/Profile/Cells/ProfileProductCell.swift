@@ -117,20 +117,13 @@ class ProfileProductCell: UICollectionViewCell {
             imageView.kf.setImage(with: urlString)
         }
         
-        setupButtons(isSales: post.isSales ?? false)
+        setupButtons(saleStatus: post.saleStatus ?? .none)
     }
     
-    private func setupButtons(isSales: Bool) {
-        if isSales {
-            addSubview(activeProductButton)
-            
-            activeProductButton.snp.makeConstraints { make in
-                make.top.equalTo(dateLabel.snp.bottom).offset(4)
-                make.leading.trailing.equalToSuperview().inset(4)
-                make.height.equalTo(30)
-                make.bottom.equalToSuperview().inset(4)
-            }
-        } else {
+    private func setupButtons(saleStatus: ProductResult.SaleStatus) {
+        
+        switch saleStatus {
+        case .publish:
             addSubview(salesProductButton)
             
             salesProductButton.snp.makeConstraints { make in
@@ -139,6 +132,18 @@ class ProfileProductCell: UICollectionViewCell {
                 make.height.equalTo(30)
                 make.bottom.equalToSuperview().inset(4)
             }
+        case .draft:
+            addSubview(activeProductButton)
+            
+            activeProductButton.snp.makeConstraints { make in
+                make.top.equalTo(dateLabel.snp.bottom).offset(4)
+                make.leading.trailing.equalToSuperview().inset(4)
+                make.height.equalTo(30)
+                make.bottom.equalToSuperview().inset(4)
+            }
+            
+        case .none:
+            break
         }
     }
     

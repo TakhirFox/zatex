@@ -8,14 +8,22 @@
 
 protocol UserProfilePresenterProtocol: AnyObject {
     func getStoreInfo(authorId: Int)
-    func getStoreProduct(authorId: Int, isSales: Bool)
+    
+    func getStoreProduct(
+        authorId: Int,
+        currentPage: Int,
+        saleStatus: String
+    )
+    
     func getProductStats(authorId: Int)
-
+    
+    
     func goToDetail(id: Int)
     func goToReview(id: String)
     
+    
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStoreProduct(data: [ProductResult])
     func setProductStats(data: [ProductResult])
     func setError(data: String)
 }
@@ -35,18 +43,19 @@ extension UserProfilePresenter: UserProfilePresenterProtocol {
     
     func getStoreProduct(
         authorId: Int,
-        isSales: Bool
+        currentPage: Int,
+        saleStatus: String
     ) {
         interactor?.getStoreProduct(
             authorId: authorId,
-            isSales: isSales
+            currentPage: currentPage,
+            saleStatus: saleStatus
         )
     }
     
     func getProductStats(authorId: Int) {
-        interactor?.getStoreProduct(
-            authorId: authorId,
-            isSales: false
+        interactor?.getStoreStatsProduct(
+            authorId: authorId
         )
     }
     
@@ -65,16 +74,15 @@ extension UserProfilePresenter: UserProfilePresenterProtocol {
         view?.setStoreInfo(data: data)
     }
     
-    func setStoreProduct(data: [ProductResult], isSales: Bool) {
+    func setStoreProduct(data: [ProductResult]) {
         view?.setStoreProduct(
-            data: data,
-            isSales: isSales
+            data: data
         )
     }
     
     func setProductStats(data: [ProductResult]) {
-        let active = String(data.filter({ $0.isSales == false }).count)
-        let sales = String(data.filter({ $0.isSales == true }).count)
+        let active = String(data.filter({ $0.saleStatus == .publish }).count)
+        let sales = String(data.filter({ $0.saleStatus == .draft }).count)
         
         view?.setStats(activeCount: active, salesCount: sales)
     }
