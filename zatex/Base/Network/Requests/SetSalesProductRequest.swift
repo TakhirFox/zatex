@@ -8,9 +8,9 @@
 import Foundation
 
 struct SetSalesProductRequest: Encodable {
-    let isSales: Bool
+    let saleStatus: String
     
     enum CodingKeys: String, CodingKey {
-        case isSales = "sold_individually"
+        case saleStatus = "status"
     }
 }

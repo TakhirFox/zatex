@@ -9,11 +9,11 @@ import Foundation
 
 typealias ProductsClosure = (Result<[ProductResult], NetworkError>) -> (Void)
 typealias CategoriesClosure = (Result<[CategoryResult], NetworkError>) -> (Void)
-typealias ProdByCategoryClosure = (Result<[ProductResult], NetworkError>) -> (Void)
 
 protocol ProductAPI {
     
     func fetchProducts(
+        categoryId: Int?,
         page: Int,
         city: String,
         completion: @escaping ProductsClosure
@@ -22,9 +22,4 @@ protocol ProductAPI {
     func fetchCategories(
         completion: @escaping CategoriesClosure
     ) -> Void
-        
-    func fetchProductByCategory(
-        id: String,
-        completion: @escaping ProdByCategoryClosure
-    )
 }

@@ -10,24 +10,29 @@ import Foundation
 
 protocol FeedPresenterProtocol: AnyObject {
     
-    func getProducts(page: Int)
+    func getProducts(
+        categoryId: Int?,
+        page: Int
+    )
+    
     func getCategories()
     func getBanners()
-    func getProductByCategory(id: String)
+    
     func addFavorite(productId: Int)
     func removeFavorite(productId: Int)
+    
     
     func goToSearchResult(text: String)
     func goToDetail(id: Int)
     func goToNews(entity: BannerResult)
     func goToChangeCity()
     
+    
     func setProducts(data: [ProductResult])
     func setCategories(data: [CategoryResult])
     func setBanners(data: [BannerResult])
     func setFavoriteList(data: [FavoriteResponse])
     
-    func setProductFromCategory(data: [ProductResult])
     func setError(data: String)
     func setToastError(text: String)
 }
@@ -44,10 +49,17 @@ class FeedPresenter: BasePresenter {
 extension FeedPresenter: FeedPresenterProtocol {
     
     // MARK: To Interactor
-    func getProducts(page: Int) {
+    func getProducts(
+        categoryId: Int?,
+        page: Int
+    ) {
         let city = UserDefaults.standard.string(forKey: "MyCity") ?? ""
         
-        interactor?.getProducts(page: page, city: city)
+        interactor?.getProducts(
+            categoryId: categoryId,
+            page: page,
+            city: city
+        )
     }
     
     func getCategories() {
@@ -56,10 +68,6 @@ extension FeedPresenter: FeedPresenterProtocol {
     
     func getBanners() {
         interactor?.getBanners()
-    }
-    
-    func getProductByCategory(id: String) {
-        interactor?.getProductByCategory(id: id)
     }
     
     func addFavorite(productId: Int) {
@@ -115,10 +123,6 @@ extension FeedPresenter: FeedPresenterProtocol {
         }
         
         view?.setProducts(data: productEntity)
-    }
-    
-    func setProductFromCategory(data: [ProductResult]) {
-        view?.setProductFromCategory(data: data)
     }
     
     func setError(data: String) {

@@ -12,7 +12,7 @@ protocol ProfileViewControllerProtocol: AnyObject {
     var presenter: ProfilePresenterProtocol? { get set }
     
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStoreProduct(data: [ProductResult])
     func setStats(activeCount: String, salesCount: String)
     func updateView()
     func showError(data: String)
@@ -25,18 +25,21 @@ class ProfileViewController: BaseViewController {
     }
     
     var presenter: ProfilePresenterProtocol?
-    
     var sessionProvider: SessionProvider?
-    var profileStoreInfo: StoreInfoResult?
-    var profileProducts: [ProductResult]?
-    var isLoadedProducts = false
-    var productStats = (active: "0", sales: "0")
-    var userId: Int?
     
-    var collectionView: UICollectionView!
-    let headerView = ProfileHeaderView()
-    let authorView = ProfileAuthorView()
-    let loginView = ProfileLoginView()
+    private var profileStoreInfo: StoreInfoResult?
+    private var profileProducts: [ProductResult] = []
+    private var isLoadedProducts = false
+    private var productStats = (active: "0", sales: "0")
+    private var userId: Int?
+    private var isPaging = false
+    private var currentPage = 1
+    private var saleStatus: ProductResult.SaleStatus = .publish
+    
+    private var collectionView: UICollectionView!
+    private let headerView = ProfileHeaderView()
+    private let authorView = ProfileAuthorView()
+    private let loginView = ProfileLoginView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +50,6 @@ class ProfileViewController: BaseViewController {
         setupConstraints()
         loadProfileView()
         setupLoginView()
-        getRequests()
         hideNavigationView()
     }
     
@@ -63,7 +65,7 @@ class ProfileViewController: BaseViewController {
             loginView.isHidden = true
         } else {
             profileStoreInfo = nil
-            profileProducts = nil
+            profileProducts = []
             collectionView.reloadData()
             
             navigationController?.isNavigationBarHidden = true
@@ -134,7 +136,13 @@ class ProfileViewController: BaseViewController {
         
         if let id = userId {
             presenter?.getStoreInfo(authorId: id)
-            presenter?.getStoreProduct(authorId: id, isSales: false)
+            
+            presenter?.getStoreProduct(
+                authorId: id,
+                currentPage: currentPage,
+                saleStatus: ProductResult.SaleStatus.publish.rawValue
+            )
+            
             presenter?.getProductStats(authorId: id)
             presenter?.saveDeviceToken(authorId: id)
         }
@@ -154,15 +162,18 @@ class ProfileViewController: BaseViewController {
         }
     }
     
-    private func getFilteredRequests(isSales: Bool) {
+    private func getFilteredRequests(saleStatus: ProductResult.SaleStatus) {
         if let id = userId {
+            self.currentPage = 1
+            self.saleStatus = saleStatus
             self.profileProducts = []
             self.isLoadedProducts = false
             self.collectionView.reloadData()
             
             presenter?.getStoreProduct(
                 authorId: id,
-                isSales: isSales
+                currentPage: currentPage,
+                saleStatus: saleStatus.rawValue
             )
         }
     }
@@ -194,7 +205,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
             
         case .myProducts:
-            let count = profileProducts?.count ?? 0
+            let count = profileProducts.count
             return count == 0 ? 1 : count
             
         case .none:
@@ -217,10 +228,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                     self?.goToReviews()
                     
                 case .active:
-                    self?.getFilteredRequests(isSales: false)
+                    self?.getFilteredRequests(saleStatus: .publish)
+                    self?.saleStatus = .publish
                     
                 case .sales:
-                    self?.getFilteredRequests(isSales: true)
+                    self?.getFilteredRequests(saleStatus: .draft)
+                    self?.saleStatus = .draft
                 }
             }
             return cell
@@ -237,9 +250,9 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 cell.setupCell()
                 return cell
                 
-            } else if profileProducts != nil, !profileProducts!.isEmpty {
+            } else if !profileProducts.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProfileProductCell
-                cell.setupCell(profileProducts?[indexPath.row])
+                cell.setupCell(profileProducts[indexPath.row])
                 cell.onSignal = { [weak self] signal in
                     self?.changeStateProduct(
                         signal: signal,
@@ -272,7 +285,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return .init(width: view.frame.width, height: 45)
             
         case .myProducts:
-            let isEmpty = profileProducts?.isEmpty ?? false
+            let isEmpty = profileProducts.isEmpty
             
             return .init(
                 width: isEmpty ? view.frame.width : view.frame.width / 2 - 24,
@@ -313,8 +326,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return
             
         case .myProducts:
-            if let profileProducts = profileProducts,
-               !profileProducts.isEmpty {
+            if !profileProducts.isEmpty {
                 let idProduct = profileProducts[indexPath.item].id ?? 0
                 presenter?.goToDetail(id: idProduct)
             }
@@ -332,6 +344,25 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         authorView.frame = CGRect(x: 0, y: maxHeight - 50, width: view.frame.width, height: 100)
         
         authorView.updateView(scrollView: scrollView)
+        
+        
+        let position = scrollView.contentOffset.y
+        let collectionSize = collectionView.contentSize.height
+        let scrollSize = scrollView.frame.size.height
+        let basicSize = collectionSize - 400 - scrollSize
+        
+        if position > basicSize {
+            if isPaging == true {
+                guard let userId = userId else { return }
+                presenter?.getStoreProduct(
+                    authorId: userId,
+                    currentPage: currentPage,
+                    saleStatus: saleStatus.rawValue
+                )
+                
+                isPaging = false
+            }
+        }
     }
 }
 
@@ -341,7 +372,7 @@ extension ProfileViewController {
         signal: ProfileProductCell.Signal,
         index: Int
     ) {
-        guard let productId = self.profileProducts?[index].id else { return }
+        guard let productId = self.profileProducts[index].id else { return }
         
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -350,19 +381,19 @@ extension ProfileViewController {
             case .toActive:
                 strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: false,
+                    saleStatus: ProductResult.SaleStatus.publish.rawValue,
                     authorId: strongSelf.userId ?? 0
                 )
-                
+                                                
             case .toSales:
                 strongSelf.presenter?.setSalesProfuct(
                     productId: productId,
-                    isSales: true,
+                    saleStatus: ProductResult.SaleStatus.draft.rawValue,
                     authorId: strongSelf.userId ?? 0
                 )
             }
             
-            strongSelf.profileProducts?.remove(at: index)
+            strongSelf.profileProducts.remove(at: index)
             strongSelf.collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
@@ -385,23 +416,32 @@ extension ProfileViewController: ProfileViewControllerProtocol {
     
     func setStoreInfo(data: StoreInfoResult) {
         DispatchQueue.main.async { [weak self] in
-            self?.profileStoreInfo = data
-            self?.headerView.setupCell(store: data)
-            self?.authorView.setupCell(store: data)
-            self?.headerView.isHidden = false
-            self?.authorView.isHidden = false
-            self?.loaderView.isHidden = true
-            self?.loaderView.stop()
-            self?.collectionView.reloadData()
+            guard let self = self else { return }
+            self.profileStoreInfo = data
+            self.headerView.setupCell(store: data)
+            self.authorView.setupCell(store: data)
+            self.headerView.isHidden = false
+            self.authorView.isHidden = false
+            self.loaderView.isHidden = true
+            self.loaderView.stop()
+            self.collectionView.reloadData()
         }
     }
     
-    func setStoreProduct(data: [ProductResult], isSales: Bool) {
+    func setStoreProduct(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
-            self?.profileProducts = data.filter { $0.isSales == isSales }
-            self?.collectionView.isHidden = false
-            self?.isLoadedProducts = true
-            self?.collectionView.reloadData()
+            guard let self = self else { return }
+            
+            if !data.isEmpty && data.first?.saleStatus != self.saleStatus {
+                self.profileProducts = []
+            }
+            
+            self.profileProducts += data
+            self.collectionView.isHidden = false
+            self.isLoadedProducts = true
+            self.isPaging = true
+            self.currentPage += 1
+            self.collectionView.reloadData()
         }
     }
     

@@ -13,7 +13,7 @@ protocol UserProfileViewControllerProtocol: AnyObject {
     var presenter: UserProfilePresenterProtocol? { get set }
     
     func setStoreInfo(data: StoreInfoResult)
-    func setStoreProduct(data: [ProductResult], isSales: Bool)
+    func setStoreProduct(data: [ProductResult])
     func setStats(activeCount: String, salesCount: String)
     func showError(data: String)
 }
@@ -25,16 +25,19 @@ class UserProfileViewController: BaseViewController {
     }
     
     var presenter: UserProfilePresenterProtocol?
-    
     var userId: Int?
-    var profileStoreInfo: StoreInfoResult?
-    var profileProducts: [ProductResult]?
-    var isLoadedProducts = false
-    var productStats = (active: "0", sales: "0")
     
-    var collectionView: UICollectionView!
-    let headerView = UserProfileHeaderView()
-    let authorView = UserProfileAuthorView()
+    private var profileStoreInfo: StoreInfoResult?
+    private var profileProducts: [ProductResult] = []
+    private var isLoadedProducts = false
+    private var productStats = (active: "0", sales: "0")
+    private var isPaging = false
+    private var currentPage = 1
+    private var saleStatus: ProductResult.SaleStatus = .publish
+
+    private var collectionView: UICollectionView!
+    private let headerView = UserProfileHeaderView()
+    private let authorView = UserProfileAuthorView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -105,7 +108,13 @@ class UserProfileViewController: BaseViewController {
     private func getRequests() {
         if let userId = userId {
             presenter?.getStoreInfo(authorId: userId)
-            presenter?.getStoreProduct(authorId: userId, isSales: false)
+            
+            presenter?.getStoreProduct(
+                authorId: userId,
+                currentPage: currentPage,
+                saleStatus: ProductResult.SaleStatus.publish.rawValue
+            )
+            
             presenter?.getProductStats(authorId: userId)
         }
         
@@ -117,15 +126,18 @@ class UserProfileViewController: BaseViewController {
         loaderView.play()
     }
     
-    private func getFilteredRequests(isSales: Bool) {
+    private func getFilteredRequests(saleStatus: ProductResult.SaleStatus) {
         if let userId = userId {
+            self.currentPage = 1
+            self.saleStatus = saleStatus
             self.profileProducts = []
             self.isLoadedProducts = false
             self.collectionView.reloadData()
             
             presenter?.getStoreProduct(
                 authorId: userId,
-                isSales: isSales
+                currentPage: currentPage,
+                saleStatus: saleStatus.rawValue
             )
         }
     }
@@ -150,7 +162,7 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
             return 1
             
         case .profileProducts:
-            let count = profileProducts?.count ?? 0
+            let count = profileProducts.count
             return count == 0 ? 1 : count
             
         case .none:
@@ -173,10 +185,10 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
                     self?.goToReviews()
                     
                 case .active:
-                    self?.getFilteredRequests(isSales: false)
+                    self?.getFilteredRequests(saleStatus: .publish)
                     
                 case .sales:
-                    self?.getFilteredRequests(isSales: true)
+                    self?.getFilteredRequests(saleStatus: .draft)
                 }
             }
             return cell
@@ -193,9 +205,9 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.setupCell()
                 return cell
                 
-            } else if profileProducts != nil, !profileProducts!.isEmpty {
+            } else if !profileProducts.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! UserProfileProductCell
-                cell.setupCell(profileProducts?[indexPath.row])
+                cell.setupCell(profileProducts[indexPath.row])
                 return cell
                 
             } else {
@@ -223,7 +235,7 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
             return .init(width: view.frame.width, height: 45)
             
         case .profileProducts:
-            let isEmpty = profileProducts?.isEmpty ?? false
+            let isEmpty = profileProducts.isEmpty
             
             return .init(
                 width: isEmpty ? view.frame.width : view.frame.width / 2 - 24,
@@ -264,7 +276,7 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
             return
             
         case .profileProducts:
-            let idProduct = profileProducts?[indexPath.item].id ?? 0
+            let idProduct = profileProducts[indexPath.item].id ?? 0
             presenter?.goToDetail(id: idProduct)
             
         case .none:
@@ -280,6 +292,24 @@ extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewD
         authorView.frame = CGRect(x: 0, y: maxHeight - 50, width: view.frame.width, height: 100)
         
         authorView.updateView(scrollView: scrollView)
+        
+        let position = scrollView.contentOffset.y
+        let collectionSize = collectionView.contentSize.height
+        let scrollSize = scrollView.frame.size.height
+        let basicSize = collectionSize - 400 - scrollSize
+        
+        if position > basicSize {
+            if isPaging == true {
+                guard let userId = userId else { return }
+                presenter?.getStoreProduct(
+                    authorId: userId,
+                    currentPage: currentPage,
+                    saleStatus: saleStatus.rawValue
+                )
+                
+                isPaging = false
+            }
+        }
     }
 }
 
@@ -338,11 +368,13 @@ extension UserProfileViewController: UserProfileViewControllerProtocol {
         }
     }
     
-    func setStoreProduct(data: [ProductResult], isSales: Bool) {
+    func setStoreProduct(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
-            self?.profileProducts = data.filter { $0.isSales == isSales }
+            self?.profileProducts += data
             self?.collectionView.isHidden = false
             self?.isLoadedProducts = true
+            self?.isPaging = true
+            self?.currentPage += 1
             self?.collectionView.reloadData()
         }
     }

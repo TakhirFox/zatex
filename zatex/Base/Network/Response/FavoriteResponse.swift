@@ -54,7 +54,6 @@ extension Array where Element == FavoriteResponse {
                 id: Int(response.postID),
                 name: response.productName,
                 dateModified: response.postDate,
-                status: nil,
                 description: nil,
                 price: response.productPrice,
                 regularPrice: nil,
@@ -67,7 +66,7 @@ extension Array where Element == FavoriteResponse {
                 store: nil,
                 relatedIDS: nil,
                 attributes: attributes,
-                isSales: nil,
+                saleStatus: nil,
                 isFavorite: true
             )
         }

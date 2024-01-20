@@ -10,13 +10,12 @@
 protocol FeedInteractorProtocol {
     
     func getProducts(
+        categoryId: Int?,
         page: Int,
         city: String
     )
     
     func getCategories()
-    func getProductByCategory(id: String)
-    
     func getBanners()
     
     func getFavoriteList(isAuthorized: Bool)
@@ -34,8 +33,13 @@ class FeedInteractor: BaseInteractor {
 
 extension FeedInteractor: FeedInteractorProtocol {
     
-    func getProducts(page: Int, city: String) {
+    func getProducts(
+        categoryId: Int?,
+        page: Int,
+        city: String
+    ) {
         self.service.fetchProducts(
+            categoryId: categoryId,
             page: page,
             city: city
         ) { result in
@@ -60,24 +64,6 @@ extension FeedInteractor: FeedInteractorProtocol {
             switch result {
             case let .success(data):
                 self.presenter?.setCategories(data: data)
-                
-            case let .failure(error):
-                switch error {
-                case let .error(name):
-                    self.presenter?.setError(data: name)
-                    
-                case let .secondError(name):
-                    self.presenter?.setError(data: name)
-                }
-            }
-        }
-    }
-    
-    func getProductByCategory(id: String) {
-        self.service.fetchProductByCategory(id: id) { result in
-            switch result {
-            case let .success(data):
-                self.presenter?.setProductFromCategory(data: data)
                 
             case let .failure(error):
                 switch error {

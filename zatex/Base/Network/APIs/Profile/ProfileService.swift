@@ -37,11 +37,17 @@ extension ProfileService: ProfileAPI {
     
     func fetchStoreProducts(
         authorId: Int,
+        currentPage: Int,
+        saleStatus: String,
         completion: @escaping ProfileStoreProductClosure
     ) {
         do {
             try ProfileHttpRouter
-                .getStoreProducts(authorId: authorId)
+                .getStoreProducts(
+                    authorId: authorId,
+                    currentPage: currentPage,
+                    saleStatus: saleStatus
+                )
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [ProductResult].self) { response in
                     switch response.result {
@@ -56,16 +62,37 @@ extension ProfileService: ProfileAPI {
         }
     }
     
+    func fetchStoreStatsProducts(
+        authorId: Int,
+        completion: @escaping ProfileStoreProductClosure
+    ) {
+        do {
+            try ProfileHttpRouter
+                .getStoreStatsProducts(authorId: authorId)
+                .request(usingHttpService: httpService)
+                .responseDecodable(of: [ProductResult].self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(.success(data))
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 45634563456 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 75646574567: Ошибка получения статистики в профиле")))
+        }
+    }
+    
     func setSalesProfuct(
         productId: Int,
-        isSales: Bool,
+        saleStatus: String,
         completion: @escaping ProfileSalesProductClosure
     ) {
         do {
             try ProfileHttpRouter
                 .updateSalesProduct(
                     productId: productId,
-                    isSales: isSales
+                    saleStatus: saleStatus
                 )
                 .request(usingHttpService: httpService)
                 .cURLDescription { description in

@@ -8,10 +8,16 @@
 import Foundation
 
 struct ProductResult: Decodable, Hashable {
+    
+    enum SaleStatus: String, Decodable {
+        case publish = "publish"
+        case draft = "draft"
+        case none
+    }
+    
     let id: Int?
     let name: String?
     let dateModified: String?
-    let status: String?
     let description: String?
     let price, regularPrice: String?
     let onSale: Bool?
@@ -24,13 +30,12 @@ struct ProductResult: Decodable, Hashable {
     let relatedIDS: [Int]?
     let attributes: [OptionsProduct]
     
-    let isSales: Bool?
+    let saleStatus: SaleStatus?
     var isFavorite: Bool? = false
     
     enum CodingKeys: String, CodingKey {
         case id, name
         case dateModified = "date_modified"
-        case status
         case description
         case price
         case regularPrice = "regular_price"
@@ -42,7 +47,7 @@ struct ProductResult: Decodable, Hashable {
         case store
         case relatedIDS = "related_ids"
         case attributes
-        case isSales = "sold_individually"
+        case saleStatus = "status"
         case isFavorite
     }
     

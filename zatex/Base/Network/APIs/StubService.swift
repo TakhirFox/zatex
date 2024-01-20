@@ -13,7 +13,13 @@ class StubService {
 }
 
 extension StubService: ProductAPI {
-    func fetchProducts(page: Int, city: String, completion: @escaping ProductsClosure) {
+    
+    func fetchProducts(
+        categoryId: Int?,
+        page: Int,
+        city: String,
+        completion: @escaping ProductsClosure
+    ) {
         fatalError("Нет имплементации")
     }
     
@@ -25,10 +31,4 @@ extension StubService: ProductAPI {
         
         completion(.success(category))
     }
-    
-    func fetchProductByCategory(id: String, completion: @escaping ProdByCategoryClosure) {
-        fatalError("Нет имплементации")
-    }
-    
-    
 }

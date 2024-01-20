@@ -21,12 +21,19 @@ protocol ProfileAPI {
     
     func fetchStoreProducts(
         authorId: Int,
+        currentPage: Int,
+        saleStatus: String,
+        completion: @escaping ProfileStoreProductClosure
+    ) -> (Void)
+    
+    func fetchStoreStatsProducts(
+        authorId: Int,
         completion: @escaping ProfileStoreProductClosure
     ) -> (Void)
     
     func setSalesProfuct(
         productId: Int,
-        isSales: Bool,
+        saleStatus: String,
         completion: @escaping ProfileSalesProductClosure
     ) -> (Void)
     

@@ -210,7 +210,7 @@ extension DetailPresenter: DetailPresenterProtocol {
     }
     
     func setSimilarProducts(data: ProductResult) {
-        if let isSales = data.isSales, !isSales {
+        if let saleStatus = data.saleStatus, saleStatus == .publish {
             productEntities.append(data)
         }
         

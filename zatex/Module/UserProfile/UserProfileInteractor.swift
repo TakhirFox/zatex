@@ -9,7 +9,16 @@
 
 protocol UserProfileInteractorProtocol {
     func getStoreInfo(authorId: Int)
-    func getStoreProduct(authorId: Int, isSales: Bool)
+    
+    func getStoreProduct(
+        authorId: Int, 
+        currentPage: Int,
+        saleStatus: String
+    )
+    
+    func getStoreStatsProduct(
+        authorId: Int
+    )
 }
 
 class UserProfileInteractor: BaseInteractor {
@@ -37,15 +46,42 @@ extension UserProfileInteractor: UserProfileInteractorProtocol {
         }
     }
     
-    func getStoreProduct(authorId: Int, isSales: Bool) {
-        self.service.fetchStoreProducts(authorId: authorId) { result in
+    func getStoreProduct(
+        authorId: Int,
+        currentPage: Int,
+        saleStatus: String
+    ) {
+        self.service.fetchStoreProducts(
+            authorId: authorId,
+            currentPage: currentPage,
+            saleStatus: saleStatus
+        ) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setStoreProduct(
-                    data: data,
-                    isSales: isSales
+                    data: data
                 )
                 
+            case let .failure(error):
+                switch error {
+                case let .error(name):
+                    self.presenter?.setError(data: name)
+                    
+                case let .secondError(name):
+                    self.presenter?.setError(data: name)
+                }
+            }
+        }
+    }
+    
+    func getStoreStatsProduct(
+        authorId: Int
+    ) {
+        self.service.fetchStoreStatsProducts(
+            authorId: authorId
+        ) { result in
+            switch result {
+            case let .success(data):
                 self.presenter?.setProductStats(data: data)
                 
             case let .failure(error):
