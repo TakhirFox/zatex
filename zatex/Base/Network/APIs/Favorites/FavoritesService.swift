@@ -16,11 +16,15 @@ extension FavoritesService: FavoritesAPI {
 
     func fetchFavoriteList(
         isAuthorized: Bool,
+        page: Int,
         completion: @escaping FavoriteListClosure
     ) {
         do {
             try FavoritesHttpRouter
-                .getFavoriteList(isAuthorized: isAuthorized)
+                .getFavoriteList(
+                    isAuthorized: isAuthorized,
+                    page: page
+                )
                 .request(usingHttpService: httpService)
                 .cURLDescription { description in
                     print("LOG: getFavoriteList \(description)")

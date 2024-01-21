@@ -14,6 +14,7 @@ protocol FavoritesAPI {
     
     func fetchFavoriteList(
         isAuthorized: Bool,
+        page: Int,
         completion: @escaping FavoriteListClosure
     ) -> (Void)
     

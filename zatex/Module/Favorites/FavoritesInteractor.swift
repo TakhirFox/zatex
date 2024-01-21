@@ -9,7 +9,11 @@
 
 protocol FavoritesInteractorProtocol {
     
-    func getFavoriteList(isAuthorized: Bool)
+    func getFavoriteList(
+        isAuthorized: Bool,
+        page: Int
+    )
+    
     func addFavorite(productId: Int)
     func removeFavorite(productId: Int)
 }
@@ -22,8 +26,14 @@ class FavoritesInteractor: BaseInteractor {
 
 extension FavoritesInteractor: FavoritesInteractorProtocol {
     
-    func getFavoriteList(isAuthorized: Bool) {
-        self.service.fetchFavoriteList(isAuthorized: isAuthorized) { result in
+    func getFavoriteList(
+        isAuthorized: Bool,
+        page: Int
+    ) {
+        self.service.fetchFavoriteList(
+            isAuthorized: isAuthorized,
+            page: page
+        ) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setFavoriteList(data: data)

@@ -1636,10 +1636,10 @@
 			children = (
 				AD33167A2B275BCA00C297B0 /* Cells */,
 				ADD943012B14FDE3000A81E2 /* FavoritesViewController.swift */,
+				ADD943052B14FDE3000A81E2 /* FavoritesPresenter.swift */,
 				ADD943022B14FDE3000A81E2 /* FavoritesInteractor.swift */,
 				ADD943032B14FDE3000A81E2 /* FavoritesRouter.swift */,
 				ADD943042B14FDE3000A81E2 /* FavoritesAssembly.swift */,
-				ADD943052B14FDE3000A81E2 /* FavoritesPresenter.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";

@@ -102,7 +102,10 @@ extension FeedInteractor {
 extension FeedInteractor {
     
     func getFavoriteList(isAuthorized: Bool) {
-        self.favoriteService.fetchFavoriteList(isAuthorized: isAuthorized) { result in
+        self.favoriteService.fetchFavoriteList(
+            isAuthorized: isAuthorized,
+            page: 1
+        ) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setFavoriteList(data: data)

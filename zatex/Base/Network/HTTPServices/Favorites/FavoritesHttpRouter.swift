@@ -8,7 +8,7 @@
 import Alamofire
 
 enum FavoritesHttpRouter {
-    case getFavoriteList(isAuthorized: Bool)
+    case getFavoriteList(isAuthorized: Bool, page: Int)
     case addFavorite(productId: Int)
     case removeFavorite(productId: Int)
 }
@@ -43,7 +43,7 @@ extension FavoritesHttpRouter: HttpRouter {
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case let .getFavoriteList(isAuthorized):
+        case let .getFavoriteList(isAuthorized, _):
             return isAuthorized
             ? ["Authorization": "Bearer \(token)"]
             : nil
@@ -59,8 +59,13 @@ extension FavoritesHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .getFavoriteList,
-                .addFavorite,
+        case let .getFavoriteList(_, page):
+            return [
+                "page": page,
+                "per_page": 10
+            ]
+            
+            case .addFavorite,
                 .removeFavorite:
             return nil
         }
