@@ -8,7 +8,7 @@
 import Alamofire
 
 enum ChatListHttpRouter {
-    case getChatList
+    case getChatList(page: Int)
 }
 
 extension ChatListHttpRouter: HttpRouter {
@@ -39,8 +39,11 @@ extension ChatListHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .getChatList:
-            return nil
+        case let .getChatList(page):
+            return [
+                "page": page,
+                "per_page": 10
+            ]
         }
     }
     

@@ -15,7 +15,6 @@ typealias MarkMessageClosure = (Result<(), NetworkError>) -> (Void)
 protocol ChatDetailAPI {
     
     func fetchChatMessages(
-        page: Int,
         chatId: String,
         completion: @escaping ChatMessageClosure
     ) -> (Void)

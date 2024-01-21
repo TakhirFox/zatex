@@ -19,11 +19,13 @@ class ChatListViewController: BaseViewController {
     
     var presenter: ChatListPresenterProtocol?
     
-    var chatList: [ChatListResult] = []
+    private let refreshControl = UIRefreshControl()
+    private let tableView = UITableView()
+    private let emptyView = ChatEmptyView()
     
-    let refreshControl = UIRefreshControl()
-    let tableView = UITableView()
-    let emptyView = ChatEmptyView()
+    private var chatList: [ChatListResult] = []
+    private var isPaging = false
+    private var currentPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +75,7 @@ class ChatListViewController: BaseViewController {
     }
     
     private func getRequests() {
-        presenter?.getChatList()
+        presenter?.getChatList(page: currentPage)
         
         tableView.isHidden = true
         emptyView.isHidden = true
@@ -84,37 +86,76 @@ class ChatListViewController: BaseViewController {
 }
 
 extension ChatListViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return chatList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath) as! ChatListCell
         cell.setupCell(chatList[indexPath.row])
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         presenter?.routeToMessage(chatId: chatList[indexPath.row].chatID)
+    }
+}
+
+extension ChatListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        let collectionSize = tableView.contentSize.height
+        let scrollSize = scrollView.frame.size.height
+        let basicSize = collectionSize - 400 - scrollSize
+        
+        if position > basicSize {
+            if isPaging == true {
+                presenter?.getChatList(
+                    page: currentPage
+                )
+                
+                isPaging = false
+            }
+        }
     }
 }
 
 extension ChatListViewController: ChatListViewControllerProtocol {
     
-    @objc private func refreshData(_ sender: Any) {
-        presenter?.getChatList()
+    @objc private func refreshData(_ sender: Any) { // TODO: Решить
+//        chatList = []
+//        currentPage = 1
+//        
+//        presenter?.getChatList(page: currentPage)
     }
     
     func setChatList(data: [ChatListResult]) {
         DispatchQueue.main.async { [weak self] in
-            self?.chatList = data
-            self?.tableView.isHidden = false
-            self?.emptyView.isHidden = !data.isEmpty
-            self?.loaderView.isHidden = true
-            self?.loaderView.stop()
-            self?.tableView.reloadData()
-            self?.refreshControl.endRefreshing()
+            guard let self = self else { return }
+            
+            if currentPage == 1 {
+                self.emptyView.isHidden = !data.isEmpty
+            }
+            
+            self.chatList += data
+            self.isPaging = true
+            self.currentPage += 1
+            self.tableView.isHidden = false
+            self.loaderView.isHidden = true
+            self.loaderView.stop()
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     

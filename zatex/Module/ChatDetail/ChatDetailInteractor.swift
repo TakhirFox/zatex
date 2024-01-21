@@ -24,9 +24,8 @@ extension ChatDetailInteractor: ChatDetailInteractorProtocol {
     
     func getChatMessages() {
         self.service.fetchChatMessages(
-            page: 0,
             chatId: chatId
-        ) { result in // TODO: page: 0 to dynamic
+        ) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setChatMesssages(data: data)

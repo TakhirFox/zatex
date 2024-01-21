@@ -15,13 +15,14 @@ class ChatDetailService {
 extension ChatDetailService: ChatDetailAPI {
     
     func fetchChatMessages(
-        page: Int,
         chatId: String,
         completion: @escaping ChatMessageClosure
     ) {
         do {
             try ChatDetailHttpRouter
-                .getChatMessage(chatId: chatId)
+                .getChatMessage(
+                    chatId: chatId
+                )
                 .request(usingHttpService: httpService)
                 .responseDecodable(of: [ChatMessageResult].self) { response in
                     if let responseData = response.data {
