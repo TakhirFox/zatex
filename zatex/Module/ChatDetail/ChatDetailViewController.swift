@@ -20,15 +20,15 @@ protocol ChatDetailViewControllerProtocol: AnyObject {
 class ChatDetailViewController: BaseViewController {
     
     var presenter: ChatDetailPresenterProtocol?
-    
-    var messages: [ChatMessageResult] = []
-    var chatInfo: ChatInfoResult?
-    var messageContent = String()
     var userId: String?
+
+    private let chatInfoView = ChatInfoView()
+    private let chatView = UIView()
+    private let tableView = UITableView()
     
-    let chatInfoView = ChatInfoView()
-    let chatView = UIView()
-    let tableView = UITableView()
+    private var messages: [ChatMessageResult] = []
+    private var chatInfo: ChatInfoResult?
+    private var messageContent = String()
     
     let chatTextFieldView: UIView = {
         let view = UIView()

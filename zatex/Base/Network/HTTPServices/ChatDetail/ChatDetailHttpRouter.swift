@@ -76,8 +76,13 @@ extension ChatDetailHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .getChatMessage,
-                .getChatInfo,
+        case .getChatMessage:
+            return [
+                "page": 1,
+                "per_page": 100
+            ]
+            
+        case .getChatInfo,
                 .sendChatMessage,
                 .markMessage:
             return nil
