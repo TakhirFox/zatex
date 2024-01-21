@@ -12,6 +12,7 @@ typealias ChatListClosure = (Result<[ChatListResult], NetworkError>) -> (Void)
 protocol ChatListAPI  {
     
     func fetchChats(
+        page: Int,
         completion: @escaping ChatListClosure
     ) -> Void
 }

@@ -14,11 +14,14 @@ class ChatListService {
 
 extension ChatListService: ChatListAPI {
     
-    func fetchChats(completion: @escaping ChatListClosure) {
+    func fetchChats(
+        page: Int,
+        completion: @escaping ChatListClosure
+    ) {
         
         do {
             try ChatListHttpRouter
-                .getChatList
+                .getChatList(page: page)
                 .request(usingHttpService: httpService)
                 .cURLDescription { description in
                     print("LOG: getChatList \(description)")

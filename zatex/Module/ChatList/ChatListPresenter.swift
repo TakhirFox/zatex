@@ -8,7 +8,7 @@
 
 protocol ChatListPresenterProtocol: AnyObject {
     
-    func getChatList()
+    func getChatList(page: Int)
     
     func routeToMessage(chatId: String?)
     
@@ -25,8 +25,8 @@ class ChatListPresenter: BasePresenter {
 extension ChatListPresenter: ChatListPresenterProtocol {
     
     // MARK: To Interactor
-    func getChatList() {
-        interactor?.getChatList()
+    func getChatList(page: Int) {
+        interactor?.getChatList(page: page)
     }
     
     // MARK: To Router

@@ -8,7 +8,7 @@
 
 
 protocol ChatListInteractorProtocol {
-    func getChatList()
+    func getChatList(page: Int)
 }
 
 class ChatListInteractor: BaseInteractor {
@@ -18,8 +18,8 @@ class ChatListInteractor: BaseInteractor {
 
 extension ChatListInteractor: ChatListInteractorProtocol {
     
-    func getChatList() {
-        self.service.fetchChats { result in
+    func getChatList(page: Int) {
+        self.service.fetchChats(page: page) { result in
             switch result {
             case let .success(data):
                 self.presenter?.setChatList(data: data)
