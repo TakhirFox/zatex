@@ -8,7 +8,7 @@
 
 protocol FavoritesPresenterProtocol: AnyObject {
     
-    func getFavoriteList()
+    func getFavoriteList(page: Int)
     func addFavorite(productId: Int)
     func removeFavorite(productId: Int)
     
@@ -31,9 +31,12 @@ class FavoritesPresenter: BasePresenter {
 extension FavoritesPresenter: FavoritesPresenterProtocol {
     
     // MARK: To Interactor
-    func getFavoriteList() {
+    func getFavoriteList(page: Int) {
         let isAuthorized = sessionProvider.isAuthorized
-        interactor?.getFavoriteList(isAuthorized: isAuthorized)
+        interactor?.getFavoriteList(
+            isAuthorized: isAuthorized,
+            page: page
+        )
     }
     
     func addFavorite(productId: Int) {

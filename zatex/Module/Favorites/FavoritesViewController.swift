@@ -26,6 +26,8 @@ class FavoritesViewController: BaseViewController {
     private let refreshControl = UIRefreshControl()
     
     private var productEntity: [ProductResult] = []
+    private var isPaging = false
+    private var currentPage = 1
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -122,14 +124,37 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 }
 
-extension FavoritesViewController {
+extension FavoritesViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        let collectionSize = collectionView.contentSize.height
+        let scrollSize = scrollView.frame.size.height
+        let basicSize = collectionSize - 400 - scrollSize
+        
+        if position > basicSize {
+            if isPaging == true {
+                presenter?.getFavoriteList(
+                    page: currentPage
+                )
+                
+                isPaging = false
+            }
+        }
+    }
+}
+
+extension FavoritesViewController { // TODO: Решить
     
     @objc private func refreshData(_ sender: Any) {
-        presenter?.getFavoriteList()
+//        productEntity = []
+//        currentPage = 1
+//        
+//        presenter?.getFavoriteList(page: currentPage)
     }
     
     private func getRequests() {
-        presenter?.getFavoriteList()
+        presenter?.getFavoriteList(page: currentPage)
         
         collectionView.isHidden = true
         errorView.isHidden = true
@@ -156,8 +181,14 @@ extension FavoritesViewController: FavoritesViewControllerProtocol {
     func setFavoriteList(data: [ProductResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.productEntity = data
-            self.emptyView.isHidden = !data.isEmpty
+            
+            if currentPage == 1 {
+                self.emptyView.isHidden = !data.isEmpty
+            }
+            
+            self.productEntity += data
+            self.isPaging = true
+            self.currentPage += 1
             self.collectionView.isHidden = false
             self.errorView.isHidden = true
             self.loaderView.isHidden = true
