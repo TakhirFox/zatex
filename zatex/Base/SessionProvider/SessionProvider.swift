@@ -13,6 +13,7 @@ protocol SessionProvider {
     
     func getSession() -> SessionData?
     func setSession(_ session: SessionData)
+    func isMyAccount(id: Int) -> Bool
     func logout()
 }
 
@@ -30,6 +31,10 @@ final class AppSessionProvider: SessionProvider {
     
     func setSession(_ session: SessionData) {
         userSettingsService.saveSession(session: session)
+    }
+    
+    func isMyAccount(id: Int) -> Bool {
+        userSettingsService.isMyAccount(id: id)
     }
     
     func logout() {

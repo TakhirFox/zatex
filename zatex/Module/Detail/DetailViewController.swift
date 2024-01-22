@@ -41,6 +41,7 @@ class DetailViewController: BaseViewController {
     private var collectionView: UICollectionView!
     private var settingsButton = UIButton()
     private var favoriteButton = UIButton()
+    private var editButton = UIButton()
     private let headerView = ShopHeaderView()
     private let reviewDetailView = ReviewDetailView()
     private let successReviewDetailView = SuccessReviewDetailView()
@@ -92,9 +93,13 @@ class DetailViewController: BaseViewController {
             let image = isFavorite ? UIImage(named: "dark-like-fill") : UIImage(named: "dark-like-unfill")
             favoriteButton.setImage(image, for: .normal)
             
+            editButton.setImage(UIImage(named: "dark-edit"), for: .normal)
+            
         case .light:
             let image = isFavorite ? UIImage(named: "light-like-fill") : UIImage(named: "light-like-unfill")
             favoriteButton.setImage(image, for: .normal)
+            
+            editButton.setImage(UIImage(named: "light-edit"), for: .normal)
         }
         
         settingsButton.setImage(UIImage(named: "share-icon-dark"), for: .normal)
@@ -102,11 +107,24 @@ class DetailViewController: BaseViewController {
         settingsButton.addTarget(self, action: #selector(sharePageAction), for: .touchUpInside)
         let settingsItem = UIBarButtonItem(customView: settingsButton)
         
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.addTarget(self, action: #selector(changeFavoriteAction), for: .touchUpInside)
-        let favoriteItem = UIBarButtonItem(customView: favoriteButton)
+        var buttonItem: UIBarButtonItem = UIBarButtonItem()
         
-        navigationItem.rightBarButtonItems = [settingsItem, favoriteItem]
+        if sessionProvider != nil, sessionProvider!.isAuthorized {
+            guard let userId = product?.store?.id else { return }
+            
+            if sessionProvider!.isMyAccount(id: userId) {
+                editButton.translatesAutoresizingMaskIntoConstraints = false
+                editButton.addTarget(self, action: #selector(editProductsAction), for: .touchUpInside)
+                buttonItem = UIBarButtonItem(customView: editButton)
+            } else {
+                favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+                favoriteButton.addTarget(self, action: #selector(changeFavoriteAction), for: .touchUpInside)
+                buttonItem = UIBarButtonItem(customView: favoriteButton)
+            }
+        }
+        
+        
+        navigationItem.rightBarButtonItems = [settingsItem, buttonItem]
     }
     
     private func setupReviewDetailView() {
@@ -474,6 +492,11 @@ extension DetailViewController {
         }
         
         setupNavigationItem()
+    }
+    
+    @objc private func editProductsAction() {
+        guard let productId = product?.id else { return }
+        presenter?.goToEdit(id: productId)
     }
     
     @objc private func goToChat() {
