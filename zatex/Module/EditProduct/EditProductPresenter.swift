@@ -123,8 +123,19 @@ extension EditProductPresenter: EditProductPresenterProtocol {
     }
     
     // MARK: To View
-    func setProductInfo(data: ProductResult) {
-        view?.setProductInfo(data: data)
+    func setProductInfo(data: ProductResult) {        
+        let entity = ProductEntity(
+            productName: data.name,
+            category: data.categories?.first?.id,
+            categoryName: data.categories?.first?.name,
+            description: data.description,
+            cost: data.regularPrice,
+            currencySymbol: data.attributes.first(where: { $0.name == "Currency" })?.options.first,
+            images: [],
+            webImages: data.images?.compactMap({ $0.src }) ?? []
+        )
+            
+        view?.setProductInfo(data: entity)
     }
     
     func setCategories(data: [CategoryResult]) {
@@ -139,8 +150,6 @@ extension EditProductPresenter: EditProductPresenterProtocol {
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
         let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
         uploadedImages.insert(imageEntity, at: 0)
-        
-//        view?.stopImageSpinner()
     }
     
     func setSuccessUpload() {

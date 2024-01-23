@@ -11,10 +11,9 @@ import UIKit
 protocol EditProductViewControllerProtocol: AnyObject {
     var presenter: EditProductPresenterProtocol? { get set }
     
-    func setProductInfo(data: ProductResult)
+    func setProductInfo(data: ProductEntity)
     func setCategories(data: [CategoryResult])
     func setCurrencies(data: [CurrencyResult])
-//    func stopImageSpinner()
     func showSuccessUpload()
     
     func showToastProductError(text: String)
@@ -41,7 +40,6 @@ class EditProductViewController: BaseViewController {
     var productId: Int?
     
     private var productPost = ProductEntity()
-    private var productInfo: ProductResult?
     private var categories: [CategoryResult] = []
     private var currencies: [CurrencyResult] = []
     private var pickerTextFieldTag: Int?
@@ -139,6 +137,7 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             cell.setupCell(name: "Название")
             cell.textField.addTarget(self, action: #selector(productNameDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
+            cell.textField.text = productPost.productName
             return cell
             
         case .category:
@@ -154,12 +153,14 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             cell.textField.tag = 5
             cell.textField.inputView = pickerView
             cell.textField.delegate = self
+            cell.textField.text = productPost.categoryName
             return cell
             
         case .description:
             let cell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as! CreateProductDesctiptionCell
             cell.setupCell(name: "Опишите товар")
             cell.textView.delegate = self
+            cell.textView.text = productPost.description
             return cell
             
         case .cost:
@@ -168,6 +169,7 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             cell.textField.addTarget(self, action: #selector(costDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
             cell.textField.keyboardType = .numberPad
+            cell.textField.text = productPost.cost
             return cell
             
         case .currency:
@@ -184,6 +186,7 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             cell.textField.tag = 6
             cell.textField.inputView = pickerView
             cell.textField.delegate = self
+            cell.textField.text = productPost.currencySymbol
             return cell
             
         case .images:
@@ -320,7 +323,6 @@ extension EditProductViewController: UIImagePickerControllerDelegate, UINavigati
         let imageEntity = ProductEntity.Image(image: image)
         
         productPost.images.insert(imageEntity, at: 0)
-        presenter?.uploadImage(image: image)
         tableView.reloadData()
         imagePicker.dismiss(animated: true)
     }
@@ -402,10 +404,10 @@ extension EditProductViewController {
 
 extension EditProductViewController: EditProductViewControllerProtocol {
     
-    func setProductInfo(data: ProductResult) {
+    func setProductInfo(data: ProductEntity) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.productInfo = data
+            self.productPost = data
             self.tableView.reloadData()
         }
     }
@@ -425,14 +427,6 @@ extension EditProductViewController: EditProductViewControllerProtocol {
             self.tableView.reloadData()
         }
     }
-    
-//    func stopImageSpinner() {
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else { return }
-//            productPost.images[0].isLoaded = true
-//            self.tableView.reloadData()
-//        }
-//    }
     
     func showSuccessUpload() {
         successView.isHidden = false
