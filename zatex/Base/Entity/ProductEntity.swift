@@ -11,7 +11,6 @@ struct ProductEntity {
     
     struct Image {
         var image: UIImage
-        var isLoaded: Bool
     }
     
     var productName: String?

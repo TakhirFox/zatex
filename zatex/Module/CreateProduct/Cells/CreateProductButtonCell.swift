@@ -43,7 +43,7 @@ class CreateProductButtonCell: UITableViewCell {
     
     private func configureConstraints() {
         sendButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(9)
+            make.top.equalToSuperview().offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(9)
         }

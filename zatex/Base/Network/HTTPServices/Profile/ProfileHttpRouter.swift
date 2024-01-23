@@ -95,7 +95,7 @@ extension ProfileHttpRouter: HttpRouter {
                 .getStoreStatsProducts:
             return nil
             
-        case let.updateSalesProduct(_, saleStatus):
+        case let .updateSalesProduct(_, saleStatus):
             let data = SetSalesProductRequest(saleStatus: saleStatus)
             return try JSONEncoder().encode(data)
             

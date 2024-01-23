@@ -1,24 +1,28 @@
 //
-//  CreateProductCreateProductViewController.swift
+//  EditProductEditProductViewController.swift
 //  zatex
 //
-//  Created by iamtheorangefox@gmail.com on 05/11/2022.
-//  Copyright © 2022 zakirovweb. All rights reserved.
+//  Created by winzero on 22/01/2024.
+//  Copyright © 2024 zakirovweb. All rights reserved.
 //
 
 import UIKit
 
-protocol CreateProductViewControllerProtocol: AnyObject {
-    var presenter: CreateProductPresenterProtocol? { get set }
+protocol EditProductViewControllerProtocol: AnyObject {
+    var presenter: EditProductPresenterProtocol? { get set }
     
+    func setProductInfo(data: ProductResult)
     func setCategories(data: [CategoryResult])
     func setCurrencies(data: [CurrencyResult])
-    func showSuccess(product: ProductResult)
+//    func stopImageSpinner()
+    func showSuccessUpload()
     
+    func showToastProductError(text: String)
     func showToastCategoryError(text: String)
     func showToastCurrencyError(text: String)
     func showToastPublishError(text: String)
     func showToastImageError(text: String)
+    func showToastUpdateProductError(text: String)
     
     func showEmptyProductName()
     func showEmptyDescription()
@@ -27,26 +31,27 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     func showEmptyCurrency()
 }
 
-class CreateProductViewController: BaseViewController {
+class EditProductViewController: BaseViewController {
     
     enum RowKind: Int {
         case productName, category, description, cost, currency, images, send
     }
     
-    var presenter: CreateProductPresenterProtocol?
+    var presenter: EditProductPresenterProtocol?
+    var productId: Int?
     
-    var productPost = ProductEntity()
-    var categories: [CategoryResult] = []
-    var currencies: [CurrencyResult] = []
-    var loadedProduct: ProductResult?
-    var pickerTextFieldTag: Int?
-    var selectedCurrency: Int?
-    var selectedCategory: Int?
-    
-    let successView = SuccessProductView()
-    let tableView = UITableView(frame: .zero, style: .grouped)
-    let pickerView = UIPickerView()
-    let imagePicker = UIImagePickerController()
+    private var productPost = ProductEntity()
+    private var productInfo: ProductResult?
+    private var categories: [CategoryResult] = []
+    private var currencies: [CurrencyResult] = []
+    private var pickerTextFieldTag: Int?
+    private var selectedCurrency: Int?
+    private var selectedCategory: Int?
+
+    private let successView = SuccessProductView()
+    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let pickerView = UIPickerView()
+    private let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +65,10 @@ class CreateProductViewController: BaseViewController {
         
         presenter?.getCategories()
         presenter?.getCurrencies()
+        presenter?.getProductInfo(id: productId!)
     }
     
-    private func setupSubviews() {
+    func setupSubviews() {
         view.addSubview(tableView)
         view.addSubview(successView)
     }
@@ -79,7 +85,7 @@ class CreateProductViewController: BaseViewController {
     }
     
     private func setupTableView() {
-        title = "Добавить товар"
+        title = "Редактирование"
         
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "nameFieldCell")
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "categoryFieldCell")
@@ -108,12 +114,11 @@ class CreateProductViewController: BaseViewController {
     
     private func setSuccessView() {
         successView.isHidden = true
-        successView.newProductButton.addTarget(self, action: #selector(createNewProduct), for: .touchUpInside)
-        successView.showProductButton.addTarget(self, action: #selector(goToCreatedProduct), for: .touchUpInside)
+        successView.newProductButton.addTarget(self, action: #selector(goToBack), for: .touchUpInside)
     }
 }
 
-extension CreateProductViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditProductViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(
         _ tableView: UITableView,
@@ -187,6 +192,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             
             cell.removeImageHandler = { [weak self] index in
                 self?.productPost.images.remove(at: index)
+                self?.presenter?.removeImage(index: index)
             }
             
             cell.reloadCell()
@@ -223,7 +229,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
+extension EditProductViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.text != nil {
@@ -236,7 +242,7 @@ extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
     }
 }
 
-extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension EditProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -300,7 +306,7 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
     }
 }
 
-extension CreateProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(
         _ picker: UIImagePickerController,
@@ -314,6 +320,7 @@ extension CreateProductViewController: UIImagePickerControllerDelegate, UINaviga
         let imageEntity = ProductEntity.Image(image: image)
         
         productPost.images.insert(imageEntity, at: 0)
+        presenter?.uploadImage(image: image)
         tableView.reloadData()
         imagePicker.dismiss(animated: true)
     }
@@ -323,7 +330,7 @@ extension CreateProductViewController: UIImagePickerControllerDelegate, UINaviga
     }
 }
 
-extension CreateProductViewController {
+extension EditProductViewController {
     
     @objc func productNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
@@ -376,15 +383,8 @@ extension CreateProductViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func createNewProduct() {
-        let createProductController = CreateProductAssembly.create()
-        navigationController?.setViewControllers([createProductController], animated: false)
-    }
-    
-    @objc func goToCreatedProduct() {
-        guard let productId = loadedProduct?.id else { return }
-        
-        presenter?.goToDetail(id: productId)
+    @objc func goToBack() {
+        presenter?.goToBack()
     }
     
     private func showLoader(enable: Bool) {
@@ -400,8 +400,16 @@ extension CreateProductViewController {
     }
 }
 
-extension CreateProductViewController: CreateProductViewControllerProtocol {
+extension EditProductViewController: EditProductViewControllerProtocol {
     
+    func setProductInfo(data: ProductResult) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.productInfo = data
+            self.tableView.reloadData()
+        }
+    }
+   
     func setCategories(data: [CategoryResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -418,10 +426,24 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
-    func showSuccess(product: ProductResult) {
-        loadedProduct = product
+//    func stopImageSpinner() {
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self else { return }
+//            productPost.images[0].isLoaded = true
+//            self.tableView.reloadData()
+//        }
+//    }
+    
+    func showSuccessUpload() {
         successView.isHidden = false
         showLoader(enable: false)
+    }
+    
+    func showToastProductError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            guard let self = self else { return }
+            self.presenter?.getProductInfo(id: self.productId!)
+        }
     }
     
     func showToastCategoryError(text: String) {
@@ -449,6 +471,12 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         toastAnimation(text: text) {}
         
         showLoader(enable: false)
+    }
+    
+    func showToastUpdateProductError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+//            self?.presenter?.getCurrencies() // TODO: update 
+        }
     }
     
     func showEmptyProductName() {

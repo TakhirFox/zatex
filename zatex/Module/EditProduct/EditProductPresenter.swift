@@ -1,44 +1,53 @@
 //
-//  CreateProductCreateProductPresenter.swift
+//  EditProductEditProductPresenter.swift
 //  zatex
 //
-//  Created by iamtheorangefox@gmail.com on 05/11/2022.
-//  Copyright © 2022 zakirovweb. All rights reserved.
+//  Created by winzero on 22/01/2024.
+//  Copyright © 2024 zakirovweb. All rights reserved.
 //
 
 import UIKit
 
-protocol CreateProductPresenterProtocol: AnyObject {
+protocol EditProductPresenterProtocol: AnyObject {
+
+    func getProductInfo(id: Int)
     func getCategories()
     func getCurrencies()
     func uploadImage(image: UIImage)
     func checkTextFieldEmpty(data: ProductEntity)
     func publishProduct(data: ProductEntity)
+    func removeImage(index: Int)
     
-    func goToDetail(id: Int)
+    func goToBack() // TODO: Илии все таки назад?
     
+    func setProductInfo(data: ProductResult)
     func setCategories(data: [CategoryResult])
     func setCurrencies(data: [CurrencyResult])
     func setImage(image: MediaResult)
-    func showSuccess(product: ProductResult)
+    func setSuccessUpload()
+    func setToastProductError(text: String)
     func setToastCategoryError(text: String)
     func setToastCurrencyError(text: String)
     func setToastPublishError(text: String)
     func setToastImageError(text: String)
+    func setToastUpdateProductError(text: String)
 }
 
-class CreateProductPresenter: BasePresenter {
-    weak var view: CreateProductViewControllerProtocol?
-    var interactor: CreateProductInteractorProtocol?
-    var router: CreateProductRouterProtocol?
+class EditProductPresenter: BasePresenter {
+    weak var view: EditProductViewControllerProtocol?
+    var interactor: EditProductInteractorProtocol?
+    var router: EditProductRouterProtocol?
     
     private var uploadedImages: [ProductResponse.Image] = []
-    private let dispatchGroup = DispatchGroup()
 }
 
-extension CreateProductPresenter: CreateProductPresenterProtocol {
+extension EditProductPresenter: EditProductPresenterProtocol {
     
     // MARK: To Interactor
+    func getProductInfo(id: Int) {
+        interactor?.getProductInfo(id: id)
+    }
+    
     func getCategories() {
         interactor?.getCategories()
     }
@@ -82,41 +91,42 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     }
     
     func publishProduct(data: ProductEntity) {
+        let category = ProductResponse.Category(id: data.category)
         
-        for image in data.images {
-            dispatchGroup.enter()
-            uploadImage(image: image.image)
-        }
+        let currency = ProductResponse.ProductOptions(
+            name: "Currency",
+            options: [data.currencySymbol ?? ""],
+            visible: true,
+            variation: true
+        )
         
-        dispatchGroup.notify(queue: .main) {
-            let category = ProductResponse.Category(id: data.category)
-            
-            let currency = ProductResponse.ProductOptions(
-                name: "Currency",
-                options: [data.currencySymbol ?? ""],
-                visible: true,
-                variation: true
-            )
-            
-            let product = ProductResponse(
-                name: data.productName,
-                description: data.description,
-                regularPrice: data.cost,
-                categories: [category],
-                images: self.uploadedImages,
-                attributes: [currency]
-            )
-            
-            self.interactor?.publishProduct(data: product)
-        }
+        let product = ProductResponse(
+            name: data.productName,
+            description: data.description,
+            regularPrice: data.cost,
+            categories: [category],
+            images: uploadedImages,
+            attributes: [currency]
+        )
+        
+//        interactor?.publishProduct(data: product)
+    }
+    
+    func removeImage(index: Int) {
+        uploadedImages.remove(at: index)
     }
     
     // MARK: To Router
-    func goToDetail(id: Int) {
-        router?.routeToDetail(id: id)
+    
+    func goToBack() {
+        router?.routeToBack()
     }
     
     // MARK: To View
+    func setProductInfo(data: ProductResult) {
+        view?.setProductInfo(data: data)
+    }
+    
     func setCategories(data: [CategoryResult]) {
         view?.setCategories(data: data)
     }
@@ -125,15 +135,20 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         view?.setCurrencies(data: data)
     }
     
-    func setImage(image: MediaResult) {
+    func setImage(image: MediaResult) { // TODO: Change logic for upload images
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
         let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
         uploadedImages.insert(imageEntity, at: 0)
-        dispatchGroup.leave()
+        
+//        view?.stopImageSpinner()
     }
     
-    func showSuccess(product: ProductResult) {
-        view?.showSuccess(product: product)
+    func setSuccessUpload() {
+        view?.showSuccessUpload()
+    }
+    
+    func setToastProductError(text: String) {
+        view?.showToastProductError(text: text)
     }
     
     func setToastCategoryError(text: String) {
@@ -150,5 +165,9 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     
     func setToastImageError(text: String) {
         view?.showToastImageError(text: text)
+    }
+    
+    func setToastUpdateProductError(text: String) {
+        view?.showToastUpdateProductError(text: text)
     }
 }
