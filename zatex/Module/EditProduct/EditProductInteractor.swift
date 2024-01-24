@@ -39,10 +39,10 @@ extension EditProductInteractor: EditProductInteractorProtocol {
             case let .failure(error):
                 switch error {
                 case let .error(name):
-                    self.presenter?.setToastProductError(text: name)
+                    self.presenter?.setProductError(text: name)
                     
                 case let .secondError(name):
-                    self.presenter?.setToastProductError(text: name)
+                    self.presenter?.setProductError(text: name)
                 }
             }
         }

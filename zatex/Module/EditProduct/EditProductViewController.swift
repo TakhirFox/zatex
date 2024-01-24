@@ -16,10 +16,9 @@ protocol EditProductViewControllerProtocol: AnyObject {
     func setCurrencies(data: [CurrencyResult])
     func showSuccessUpload()
     
-    func showToastProductError(text: String)
+    func showProductError(text: String)
     func showToastCategoryError(text: String)
     func showToastCurrencyError(text: String)
-    func showToastPublishError(text: String)
     func showToastImageError(text: String)
     func showToastUpdateProductError(text: String)
     
@@ -54,19 +53,16 @@ class EditProductViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getRequests()
         setupImagePicker()
         setupPickerView()
         setupTableView()
         setupSubviews()
         setupConstraints()
         setSuccessView()
-        
-        presenter?.getCategories()
-        presenter?.getCurrencies()
-        presenter?.getProductInfo(id: productId!)
     }
     
-    func setupSubviews() {
+    private func setupSubviews() {
         view.addSubview(tableView)
         view.addSubview(successView)
     }
@@ -114,6 +110,17 @@ class EditProductViewController: BaseViewController {
         successView.isHidden = true
         successView.newProductButton.addTarget(self, action: #selector(goToBack), for: .touchUpInside)
     }
+    
+    private func getRequests() {
+        presenter?.getCategories()
+        presenter?.getCurrencies()
+        presenter?.getProductInfo(id: productId!)
+        
+        tableView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+        loaderView.play()
+    }
 }
 
 extension EditProductViewController: UITableViewDelegate, UITableViewDataSource {
@@ -148,12 +155,13 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
                 let categoryName = categories[selectedCategory!].name
                 
                 cell.textField.text = categoryName
+            } else {
+                cell.textField.text = productPost.categoryName
             }
             
             cell.textField.tag = 5
             cell.textField.inputView = pickerView
             cell.textField.delegate = self
-            cell.textField.text = productPost.categoryName
             return cell
             
         case .description:
@@ -204,8 +212,8 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             
         case .send:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! CreateProductButtonCell
-            cell.setupCell(name: "Разместить")
-            cell.sendButton.addTarget(self, action: #selector(publishProduct), for: .touchUpInside)
+            cell.setupCell(name: "Обновить")
+            cell.sendButton.addTarget(self, action: #selector(updateProduct), for: .touchUpInside)
             return cell
             
         case .none:
@@ -346,7 +354,7 @@ extension EditProductViewController {
         }
     }
     
-    @objc func publishProduct() {
+    @objc func updateProduct() {
         for index in 0..<4 {
             if index == 2 {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
@@ -357,7 +365,11 @@ extension EditProductViewController {
         }
         
         showLoader(enable: true)
-        presenter?.checkTextFieldEmpty(data: productPost)
+        
+        presenter?.checkTextFieldEmpty(
+            productId: productId!,
+            data: productPost
+        )
     }
     
     private func setStandartColorToTextField(index: Int) {
@@ -408,6 +420,9 @@ extension EditProductViewController: EditProductViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.productPost = data
+            self.tableView.isHidden = false
+            self.loaderView.isHidden = true
+            self.loaderView.stop()
             self.tableView.reloadData()
         }
     }
@@ -433,10 +448,14 @@ extension EditProductViewController: EditProductViewControllerProtocol {
         showLoader(enable: false)
     }
     
-    func showToastProductError(text: String) {
-        toastAnimation(text: text) { [weak self] in
-            guard let self = self else { return }
-            self.presenter?.getProductInfo(id: self.productId!)
+    func showProductError(text: String) {
+        tableView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: text)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
         }
     }
     
@@ -452,15 +471,6 @@ extension EditProductViewController: EditProductViewControllerProtocol {
         }
     }
     
-    func showToastPublishError(text: String) {
-        toastAnimation(text: text) { [weak self] in
-            self?.presenter?.publishProduct(data: self!.productPost)
-            self?.showLoader(enable: true)
-        }
-        
-        showLoader(enable: false)
-    }
-    
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
         
@@ -469,7 +479,12 @@ extension EditProductViewController: EditProductViewControllerProtocol {
     
     func showToastUpdateProductError(text: String) {
         toastAnimation(text: text) { [weak self] in
-//            self?.presenter?.getCurrencies() // TODO: update 
+            guard let self = self else { return }
+            
+            self.presenter?.checkTextFieldEmpty(
+                productId: self.productId!,
+                data: self.productPost
+            )
         }
     }
     

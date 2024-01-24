@@ -14,21 +14,31 @@ protocol EditProductPresenterProtocol: AnyObject {
     func getCategories()
     func getCurrencies()
     func uploadImage(image: UIImage)
-    func checkTextFieldEmpty(data: ProductEntity)
-    func publishProduct(data: ProductEntity)
+    
+    func checkTextFieldEmpty(
+        productId: Int,
+        data: ProductEntity
+    )
+    
+    func updateProduct(
+        productId: Int,
+        data: ProductEntity
+    )
+    
     func removeImage(index: Int)
     
-    func goToBack() // TODO: Илии все таки назад?
+    
+    func goToBack()
+    
     
     func setProductInfo(data: ProductResult)
     func setCategories(data: [CategoryResult])
     func setCurrencies(data: [CurrencyResult])
     func setImage(image: MediaResult)
     func setSuccessUpload()
-    func setToastProductError(text: String)
+    func setProductError(text: String)
     func setToastCategoryError(text: String)
     func setToastCurrencyError(text: String)
-    func setToastPublishError(text: String)
     func setToastImageError(text: String)
     func setToastUpdateProductError(text: String)
 }
@@ -60,7 +70,10 @@ extension EditProductPresenter: EditProductPresenterProtocol {
         interactor?.uploadImage(image: image)
     }
     
-    func checkTextFieldEmpty(data: ProductEntity) {
+    func checkTextFieldEmpty(
+        productId: Int,
+        data: ProductEntity
+    ) {
         if data.productName == nil  {
             view?.showEmptyProductName()
         }
@@ -85,12 +98,19 @@ extension EditProductPresenter: EditProductPresenterProtocol {
            data.description != nil,
            data.cost != nil,
            data.category != nil,
-           data.currencySymbol != nil {
-            publishProduct(data: data)
+           data.currencySymbol != nil 
+        {
+            updateProduct(
+                productId: productId,
+                data: data
+            )
         }
     }
     
-    func publishProduct(data: ProductEntity) {
+    func updateProduct(
+        productId: Int,
+        data: ProductEntity
+    ) {
         let category = ProductResponse.Category(id: data.category)
         
         let currency = ProductResponse.ProductOptions(
@@ -109,7 +129,13 @@ extension EditProductPresenter: EditProductPresenterProtocol {
             attributes: [currency]
         )
         
-//        interactor?.publishProduct(data: product)
+        print("LOG: product \(product)")
+        
+        
+//        interactor?.updateProduct(
+//            id: productId,
+//            data: product
+//        )
     }
     
     func removeImage(index: Int) {
@@ -123,7 +149,7 @@ extension EditProductPresenter: EditProductPresenterProtocol {
     }
     
     // MARK: To View
-    func setProductInfo(data: ProductResult) {        
+    func setProductInfo(data: ProductResult) {
         let entity = ProductEntity(
             productName: data.name,
             category: data.categories?.first?.id,
@@ -156,8 +182,8 @@ extension EditProductPresenter: EditProductPresenterProtocol {
         view?.showSuccessUpload()
     }
     
-    func setToastProductError(text: String) {
-        view?.showToastProductError(text: text)
+    func setProductError(text: String) {
+        view?.showProductError(text: text)
     }
     
     func setToastCategoryError(text: String) {
@@ -166,10 +192,6 @@ extension EditProductPresenter: EditProductPresenterProtocol {
     
     func setToastCurrencyError(text: String) {
         view?.showToastCurrencyError(text: text)
-    }
-    
-    func setToastPublishError(text: String) {
-        view?.showToastPublishError(text: text)
     }
     
     func setToastImageError(text: String) {
