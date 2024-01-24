@@ -32,7 +32,7 @@ protocol EditProductViewControllerProtocol: AnyObject {
 class EditProductViewController: BaseViewController {
     
     enum RowKind: Int {
-        case productName, category, description, cost, currency, images, send
+        case productName, category, description, cost, currency, /*images,*/ send
     }
     
     var presenter: EditProductPresenterProtocol?
@@ -45,7 +45,7 @@ class EditProductViewController: BaseViewController {
     private var selectedCurrency: Int?
     private var selectedCategory: Int?
 
-    private let successView = SuccessProductView()
+    private let successView = SuccessEditProductView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let pickerView = UIPickerView()
     private let imagePicker = UIImagePickerController()
@@ -108,7 +108,7 @@ class EditProductViewController: BaseViewController {
     
     private func setSuccessView() {
         successView.isHidden = true
-        successView.newProductButton.addTarget(self, action: #selector(goToBack), for: .touchUpInside)
+        successView.closeButton.addTarget(self, action: #selector(goToBack), for: .touchUpInside)
     }
     
     private func getRequests() {
@@ -197,18 +197,18 @@ extension EditProductViewController: UITableViewDelegate, UITableViewDataSource 
             cell.textField.text = productPost.currencySymbol
             return cell
             
-        case .images:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
-            cell.setupCell(images: productPost.images)
-            
-            cell.removeImageHandler = { [weak self] index in
-                self?.productPost.images.remove(at: index)
-                self?.presenter?.removeImage(index: index)
-            }
-            
-            cell.reloadCell()
-            cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
-            return cell
+//        case .images:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
+//            cell.setupCell(images: productPost.images)
+//            
+//            cell.removeImageHandler = { [weak self] index in
+//                self?.productPost.images.remove(at: index)
+//                self?.presenter?.removeImage(index: index)
+//            }
+//            
+//            cell.reloadCell()
+//            cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
+//            return cell
             
         case .send:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! CreateProductButtonCell

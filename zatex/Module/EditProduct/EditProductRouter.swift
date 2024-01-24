@@ -20,6 +20,6 @@ class EditProductRouter: BaseRouter {
 extension EditProductRouter: EditProductRouterProtocol {
     
     func routeToBack() {
-        // TODO: back
+        viewController?.navigationController?.popViewController(animated: true)
     }
 }

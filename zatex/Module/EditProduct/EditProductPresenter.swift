@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EditProductPresenterProtocol: AnyObject {
-
+    
     func getProductInfo(id: Int)
     func getCategories()
     func getCurrencies()
@@ -48,7 +48,8 @@ class EditProductPresenter: BasePresenter {
     var interactor: EditProductInteractorProtocol?
     var router: EditProductRouterProtocol?
     
-    private var uploadedImages: [ProductResponse.Image] = []
+    private var uploadedImages: [ProductResponse.Image]?
+    private var cachedProduct: ProductEntity?
 }
 
 extension EditProductPresenter: EditProductPresenterProtocol {
@@ -98,7 +99,7 @@ extension EditProductPresenter: EditProductPresenterProtocol {
            data.description != nil,
            data.cost != nil,
            data.category != nil,
-           data.currencySymbol != nil 
+           data.currencySymbol != nil
         {
             updateProduct(
                 productId: productId,
@@ -111,35 +112,44 @@ extension EditProductPresenter: EditProductPresenterProtocol {
         productId: Int,
         data: ProductEntity
     ) {
-        let category = ProductResponse.Category(id: data.category)
         
-        let currency = ProductResponse.ProductOptions(
-            name: "Currency",
-            options: [data.currencySymbol ?? ""],
-            visible: true,
-            variation: true
-        )
+        var category: [ProductResponse.Category]?
+        
+        if data.category != cachedProduct?.category {
+            category = [ProductResponse.Category(id: data.category)]
+        }
+        
+        
+        var currency: [ProductResponse.ProductOptions]?
+        
+        if data.currencySymbol != cachedProduct?.currencySymbol {
+            currency = [
+                ProductResponse.ProductOptions(
+                    name: "Currency",
+                    options: [data.currencySymbol!],
+                    visible: true,
+                    variation: true
+                )
+            ]
+        }
         
         let product = ProductResponse(
-            name: data.productName,
-            description: data.description,
-            regularPrice: data.cost,
-            categories: [category],
-            images: uploadedImages,
-            attributes: [currency]
+            name: data.productName == cachedProduct?.productName ? nil : data.productName,
+            description: data.description == cachedProduct?.description ? nil : data.description,
+            regularPrice: data.cost == cachedProduct?.cost ? nil : data.cost,
+            categories: category,
+            images: nil,
+            attributes: currency
         )
-        
-        print("LOG: product \(product)")
-        
-        
-//        interactor?.updateProduct(
-//            id: productId,
-//            data: product
-//        )
+                
+        interactor?.updateProduct(
+            id: productId,
+            data: product
+        )
     }
     
     func removeImage(index: Int) {
-        uploadedImages.remove(at: index)
+        uploadedImages?.remove(at: index)
     }
     
     // MARK: To Router
@@ -160,7 +170,8 @@ extension EditProductPresenter: EditProductPresenterProtocol {
             images: [],
             webImages: data.images?.compactMap({ $0.src }) ?? []
         )
-            
+        
+        cachedProduct = entity
         view?.setProductInfo(data: entity)
     }
     
@@ -174,8 +185,8 @@ extension EditProductPresenter: EditProductPresenterProtocol {
     
     func setImage(image: MediaResult) { // TODO: Change logic for upload images
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
-        let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
-        uploadedImages.insert(imageEntity, at: 0)
+        let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages?.count)
+        uploadedImages?.insert(imageEntity, at: 0)
     }
     
     func setSuccessUpload() {
