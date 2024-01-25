@@ -28,6 +28,7 @@ class FavoritesViewController: BaseViewController {
     private var productEntity: [ProductResult] = []
     private var isPaging = false
     private var currentPage = 1
+    private var isFirstLoading = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -144,13 +145,12 @@ extension FavoritesViewController: UIScrollViewDelegate {
     }
 }
 
-extension FavoritesViewController { // TODO: Решить
+extension FavoritesViewController {
     
     @objc private func refreshData(_ sender: Any) {
-//        productEntity = []
-//        currentPage = 1
-//        
-//        presenter?.getFavoriteList(page: currentPage)
+        currentPage = 1
+        
+        presenter?.getFavoriteList(page: currentPage)
     }
     
     private func getRequests() {
@@ -183,9 +183,14 @@ extension FavoritesViewController: FavoritesViewControllerProtocol {
             guard let self = self else { return }
             
             if currentPage == 1 {
-                self.emptyView.isHidden = !data.isEmpty
+                productEntity = []
             }
             
+            if isFirstLoading && data.isEmpty {
+                self.emptyView.isHidden = false
+            }
+            
+            self.isFirstLoading = false
             self.productEntity += data
             self.isPaging = true
             self.currentPage += 1
