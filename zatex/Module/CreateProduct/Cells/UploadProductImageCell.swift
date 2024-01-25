@@ -20,12 +20,6 @@ class UploadProductImageCell: UICollectionViewCell {
     let removeButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "xmark.circle.fill")?.withTintColor(.gray, renderingMode: .alwaysOriginal), for: .normal)
-
-        return view
-    }()
-    
-    private let spinner: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .medium)
         return view
     }()
     
@@ -45,14 +39,6 @@ class UploadProductImageCell: UICollectionViewCell {
     func setupCell(image: ProductEntity.Image) {
         
         productImageView.image = image.image
-        
-        if image.isLoaded {
-            spinner.stopAnimating()
-            productImageView.alpha = 1
-        } else {
-            spinner.startAnimating()
-            productImageView.alpha = 0.5
-        }
     }
     
     private func configureView() {
@@ -64,16 +50,10 @@ class UploadProductImageCell: UICollectionViewCell {
     
     private func configureSubviews() {
         addSubview(productImageView)
-        addSubview(spinner)
         addSubview(removeButton)
     }
     
     private func configureConstraints() {
-        spinner.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-        }
-        
         productImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()

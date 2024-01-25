@@ -1,24 +1,26 @@
 //
-//  CreateProductCreateProductViewController.swift
+//  EditProductEditProductViewController.swift
 //  zatex
 //
-//  Created by iamtheorangefox@gmail.com on 05/11/2022.
-//  Copyright © 2022 zakirovweb. All rights reserved.
+//  Created by winzero on 22/01/2024.
+//  Copyright © 2024 zakirovweb. All rights reserved.
 //
 
 import UIKit
 
-protocol CreateProductViewControllerProtocol: AnyObject {
-    var presenter: CreateProductPresenterProtocol? { get set }
+protocol EditProductViewControllerProtocol: AnyObject {
+    var presenter: EditProductPresenterProtocol? { get set }
     
+    func setProductInfo(data: ProductEntity)
     func setCategories(data: [CategoryResult])
     func setCurrencies(data: [CurrencyResult])
-    func showSuccess(product: ProductResult)
+    func showSuccessUpload()
     
+    func showProductError(text: String)
     func showToastCategoryError(text: String)
     func showToastCurrencyError(text: String)
-    func showToastPublishError(text: String)
     func showToastImageError(text: String)
+    func showToastUpdateProductError(text: String)
     
     func showEmptyProductName()
     func showEmptyDescription()
@@ -27,39 +29,37 @@ protocol CreateProductViewControllerProtocol: AnyObject {
     func showEmptyCurrency()
 }
 
-class CreateProductViewController: BaseViewController {
+class EditProductViewController: BaseViewController {
     
     enum RowKind: Int {
-        case productName, category, description, cost, currency, images, send
+        case productName, category, description, cost, currency, /*images,*/ send
     }
     
-    var presenter: CreateProductPresenterProtocol?
+    var presenter: EditProductPresenterProtocol?
+    var productId: Int?
     
-    var productPost = ProductEntity()
-    var categories: [CategoryResult] = []
-    var currencies: [CurrencyResult] = []
-    var loadedProduct: ProductResult?
-    var pickerTextFieldTag: Int?
-    var selectedCurrency: Int?
-    var selectedCategory: Int?
-    
-    let successView = SuccessProductView()
-    let tableView = UITableView(frame: .zero, style: .grouped)
-    let pickerView = UIPickerView()
-    let imagePicker = UIImagePickerController()
+    private var productPost = ProductEntity()
+    private var categories: [CategoryResult] = []
+    private var currencies: [CurrencyResult] = []
+    private var pickerTextFieldTag: Int?
+    private var selectedCurrency: Int?
+    private var selectedCategory: Int?
+
+    private let successView = SuccessEditProductView()
+    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let pickerView = UIPickerView()
+    private let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getRequests()
         setupImagePicker()
         setupPickerView()
         setupTableView()
         setupSubviews()
         setupConstraints()
         setSuccessView()
-        
-        presenter?.getCategories()
-        presenter?.getCurrencies()
     }
     
     private func setupSubviews() {
@@ -79,7 +79,7 @@ class CreateProductViewController: BaseViewController {
     }
     
     private func setupTableView() {
-        title = "Добавить товар"
+        title = "Редактирование"
         
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "nameFieldCell")
         tableView.register(CreateProductFieldCell.self, forCellReuseIdentifier: "categoryFieldCell")
@@ -108,12 +108,22 @@ class CreateProductViewController: BaseViewController {
     
     private func setSuccessView() {
         successView.isHidden = true
-        successView.newProductButton.addTarget(self, action: #selector(createNewProduct), for: .touchUpInside)
-        successView.showProductButton.addTarget(self, action: #selector(goToCreatedProduct), for: .touchUpInside)
+        successView.closeButton.addTarget(self, action: #selector(goToBack), for: .touchUpInside)
+    }
+    
+    private func getRequests() {
+        presenter?.getCategories()
+        presenter?.getCurrencies()
+        presenter?.getProductInfo(id: productId!)
+        
+        tableView.isHidden = true
+        errorView.isHidden = true
+        loaderView.isHidden = false
+        loaderView.play()
     }
 }
 
-extension CreateProductViewController: UITableViewDelegate, UITableViewDataSource {
+extension EditProductViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(
         _ tableView: UITableView,
@@ -134,6 +144,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             cell.setupCell(name: "Название")
             cell.textField.addTarget(self, action: #selector(productNameDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
+            cell.textField.text = productPost.productName
             return cell
             
         case .category:
@@ -144,6 +155,8 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
                 let categoryName = categories[selectedCategory!].name
                 
                 cell.textField.text = categoryName
+            } else {
+                cell.textField.text = productPost.categoryName
             }
             
             cell.textField.tag = 5
@@ -155,6 +168,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as! CreateProductDesctiptionCell
             cell.setupCell(name: "Опишите товар")
             cell.textView.delegate = self
+            cell.textView.text = productPost.description
             return cell
             
         case .cost:
@@ -163,6 +177,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             cell.textField.addTarget(self, action: #selector(costDidChange(_:)), for: .editingChanged)
             cell.textField.delegate = self
             cell.textField.keyboardType = .numberPad
+            cell.textField.text = productPost.cost
             return cell
             
         case .currency:
@@ -179,24 +194,26 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
             cell.textField.tag = 6
             cell.textField.inputView = pickerView
             cell.textField.delegate = self
+            cell.textField.text = productPost.currencySymbol
             return cell
             
-        case .images:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
-            cell.setupCell(images: productPost.images)
-            
-            cell.removeImageHandler = { [weak self] index in
-                self?.productPost.images.remove(at: index)
-            }
-            
-            cell.reloadCell()
-            cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
-            return cell
+//        case .images:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "imagesCell", for: indexPath) as! CreateProductImagesCell
+//            cell.setupCell(images: productPost.images)
+//            
+//            cell.removeImageHandler = { [weak self] index in
+//                self?.productPost.images.remove(at: index)
+//                self?.presenter?.removeImage(index: index)
+//            }
+//            
+//            cell.reloadCell()
+//            cell.plusButton.addTarget(self, action: #selector(showImagePicker), for: .touchUpInside)
+//            return cell
             
         case .send:
             let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! CreateProductButtonCell
-            cell.setupCell(name: "Разместить")
-            cell.sendButton.addTarget(self, action: #selector(publishProduct), for: .touchUpInside)
+            cell.setupCell(name: "Обновить")
+            cell.sendButton.addTarget(self, action: #selector(updateProduct), for: .touchUpInside)
             return cell
             
         case .none:
@@ -223,7 +240,7 @@ extension CreateProductViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
+extension EditProductViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.text != nil {
@@ -236,7 +253,7 @@ extension CreateProductViewController: UITextViewDelegate, UITextFieldDelegate {
     }
 }
 
-extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension EditProductViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -264,17 +281,12 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
     ) -> String? {
         switch pickerTextFieldTag {
         case 5:
-            let id = categories[row].id
-            productPost.category = id
-            
             return categories[row].name
             
         case 6:
             let name = currencies[row].name
             let symbol = currencies[row].symbol
-            
-            productPost.currencySymbol = symbol
-            
+                        
             return "\(name) (\(symbol))"
             
         default: return ""
@@ -288,10 +300,18 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
     ) {
         switch pickerTextFieldTag {
         case 5:
+            let id = categories[row].id
+            productPost.category = id
+            
             selectedCategory = row
+            
             tableView.reloadRows(at: [IndexPath(item: 1, section: 0)], with: .automatic)
             
         case 6:
+            let symbol = currencies[row].symbol
+            
+            productPost.currencySymbol = symbol
+            
             selectedCurrency = row
             tableView.reloadRows(at: [IndexPath(item: 4, section: 0)], with: .automatic)
             
@@ -300,7 +320,7 @@ extension CreateProductViewController: UIPickerViewDelegate, UIPickerViewDataSou
     }
 }
 
-extension CreateProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(
         _ picker: UIImagePickerController,
@@ -323,7 +343,7 @@ extension CreateProductViewController: UIImagePickerControllerDelegate, UINaviga
     }
 }
 
-extension CreateProductViewController {
+extension EditProductViewController {
     
     @objc func productNameDidChange(_ textField: UITextField) {
         if textField.text != nil {
@@ -337,7 +357,7 @@ extension CreateProductViewController {
         }
     }
     
-    @objc func publishProduct() {
+    @objc func updateProduct() {
         for index in 0..<4 {
             if index == 2 {
                 guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? CreateProductDesctiptionCell else { return }
@@ -348,7 +368,11 @@ extension CreateProductViewController {
         }
         
         showLoader(enable: true)
-        presenter?.checkTextFieldEmpty(data: productPost)
+        
+        presenter?.checkTextFieldEmpty(
+            productId: productId!,
+            data: productPost
+        )
     }
     
     private func setStandartColorToTextField(index: Int) {
@@ -376,15 +400,8 @@ extension CreateProductViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func createNewProduct() {
-        let createProductController = CreateProductAssembly.create()
-        navigationController?.setViewControllers([createProductController], animated: false)
-    }
-    
-    @objc func goToCreatedProduct() {
-        guard let productId = loadedProduct?.id else { return }
-        
-        presenter?.goToDetail(id: productId)
+    @objc func goToBack() {
+        presenter?.goToBack()
     }
     
     private func showLoader(enable: Bool) {
@@ -400,8 +417,19 @@ extension CreateProductViewController {
     }
 }
 
-extension CreateProductViewController: CreateProductViewControllerProtocol {
+extension EditProductViewController: EditProductViewControllerProtocol {
     
+    func setProductInfo(data: ProductEntity) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.productPost = data
+            self.tableView.isHidden = false
+            self.loaderView.isHidden = true
+            self.loaderView.stop()
+            self.tableView.reloadData()
+        }
+    }
+   
     func setCategories(data: [CategoryResult]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -418,10 +446,20 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
-    func showSuccess(product: ProductResult) {
-        loadedProduct = product
+    func showSuccessUpload() {
         successView.isHidden = false
         showLoader(enable: false)
+    }
+    
+    func showProductError(text: String) {
+        tableView.isHidden = true
+        errorView.isHidden = false
+        loaderView.isHidden = true
+        
+        errorView.setupCell(errorName: text)
+        errorView.actionHandler = { [weak self] in
+            self?.getRequests()
+        }
     }
     
     func showToastCategoryError(text: String) {
@@ -436,19 +474,21 @@ extension CreateProductViewController: CreateProductViewControllerProtocol {
         }
     }
     
-    func showToastPublishError(text: String) {
-        toastAnimation(text: text) { [weak self] in
-            self?.presenter?.publishProduct(data: self!.productPost)
-            self?.showLoader(enable: true)
-        }
-        
-        showLoader(enable: false)
-    }
-    
     func showToastImageError(text: String) {
         toastAnimation(text: text) {}
         
         showLoader(enable: false)
+    }
+    
+    func showToastUpdateProductError(text: String) {
+        toastAnimation(text: text) { [weak self] in
+            guard let self = self else { return }
+            
+            self.presenter?.checkTextFieldEmpty(
+                productId: self.productId!,
+                data: self.productPost
+            )
+        }
     }
     
     func showEmptyProductName() {

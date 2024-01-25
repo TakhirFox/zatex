@@ -13,6 +13,7 @@ protocol DetailRouterProtocol: AnyObject {
     func routeToMap(coordinates: CoordinareEntity)
     func routeToDetail(id: Int)
     func routeToProfile(id: Int)
+    func routeToEdit(id: Int)
     
     func routeToFullscreen(
         images: [String],
@@ -52,6 +53,11 @@ extension DetailRouter: DetailRouterProtocol {
     
     func routeToProfile(id: Int) {
         let view = UserProfileAssembly.create(userId: id)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func routeToEdit(id: Int) {
+        let view = EditProductAssembly.create(productId: id)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }

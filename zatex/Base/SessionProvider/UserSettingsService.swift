@@ -13,6 +13,7 @@ public protocol UserSettingsAPI {
     var token: String { get }
     func saveSession(session: SessionData)
     func getSession() -> SessionData?
+    func isMyAccount(id: Int) -> Bool
     func clearSession()
 }
 
@@ -53,6 +54,10 @@ extension UserSettingsService: UserSettingsAPI {
             userNicename: "",
             userDisplayName: username
         )
+    }
+    
+    public func isMyAccount(id: Int) -> Bool {
+        return getSession()?.userId == String(id)
     }
     
     public func clearSession() {

@@ -11,13 +11,14 @@ struct ProductEntity {
     
     struct Image {
         var image: UIImage
-        var isLoaded: Bool
     }
     
     var productName: String?
     var category: Int?
+    var categoryName: String?
     var description: String?
     var cost: String?
     var currencySymbol: String?
     var images: [ProductEntity.Image] = []
+    var webImages: [String]?
 }

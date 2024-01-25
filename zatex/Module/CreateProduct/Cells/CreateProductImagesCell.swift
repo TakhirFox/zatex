@@ -37,7 +37,7 @@ class CreateProductImagesCell: UITableViewCell {
     let plusButton: BaseButton = {
         let view = BaseButton()
         view.set(style: .primary)
-        view.setImage(UIImage(named: "plusImage"), for: .normal)
+        view.setTitle("Добавить фотографию", for: .normal)
         return view
     }()
     
@@ -80,7 +80,7 @@ class CreateProductImagesCell: UITableViewCell {
     private func configureSubviews() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(viewContainer)
-        viewContainer.addSubview(plusButton)
+        contentView.addSubview(plusButton)
         viewContainer.addSubview(collectionView)
     }
     
@@ -94,21 +94,19 @@ class CreateProductImagesCell: UITableViewCell {
         viewContainer.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview()
         }
         
         plusButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(12)
-            make.leading.equalToSuperview().inset(12)
-            make.height.equalTo(100)
-            make.width.equalTo(50)
+            make.top.equalTo(viewContainer.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(16)
         }
         
         collectionView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(12)
-            make.leading.equalTo(plusButton.snp.trailing).offset(10)
+            make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().inset(12)
-            make.height.equalTo(100)
+            make.height.equalTo(150)
         }
     }
     
@@ -132,7 +130,7 @@ extension CreateProductImagesCell: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 100, height: 100)
+        return .init(width: 150, height: 150)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

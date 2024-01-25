@@ -26,13 +26,15 @@ struct ProductResponse: Encodable {
     }
     
     struct ProductOptions: Encodable {
-        let name: String
-        let options: [String]
-        let visible: Bool
-        let variation: Bool
+        let name: String?
+        let options: [String]?
+        let visible: Bool?
+        let variation: Bool?
     }
     
-    let name, description, regularPrice: String?
+    let name: String?
+    let description: String?
+    let regularPrice: String?
     let categories: [ProductResponse.Category]?
     let images: [ProductResponse.Image]?
     let attributes: [ProductOptions]?

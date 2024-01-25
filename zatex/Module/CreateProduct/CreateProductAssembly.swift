@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CreateProductAssembly: BaseAssemblyProtocol {
+class CreateProductAssembly {
+    
     static func create() -> UIViewController {
         let viewController = CreateProductViewController()
         let presenter = CreateProductPresenter()

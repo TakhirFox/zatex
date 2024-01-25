@@ -40,6 +40,7 @@ protocol DetailPresenterProtocol: AnyObject {
     func routeToMap(coordinates: [CoordinatesResult])
     func goToDetail(id: Int)
     func goToProfile(id: Int)
+    func goToEdit(id: Int)
     
     func goToFullscreen(
         images: [ProductResult.Image]?,
@@ -193,6 +194,10 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func goToProfile(id: Int) {
         router?.routeToProfile(id: id)
+    }
+    
+    func goToEdit(id: Int) {
+        router?.routeToEdit(id: id)
     }
     
     // MARK: To View

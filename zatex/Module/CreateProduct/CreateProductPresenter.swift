@@ -14,7 +14,6 @@ protocol CreateProductPresenterProtocol: AnyObject {
     func uploadImage(image: UIImage)
     func checkTextFieldEmpty(data: ProductEntity)
     func publishProduct(data: ProductEntity)
-    func removeImage(index: Int)
     
     func goToDetail(id: Int)
     
@@ -34,6 +33,7 @@ class CreateProductPresenter: BasePresenter {
     var router: CreateProductRouterProtocol?
     
     private var uploadedImages: [ProductResponse.Image] = []
+    private let dispatchGroup = DispatchGroup()
 }
 
 extension CreateProductPresenter: CreateProductPresenterProtocol {
@@ -82,33 +82,36 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
     }
     
     func publishProduct(data: ProductEntity) {
-        let category = ProductResponse.Category(id: data.category)
         
-        let currency = ProductResponse.ProductOptions(
-            name: "Currency",
-            options: [data.currencySymbol ?? ""],
-            visible: true,
-            variation: true
-        )
+        for image in data.images {
+            dispatchGroup.enter()
+            uploadImage(image: image.image)
+        }
         
-        let product = ProductResponse(
-            name: data.productName,
-            description: data.description,
-            regularPrice: data.cost,
-            categories: [category],
-            images: uploadedImages,
-            attributes: [currency]
-        )
-        
-        interactor?.publishProduct(data: product)
-    }
-    
-    func removeImage(index: Int) {
-        uploadedImages.remove(at: index)
+        dispatchGroup.notify(queue: .main) {
+            let category = ProductResponse.Category(id: data.category)
+            
+            let currency = ProductResponse.ProductOptions(
+                name: "Currency",
+                options: [data.currencySymbol ?? ""],
+                visible: true,
+                variation: true
+            )
+            
+            let product = ProductResponse(
+                name: data.productName,
+                description: data.description,
+                regularPrice: data.cost,
+                categories: [category],
+                images: self.uploadedImages,
+                attributes: [currency]
+            )
+            
+            self.interactor?.publishProduct(data: product)
+        }
     }
     
     // MARK: To Router
-    
     func goToDetail(id: Int) {
         router?.routeToDetail(id: id)
     }
@@ -126,8 +129,7 @@ extension CreateProductPresenter: CreateProductPresenterProtocol {
         let urlImage = image.mediaDetails?.sizes?.woocommerceSingle?.sourceURL ?? ""
         let imageEntity = ProductResponse.Image(src: urlImage, position: uploadedImages.count)
         uploadedImages.insert(imageEntity, at: 0)
-        
-        view?.stopImageSpinner()
+        dispatchGroup.leave()
     }
     
     func showSuccess(product: ProductResult) {
