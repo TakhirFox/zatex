@@ -26,6 +26,7 @@ class ChatListViewController: BaseViewController {
     private var chatList: [ChatListResult] = []
     private var isPaging = false
     private var currentPage = 1
+    private var isFirstLoading = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,11 +134,10 @@ extension ChatListViewController: UIScrollViewDelegate {
 
 extension ChatListViewController: ChatListViewControllerProtocol {
     
-    @objc private func refreshData(_ sender: Any) { // TODO: Решить
-//        chatList = []
-//        currentPage = 1
-//        
-//        presenter?.getChatList(page: currentPage)
+    @objc private func refreshData(_ sender: Any) {
+        currentPage = 1
+        
+        presenter?.getChatList(page: currentPage)
     }
     
     func setChatList(data: [ChatListResult]) {
@@ -145,9 +145,14 @@ extension ChatListViewController: ChatListViewControllerProtocol {
             guard let self = self else { return }
             
             if currentPage == 1 {
-                self.emptyView.isHidden = !data.isEmpty
+                chatList = []
             }
             
+            if isFirstLoading && data.isEmpty {
+                self.emptyView.isHidden = false
+            }
+            
+            self.isFirstLoading = false
             self.chatList += data
             self.isPaging = true
             self.currentPage += 1
