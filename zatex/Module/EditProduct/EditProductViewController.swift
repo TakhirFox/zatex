@@ -281,17 +281,12 @@ extension EditProductViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     ) -> String? {
         switch pickerTextFieldTag {
         case 5:
-            let id = categories[row].id
-            productPost.category = id
-            
             return categories[row].name
             
         case 6:
             let name = currencies[row].name
             let symbol = currencies[row].symbol
-            
-            productPost.currencySymbol = symbol
-            
+                        
             return "\(name) (\(symbol))"
             
         default: return ""
@@ -305,10 +300,18 @@ extension EditProductViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     ) {
         switch pickerTextFieldTag {
         case 5:
+            let id = categories[row].id
+            productPost.category = id
+            
             selectedCategory = row
+            
             tableView.reloadRows(at: [IndexPath(item: 1, section: 0)], with: .automatic)
             
         case 6:
+            let symbol = currencies[row].symbol
+            
+            productPost.currencySymbol = symbol
+            
             selectedCurrency = row
             tableView.reloadRows(at: [IndexPath(item: 4, section: 0)], with: .automatic)
             
