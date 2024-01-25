@@ -30,7 +30,7 @@ struct StoreInfoResult: Decodable {
         case rating
         case registered
         case email
-        case isShop = "featured"
+        case isShop = "toc_enabled"
     }
     
     enum AddressUnion: Decodable {

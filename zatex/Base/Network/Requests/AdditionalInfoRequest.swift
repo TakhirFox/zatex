@@ -42,6 +42,6 @@ struct AdditionalInfoRequest: Encodable {
         case bannerID = "banner_id"
         case gravatar
         case gravatarID = "gravatar_id"
-        case isShop = "featured"
+        case isShop = "toc_enabled"
     }
 }
