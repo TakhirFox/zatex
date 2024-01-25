@@ -105,7 +105,6 @@
 		AD05A2432B136A2000753305 /* SetDeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05A2422B136A2000753305 /* SetDeviceToken.swift */; };
 		AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
-		AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */; };
 		AD24D2BE2B161BC900E5E260 /* FavoritesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */; };
 		AD24D2C02B161BDA00E5E260 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */; };
 		AD24D2C22B161BE700E5E260 /* FavoritesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */; };
@@ -465,7 +464,6 @@
 		AD05A2422B136A2000753305 /* SetDeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeviceToken.swift; sourceTree = "<group>"; };
 		AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
-		AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoModel.swift; sourceTree = "<group>"; };
 		AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAPI.swift; sourceTree = "<group>"; };
 		AD24D2BF2B161BDA00E5E260 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 		AD24D2C12B161BE700E5E260 /* FavoritesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesHttpService.swift; sourceTree = "<group>"; };
@@ -1341,7 +1339,6 @@
 			children = (
 				ADE7406629DF1507004A667C /* ProductEntity.swift */,
 				ADD8DE4F2918119A00A3E435 /* SettingsModel.swift */,
-				AD2440E329BF6FE300AA6B25 /* ChatInfoModel.swift */,
 				AD9306A729D948D80004E3AC /* CoordinareEntity.swift */,
 				AD037FF52A23B29400DB0F60 /* SignUpEntity.swift */,
 				ADBC13162A5AA5D0009B18EF /* UpdateInfoEntity.swift */,
@@ -2397,7 +2394,6 @@
 				AD91707A2A9BC73600E3F599 /* UserProfileLoaderCell.swift in Sources */,
 				ADBC13172A5AA5D0009B18EF /* UpdateInfoEntity.swift in Sources */,
 				AD3AF69C29E13B8900ABDC1A /* ImagesAPI.swift in Sources */,
-				AD2440E429BF6FE300AA6B25 /* ChatInfoModel.swift in Sources */,
 				AD3AF6A229E308BD00ABDC1A /* CreateProductImagesCell.swift in Sources */,
 				9CCAEA95876F3289BEEF28FE /* ProfileEditRouter.swift in Sources */,
 				AD24D2E42B1F5CA000E5E260 /* CountriesResponse.swift in Sources */,

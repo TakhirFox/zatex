@@ -44,19 +44,20 @@ class FeedViewController: BaseViewController {
     
     var presenter: FeedPresenterProtocol?
     
+    private let refreshControl = UIRefreshControl()
+    private let searchView = BaseTextField()
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
+    
     private var isPaging = false
     private var currentPage = 1
     private var categoryId: Int?
+    private var isFirstLoading = true
     
     private var banners: [BannerResult] = []
     private var categories: [CategoryResult] = []
     private var products: [ProductResult] = []
     private var emptyProducts: [String] = []
-    
-    private let refreshControl = UIRefreshControl()
-    private let searchView = BaseTextField()
-    private var collectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<SectionKind, AnyHashable>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -422,20 +423,13 @@ extension FeedViewController: UIScrollViewDelegate {
 // MARK: Implemented FeedViewControllerProtocol
 extension FeedViewController: FeedViewControllerProtocol {
     
-    @objc private func refreshData(_ sender: Any) { // TODO: Решить
-//        currentPage = 1
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else { return }
-//            self.products = []
-//            self.reloadData()
-//            self.collectionView.reloadData()
-//        }
-//        
-//        presenter?.getProducts(
-//            categoryId: categoryId,
-//            page: currentPage
-//        )
+    @objc private func refreshData(_ sender: Any) {
+        currentPage = 1
+        
+        presenter?.getProducts(
+            categoryId: categoryId,
+            page: currentPage
+        )
     }
     
     func setProducts(data: [ProductResult]) {
@@ -449,7 +443,12 @@ extension FeedViewController: FeedViewControllerProtocol {
                 self.collectionView.scrollToBottom(animated: true)
             }
             
+            if currentPage == 1 {
+                products = []
+            }
+            
             guard !data.isEmpty else { return }
+            self.isFirstLoading = false
             self.products += data
             self.emptyProducts = []
             self.isPaging = true
