@@ -22,7 +22,7 @@ protocol HttpRouter: URLRequestConvertible {
 
 extension HttpRouter {
     var baseUrlString: String {
-        return "https://zatex.ru"
+        return EndpointConfiguration.baseUrl
     }
     
     var token: String {

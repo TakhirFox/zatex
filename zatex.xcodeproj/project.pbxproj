@@ -103,6 +103,10 @@
 		AD0380112A26614D00DB0F60 /* MessageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380102A26614D00DB0F60 /* MessageRequest.swift */; };
 		AD0380132A26617100DB0F60 /* SignUpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0380122A26617100DB0F60 /* SignUpRequest.swift */; };
 		AD05A2432B136A2000753305 /* SetDeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD05A2422B136A2000753305 /* SetDeviceToken.swift */; };
+		AD0D02952C299960004EAF8B /* EndpointConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D02942C299960004EAF8B /* EndpointConfiguration.swift */; };
+		AD0D02972C299A1E004EAF8B /* UserDefaults+standConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D02962C299A1E004EAF8B /* UserDefaults+standConfiguration.swift */; };
+		AD0D02992C299A6C004EAF8B /* StandConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D02982C299A6C004EAF8B /* StandConfiguration.swift */; };
+		AD0D029B2C299EDA004EAF8B /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0D029A2C299EDA004EAF8B /* ConfigurationViewController.swift */; };
 		AD0EA5082A7EC3210086DF47 /* ProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */; };
 		AD2440E229BF636400AA6B25 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2440E129BF636400AA6B25 /* ChatInfoView.swift */; };
 		AD24D2BE2B161BC900E5E260 /* FavoritesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */; };
@@ -462,6 +466,10 @@
 		AD0380102A26614D00DB0F60 /* MessageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRequest.swift; sourceTree = "<group>"; };
 		AD0380122A26617100DB0F60 /* SignUpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpRequest.swift; sourceTree = "<group>"; };
 		AD05A2422B136A2000753305 /* SetDeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDeviceToken.swift; sourceTree = "<group>"; };
+		AD0D02942C299960004EAF8B /* EndpointConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointConfiguration.swift; sourceTree = "<group>"; };
+		AD0D02962C299A1E004EAF8B /* UserDefaults+standConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+standConfiguration.swift"; sourceTree = "<group>"; };
+		AD0D02982C299A6C004EAF8B /* StandConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandConfiguration.swift; sourceTree = "<group>"; };
+		AD0D029A2C299EDA004EAF8B /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		AD0EA5072A7EC3210086DF47 /* ProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2440E129BF636400AA6B25 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AD24D2BD2B161BC900E5E260 /* FavoritesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAPI.swift; sourceTree = "<group>"; };
@@ -1065,6 +1073,16 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		AD0D029C2C29A8A8004EAF8B /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				AD0D02942C299960004EAF8B /* EndpointConfiguration.swift */,
+				AD0D02982C299A6C004EAF8B /* StandConfiguration.swift */,
+				AD0D029A2C299EDA004EAF8B /* ConfigurationViewController.swift */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		AD24D2BB2B161B8300E5E260 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
@@ -1383,6 +1401,7 @@
 				AD49A87828ED577200D159CA /* SceneDelegate.swift */,
 				AD037FE32A225C2000DB0F60 /* ApplicationCoordinator.swift */,
 				ADFB42A42A84086F004D9794 /* DeepLinkType.swift */,
+				AD0D029C2C29A8A8004EAF8B /* Configurations */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1460,6 +1479,7 @@
 				AD9B260B28FD4D6000C15139 /* UIColor+hex.swift */,
 				ADB470F72A7ACA4100A651AC /* String+Extension.swift */,
 				ADEB0B092B0F7FED00FCCAEF /* UIScrollView+Extension.swift */,
+				AD0D02962C299A1E004EAF8B /* UserDefaults+standConfiguration.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2230,6 +2250,7 @@
 				AD9B261428FD5C6900C15139 /* Dynamic.swift in Sources */,
 				699C6A230215CD40B9476784 /* FeedPresenter.swift in Sources */,
 				AD4A986B2918EFA600709745 /* CheckboxEditCell.swift in Sources */,
+				AD0D029B2C299EDA004EAF8B /* ConfigurationViewController.swift in Sources */,
 				ADC4D1F0291AAFB200B9472E /* ProfileHeaderView.swift in Sources */,
 				8733447FDCCAA4CB402AC06A /* FeedInteractor.swift in Sources */,
 				ADEE238C2A65A89700569844 /* AdditionalInfoHttpService.swift in Sources */,
@@ -2371,6 +2392,7 @@
 				ADA28B8929C618A8006A2EA9 /* ProfileService.swift in Sources */,
 				ADD979462B617C7500CB0463 /* SuccessEditProductView.swift in Sources */,
 				AD03800D2A265F8C00DB0F60 /* ResetPasswordRequest.swift in Sources */,
+				AD0D02972C299A1E004EAF8B /* UserDefaults+standConfiguration.swift in Sources */,
 				AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */,
 				AD3AF6A029E299A200ABDC1A /* MediaResult.swift in Sources */,
 				8947C16AD0A33EE46551FC7A /* GeneralSettingsRouter.swift in Sources */,
@@ -2444,6 +2466,7 @@
 				ADE7406D29DF17A9004A667C /* CreateProductHttpService.swift in Sources */,
 				B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */,
 				4F8207833F6F7F38264AD19D /* ReviewsViewController.swift in Sources */,
+				AD0D02952C299960004EAF8B /* EndpointConfiguration.swift in Sources */,
 				F64097E127073872342DF797 /* ReviewsPresenter.swift in Sources */,
 				AD037FEA2A23964300DB0F60 /* SignUpButtonCell.swift in Sources */,
 				AD9306A829D948D80004E3AC /* CoordinareEntity.swift in Sources */,
@@ -2470,6 +2493,7 @@
 				5AA0089D5CAC3AE2C49267BC /* FullscreenInteractor.swift in Sources */,
 				6CBBCC238B4DA197EB988292 /* FullscreenRouter.swift in Sources */,
 				AD037FEE2A23979A00DB0F60 /* SignUpHttpService.swift in Sources */,
+				AD0D02992C299A6C004EAF8B /* StandConfiguration.swift in Sources */,
 				FBED3E37DE0FC80342AC35CE /* FullscreenAssembly.swift in Sources */,
 				DD7199AC98F3113E52E8BE27 /* SignUpViewController.swift in Sources */,
 				2559ED267FB27079729B8057 /* SignUpPresenter.swift in Sources */,
@@ -2678,7 +2702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = winzerofox.zatex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2715,7 +2739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = winzerofox.zatex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

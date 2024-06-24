@@ -10,18 +10,31 @@ import CoreData
 import YandexMapsMobile
 import FirebaseCore
 import FirebaseMessaging
+import Scyther
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        configureFirebase(for: application)
+        configureThirdParty()
+        
+        return true
+    }
+    
+    private func configureThirdParty() {
         Appearance.apply()
         YMKMapKit.setApiKey("5cb43a37-08b8-4451-97f4-b03ea20732c4")
         YMKMapKit.sharedInstance()
-        configureFirebase(for: application)
         
-        return true
+        Scyther.instance.start()
+        
+        var options = DeveloperOption()
+        options.name = "Стенды"
+        options.viewController = ConfigurationViewController()
+        
+        Scyther.instance.developerOptions = [options]
     }
 
     // MARK: UISceneSession Lifecycle

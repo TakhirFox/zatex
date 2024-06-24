@@ -7,7 +7,7 @@ target 'zatex' do
 
   # Pods for zatex
   pod 'SwiftKeychainWrapper'
-  pod 'SnapKit', '~> 4.0'
+  pod 'SnapKit', '~> 5.0.1'
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'YandexMapsMobile', '4.3.1-full'
@@ -15,6 +15,7 @@ target 'zatex' do
   pod 'FirebaseMessaging'
   pod 'FirebaseCrashlytics'
   pod 'FirebaseAnalytics'
+  pod 'Scyther'
 
 end
 
