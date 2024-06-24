@@ -10,7 +10,7 @@ import Foundation
 struct EndpointConfiguration {
     
     private struct URLs {
-        static let testBaseUrl = "https://text.zatex.ru"
+        static let testBaseUrl = "https://test01.zatex.ru"
         static let productionBaseUrl = "https://zatex.ru"
     }
     
