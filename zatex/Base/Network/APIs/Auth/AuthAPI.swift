@@ -8,6 +8,7 @@
 import Foundation
 
 typealias AuthClosure = (Result<AuthResult, NetworkError>) -> (Void)
+typealias RefreshClosure = (Result<RefreshResult, NetworkError>) -> (Void)
 
 protocol AuthAPI {
     
@@ -15,5 +16,10 @@ protocol AuthAPI {
         login: String,
         pass: String,
         completion: @escaping AuthClosure
+    ) -> (Void)
+    
+    func refreshAuthorization(
+        token: String,
+        completion: @escaping RefreshClosure
     ) -> (Void)
 }

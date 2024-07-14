@@ -27,7 +27,7 @@ class MainTabBarViewController: UITabBarController, MainTabBarViewControllerProt
         setupTabItems()
         
         DispatchQueue.main.async {
-            guard let id = Int(self.sessionProvider.getSession()?.userId ?? "") else { return }
+            guard let id = self.sessionProvider.getSession()?.user.id else { return }
             self.presenter?.getStoreInfo(authorId: id)
         }
     }

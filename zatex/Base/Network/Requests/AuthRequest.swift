@@ -10,4 +10,5 @@ import Foundation
 struct AuthRequest: Encodable {
     let username: String
     let password: String
+    let client_name: String
 }

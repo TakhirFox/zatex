@@ -22,7 +22,7 @@ final class AppSessionProvider: SessionProvider {
     private let userSettingsService = UserSettingsService.shared
     
     var isAuthorized: Bool {
-        userSettingsService.getSession()?.token != nil
+        userSettingsService.getSession()?.accessToken != nil
     }
     
     func getSession() -> SessionData? {

@@ -33,12 +33,41 @@ extension AuthService: AuthAPI {
                     switch response.result {
                     case .success(let data):
                         completion(.success(data))
+                        
                     case .failure(let error):
                         completion(.failure(.error(name: "Ошибка: 09909089878767 - \(error)")))
                     }
                 }
         } catch {
             completion(.failure(.secondError(name: "Ошибка: 234234023402349 Ошибка авторизации")))
+        }
+    }
+    
+    
+    func refreshAuthorization(
+        token: String,
+        completion: @escaping RefreshClosure
+    ) {
+        do {
+            try AuthHttpRouter
+                .refresh(
+                    accessToken: token
+                )
+                .request(usingHttpService: httpService)
+                .cURLDescription { description in
+                    print("LOG: refresh authorization \(description)")
+                }
+                .responseDecodable(of: RefreshResult.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        completion(.success(data))
+                        
+                    case .failure(let error):
+                        completion(.failure(.error(name: "Ошибка: 34567890879654 - \(error)")))
+                    }
+                }
+        } catch {
+            completion(.failure(.secondError(name: "Ошибка: 373456756 Ошибка рефреша")))
         }
     }
 }

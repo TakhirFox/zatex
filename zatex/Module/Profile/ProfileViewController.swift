@@ -132,7 +132,7 @@ class ProfileViewController: BaseViewController {
     }
     
     private func getRequests() {
-        userId = Int(sessionProvider?.getSession()?.userId ?? "")
+        userId = sessionProvider?.getSession()?.user.id
         
         if let id = userId {
             presenter?.getStoreInfo(authorId: id)

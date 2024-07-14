@@ -19,7 +19,7 @@ class ChatDetailAssembly {
         let sessionProvider = AppSessionProvider()
         
         viewController.presenter = presenter
-        viewController.userId = sessionProvider.getSession()?.userId
+        viewController.userId = String(sessionProvider.getSession()?.user.id ?? 0)
         
         presenter.view = viewController
         presenter.interactor = interactor

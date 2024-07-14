@@ -28,10 +28,8 @@ extension AuthInteractor: AuthInteractorProtocol {
         ) { result in
             switch result {
             case let .success(data):
-                if data.token != nil {
-                    self.sessionProvider.setSession(data)
-                    self.presenter?.authSuccess()
-                }
+                self.sessionProvider.setSession(data)
+                self.presenter?.authSuccess()
                 
             case let .failure(error):
                 switch error {

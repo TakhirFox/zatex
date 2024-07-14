@@ -58,9 +58,8 @@ class ProfileEditViewController: BaseViewController {
     }
     
     private func setupFirstParty() {
-        if let userId = sessionProvider?.getSession()?.userId,
-            let id = Int(userId) {
-            presenter?.getProfileInfo(id: id)
+        if let userId = sessionProvider?.getSession()?.user.id {
+            presenter?.getProfileInfo(id: userId)
         }
         
         tableView.isHidden = true
@@ -474,9 +473,8 @@ extension ProfileEditViewController: ProfileEditViewControllerProtocol {
     
     func showToastGetProfileError(text: String) {
         toastAnimation(text: text) { [weak self] in
-            if let userId = self?.sessionProvider?.getSession()?.userId,
-                let id = Int(userId) {
-                self?.presenter?.getProfileInfo(id: id)
+            if let userId = self?.sessionProvider?.getSession()?.user.id {
+                self?.presenter?.getProfileInfo(id: userId)
             }
             
             self?.showLoader(enable: true)

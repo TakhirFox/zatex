@@ -35,8 +35,8 @@ extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
     func getAdminAccess() {
         let session = sessionProvider.getSession()
         
-        if session?.userId == "1" &&
-            session?.userEmail == "winzero.nexis@mail.ru" {
+        if session?.user.id == 1 &&
+            session?.user.data.userEmail == "winzero.nexis@mail.ru" {
             self.showAdminPanel()
         }
     }
@@ -58,9 +58,9 @@ extension GeneralSettingsPresenter: GeneralSettingsPresenterProtocol {
     }
     
     func deleteAccount() {
-        let userEmail = sessionProvider.getSession()?.userEmail ?? "userEmail не найден"
-        let username = sessionProvider.getSession()?.userNicename ?? "USERNAME не найден"
-        let id = sessionProvider.getSession()?.userId ?? "id не найден"
+        let userEmail = sessionProvider.getSession()?.user.data.userEmail ?? "userEmail не найден"
+        let username = sessionProvider.getSession()?.user.data.userNicename ?? "USERNAME не найден"
+        let id = sessionProvider.getSession()?.user.id ?? 0
         
         let data = DeleteAccountEmailRequest(
             to: "winzero.nexis@mail.ru",

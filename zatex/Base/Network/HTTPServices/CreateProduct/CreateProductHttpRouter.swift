@@ -41,13 +41,13 @@ extension CreateProductHttpRouter: HttpRouter {
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .getCategories,
-                .getCurrencies:
+        case .getCategories:
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
             
-        case .createProduct:
+        case .createProduct,
+                .getCurrencies:
             return [
                 "Content-Type": "application/json; charset=UTF-8",
                 "Authorization": "Bearer \(token)"

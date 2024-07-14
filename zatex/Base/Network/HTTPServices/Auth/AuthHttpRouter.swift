@@ -12,6 +12,8 @@ enum AuthHttpRouter {
         login: String,
         pass: String
     )
+    
+    case refresh(accessToken: String)
 }
 
 extension AuthHttpRouter: HttpRouter {
@@ -19,20 +21,24 @@ extension AuthHttpRouter: HttpRouter {
     var path: String {
         switch self {
         case .authorization:
-            return "/wp-json/jwt-auth/v1/token"
+            return "wp-json/api-bearer-auth/v1/login"
+        case .refresh:
+            return "wp-json/api-bearer-auth/v1/tokens/refresh"
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .authorization:
+        case .authorization,
+                .refresh:
             return .post
         }
     }
     
     var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .authorization:
+        case .authorization,
+                .refresh:
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
@@ -41,7 +47,8 @@ extension AuthHttpRouter: HttpRouter {
     
     var parameters: Alamofire.Parameters? {
         switch self {
-        case .authorization:
+        case .authorization,
+                .refresh:
             return nil
         }
     }
@@ -52,7 +59,17 @@ extension AuthHttpRouter: HttpRouter {
             
             let data = AuthRequest(
                 username: login,
-                password: pass
+                password: pass,
+                client_name: "zatexapp"
+            )
+            
+            return try JSONEncoder().encode(data)
+            
+        case let .refresh(accessToken):
+            
+            let data = RefreshRequest(
+                token: accessToken,
+                client_name: "zatexapp"
             )
             
             return try JSONEncoder().encode(data)

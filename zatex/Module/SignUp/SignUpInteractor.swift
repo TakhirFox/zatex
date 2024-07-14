@@ -38,12 +38,21 @@ extension SignUpInteractor: SignUpInteractorProtocol {
             switch result {
             case let .success(data):
                 if data.token != nil {
+                    
                     let session = AuthResult( // TODO: Change to SessionModel
-                        userId: data.userID,
-                        token: data.token,
-                        userEmail: data.userEmail,
-                        userNicename: data.userNicename,
-                        userDisplayName: nil
+                        user: AuthResult.User(
+                            data: AuthResult.Data(
+                                userLogin: "",
+                                userNicename: data.userNicename ?? "",
+                                userEmail: data.userEmail ?? "",
+                                userRegistered: "",
+                                displayName: ""
+                            ),
+                            id: Int(data.userID ?? "") ?? 0
+                        ),
+                        accessToken: data.token ?? "",
+                        expiresIn: 0,
+                        refreshToken: ""
                     )
                     
                     self.sessionProvider.setSession(session)

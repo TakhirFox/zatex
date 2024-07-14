@@ -22,6 +22,7 @@ public final class UserSettingsService {
     private let tokenValue: String = "token"
     private let usernameValue: String = "username"
     private let userIdValue: String = "userId"
+    private let refreshToken: String = "refresh_token"
     
     static let shared: UserSettingsService = UserSettingsService()
     
@@ -35,29 +36,39 @@ extension UserSettingsService: UserSettingsAPI {
     }
     
     public func saveSession(session: SessionData) {
-        UserDefaults.standard.set(session.userEmail, forKey: emailValue)
-        UserDefaults.standard.set(session.token, forKey: tokenValue)
-        UserDefaults.standard.set(session.userNicename, forKey: usernameValue)
-        UserDefaults.standard.set(session.userId, forKey: userIdValue)
+        UserDefaults.standard.set(session.user.data.userEmail, forKey: emailValue)
+        UserDefaults.standard.set(session.user.data.userNicename, forKey: usernameValue)
+        UserDefaults.standard.set(session.user.id, forKey: userIdValue)
+        UserDefaults.standard.set(session.accessToken, forKey: tokenValue)
+        UserDefaults.standard.set(session.refreshToken, forKey: refreshToken)
     }
     
     public func getSession() -> SessionData? {
-        let userId = UserDefaults.standard.string(forKey: userIdValue)
+        let userId = UserDefaults.standard.integer(forKey: userIdValue)
         let email = UserDefaults.standard.string(forKey: emailValue)
         let token = UserDefaults.standard.string(forKey: tokenValue)
         let username = UserDefaults.standard.string(forKey: usernameValue)
+        let refreshToken = UserDefaults.standard.string(forKey: refreshToken)
         
         return SessionData(
-            userId: userId,
-            token: token,
-            userEmail: email,
-            userNicename: "",
-            userDisplayName: username
+            user: SessionData.User(
+                data: AuthResult.Data(
+                    userLogin: username ?? "",
+                    userNicename: "",
+                    userEmail: email ?? "",
+                    userRegistered: "",
+                    displayName: ""
+                ),
+                id: userId
+            ),
+            accessToken: token,
+            expiresIn: 0,
+            refreshToken: refreshToken ?? ""
         )
     }
     
     public func isMyAccount(id: Int) -> Bool {
-        return getSession()?.userId == String(id)
+        return getSession()?.user.id == id
     }
     
     public func clearSession() {
@@ -65,5 +76,6 @@ extension UserSettingsService: UserSettingsAPI {
         UserDefaults.standard.removeObject(forKey: emailValue)
         UserDefaults.standard.removeObject(forKey: tokenValue)
         UserDefaults.standard.removeObject(forKey: usernameValue)
+        UserDefaults.standard.removeObject(forKey: refreshToken)
     }
 }

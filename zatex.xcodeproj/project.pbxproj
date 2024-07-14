@@ -323,6 +323,8 @@
 		ADFCE21C2B5568FF00F87D3D /* AdminPanelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFCE21B2B5568FF00F87D3D /* AdminPanelAPI.swift */; };
 		ADFCE21E2B55690700F87D3D /* AdminPanelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFCE21D2B55690700F87D3D /* AdminPanelService.swift */; };
 		ADFCE2202B556B5C00F87D3D /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFCE21F2B556B5C00F87D3D /* UserResponse.swift */; };
+		ADFFADF92C3B16820053CD46 /* RefreshRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFFADF82C3B16820053CD46 /* RefreshRequest.swift */; };
+		ADFFADFB2C3B191B0053CD46 /* RefreshResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFFADFA2C3B191B0053CD46 /* RefreshResult.swift */; };
 		AE164F4B9D6E4D1F71AA1B06 /* ChatListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34DFAE3CC15707BA8F90C24 /* ChatListInteractor.swift */; };
 		AF51FEBC9F0EF585F149E9A8 /* ResetPasswordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEFDE8FBAB8F46D81C73094 /* ResetPasswordRouter.swift */; };
 		B3F8C480C68DE87967F2618A /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86989039874A919941560835 /* AuthAssembly.swift */; };
@@ -690,6 +692,8 @@
 		ADFCE21B2B5568FF00F87D3D /* AdminPanelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelAPI.swift; sourceTree = "<group>"; };
 		ADFCE21D2B55690700F87D3D /* AdminPanelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPanelService.swift; sourceTree = "<group>"; };
 		ADFCE21F2B556B5C00F87D3D /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		ADFFADF82C3B16820053CD46 /* RefreshRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshRequest.swift; sourceTree = "<group>"; };
+		ADFFADFA2C3B191B0053CD46 /* RefreshResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshResult.swift; sourceTree = "<group>"; };
 		AE7D29F6F999EB8EB3DCBFBA /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		B34DFAE3CC15707BA8F90C24 /* ChatListInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ChatListInteractor.swift; sourceTree = "<group>"; };
 		B5406A5C9A2F0FBE5E51FAAD /* MapInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
@@ -1032,6 +1036,7 @@
 				ADCDDE1229BE3B05001F34D9 /* CheckChatResponse.swift */,
 				AD03800C2A265F8C00DB0F60 /* ResetPasswordRequest.swift */,
 				AD03800E2A26612000DB0F60 /* AuthRequest.swift */,
+				ADFFADF82C3B16820053CD46 /* RefreshRequest.swift */,
 				AD0380102A26614D00DB0F60 /* MessageRequest.swift */,
 				AD0380122A26617100DB0F60 /* SignUpRequest.swift */,
 				ADB817D929FD546600CF09F9 /* ReviewEntity.swift */,
@@ -1055,6 +1060,7 @@
 				ADF53FF429B4733800BF8516 /* ChatListResult.swift */,
 				ADF5400B29B4CCB100BF8516 /* ChatMessageResult.swift */,
 				ADCF769429B89F91007FF164 /* AuthResult.swift */,
+				ADFFADFA2C3B191B0053CD46 /* RefreshResult.swift */,
 				ADCC3F5929BCF41000D7E022 /* SendMessageResult.swift */,
 				ADCDDE1029BE3293001F34D9 /* CheckChatResult.swift */,
 				AD28D0C62A00381700E89C01 /* CheckChatReviewResult.swift */,
@@ -2339,6 +2345,7 @@
 				AD4A98692918D38800709745 /* AvatarEditCell.swift in Sources */,
 				AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */,
 				AD24D2D02B1B947A00E5E260 /* FavoriteResponse.swift in Sources */,
+				ADFFADFB2C3B191B0053CD46 /* RefreshResult.swift in Sources */,
 				ADE8175329093A76004895DD /* BaseButton.swift in Sources */,
 				ADF1C4C929DC861200532EDD /* MapService.swift in Sources */,
 				F7792221005745ADBCB9D937 /* SearchRouter.swift in Sources */,
@@ -2395,6 +2402,7 @@
 				AD0D02972C299A1E004EAF8B /* UserDefaults+standConfiguration.swift in Sources */,
 				AD60851B291D2201008A4A5D /* ProfileStatsCell.swift in Sources */,
 				AD3AF6A029E299A200ABDC1A /* MediaResult.swift in Sources */,
+				ADFFADF92C3B16820053CD46 /* RefreshRequest.swift in Sources */,
 				8947C16AD0A33EE46551FC7A /* GeneralSettingsRouter.swift in Sources */,
 				AD24D2DC2B1E45AF00E5E260 /* SelectCityAPI.swift in Sources */,
 				ADC4D1F2291ABCA500B9472E /* ProfileAuthorView.swift in Sources */,
