@@ -33,7 +33,6 @@ extension ImagesHttpRouter: HttpRouter {
             let filename = "\(UUID().uuidString).jpeg"
             return [
                 "Content-Type": "image/jpg",
-                "Authorization": "Bearer \(token)",
                 "Content-Disposition": "attachment; filename=\(filename)"
             ]
         }
@@ -44,6 +43,10 @@ extension ImagesHttpRouter: HttpRouter {
         case .loadImage:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

@@ -31,8 +31,7 @@ extension AdditionalInfoHttpRouter: HttpRouter {
         switch self {
         case .additionalInfo:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -42,6 +41,10 @@ extension AdditionalInfoHttpRouter: HttpRouter {
         case .additionalInfo:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

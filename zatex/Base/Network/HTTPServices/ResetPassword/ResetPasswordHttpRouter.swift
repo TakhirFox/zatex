@@ -48,6 +48,10 @@ extension ResetPasswordHttpRouter: HttpRouter {
         }
     }
     
+    var requestInterceptor: RequestInterceptor? {
+        return nil
+    }
+    
     func body() throws -> Data? {
         switch self {
         case let .resetPassword(username):

@@ -70,8 +70,7 @@ extension ProductDetailHttpRouter: HttpRouter {
                 .checkChatToReview,
                 .sendReview:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -99,6 +98,10 @@ extension ProductDetailHttpRouter: HttpRouter {
         case .sendReview:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

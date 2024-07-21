@@ -52,24 +52,20 @@ extension ChatDetailHttpRouter: HttpRouter {
         switch self {
         case .getChatMessage:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         case .getChatInfo:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         case .sendChatMessage:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
             
         case .markMessage:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -87,6 +83,10 @@ extension ChatDetailHttpRouter: HttpRouter {
                 .markMessage:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

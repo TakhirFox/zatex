@@ -31,8 +31,7 @@ extension AdminPanelHttpRouter: HttpRouter {
         switch self {
         case .getUserList:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -45,6 +44,10 @@ extension AdminPanelHttpRouter: HttpRouter {
                 "page": page
             ]
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

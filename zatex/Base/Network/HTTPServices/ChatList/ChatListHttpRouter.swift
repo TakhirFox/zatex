@@ -31,8 +31,7 @@ extension ChatListHttpRouter: HttpRouter {
         switch self {
         case .getChatList:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -45,6 +44,10 @@ extension ChatListHttpRouter: HttpRouter {
                 "per_page": 10
             ]
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

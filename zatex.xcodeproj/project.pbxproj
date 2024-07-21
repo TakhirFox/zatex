@@ -137,6 +137,7 @@
 		AD2F39DC2A8946F8005D13B3 /* UserProfileProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2F39DB2A8946F8005D13B3 /* UserProfileProductCell.swift */; };
 		AD2FA11C29F054BE00EC75D3 /* SuccessProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */; };
 		AD33167C2B275BD900C297B0 /* EmptyFavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD33167B2B275BD900C297B0 /* EmptyFavoriteView.swift */; };
+		AD3737DB2C4CDE2000E297B0 /* AccessTokenInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3737DA2C4CDE2000E297B0 /* AccessTokenInterceptor.swift */; };
 		AD3AF69729E13AC100ABDC1A /* ImagesHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */; };
 		AD3AF69929E13ACB00ABDC1A /* ImagesHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */; };
 		AD3AF69C29E13B8900ABDC1A /* ImagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3AF69B29E13B8900ABDC1A /* ImagesAPI.swift */; };
@@ -502,6 +503,7 @@
 		AD2F39DB2A8946F8005D13B3 /* UserProfileProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileProductCell.swift; sourceTree = "<group>"; };
 		AD2FA11B29F054BE00EC75D3 /* SuccessProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessProductView.swift; sourceTree = "<group>"; };
 		AD33167B2B275BD900C297B0 /* EmptyFavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFavoriteView.swift; sourceTree = "<group>"; };
+		AD3737DA2C4CDE2000E297B0 /* AccessTokenInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenInterceptor.swift; sourceTree = "<group>"; };
 		AD3AF69629E13AC100ABDC1A /* ImagesHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpService.swift; sourceTree = "<group>"; };
 		AD3AF69829E13ACB00ABDC1A /* ImagesHttpRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesHttpRouter.swift; sourceTree = "<group>"; };
 		AD3AF69B29E13B8900ABDC1A /* ImagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesAPI.swift; sourceTree = "<group>"; };
@@ -1814,6 +1816,7 @@
 				AD86EAC42903F506001CB847 /* HTTPServices */,
 				AD86EAD629043A5A001CB847 /* APIs */,
 				ADEED4522A7521CA00CEF2A8 /* Debouncer.swift */,
+				AD3737DA2C4CDE2000E297B0 /* AccessTokenInterceptor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2208,6 +2211,7 @@
 				AD037FE02A1E8C8000DB0F60 /* SessionProvider.swift in Sources */,
 				AD49A87728ED577200D159CA /* AppDelegate.swift in Sources */,
 				ADA0063F29C3783E0035F4B2 /* ProductImageCell.swift in Sources */,
+				AD3737DB2C4CDE2000E297B0 /* AccessTokenInterceptor.swift in Sources */,
 				AD86EAD329043936001CB847 /* CategoryResult.swift in Sources */,
 				ADCDDE0F29BE0170001F34D9 /* ProductDetailHttpRouter.swift in Sources */,
 				ADAC844C290A725400F15330 /* BaseTextField.swift in Sources */,

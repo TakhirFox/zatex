@@ -51,7 +51,7 @@ extension AuthService: AuthAPI {
         do {
             try AuthHttpRouter
                 .refresh(
-                    accessToken: token
+                    refreshToken: token
                 )
                 .request(usingHttpService: httpService)
                 .cURLDescription { description in

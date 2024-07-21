@@ -45,14 +45,13 @@ extension FavoritesHttpRouter: HttpRouter {
         switch self {
         case let .getFavoriteList(isAuthorized, _):
             return isAuthorized
-            ? ["Authorization": "Bearer \(token)"]
+            ? ["Authorization": "Bearer "]
             : nil
             
         case .addFavorite,
                 .removeFavorite:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -69,6 +68,10 @@ extension FavoritesHttpRouter: HttpRouter {
                 .removeFavorite:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

@@ -39,8 +39,7 @@ extension EditProductHttpRouter: HttpRouter {
         case .getProductInfo,
                 .updateProductInfo:
             return [
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer \(token)"
+                "Content-Type": "application/json; charset=UTF-8"
             ]
         }
     }
@@ -51,6 +50,10 @@ extension EditProductHttpRouter: HttpRouter {
                 .updateProductInfo:
             return nil
         }
+    }
+    
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

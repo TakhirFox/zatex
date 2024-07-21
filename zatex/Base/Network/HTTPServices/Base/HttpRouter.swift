@@ -8,12 +8,12 @@
 import Alamofire
 
 protocol HttpRouter: URLRequestConvertible {
-    var token: String { get }
     var baseUrlString: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
     var headers: HTTPHeaders? { get }
     var parameters: Parameters? { get }
+    var requestInterceptor: RequestInterceptor? { get }
     
     func body() throws -> Data?
     
@@ -25,11 +25,9 @@ extension HttpRouter {
         return EndpointConfiguration.baseUrl
     }
     
-    var token: String {
-        return UserSettingsService.shared.token
-    }
-    
     var parameter: Parameters? { return nil }
+    var requestInterceptor: RequestInterceptor? { return nil }
+    
     func body() throws -> Data? { return nil }
     
     func asURLRequest() throws -> URLRequest {
@@ -44,6 +42,6 @@ extension HttpRouter {
     }
     
     func request(usingHttpService service: HttpService) throws -> DataRequest {
-        return try service.request(asURLRequest())
+        return try service.request(asURLRequest(), requestInterceptor)
     }
 }

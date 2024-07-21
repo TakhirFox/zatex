@@ -13,7 +13,7 @@ enum AuthHttpRouter {
         pass: String
     )
     
-    case refresh(accessToken: String)
+    case refresh(refreshToken: String)
 }
 
 extension AuthHttpRouter: HttpRouter {
@@ -22,6 +22,7 @@ extension AuthHttpRouter: HttpRouter {
         switch self {
         case .authorization:
             return "wp-json/api-bearer-auth/v1/login"
+            
         case .refresh:
             return "wp-json/api-bearer-auth/v1/tokens/refresh"
         }
@@ -65,10 +66,10 @@ extension AuthHttpRouter: HttpRouter {
             
             return try JSONEncoder().encode(data)
             
-        case let .refresh(accessToken):
+        case let .refresh(refreshToken):
             
             let data = RefreshRequest(
-                token: accessToken,
+                token: refreshToken,
                 client_name: "zatexapp"
             )
             

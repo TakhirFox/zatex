@@ -49,6 +49,10 @@ extension ReviewsHttpRouter: HttpRouter {
         }
     }
     
+    var requestInterceptor: RequestInterceptor? {
+        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+    }
+    
     func body() throws -> Data? {
         switch self {
         case .getReviewsList,
