@@ -90,8 +90,10 @@ extension ReviewsViewController: UITableViewDelegate, UITableViewDataSource {
         switch sections {
         case .header:
             return 1
+            
         case .main:
             return reviewList?.count ?? 0
+            
         case .none:
             return 0
         }

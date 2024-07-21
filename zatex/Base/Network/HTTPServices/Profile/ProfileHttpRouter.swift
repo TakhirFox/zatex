@@ -88,7 +88,16 @@ extension ProfileHttpRouter: HttpRouter {
     }
     
     var requestInterceptor: RequestInterceptor? {
-        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        switch self {
+        case .getStoreInfo,
+                .getStoreProducts,
+                .getStoreStatsProducts,
+                .updateDeviceTokek:
+            return nil
+            
+        case .updateSalesProduct:
+            return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        }
     }
     
     func body() throws -> Data? {

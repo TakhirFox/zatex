@@ -49,8 +49,6 @@ extension UserSettingsService: UserSettingsAPI {
     }
     
     public func getSession() -> SessionData? {
-//        UserDefaults.standard.set("session.accessToken", forKey: tokenValue)
-//        UserDefaults.standard.set("session.accessToken", forKey: refreshToken)
         let userId = UserDefaults.standard.integer(forKey: userIdValue)
         let email = UserDefaults.standard.string(forKey: emailValue)
         let token = UserDefaults.standard.string(forKey: tokenValue)

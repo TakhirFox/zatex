@@ -219,11 +219,11 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return 1
             
         case .contact:
-            let storeId = product?.store?.id ?? 0
+            let storeId = product?.store?.id
             
             if sessionProvider != nil,
                sessionProvider!.isAuthorized,
-               storeId != sessionProvider!.getSession()?.user.id ?? 0
+               storeId != sessionProvider!.getSession()?.user.id
             {
                 return 1
             }

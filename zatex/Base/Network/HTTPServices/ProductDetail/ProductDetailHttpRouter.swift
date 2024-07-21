@@ -101,7 +101,16 @@ extension ProductDetailHttpRouter: HttpRouter {
     }
     
     var requestInterceptor: RequestInterceptor? {
-        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        switch self {
+        case .getProductInfo,
+                .getStoreInfo:
+            return nil
+            
+        case .checkChat,
+                .checkChatToReview,
+                .sendReview:
+            return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        }
     }
     
     func body() throws -> Data? {

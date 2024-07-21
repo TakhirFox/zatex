@@ -54,10 +54,12 @@ extension ChatDetailHttpRouter: HttpRouter {
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
+            
         case .getChatInfo:
             return [
                 "Content-Type": "application/json; charset=UTF-8"
             ]
+            
         case .sendChatMessage:
             return [
                 "Content-Type": "application/json; charset=UTF-8"

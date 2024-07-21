@@ -18,6 +18,7 @@ extension ReviewsHttpRouter: HttpRouter {
         switch self {
         case let .getReviewsList(authorId):
             return "/wp-json/dokan/v1/stores/\(authorId)/reviews"
+            
         case let .getStoreInfo(authorId):
             return "/wp-json/dokan/v1/stores/\(authorId)"
         }
@@ -47,10 +48,6 @@ extension ReviewsHttpRouter: HttpRouter {
                 .getStoreInfo:
             return nil
         }
-    }
-    
-    var requestInterceptor: RequestInterceptor? {
-        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {

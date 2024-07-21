@@ -71,7 +71,14 @@ extension FavoritesHttpRouter: HttpRouter {
     }
     
     var requestInterceptor: RequestInterceptor? {
-        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        switch self {
+        case .getFavoriteList:
+            return nil
+            
+        case .addFavorite,
+                .removeFavorite:
+            return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
+        }
     }
     
     func body() throws -> Data? {

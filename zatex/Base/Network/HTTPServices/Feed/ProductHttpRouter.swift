@@ -63,12 +63,7 @@ extension ProductHttpRouter: HttpRouter {
             return [
                 "per_page": 20
             ]
-
         }
-    }
-    
-    var requestInterceptor: RequestInterceptor? {
-        return AccessTokenInterceptor(userSettingsService: UserSettingsService.shared)
     }
     
     func body() throws -> Data? {
